@@ -67,8 +67,8 @@
 						organizations you care about.</p>
 				</div>
 				<div class="row">
-					<div class="col-6 col-sm-6 col-lg-4">
-						<h2>Heading</h2>
+					<div class="col-md-offset-1 col-md-10">
+						<h4>Heading</h4>
 						<p>Donec id elit non mi porta gravida at eget metus. Fusce
 							dapibus, tellus ac cursus commodo, tortor mauris condimentum
 							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
@@ -94,7 +94,6 @@
 						<li><a href="#">Link</a></li>
 						<li><a href="#">Link</a></li>
 						<li><a href="#">Link</a></li>
-						<li>Otros</li>
 						<li><a href="#">Link</a></li>
 						<li><a href="#">Link</a></li>
 					</ul>
