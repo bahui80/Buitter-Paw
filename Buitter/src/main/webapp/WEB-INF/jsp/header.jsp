@@ -1,3 +1,8 @@
+<%@ page contentType="text/html" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,89 +37,28 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><img src="img/logo.png"
+				<a id="logo" class="navbar-brand" href="#"><img src="img/logo.png"
 					class="logo" />Buitter</a>
 			</div>
 			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">My Buitts</a></li>
-					<li><a href="#contact">Account</a></li>
-				</ul>
-				<form class="navbar-form navbar-right">
+				<form class="navbar-form navbar-left">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+						<input type="text" style="margin-top: 4px" class="form-control" placeholder="Search">
 					</div>
 				</form>
+				<ul class="nav navbar-nav" style="float:right">
+					<li class="active"><a href="#">Home</a></li>
+					<c:if test="${not empty user}">
+						<li><a href="#myBuitts"><c:out value="${user.username}"/></a></li>
+					</c:if>
+					<c:if test="${empty user}">
+						<li style="margin-top: 8px"><button type="button" class="btn btn-primary">Log in</button></li>
+						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success">Register</button></li>
+					</c:if>
+				</ul>
 			</div>
 			<!-- /.nav-collapse -->
 		</div>
 		<!-- /.container -->
 	</div>
 	<!-- /.navbar -->
-
-	<div class="container">
-
-		<div class="row row-offcanvas row-offcanvas-right">
-			<div class="col-xs-12 col-sm-9">
-				<p class="pull-right visible-xs">
-					<button type="button" class="btn btn-primary btn-xs"
-						data-toggle="offcanvas">Toggle nav</button>
-				</p>
-				<div class="jumbotron">
-					<h1>Welcome to Buitter.</h1>
-					<p>Find out what's happening, right now, with the people and
-						organizations you care about.</p>
-				</div>
-				<div class="row">
-					<div class="col-6 col-sm-6 col-lg-4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn btn-default" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-				</div>
-				<!--/row-->
-			</div>
-			<!--/span-->
-
-			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar"
-				role="navigation">
-				<div class="well sidebar-nav">
-					<ul class="nav">
-						<li>Trending Topics</li>
-						<li class="active"><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li>Otros</li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-					</ul>
-				</div>
-				<!--/.well -->
-			</div>
-			<!--/span-->
-		</div>
-		<!--/row-->
-
-		<hr>
-
-		<footer>
-			<p>&copy; Company 2013</p>
-		</footer>
-
-	</div>
-	<!--/.container-->
-
-
-
-</body>
-</html>
