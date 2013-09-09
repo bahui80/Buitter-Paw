@@ -5,7 +5,11 @@
 	password VARCHAR(32) NOT NULL,
 	date DATE NOT NULL,
 	photo BYTEA,
-	username VARCHAR(32) NOT NULL	
+	username VARCHAR(32) NOT NULL,
+	description VARCHAR(140) NOT NULL,
+	secret_question VARCHAR(60) NOT NULL,
+	secret_answer VARCHAR(60) NOT NULL,
+	creation_date DATE NOT NULL
 );
 
 CREATE TABLE Buits (

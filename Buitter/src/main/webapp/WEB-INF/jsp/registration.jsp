@@ -5,69 +5,63 @@
                 <fieldset>
                   <legend>New user</legend>
                   <div class="form-group">
-                    <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                    <label for="username" class="col-lg-2 control-label">Username</label>
                     <div class="col-lg-10">
-                      <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+                      <input type="text" class="form-control" placeholder="Username">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                    <label for="password" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-10">
-                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> Checkbox
-                        </label>
-                      </div>
+                      <input type="password" class="form-control" placeholder="Password">
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label for="re-password" class="col-lg-2 control-label">Re-enter password</label>
+                    <div class="col-lg-10">
+                      <input type="password" class="form-control" placeholder="Re-enter password">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="textArea" class="col-lg-2 control-label">Textarea</label>
+                    <label for="name" class="col-lg-2 control-label">Name</label>
                     <div class="col-lg-10">
-                      <textarea class="form-control" rows="3" id="textArea"></textarea>
-                      <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+                      <input type="text" class="form-control" placeholder="Name">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-lg-2 control-label">Radios</label>
+                    <label for="surname" class="col-lg-2 control-label">Surname</label>
                     <div class="col-lg-10">
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                          Option one is this
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                          Option two can be something else
-                        </label>
-                      </div>
+                      <input type="text" class="form-control" placeholder="Surname">
+                    </div>
+                  </div>
+                    <div class="form-group">
+                    <label for="description" class="col-lg-2 control-label">Description</label>
+                    <div class="col-lg-10">
+                      <textarea class="form-control" rows="3"></textarea>
+                      <span class="help-block">Write a description for others users to get to know you</span>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="select" class="col-lg-2 control-label">Selects</label>
+                    <label for="question" class="col-lg-2 control-label">Secret question</label>
                     <div class="col-lg-10">
-                      <select class="form-control" id="select">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                      <select class="form-control">
+                        <option>What's the name of your dog?</option>
+                        <option>Who was your favourite teacher?</option>
+                        <option>Where do you live?</option>
+                        <option>Do you hate Twitter?</option>
+                        <option>What's your aunt's name?</option>
                       </select>
                       <br>
-                      <select multiple="" class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="answer" class="col-lg-2 control-label">Secret answer</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" placeholder="answer">
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                      <button class="btn btn-default">Cancel</button> 
                       <button type="submit" class="btn btn-primary">Submit</button> 
                     </div>
                   </div>
