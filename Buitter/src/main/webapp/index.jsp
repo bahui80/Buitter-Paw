@@ -32,14 +32,14 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><img src="img/logo.png"
+				<a id="logo" class="navbar-brand" href="#"><img src="img/logo.png"
 					class="logo" />Buitter</a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">My Buitts</a></li>
-					<li><a href="#contact">Account</a></li>
+					<li><a href="#myBuitts">My Buitts</a></li>
+					<li><a href="#Profile">Account</a></li>
 				</ul>
 				<form class="navbar-form navbar-right">
 					<div class="form-group">
