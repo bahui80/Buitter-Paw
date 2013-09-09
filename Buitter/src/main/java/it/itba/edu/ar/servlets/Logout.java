@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * Buitter 2013
  * Logout servlet.
  */
+@SuppressWarnings("serial")
 public class Logout extends HttpServlet{
 
 	@Override

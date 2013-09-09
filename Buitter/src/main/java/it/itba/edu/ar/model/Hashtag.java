@@ -3,7 +3,8 @@ package it.itba.edu.ar.model;
 public class Hashtag {
 	private Integer id;
 	private String hashtag;
-
+	private User user;
+	
 	public Integer getId() {
 		return id;
 	}

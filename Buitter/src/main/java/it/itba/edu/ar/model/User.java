@@ -3,14 +3,52 @@ package it.itba.edu.ar.model;
 import java.util.Date;
 
 public class User {
+	
 	private Integer id;
 	private String name;
 	private String surname;
 	private String username;
 	private String password;
-	private Date creationDate;
+	private String description;
+	private String secret_question;
+	private String secret_answer;
+	private String creationDate;
 	private String photo; // TODO ver que tipo
 
+	public User(String username, String password){
+		this.username = username;
+		this.password = password;
+	}
+	
+	public User(String name, String surname, String username, String password, 
+			String description, String secret_question, String secret_answer, 
+			String creationDate, String photo){
+		this.name = name;
+		this.username = username;	
+		this.surname = surname;
+		this.password = password;
+		this.description = description;
+		this.secret_answer = secret_answer;
+		this.secret_question = secret_question;
+		this.creationDate = creationDate;
+		//this.photo = photo;
+	}
+	
+	public User(int id, String name, String surname, String username, String password, 
+			String description, String secret_question, String secret_answer, 
+			String creationDate, String photo){
+		this.id = id;
+		this.name = name;
+		this.username = username;	
+		this.surname = surname;
+		this.password = password;
+		this.description = description;
+		this.secret_answer = secret_answer;
+		this.secret_question = secret_question;
+		this.creationDate = creationDate;
+		this.photo = photo;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -50,12 +88,36 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
 
-	public Date getCreationDate() {
+	public void setDescription(String desc) {
+		this.description = desc;
+	}
+	
+	public String getSecretQuestion() {
+		return secret_question;
+	}
+
+	public void setSecretQuestion(String s_question) {
+		this.secret_question = s_question;
+	}
+	
+	public String getSecretAnswer() {
+		return secret_answer;
+	}
+
+	public void setSecretAnswer(String s_answer) {
+		this.secret_answer = s_answer;
+	}
+
+	public String getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
 

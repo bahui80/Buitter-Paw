@@ -9,9 +9,8 @@
 						data-toggle="offcanvas">Toggle nav</button>
 				</p>
 				<div class="jumbotron">
-					<h1>Welcome to Buitter.</h1>
-					<p>Find out what's happening, right now, with the people and
-						organizations you care about.</p>
+					<h1 id="main-name">Buitter.</h1>
+					<p id="no-more-tweets">#NoMoreTweets. #WeBuitNow.</p>
 				</div>
 				<div class="row">
 					<div class="col-md-offset-1 col-md-10">

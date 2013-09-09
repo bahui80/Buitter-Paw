@@ -20,8 +20,8 @@ public class Login extends HttpServlet{
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		
-		UserDao userDao = new UserManager();
-		User user = userDao.login(username, password);
+		UserDao userDao = UserManager.sharedInstance();
+		User user = userDao.login(new User(username,password));
 		
 		if(user != null){
 			req.getSession().setAttribute("user", user);

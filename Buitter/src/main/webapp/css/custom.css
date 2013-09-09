@@ -3,6 +3,11 @@
 	font-family: logo_font;
 	src: url('../The Mocking Bird.ttf');
 }
+
+@font-face {
+	font-family : no-more-tweets;
+	src: url('../TheGreatEscape.ttf');
+}
 /**** END BUITTER FONT FACE ****/
 
 .logo {
@@ -14,6 +19,16 @@
 #logo {
 	font-family: logo_font;
 	font-size:200%;
+}
+
+#main-name {
+	font-family: logo_font;
+	font-size: 300%;
+}
+
+#no-more-tweets{
+	font-family: no-more-tweets;
+	font-size: 100%;
 }
 
 /*
