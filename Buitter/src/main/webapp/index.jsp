@@ -51,16 +51,4 @@
 		</div>
 		<!--/row-->
 
-		<hr>
-
-		<footer>
-			<p>&copy; Company 2013</p>
-		</footer>
-
-	</div>
-	<!--/.container-->
-
-
-
-</body>
-</html>
+<%@ include file="WEB-INF/jsp/footer.jsp" %>
