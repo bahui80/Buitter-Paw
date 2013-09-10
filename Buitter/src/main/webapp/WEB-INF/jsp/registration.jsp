@@ -17,31 +17,46 @@
                     <label for="password" class="col-md-3 control-label">Password</label>
                     <div class="col-md-8">
                       <input type="password" class="form-control2" placeholder="Password" name="password">
+                      <c:if test="${not empty error_password}">
+                        <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_password}"/></em></small></p>
+                      </c:if>
                     </div>
                   </div>
                    <div class="form-group">
                     <label for="re-password" class="col-md-3 control-label">Re-enter password</label>
                     <div class="col-md-8">
                       <input type="password" class="form-control2" placeholder="Re-enter password" name="password2">
+                      <c:if test="${not empty error_password2}">
+                        <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_password2}"/></em></small></p>
+                      </c:if>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="name" class="col-md-3 control-label pull-left">Name</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control2" placeholder="Name" name="name">
+                      <c:if test="${not empty error_name}">
+                        <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_name}"/></em></small></p>
+                      </c:if>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="surname" class="col-md-3 control-label">Surname</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control2" placeholder="Surname" name="surname">
+                      <c:if test="${not empty error_surname}">
+                        <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_surname}"/></em></small></p>
+                      </c:if>
                     </div>
                   </div>
                     <div class="form-group">
                     <label for="description" class="col-md-3 control-label">Description</label>
                     <div class="col-md-8">
-                      <textarea class="form-control2" rows="5" name="description"></textarea>
+                      <textarea class="form-control2" rows="2" name="description"></textarea>
                       <span class="help-block">Write a description for others users to get to know you</span>
+                      <c:if test="${not empty error_description}">
+                        <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_description}"/></em></small></p>
+                      </c:if>
                     </div>
                   </div>
                   <div class="form-group">
@@ -54,13 +69,15 @@
                         <option>Do you hate Twitter?</option>
                         <option>What's your aunt's name?</option>
                       </select>
-                      <br>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="answer" class="col-md-3 control-label">Secret answer</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control2" placeholder="Type your answer" name="answer">
+                      <c:if test="${not empty error_answer}">
+                        <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_answer}"/></em></small></p>
+                      </c:if>
                     </div>
                   </div>
                   <div class="form-group">

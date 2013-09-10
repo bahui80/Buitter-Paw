@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class Register extends HttpServlet {
 	private UserDao manager = UserManager.sharedInstance();
+	private Boolean error = false;
 		
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,16 +31,14 @@ public class Register extends HttpServlet {
 		String question = request.getParameter("select");
 		String answer = request.getParameter("answer");
 		
-		if(username != null) {
-			if(username.length() > 8 && username.length() < 12) {
-				if(manager.checkUserName(username)) {
-					request.setAttribute("N", );
-				}
-			} else {
-				request.setAttribute("error_username", "El nombre de usuario debe contener entre 8 y 12 caracteres");
-			}
+		checkUsername(username, request);
+		checkPassword(password, password2, request);
+		checkName(name, request);
+		
+		if(error) {
+			
 		} else {
-			request.setAttribute("error_username", "Debe ingresar un nombre de usuario");
+			manager.register(new User(name, surname, username, password, description, question, answer, creationDate, "provisorio. Aca va la foto"));
 		}
 /*		DiskFileUpload fu = new DiskFileUpload();
         // If file size exceeds, a FileUploadException will be thrown
@@ -77,4 +76,40 @@ public class Register extends HttpServlet {
 		}*/
         
       }
+	
+	private void checkUsername(String username, HttpServletRequest request) {
+		if(username != null) {
+			if(username.length() >= 6 && username.length() <= 12) {
+				if(manager.checkUserName(username)) {
+					request.setAttribute("error_username", "The username already exists");
+					error = true;
+				}
+			} else {
+				request.setAttribute("error_username", "The username must contain betwenn 6 to 12 characters");
+				error = true;
+			}
+		} else {
+			request.setAttribute("error_username", "You must insert a username");
+			error = true;
+		}
+	}
+	
+	private void checkPassword(String password, String password2, HttpServletRequest request) {
+		if(password != null) {
+			if(password.length() >= 6 && password.length() <= 12) {
+				request.setAttribute("error_password", "The password must contain between 6 to 12 characters");
+				error = true;
+			} else if(password2 != null && !password2.equals(password)) {
+				request.setAttribute("error_password2", "The passwords must match");
+				error = true;
+			}
+		} else {
+			request.setAttribute("error_password", "You must insert a password");
+			error = true;
+		}
+	}
+	
+	private void checkName(String name, HttpServletRequest request) {
+		
+	}
 }
