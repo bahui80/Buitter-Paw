@@ -54,8 +54,8 @@ public class HashtagManager implements HashtagDao{
 			stmt.setDate(1, date);
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				hashtags.add(new Hashtag(results.getInt(3),results.getString(1),
-						results.getInt(4),results.getString(2)));
+		//		hashtags.add(new Hashtag(results.getInt(3),results.getString(1),
+		//				results.getInt(4),results.getString(2)));
 			}
 			connection.close();
 		} catch (SQLException e) {

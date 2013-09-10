@@ -1,25 +1,47 @@
 package it.itba.edu.ar.servlets;
 
-import java.io.File;
+import it.itba.edu.ar.dao.UserDao;
+import it.itba.edu.ar.dao.UserManager;
+
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-
 @SuppressWarnings("serial")
 public class Register extends HttpServlet {
+	private UserDao manager = UserManager.sharedInstance();
+		
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		DiskFileUpload fu = new DiskFileUpload();
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String password2 = request.getParameter("password2");
+		String name = request.getParameter("name");
+		String surname = request.getParameter("surname");
+		String description = request.getParameter("description");
+		String question = request.getParameter("select");
+		String answer = request.getParameter("answer");
+		
+		if(username != null) {
+			if(username.length() > 8 && username.length() < 12) {
+				if(manager.checkUserName(username)) {
+					request.setAttribute("N", );
+				}
+			} else {
+				request.setAttribute("error_username", "El nombre de usuario debe contener entre 8 y 12 caracteres");
+			}
+		} else {
+			request.setAttribute("error_username", "Debe ingresar un nombre de usuario");
+		}
+/*		DiskFileUpload fu = new DiskFileUpload();
         // If file size exceeds, a FileUploadException will be thrown
 //        fu.setSizeMax(100000000);
 
@@ -52,7 +74,7 @@ public class Register extends HttpServlet {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
         
       }
 }
