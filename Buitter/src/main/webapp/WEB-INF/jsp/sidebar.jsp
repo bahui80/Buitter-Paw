@@ -1,5 +1,5 @@
 
-<div class="col-md-3 sidebar-offcanvas" id="sidebar"
+<div class="col-md-3 col-md-offset-1 sidebar-offcanvas" id="sidebar"
 	role="navigation">
 	<div class="well sidebar-nav">
 		<ul class="nav">
