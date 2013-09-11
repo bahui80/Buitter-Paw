@@ -12,7 +12,7 @@ public class User {
 	private String description;
 	private String secret_question;
 	private String secret_answer;
-	private String creationDate;
+	private Date creationDate;
 	private String photo; // TODO ver que tipo
 
 	public User(String username, String password){
@@ -22,7 +22,7 @@ public class User {
 	
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			String creationDate, String photo){
+			Date creationDate, String photo){
 		this.name = name;
 		this.username = username;	
 		this.surname = surname;
@@ -36,7 +36,7 @@ public class User {
 	
 	public User(int id, String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			String creationDate, String photo){
+			Date creationDate, String photo){
 		this.id = id;
 		this.name = name;
 		this.username = username;	
@@ -113,11 +113,11 @@ public class User {
 		this.secret_answer = s_answer;
 	}
 
-	public String getCreationDate() {
+	public Date getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(String creationDate) {
+	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 

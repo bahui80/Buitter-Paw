@@ -1,8 +1,7 @@
 package it.itba.edu.ar.servlets;
 
-import it.itba.edu.ar.dao.UserDao;
-import it.itba.edu.ar.dao.UserManager;
 import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
 
@@ -20,8 +19,7 @@ public class Login extends HttpServlet{
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		
-		UserDao userDao = UserManager.sharedInstance();
-		User user = userDao.login(new User(username,password));
+		User user = UserService.login(new User(username,password));
 		
 		if(user != null){
 			req.getSession().setAttribute("user", user);

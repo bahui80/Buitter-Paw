@@ -5,9 +5,22 @@ import java.util.Date;
 public class Buit {
 	private Integer id;
 	private String message;
-	private User user;
+	private String username;
 	private Date date;
 
+	public Buit(int id, String message, String username, Date date){
+		this.id = id;
+		this.message = message;
+		this.username = username;
+		this.date = date;
+	}
+	
+	public Buit(String message, String username, Date date){
+		this.message = message;
+		this.username = username;
+		this.date = date;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -24,12 +37,12 @@ public class Buit {
 		this.message = message;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsername(String username	) {
+		this.username = username;
 	}
 
 	public Date getDate() {

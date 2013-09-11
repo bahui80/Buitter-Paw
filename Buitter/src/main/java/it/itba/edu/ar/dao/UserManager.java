@@ -51,7 +51,8 @@ public class UserManager implements UserDao {
 		manager = new ConnectionManager(driver,connectionString , username, password);
 	}
 	
-	public boolean checkUserName(String username) {
+	public User getUserByUsername(String username) {
+		User usr = null;
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
@@ -60,16 +61,39 @@ public class UserManager implements UserDao {
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				return true;
+				usr = new User(results.getNString(2),results.getNString(3),results.getNString(7),
+						results.getNString(4),results.getNString(8),results.getNString(9),
+						results.getNString(10),	results.getDate(11),results.getNString(12));
 			}
 			connection.close();
 		} catch (SQLException e) {
 			throw new DatabaseException(e.getMessage(), e);
 		}
-		return false;
+		return usr;
+	}
+	
+	public User getUserById(int id) {
+		User usr = null;
+		try {
+			Connection connection = manager.getConnection();
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * FROM Users WHERE userid = ?");
+			stmt.setInt(1,id);
+
+			ResultSet results = stmt.executeQuery();
+			if (results.next()) {
+				usr = new User(results.getNString(2),results.getNString(3),results.getNString(7),
+						results.getNString(4),results.getNString(8),results.getNString(9),
+						results.getNString(10),	results.getDate(11),results.getNString(12));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			throw new DatabaseException(e.getMessage(), e);
+		}
+		return usr;
 	}
 
-	public User login(User user) {
+	public void login(User user) {
 		User usr = null;
 		try {
 			Connection connection = manager.getConnection();
@@ -88,7 +112,6 @@ public class UserManager implements UserDao {
 		} catch (SQLException e) {
 			throw new DatabaseException(e.getMessage(), e);
 		}
-		return usr;
 	}
 
 	public void register(User user) {

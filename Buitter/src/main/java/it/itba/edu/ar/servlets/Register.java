@@ -1,9 +1,10 @@
 package it.itba.edu.ar.servlets;
 
-import it.itba.edu.ar.dao.UserDao;
-import it.itba.edu.ar.dao.UserManager;
+import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class Register extends HttpServlet {
-	private UserDao manager = UserManager.sharedInstance();
 	private Boolean error = false;
 		
 	@Override
@@ -30,6 +30,7 @@ public class Register extends HttpServlet {
 		String description = request.getParameter("description");
 		String question = request.getParameter("select");
 		String answer = request.getParameter("answer");
+		Date creationDate = new Date();
 		
 		checkUsername(username, request);
 		checkPassword(password, password2, request);
@@ -38,7 +39,7 @@ public class Register extends HttpServlet {
 		if(error) {
 			
 		} else {
-			manager.register(new User(name, surname, username, password, description, question, answer, creationDate, "provisorio. Aca va la foto"));
+			UserService.register(new User(name, surname, username, password, description, question, answer, creationDate, "provisorio. Aca va la foto"));
 		}
 /*		DiskFileUpload fu = new DiskFileUpload();
         // If file size exceeds, a FileUploadException will be thrown
@@ -80,7 +81,7 @@ public class Register extends HttpServlet {
 	private void checkUsername(String username, HttpServletRequest request) {
 		if(username != null) {
 			if(username.length() >= 6 && username.length() <= 12) {
-				if(manager.checkUserName(username)) {
+				if(UserService.checkUsername(username)) {
 					request.setAttribute("error_username", "The username already exists");
 					error = true;
 				}
