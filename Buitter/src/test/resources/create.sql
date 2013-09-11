@@ -8,8 +8,7 @@
 	username VARCHAR(32) NOT NULL,
 	description VARCHAR(140) NOT NULL,
 	secret_question VARCHAR(60) NOT NULL,
-	secret_answer VARCHAR(60) NOT NULL,
-	creation_date DATE NOT NULL
+	secret_answer VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE Buits (

@@ -131,8 +131,8 @@ public class UserManager implements UserDao {
 			stmt.setString(7, user.getSecretQuestion());
 			stmt.setString(8, user.getSecretAnswer());
 
-			stmt.execute();
-
+			stmt.executeUpdate();
+			connection.commit();
 			connection.close();
 		} catch (SQLException e) {
 			throw new DatabaseException(e.getMessage(), e);
@@ -157,8 +157,8 @@ public class UserManager implements UserDao {
 			
 			stmt.setString(7, user.getUsername());
 			
-			stmt.execute();
-
+			stmt.executeUpdate();
+			connection.commit();
 			connection.close();
 		} catch (SQLException e) {
 			throw new DatabaseException(e.getMessage(), e);
