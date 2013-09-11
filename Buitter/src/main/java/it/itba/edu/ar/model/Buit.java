@@ -15,6 +15,12 @@ public class Buit {
 		this.date = date;
 	}
 	
+	@Override
+	public String toString() {
+		return "Buit [id=" + id + ", message=" + message + ", username="
+				+ username + ", date=" + date + "]";
+	}
+
 	public Buit(String message, String username, Date date){
 		this.message = message;
 		this.username = username;

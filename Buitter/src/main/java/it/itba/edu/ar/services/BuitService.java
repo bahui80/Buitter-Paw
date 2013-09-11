@@ -14,7 +14,7 @@ public class BuitService {
 	public static void removeBuit(Buit buit, User user) {
 		BuitManager buitManager = BuitManager.sharedInstance();
 
-		buitManager.removeBuit(buit, user.getId());
+		buitManager.removeBuit(buit.getId(), user.getId());
 	}
 
 	public static void buit(Buit buit, User user) {

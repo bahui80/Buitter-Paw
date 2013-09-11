@@ -24,7 +24,7 @@ public class ConnectionManager {
 	public Connection getConnection() {
 		try {
 			Connection connection = DriverManager.getConnection(connectionString, username, password);
-			connection.setAutoCommit(false);
+//			connection.setAutoCommit(false);
 			return connection;
 		} catch (SQLException e) {
 			throw new DatabaseException(e.getMessage(), e);

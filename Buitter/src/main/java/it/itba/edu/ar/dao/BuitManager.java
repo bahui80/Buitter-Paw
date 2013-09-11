@@ -21,6 +21,21 @@ public class BuitManager implements BuitDao{
 	private static final String username = "paw";
 	private static final String password = "paw";
 	
+	public static void main(String args[]){
+		BuitManager btManager = BuitManager.sharedInstance();
+		List<Buit> userb = btManager.getUserBuits("masacre");
+		List<Buit> hashb = btManager.getHashtagBuits("burguerking");
+		
+		for (Buit buit : hashb) {
+			System.out.println(buit.toString());
+		}
+		for (Buit buit : userb) {
+			System.out.println(buit.toString());
+		}
+		
+		btManager.removeBuit(1, 2);
+	}
+	
 	public static synchronized BuitManager sharedInstance(){
 		if(instance == null){
 			instance = new BuitManager();
@@ -58,7 +73,7 @@ public class BuitManager implements BuitDao{
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT b.buitid, b.message, u.username, b.date " +
 					"FROM Users as u,Buits as b " +
-					"WHERE u.name = ? AND u.userid = b.userid");
+					"WHERE u.username = ? AND u.userid = b.userid");
 			stmt.setString(1, username);
 			
 			ResultSet results = stmt.executeQuery();
@@ -78,8 +93,8 @@ public class BuitManager implements BuitDao{
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT b.buitid, b.message, u.username, b.date " +
-					"FROM Hashtags as h,Buits as b, Buithash ash bh " +
-					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid " +
+					"FROM Hashtags as h,Buits as b, Buithash as bh, Users as u " +
+					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid AND u.userid = b.userid " +
 					"AND h.hashtag = ?");
 			
 			stmt.setString(1, hashtag);
@@ -95,14 +110,14 @@ public class BuitManager implements BuitDao{
 		return buits;
 	}
 
-	public void removeBuit(Buit buit, int userid) {
+	public void removeBuit(int buitid, int userid) {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
 					("DELETE FROM Buits " +
 					"WHERE buitid = ? AND userid = ?");
 			
-			stmt.setInt(1,buit.getId());
+			stmt.setInt(1,buitid);
 			stmt.setInt(2, userid);
 			stmt.execute();
 
