@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 public class Login extends HttpServlet{
 
 	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
+	}
+	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String username = req.getParameter("username");
@@ -23,9 +29,10 @@ public class Login extends HttpServlet{
 		
 		if(user != null){
 			req.getSession().setAttribute("user", user);
-			req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, resp);
+			req.getRequestDispatcher("index.jsp").forward(req, resp);
 		}else{
-			req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
+			req.setAttribute("error_login", "Username or password incorrect");
+			req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
 		}
 	}
 }

@@ -1,4 +1,7 @@
 <%@ include file="header.jsp" %>
+
+<div class="container">
+<div class="row row-offcanvas row-offcanvas-right">
 <div class="col-md-8 col-md-offset-2">
     <div class="well">
               <form class="bs-example form-horizontal" method="post" action="register">
@@ -83,7 +86,7 @@
                   <div class="form-group">
                     <label for="photo" class="col-md-3 control-label">Profile picture</label>
                     <div class="col-md-8">
-                      <input type="file" class="filestyle" data-buttonText="Select photo">
+                      <input type="file" class="filestyle" data-buttonText="Select photo" accept="image/*">
                     </div>
                   </div>
                   <div class="form-group">
@@ -96,6 +99,8 @@
               </form>
             </div>
           </div>
+        </div>
+      </div>
 
           
 <%@ include file="footer.jsp" %>
