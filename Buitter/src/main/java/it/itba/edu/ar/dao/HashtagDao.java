@@ -10,5 +10,6 @@ public interface HashtagDao {
 		public List<Hashtag> trendingTopics(Date date);
 		public List<Hashtag> hashtagForUser(String username);
 		public Hashtag randomHashtags();
+		public void createHashTag(Hashtag hashtag,int userid);
 		
 }

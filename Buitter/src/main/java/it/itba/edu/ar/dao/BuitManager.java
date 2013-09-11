@@ -95,15 +95,15 @@ public class BuitManager implements BuitDao{
 		return buits;
 	}
 
-	public void removeBuit(Buit buit) {
+	public void removeBuit(Buit buit, int userid) {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
 					("DELETE FROM Buits " +
-					"WHERE buitid = ?");
+					"WHERE buitid = ? AND userid = ?");
 			
 			stmt.setInt(1,buit.getId());
-
+			stmt.setInt(2, userid);
 			stmt.execute();
 
 			connection.close();

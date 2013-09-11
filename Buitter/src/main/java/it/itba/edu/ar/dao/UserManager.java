@@ -98,7 +98,7 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT . FROM Users WHERE username = ? AND password = ?");
+					"SELECT * FROM Users WHERE username = ? AND password = ?");
 			stmt.setString(1, user.getUsername());
 			stmt.setString(2,user.getPassword());
 

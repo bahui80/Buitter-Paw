@@ -24,8 +24,7 @@ public class HashtagManager implements HashtagDao{
 	
 	public static void main(String args[]){
 		HashtagManager manager = HashtagManager.sharedInstance();
-
-		manager.trendingTopics(new Date(2013, 10, 10));
+//		manager.trendingTopics(new Date(2013, 10, 10));
 	}
 	
 	public static synchronized HashtagManager sharedInstance(){
@@ -48,7 +47,7 @@ public class HashtagManager implements HashtagDao{
 					"FROM Buithash AS bh1, Hashtags AS h1, Users AS u1, Buits AS b1" +
 					" WHERE h1.hashtagid = bh1.hashtagid AND u1.userid = b1.userid" +
 					" AND b1.buitid = bh1.buitid AND h1.date > ?" +
-					" GROUP BY hashtag" +
+					" GROUP BY hashtag, username, h1.hashtagid" +
 					" ORDER BY count" +
 					" LIMIT 10");
 			stmt.setDate(1, date);
@@ -76,6 +75,26 @@ public class HashtagManager implements HashtagDao{
 	public List<Hashtag> trendingTopics(java.util.Date date) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void createHashTag(Hashtag hashtag,int userid) {
+		try {
+			Connection connection = manager.getConnection();
+			PreparedStatement stmt = connection.prepareStatement
+					("INSERT INTO Hashtag(message,userid,date) " +
+							"VALUES(?,?,CURRENT_DATE)");
+			
+			stmt.setString(1,hashtag.getHashtag());
+			stmt.setInt(2, userid);
+
+			stmt.execute();
+
+			connection.close();
+		} catch (SQLException e) {
+			throw new DatabaseException(e.getMessage(), e);
+		}
+		
+		
 	}
 
 }
