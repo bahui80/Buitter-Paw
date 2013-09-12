@@ -52,8 +52,8 @@
 						<li><a href="#myBuitts"><c:out value="${user.username}"/></a></li>
 					</c:if>
 					<c:if test="${empty user}">
-						<li style="margin-top: 8px"><button type="button" class="btn btn-primary">Log in</button></li>
-						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success">Register</button></li>
+						<li style="margin-top: 8px"><button type="button" class="btn btn-primary" onclick="location.assign('login');">Log in</button></li>
+						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success" onclick="location.assign('register');">Register</button></li>
 					</c:if>
 				</ul>
 			</div>

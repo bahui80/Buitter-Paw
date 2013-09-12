@@ -4,20 +4,12 @@ import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FilenameUtils;
 
 @SuppressWarnings("serial")
 public class Register extends HttpServlet {
@@ -59,9 +51,18 @@ public class Register extends HttpServlet {
 	        		System.out.println("SIZE: "+fi.getSize());
 	        		//System.out.println(fi.getOutputStream().toString());
 	        		File fNew = new File(fi.getName());
-
+	        		
 	        		System.out.println(fNew.getAbsolutePath());
 	        		fi.write(fNew);
+	        		//DE ACA
+	        		FileInputStream fis = new FileInputStream(fNew);
+	        		PreparedStatement ps = conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
+	        		ps.setString(1, file.getName());
+	        		ps.setBinaryStream(2, fis, file.length());
+	        		ps.executeUpdate();
+	        		ps.close();
+	        		fis.close();
+	        		// A ACA LA CONVERSION DE LA FOTO
 	        	}
 	        }
 		} catch (Exception e) {
