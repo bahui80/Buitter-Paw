@@ -86,7 +86,7 @@
                   <div class="form-group">
                     <label for="photo" class="col-md-3 control-label">Profile picture</label>
                     <div class="col-md-8">
-                      <input type="file" class="filestyle" data-buttonText="Select photo" accept="image/*">
+                      <input type="file" data-buttonText="Select photo" accept="image/*" name="photo"/>
                     </div>
                   </div>
                   <div class="form-group">

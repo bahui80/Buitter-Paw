@@ -20,4 +20,12 @@
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>ForgotPassword</servlet-name>
+		<servlet-class>it.itba.edu.ar.servlets.ForgotPassword</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ForgotPassword</servlet-name>
+		<url-pattern>/recoverpassword</url-pattern>
+	</servlet-mapping>
 </web-app>
