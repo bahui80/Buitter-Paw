@@ -24,7 +24,7 @@ public class UserManager implements UserDao {
 	public static void main(String args[]){
 		UserManager manager = UserManager.sharedInstance();
 		
-		manager.register(new User("Juan", "Buireo", "jujubuireo", "1234", 
+		manager.insertUser(new User("Juan", "Buireo", "jujubuireo", "1234", 
 			"Sexo,drogas, rocanrol", "Como se llama mi perro?", "Boris", 
 			new Date(), null));
 		
@@ -61,9 +61,9 @@ public class UserManager implements UserDao {
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getNString(2),results.getNString(3),results.getNString(7),
-						results.getNString(4),results.getNString(8),results.getNString(9),
-						results.getNString(10),	results.getDate(11),results.getNString(12));
+				usr = new User(results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10),	results.getDate(11),results.getString(12));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -82,9 +82,9 @@ public class UserManager implements UserDao {
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getNString(2),results.getNString(3),results.getNString(7),
-						results.getNString(4),results.getNString(8),results.getNString(9),
-						results.getNString(10),	results.getDate(11),results.getNString(12));
+				usr = new User(results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10),	results.getDate(11),results.getString(12));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -93,28 +93,29 @@ public class UserManager implements UserDao {
 		return usr;
 	}
 
-	public void login(User user) {
+	public User getUserByUsernameAndPassword(String username, String password) {
 		User usr = null;
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT * FROM Users WHERE username = ? AND password = ?");
-			stmt.setString(1, user.getUsername());
-			stmt.setString(2,user.getPassword());
+			stmt.setString(1, username);
+			stmt.setString(2,password);
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getNString(2),results.getNString(3),results.getNString(7),
-						results.getNString(4),results.getNString(8),results.getNString(9),
-						results.getNString(10),	results.getDate(11),results.getNString(12));
+				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10),results.getDate(5),results.getString(6));
 			}
 			connection.close();
 		} catch (SQLException e) {
 			throw new DatabaseException(e.getMessage(), e);
 		}
+		return usr;
 	}
 
-	public void register(User user) {
+	public void insertUser(User user) {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
@@ -161,10 +162,6 @@ public class UserManager implements UserDao {
 		} catch (SQLException e) {
 			throw new DatabaseException(e.getMessage(), e);
 		}
-	}
-
-	public void changePassword(User user) {
-		this.updateUser(user);
 	}
 
 }

@@ -5,10 +5,9 @@ import it.itba.edu.ar.model.User;
 public interface UserDao {
 
 	public User getUserByUsername(String username);
+	public User getUserByUsernameAndPassword(String username,String password);
 	public User getUserById(int id);
-	public void login(User user);
-	public void register(User user);
+	public void insertUser(User user);
 	public void updateUser(User user);
-	public void changePassword(User user);
-
+	
 }

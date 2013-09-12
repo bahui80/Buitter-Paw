@@ -30,9 +30,9 @@ public final class UserService {
 		
 		UserManager userManager = UserManager.sharedInstance();
 
-		userManager.login(user);
+		User usr = userManager.getUserByUsernameAndPassword(user.getUsername(),user.getPassword());
 		
-		return userManager.getUserByUsername(user.getUsername());
+		return usr;
 	}
 	
 	public static User register(User user){
@@ -42,7 +42,7 @@ public final class UserService {
 		
 		UserManager userManager = UserManager.sharedInstance();
 
-		userManager.register(user);
+		userManager.insertUser(user);
 		
 		return userManager.getUserByUsername(user.getUsername());
 	}
@@ -54,10 +54,10 @@ public final class UserService {
 		UserManager userManager = UserManager.sharedInstance();
 
 		userManager.updateUser(user);
-	}
+	}	
 	
 	public static void changePassword(User user){
-		if(user == null){
+		if(user == null){			
 			throw new ServletValidationException();
 		}
 		UserService.updateUser(user);

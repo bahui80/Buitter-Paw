@@ -46,7 +46,7 @@ public class User {
 		this.secret_answer = secret_answer;
 		this.secret_question = secret_question;
 		this.creationDate = creationDate;
-		this.photo = photo;
+//		this.photo = photo;
 	}
 	
 	public Integer getId() {

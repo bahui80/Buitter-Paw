@@ -25,7 +25,7 @@ public class HashtagManager implements HashtagDao{
 	public static void main(String args[]){
 		HashtagManager manager = HashtagManager.sharedInstance();
 		System.out.println(new java.sql.Date(new Date(2013-1900, 8, 10).getTime()));
-		List<Hashtag> trend = manager.trendingTopics(new Date(2013-1900, 8, 10));
+		List<Hashtag> trend = manager.getHashtagsSinceDate(new Date(2013-1900, 8, 10));
 		
 		for (Hashtag hashtag : trend) {
 			System.out.println(hashtag);
@@ -44,7 +44,7 @@ public class HashtagManager implements HashtagDao{
 		manager = new ConnectionManager(driver,connectionString , username, password);
 	}
 	
-	public List<Hashtag> trendingTopics(Date date) {
+	public List<Hashtag> getHashtagsSinceDate(Date date) {
 		List<Hashtag> hashtags = new ArrayList<Hashtag>();
 		try {
 			Connection connection = manager.getConnection();

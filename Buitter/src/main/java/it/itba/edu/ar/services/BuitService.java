@@ -1,3 +1,4 @@
+
 package it.itba.edu.ar.services;
 
 import it.itba.edu.ar.dao.BuitManager;
@@ -11,8 +12,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BuitService {
+public final class BuitService{
 
+	private BuitService(){
+		
+	}
+	
 	public static void main(String[] args) {
 		parseBuit("hadhsajkdhsakjn#sadsada. HOla juanann");
 	}
@@ -30,7 +35,7 @@ public class BuitService {
 
 	public static List<Hashtag> trendingTopics(Date date) {
 		HashtagManager hashtagManager = HashtagManager.sharedInstance();
-		return hashtagManager.trendingTopics(date);
+		return hashtagManager.getHashtagsSinceDate(date);
 	}
 
 	public static String parseBuit(String buit) {
