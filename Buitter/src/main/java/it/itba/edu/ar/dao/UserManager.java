@@ -61,9 +61,9 @@ public class UserManager implements UserDao {
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getNString(2),results.getNString(3),results.getNString(7),
-						results.getNString(4),results.getNString(8),results.getNString(9),
-						results.getNString(10),	results.getDate(11),results.getNString(12));
+				usr = new User(results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10), results.getDate(5), results.getString(6));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -82,9 +82,9 @@ public class UserManager implements UserDao {
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getNString(2),results.getNString(3),results.getNString(7),
-						results.getNString(4),results.getNString(8),results.getNString(9),
-						results.getNString(10),	results.getDate(11),results.getNString(12));
+				usr = new User(results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10),	results.getDate(5),results.getString(6));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -104,9 +104,9 @@ public class UserManager implements UserDao {
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getNString(2),results.getNString(3),results.getNString(7),
-						results.getNString(4),results.getNString(8),results.getNString(9),
-						results.getNString(10),	results.getDate(11),results.getNString(12));
+				usr = new User(results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10), results.getDate(5),results.getString(6));
 			}
 			connection.close();
 		} catch (SQLException e) {
