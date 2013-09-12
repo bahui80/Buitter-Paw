@@ -4,12 +4,20 @@ import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 
 @SuppressWarnings("serial")
 public class Register extends HttpServlet {
@@ -32,6 +40,34 @@ public class Register extends HttpServlet {
 		String answer = request.getParameter("answer");
 		Date creationDate = new Date();
 		
+	/*	DiskFileUpload fu = new DiskFileUpload();
+        // If file size exceeds, a FileUploadException will be thrown
+//      fu.setSizeMax(100000000);
+		
+		List fileItems;
+		try {
+			fileItems = fu.parseRequest(request);
+			Iterator itr = fileItems.iterator();
+
+	        while(itr.hasNext()) {
+	        	FileItem fi = (FileItem)itr.next();
+
+	        	//Check if not form field so as to only handle the file inputs
+	        	//else condition handles the submit button input
+	        	if(!fi.isFormField()) {
+	        		System.out.println("NAME: "+fi.getName());
+	        		System.out.println("SIZE: "+fi.getSize());
+	        		//System.out.println(fi.getOutputStream().toString());
+	        		File fNew = new File(fi.getName());
+
+	        		System.out.println(fNew.getAbsolutePath());
+	        		fi.write(fNew);
+	        	}
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		} */
+		
 		checkUsername(username, request);
 		checkPassword(password, password2, request);
 		checkName(name, request);
@@ -45,45 +81,11 @@ public class Register extends HttpServlet {
 		} else {
 			UserService.register(new User(name, surname, username, password, description, question, answer, creationDate, "provisorio. Aca va la foto"));
 		}
-/*		DiskFileUpload fu = new DiskFileUpload();
-        // If file size exceeds, a FileUploadException will be thrown
-//        fu.setSizeMax(100000000);
-
-        List fileItems;
-		try {
-			fileItems = fu.parseRequest(request);
-			
-			Iterator itr = fileItems.iterator();
-
-	        while(itr.hasNext()) {
-	          FileItem fi = (FileItem)itr.next();
-
-	          //Check if not form field so as to only handle the file inputs
-	          //else condition handles the submit button input
-	          if(!fi.isFormField()) {
-	            System.out.println("nNAME: "+fi.getName());
-	            System.out.println("SIZE: "+fi.getSize());
-	            //System.out.println(fi.getOutputStream().toString());
-	            File fNew= new File(fi.getName());
-
-	            System.out.println(fNew.getAbsolutePath());
-	            fi.write(fNew);
-	          }
-	          else {
-	            System.out.println("Field ="+fi.getFieldName());
-	          }
-		} }catch (FileUploadException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
         
       }
 	
 	private void checkUsername(String username, HttpServletRequest request) {
-		if(!username.equals("")) {
+		if(username != null) {
 			if(username.length() <= 32) {
 				if(UserService.checkUsername(username)) {
 					request.setAttribute("error_username", "The username already exists");
@@ -100,7 +102,7 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkPassword(String password, String password2, HttpServletRequest request) {
-		if(!password.equals("")) {
+		if(password != null) {
 			if(password.length() > 32) {
 				request.setAttribute("error_password", "The password must contain up to 32 characters");
 				error = true;
@@ -115,7 +117,7 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkName(String name, HttpServletRequest request) {
-		if(!name.equals("")) {
+		if(name != null) {
 			if(name.length() > 32) {
 				request.setAttribute("error_name", "The name must contain up to 32 characters");
 				error = true;
@@ -127,7 +129,7 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkSurname(String surname, HttpServletRequest request) {
-		if(!surname.equals("")) {
+		if(surname != null) {
 			if(surname.length() > 32) {
 				request.setAttribute("error_surname", "The surname must contain up to 32 characters");
 				error = true;
@@ -139,7 +141,7 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkDescription(String description, HttpServletRequest request) {
-		if(!description.equals("")) {
+		if(description != null) {
 			if(description.length() > 140) {
 				request.setAttribute("error_description", "The description must contain up to 140 characters");
 				error = true;
@@ -151,7 +153,7 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkAnswer(String answer, HttpServletRequest request) {
-		if(!answer.equals("")) {
+		if(answer != null) {
 			if(answer.length() > 60) {
 				request.setAttribute("error_answer", "The answer must contain up to 60 characters");
 				error = true;

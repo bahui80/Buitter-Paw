@@ -4,7 +4,7 @@
 <div class="row row-offcanvas row-offcanvas-right">
 <div class="col-md-8 col-md-offset-2">
     <div class="well">
-              <form class="bs-example form-horizontal" method="post" action="register">
+              <form class="bs-example form-horizontal" method="post" action="register" enctype="multipart/form-data">
                 <fieldset>
                   <legend>New user</legend>
                   <div class="form-group">
@@ -26,9 +26,9 @@
                     </div>
                   </div>
                    <div class="form-group">
-                    <label for="re-password" class="col-md-3 control-label">Re-enter password</label>
+                    <label for="re-password" class="col-md-3 control-label">Re-type password</label>
                     <div class="col-md-8">
-                      <input type="password" class="form-control2" placeholder="Re-enter password" name="password2">
+                      <input type="password" class="form-control2" placeholder="Re-type password" name="password2">
                       <c:if test="${not empty error_password2}">
                         <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_password2}"/></em></small></p>
                       </c:if>

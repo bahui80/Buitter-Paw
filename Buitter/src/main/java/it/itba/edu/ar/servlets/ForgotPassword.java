@@ -28,7 +28,9 @@ public class ForgotPassword extends HttpServlet {
 		if (state.equals("recover")) {
 			if (!username.equals("")) {
 				if (UserService.checkUsername(username)) {
-					req.setAttribute("correct_username", "correct_user");
+					req.setAttribute("correct_username", username);
+					req.setAttribute("question", "What's the name of your dog?");
+			//		req.setAttribute("question", UserService.getQuestion(username));
 				} else {
 					req.setAttribute("error_username", "That user doesn't exist");
 				}

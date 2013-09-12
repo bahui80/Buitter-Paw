@@ -2,7 +2,7 @@
 
 <div class="container">
 	<div class="row row-offcanvas row-offcanvas-right">
-		<div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3">
 			<div class="well">
 				<form class="bs-example form-horizontal" method="post" action="recoverpassword">
 					<fieldset>
@@ -26,27 +26,38 @@
                 			</div>
                 		</c:if>
                 		<c:if test="${not empty correct_username}">
-                			<p style="margin-bottom:20px" class="text-success">To reset your password, please enter a new password</p>
+                			<p style="margin-bottom:20px" class="text-success">Please, <c:out value="${correct_username}"/> enter your secret answer and a new password</p>
                 			<div class="form-group">
-                				<label for="password" class="col-md-2 control-label">Password</label>
+                                <label for="question" class="col-md-4 control-label">Secret question</label>
+                                <div class="col-md-8">
+                                  <p style="margin-top: 9px"><c:out value="${question}"/></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                				<label for="password" class="col-md-4 control-label">Password</label>
                     			<div class="col-md-8">
                     				<input type="hidden" name="recover" value="reset">
-                    				<input type="password" class="form-control3" placeholder="Password" name="password">
+                    				<input type="password" class="form-control2" placeholder="Password" name="password">
                     				<c:if test="${not empty error_password}">
                         				<p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_password}"/></em></small></p>
                       				</c:if>
                     			</div>
                 			</div>
                 			<div class="form-group">
-                				<label for="password2" class="col-md-2 control-label">Re-type password</label>
+                				<label for="password2" class="col-md-4 control-label">Re-type password</label>
                     			<div class="col-md-8">
-                    				<input type="password2" class="form-control3" placeholder="Re-type password" name="password2">
+                    				<input type="password2" class="form-control2" placeholder="Re-type password" name="password2">
                     				<c:if test="${not empty error_password2}">
                         				<p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_password2}"/></em></small></p>
                       				</c:if>
                     			</div>
                 			</div>
-                		</c:if>
+                            <div class="form-group">
+                                <div class="col-md-offset-5">
+                                    <button type="submit" class="btn btn-primary ">Continue</button>
+                                </div>
+                            </div>
+                        </c:if>
 					</fieldset>
 				</form>
 			</div>
