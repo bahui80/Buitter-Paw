@@ -52,7 +52,11 @@
 /* REUSABLE */
 .well-header {
 	font-size: 25.5px;
-	margin-bottom: 25.5px;
+}
+
+.alert-box{
+	text-align:center;
+	margin: 20px;
 }
 
 /* PROFILE */

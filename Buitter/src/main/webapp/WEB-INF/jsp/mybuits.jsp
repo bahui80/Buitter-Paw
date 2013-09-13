@@ -13,9 +13,9 @@
 				<img class="profile-pic" src="img/nopicture.png" />
 				<h2 class="profile-name">Nombre Apellido</h2>
 				<h4 class="profile-user">@username</h4>
-				<p class="profile-desc">This
-					is my description. Find out what's happening, right now, with the
-					people and organizations you care about.</p>
+				<p class="profile-desc">This is my description. Find out what's
+					happening, right now, with the people and organizations you care
+					about.</p>
 			</div>
 
 			<div class="well well-lg">
@@ -31,21 +31,36 @@
 					</form>
 				</div>
 
-				<c:forEach items="${buits}" var="buit">
-					<div class="media buit">
-						<a class="pull-left" href="#"> <img
-							class="media-object buit-profile-pic" src="img/nopicture.png">
-						</a>
-						<div class="media-body">
-							<div class="media-heading">
-								<span class="pull-left text-bold"><c:out value="${buit.username}"/></span> <span
-									class="pull-right"><c:out value="${buit.date}"/></span>
-							</div>
-							<br /><p>${buit.message}</p>
-							<!-- agregar un form oculto con el id para el borrado (buit.id)-->
+				<c:choose>
+					<c:when test="${empty buits}">
+						<div class="alert-box">
+							<img src="img/logo.png" class="logo-alt" /> <br />@<c:out
+									value="${user.username}" /> hasn't buited yet.
 						</div>
-					</div>
-				</c:forEach>
+					</c:when>
+					<c:otherwise>
+
+
+						<c:forEach items="${buits}" var="buit">
+							<div class="media buit">
+								<a class="pull-left" href="#"> <img
+									class="media-object buit-profile-pic" src="img/nopicture.png">
+								</a>
+								<div class="media-body">
+									<div class="media-heading">
+										<span class="pull-left text-bold"><c:out
+												value="${buit.username}" /></span> <span class="pull-right"><c:out
+												value="${buit.date}" /></span>
+									</div>
+									<br />
+									<p>${buit.message}</p>
+									<!-- agregar un form oculto con el id para el borrado (buit.id)-->
+								</div>
+							</div>
+						</c:forEach>
+
+					</c:otherwise>
+				</c:choose>
 
 			</div>
 

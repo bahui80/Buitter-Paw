@@ -9,46 +9,46 @@
 					data-toggle="offcanvas">Toggle nav</button>
 			</p>
 
+			<div class="well well-lg text-center">
+				<img class="profile-pic" src="img/nopicture.png" />
+				<h2 class="profile-name">#myhashtag</h2>
+				<h4 class="profile-user">Created by @username</h4>
+				<p class="profile-desc">First used: 02/03/2009</p>
+			</div>
+
 			<div class="well well-lg">
-
-				<div class="well-header">
-					People results for <span class="text-bold"><c:out
-							value="${query}" /></span>
-				</div>
-
+				Results for <span class="text-bold">#myhashtag</span>
 				<c:choose>
-					<c:when test="${empty results}">
+					<c:when test="${empty buits}">
 						<div class="alert-box">
-						<img src="img/logo.png" class="logo-alt"/>
-						<br/>No people results for <span
-							class="text-bold"><c:out value="${query}" />.</span>
+							<img src="img/logo.png" class="logo-alt" /> <br />No Buit
+							results for #myhashtag.
 						</div>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${results}" var="user">
+
+
+						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
 								<a class="pull-left" href="#"> <img
 									class="media-object buit-profile-pic" src="img/nopicture.png">
 								</a>
 								<div class="media-body">
 									<div class="media-heading">
-										<span class="text-bold"><a
-											href="<c:url value="profile"><c:param name="name" value="${user.username}" /></c:url>"><c:out
-													value="${user.name}" /> <c:out value="${user.surname}" /></a></span>
-										<c:out value="${user.username}" />
+										<span class="pull-left text-bold"><c:out
+												value="${buit.username}" /></span> <span class="pull-right"><c:out
+												value="${buit.date}" /></span>
 									</div>
-									<p>
-									<div class="pull-left">
-										Date registered:
-										<c:out value="${user.date}" />
-									</div>
-									</p>
+									<br />
+									<p>${buit.message}</p>
+									<!-- agregar un form oculto con el id para el borrado (buit.id)-->
 								</div>
 							</div>
-
 						</c:forEach>
+
 					</c:otherwise>
 				</c:choose>
+
 			</div>
 
 		</div>
