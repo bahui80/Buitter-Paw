@@ -1,4 +1,4 @@
-<%@ include file="WEB-INF/jsp/header.jsp"%>
+<%@ include file="header.jsp"%>
 
 <div class="container">
 
@@ -31,42 +31,28 @@
 					</form>
 				</div>
 
-				<div class="media buit">
-					<a class="pull-left" href="#"> <img
-						class="media-object buit-profile-pic" src="img/nopicture.png">
-					</a>
-					<div class="media-body">
-						<div class="media-heading">
-							<span class="pull-left text-bold">@username</span> <span
-								class="pull-right">fecha hora</span>
+				<c:forEach items="${buits}" var="buit">
+					<div class="media buit">
+						<a class="pull-left" href="#"> <img
+							class="media-object buit-profile-pic" src="img/nopicture.png">
+						</a>
+						<div class="media-body">
+							<div class="media-heading">
+								<span class="pull-left text-bold"><c:out value="${buit.username}"/></span> <span
+									class="pull-right"><c:out value="${buit.date}"/></span>
+							</div>
+							<br /> <c:out value="${buit.message}"/>
+							<!-- agregar un form oculto con el id para el borrado (buit.id)-->
 						</div>
-						<br /> Donec id elit non mi porta gravida at eget metus. Fusce
-						dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-						ut fermentum mass
 					</div>
-				</div>
-
-				<div class="media buit">
-					<a class="pull-left" href="#"> <img
-						class="media-object buit-profile-pic" src="img/nopicture.png">
-					</a>
-					<div class="media-body">
-						<div class="media-heading">
-							<span class="pull-left text-bold">@username</span> <span
-								class="pull-right">fecha hora</span>
-						</div>
-						<br /> Donec id elit non mi porta gravida at eget metus. Fusce
-						dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-						ut fermentum mass
-					</div>
-				</div>
+				</c:forEach>
 
 			</div>
 
 		</div>
-		<%@ include file="WEB-INF/jsp/sidebar.jsp"%>
+		<%@ include file="sidebar.jsp"%>
 
 	</div>
 	<!--/cerrar el div si la sidebar esta presente-->
 
-	<%@ include file="WEB-INF/jsp/footer.jsp"%>
+	<%@ include file="footer.jsp"%>

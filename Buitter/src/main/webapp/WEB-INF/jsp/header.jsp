@@ -49,7 +49,7 @@ function toggle(){
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a id="logo" class="navbar-brand" href="#"><img src="img/logo.png"
+				<a id="logo" class="navbar-brand" href="/Buitter"><img src="img/logo.png"
 					class="logo" />Buitter</a>
 			</div>
 			<div class="collapse navbar-collapse">
@@ -61,9 +61,10 @@ function toggle(){
 				<ul class="nav navbar-nav" style="float:right">
 					<li class="active"><a href="#">Home</a></li>
 					<c:if test="${not empty user}">
-						<li><a href="#myBuitts"><c:out value="${user.username}"/></a></li>
+						<li><a href="<c:url value="profile"><c:param name="name" value="${user.username}"/></c:url>">
+							<c:out value="${user.username}"/></a></li>
 						<li id="dropdown" class="dropdown" onclick="toggle()">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
                           <ul class="dropdown-menu">
                             <li><a href="/Buitter/logout">Logout</a></li>
                              <li class="divider"></li>

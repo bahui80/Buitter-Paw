@@ -33,7 +33,7 @@ public class BuitManager implements BuitDao{
 			System.out.println(buit.toString());
 		}
 		
-		btManager.removeBuit(1, 2);
+		//btManager.removeBuit(1, 2);
 	}
 	
 	public static synchronized BuitManager sharedInstance(){
@@ -77,8 +77,10 @@ public class BuitManager implements BuitDao{
 			stmt.setString(1, username);
 			
 			ResultSet results = stmt.executeQuery();
-			if (results.next()) {
+			while (results.next()) {
+				System.out.println("ENTRO");
 				buits.add(new Buit(results.getInt(1),results.getString(2), results.getString(3), results.getDate(4)));
+
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -100,6 +102,7 @@ public class BuitManager implements BuitDao{
 			stmt.setString(1, hashtag);
 			
 			ResultSet results = stmt.executeQuery();
+			
 			if (results.next()) {
 				buits.add(new Buit(results.getInt(1),results.getString(2), results.getString(3), results.getDate(4)));
 			}

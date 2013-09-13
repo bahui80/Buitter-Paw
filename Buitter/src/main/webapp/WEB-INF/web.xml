@@ -36,4 +36,12 @@
 		<servlet-name>ForgotPassword</servlet-name>
 		<url-pattern>/recoverpassword</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>MyBuits</servlet-name>
+		<servlet-class>it.itba.edu.ar.servlets.MyBuits</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MyBuits</servlet-name>
+		<url-pattern>/profile</url-pattern>
+	</servlet-mapping>
 </web-app>

@@ -3,13 +3,21 @@ package it.itba.edu.ar.servlets;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.UserService;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload.FileItem;
 
 @SuppressWarnings("serial")
 public class Register extends HttpServlet {
@@ -20,6 +28,7 @@ public class Register extends HttpServlet {
 		req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req, resp);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
@@ -32,14 +41,15 @@ public class Register extends HttpServlet {
 		String answer = request.getParameter("answer");
 		Date creationDate = new Date();
 		
+		
 	/*	DiskFileUpload fu = new DiskFileUpload();
         // If file size exceeds, a FileUploadException will be thrown
 //      fu.setSizeMax(100000000);
 		
-		List fileItems;
+		List<FileItem> fileItems;
 		try {
 			fileItems = fu.parseRequest(request);
-			Iterator itr = fileItems.iterator();
+			Iterator<FileItem> itr = fileItems.iterator();
 
 	        while(itr.hasNext()) {
 	        	FileItem fi = (FileItem)itr.next();
@@ -55,19 +65,21 @@ public class Register extends HttpServlet {
 	        		System.out.println(fNew.getAbsolutePath());
 	        		fi.write(fNew);
 	        		//DE ACA
-	        		FileInputStream fis = new FileInputStream(fNew);
-	        		PreparedStatement ps = conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
-	        		ps.setString(1, file.getName());
-	        		ps.setBinaryStream(2, fis, file.length());
-	        		ps.executeUpdate();
-	        		ps.close();
-	        		fis.close();
+//	        		FileInputStream fis = new FileInputStream(fNew);
+//	        		PreparedStatement ps = conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
+//	        		ps.setString(1, file.getName());
+//	        		ps.setBinaryStream(2, fis, file.length());
+//	        		ps.executeUpdate();
+//	        		ps.close();
+//	        		fis.close();
 	        		// A ACA LA CONVERSION DE LA FOTO
+	        	} else {
+	        		System.out.println(fi.getString());
 	        	}
 	        }
 		} catch (Exception e) {
 			e.printStackTrace();
-		} */
+		}  */
 		
 		checkUsername(username, request);
 		checkPassword(password, password2, request);
@@ -86,7 +98,7 @@ public class Register extends HttpServlet {
       }
 	
 	private void checkUsername(String username, HttpServletRequest request) {
-		if(username != null) {
+		if(!username.equals("")) {
 			if(username.length() <= 32) {
 				if(UserService.checkUsername(username)) {
 					request.setAttribute("error_username", "The username already exists");
@@ -96,6 +108,7 @@ public class Register extends HttpServlet {
 				request.setAttribute("error_username", "The username must contain up to 32 characters");
 				error = true;
 			}
+			request.setAttribute("user_username", username);
 		} else {
 			request.setAttribute("error_username", "You must insert an username");
 			error = true;
@@ -103,14 +116,16 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkPassword(String password, String password2, HttpServletRequest request) {
-		if(password != null) {
+		if(!password.equals("")) {
 			if(password.length() > 32) {
 				request.setAttribute("error_password", "The password must contain up to 32 characters");
 				error = true;
 			} else if(!password2.equals("") && !password2.equals(password)) {
 				request.setAttribute("error_password2", "The passwords must match");
 				error = true;
+				request.setAttribute("user_password2", password2);
 			}
+			request.setAttribute("user_password", password);
 		} else {
 			request.setAttribute("error_password", "You must insert a password");
 			error = true;
@@ -118,11 +133,12 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkName(String name, HttpServletRequest request) {
-		if(name != null) {
+		if(!name.equals("")) {
 			if(name.length() > 32) {
 				request.setAttribute("error_name", "The name must contain up to 32 characters");
 				error = true;
 			}
+			request.setAttribute("user_name", name);
 		} else {
 			request.setAttribute("error_name", "You must insert a name");
 			error = true;
@@ -130,11 +146,12 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkSurname(String surname, HttpServletRequest request) {
-		if(surname != null) {
+		if(!surname.equals("")) {
 			if(surname.length() > 32) {
 				request.setAttribute("error_surname", "The surname must contain up to 32 characters");
 				error = true;
 			}
+			request.setAttribute("user_surname", surname);
 		} else {
 			request.setAttribute("error_surname", "You must insert a surname");
 			error = true;
@@ -142,11 +159,12 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkDescription(String description, HttpServletRequest request) {
-		if(description != null) {
+		if(!description.equals("")) {
 			if(description.length() > 140) {
 				request.setAttribute("error_description", "The description must contain up to 140 characters");
 				error = true;
 			}
+			request.setAttribute("user_description", description);
 		} else {
 			request.setAttribute("error_description", "You must insert a description");
 			error = true;
@@ -154,11 +172,12 @@ public class Register extends HttpServlet {
 	}
 	
 	private void checkAnswer(String answer, HttpServletRequest request) {
-		if(answer != null) {
+		if(!answer.equals("")) {
 			if(answer.length() > 60) {
 				request.setAttribute("error_answer", "The answer must contain up to 60 characters");
 				error = true;
 			}
+			request.setAttribute("user_answer", answer);
 		} else {
 			request.setAttribute("error_answer", "You must insert a secret answer");
 			error = true;

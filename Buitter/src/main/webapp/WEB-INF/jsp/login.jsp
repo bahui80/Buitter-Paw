@@ -23,7 +23,7 @@
                     </div>
                 </div>	
                 <div class="form-group">
-                	<a href="#" style="margin-left:107px">Forgot password?</a>
+                	<a href="recoverpassword" style="margin-left:107px">Forgot password?</a>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-5">
