@@ -41,7 +41,7 @@
 								<span class="pull-left text-bold"><c:out value="${buit.username}"/></span> <span
 									class="pull-right"><c:out value="${buit.date}"/></span>
 							</div>
-							<br /> <c:out value="${buit.message}"/>
+							<br /><p>${buit.message}</p>
 							<!-- agregar un form oculto con el id para el borrado (buit.id)-->
 						</div>
 					</div>
