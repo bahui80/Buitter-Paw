@@ -11,17 +11,22 @@
 /**** END BUITTER FONT FACE ****/
 
 /*WHEEL MENU*/
-
-#menu ul li a{
+#menu ul li a {
 	cursor: pointer;
 }
-
 
 /**** END WHEEL MENU ****/
 .logo {
 	width: 25px;
 	margin-right: 5px;
 	margin-top: -5px;
+}
+
+.logo-alt {
+	width: 34px;
+	-webkit-filter: grayscale;
+	-webkit-filter: brightness(0%);
+	opacity: .2;
 }
 
 #logo {
@@ -40,8 +45,14 @@
 }
 
 .clear-button {
-	background:none;
-	border:none;
+	background: none;
+	border: none;
+}
+
+/* REUSABLE */
+.well-header {
+	font-size: 25.5px;
+	margin-bottom: 25.5px;
 }
 
 /* PROFILE */
@@ -81,7 +92,7 @@
 	width: 64px;
 	height: 64px;
 	border-radius: 5px;
-	margin-top: 8px;
+	margin-top: 4px;
 	margin-right: 8px;
 }
 

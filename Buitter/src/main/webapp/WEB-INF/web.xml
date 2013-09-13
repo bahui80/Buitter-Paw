@@ -44,4 +44,12 @@
 		<servlet-name>MyBuits</servlet-name>
 		<url-pattern>/profile</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>SearchResults</servlet-name>
+		<servlet-class>it.itba.edu.ar.servlets.SearchResults</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SearchResults</servlet-name>
+		<url-pattern>/searchresults</url-pattern>
+	</servlet-mapping>
 </web-app>
