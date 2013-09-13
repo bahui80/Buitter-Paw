@@ -11,7 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class ForgotPassword extends HttpServlet {
-
+	
+	private UserService userService;
+	
+	@Override
+	public void init() throws ServletException {
+		userService = UserService.sharedInstance();
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -27,7 +34,7 @@ public class ForgotPassword extends HttpServlet {
 
 		if (state.equals("recover")) {
 			if (!username.equals("")) {
-				if (UserService.checkUsername(username)) {
+				if (userService.checkUsername(username)) {
 					req.setAttribute("correct_username", username);
 					req.setAttribute("question", "What's the name of your dog?");
 			//		req.setAttribute("question", UserService.getQuestion(username));

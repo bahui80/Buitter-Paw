@@ -5,25 +5,25 @@ import java.util.Date;
 public class Buit {
 	private Integer id;
 	private String message;
-	private String username;
+	private User user;
 	private Date date;
 
-	public Buit(int id, String message, String username, Date date){
+	public Buit(int id, String message, User user, Date date){
+		if(id == 0 || message == null || message.length() > 140 || user == null || date == null)
+			throw new IllegalArgumentException();
+		
 		this.id = id;
 		this.message = message;
-		this.username = username;
+		this.user = user;
 		this.date = date;
 	}
-	
-	@Override
-	public String toString() {
-		return "Buit [id=" + id + ", message=" + message + ", username="
-				+ username + ", date=" + date + "]";
-	}
 
-	public Buit(String message, String username, Date date){
+	public Buit(String message,  User user, Date date){
+		if(message == null || message.length() > 140 || user == null || date == null)
+			throw new IllegalArgumentException();
+		
 		this.message = message;
-		this.username = username;
+		this.user = user;
 		this.date = date;
 	}
 	
@@ -32,6 +32,8 @@ public class Buit {
 	}
 
 	public void setId(Integer id) {
+		if(id == 0)
+			throw new IllegalArgumentException();
 		this.id = id;
 	}
 
@@ -40,23 +42,23 @@ public class Buit {
 	}
 
 	public void setMessage(String message) {
+		if(message == null || message.length() > 140)
+			throw new IllegalArgumentException();
 		this.message = message;
 	}
 
-	public String getUsername() {
-		return username;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsername(String username	) {
-		this.username = username;
+	public void setUser(User user	) {
+		if(user == null)
+			throw new IllegalArgumentException();
+		this.user = user;
 	}
 
 	public Date getDate() {
 		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 	@Override
@@ -83,4 +85,11 @@ public class Buit {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return "Buit [id=" + id + ", message=" + message + ", username="
+				+ user.getUsername() + ", date=" + date + "]";
+	}
 }
+

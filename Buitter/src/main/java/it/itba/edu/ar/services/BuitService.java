@@ -12,33 +12,41 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class BuitService{
+public class BuitService{
 
-	private BuitService(){
-		
+	private static BuitService instance;
+	
+	public static synchronized BuitService sharedInstance(){
+		if(instance == null){
+			instance = new BuitService();
+		}
+		return instance;
 	}
 	
-	public static void main(String[] args) {
+	private BuitService(){
+	}
+	
+	public void main(String[] args) {
 		parseBuit("hadhsajkdhsakjn#sadsada. HOla juanann");
 	}
-	public static void removeBuit(Buit buit, User user) {
+	public void removeBuit(Buit buit, User user) {
 		BuitManager buitManager = BuitManager.sharedInstance();
 
 		buitManager.removeBuit(buit.getId(), user.getId());
 	}
 
-	public static void buit(Buit buit, User user) {
+	public void buit(Buit buit, User user) {
 		BuitManager buitManager = BuitManager.sharedInstance();
 
 		buitManager.buit(buit, user.getId());
 	}
 
-	public static List<Hashtag> trendingTopics(Date date) {
+	public List<Hashtag> trendingTopics(Date date) {
 		HashtagManager hashtagManager = HashtagManager.sharedInstance();
 		return hashtagManager.getHashtagsSinceDate(date);
 	}
 
-	public static String parseBuit(String buit) {
+	public String parseBuit(String buit) {
 		String patternStr = "#([A-Za-z0-9_]+)";
 		Pattern pattern = Pattern.compile(patternStr);
 		Matcher matcher = pattern.matcher(buit);
@@ -54,5 +62,11 @@ public final class BuitService{
 		}
 		
 		return buit;
+	}
+	
+	public List<Buit> getUserBuits(User user){
+		BuitManager buitManager = BuitManager.sharedInstance();
+
+		return buitManager.getUserBuits(user);
 	}
 }

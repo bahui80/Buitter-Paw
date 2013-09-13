@@ -3,6 +3,7 @@ package it.itba.edu.ar.dao;
 import it.itba.edu.ar.connection.ConnectionManager;
 import it.itba.edu.ar.connection.DatabaseException;
 import it.itba.edu.ar.model.Hashtag;
+import it.itba.edu.ar.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,12 +45,20 @@ public class HashtagManager implements HashtagDao{
 		manager = new ConnectionManager(driver,connectionString , username, password);
 	}
 	
+	/*
+	 * Hashtag(int id, String hashtag, Date date, User user)
+	 * User(int id, String name, String surname, String username, String password, 
+			String description, String secret_question, String secret_answer, 
+			Date creationDate, byte photo)
+	 */
 	public List<Hashtag> getHashtagsSinceDate(Date date) {
 		List<Hashtag> hashtags = new ArrayList<Hashtag>();
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT h.hashtag, u.username, h.hashtagid, COUNT(b.buitid) as count , h.date " +
+					"SELECT h.hashtag, u.id, u.name, u.surname, u.username, u.password, " +
+					"u.description, u.secret_question, u.secret_answer, u.date, u.photo, " +
+					"h.hashtagid, COUNT(b.buitid) as count , h.date " +
 					"FROM Users as u, Hashtags as h, Buits as b, Buithash as bh " +
 					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid AND h.userid = u.userid " +
 					"AND h.date > ? " +
@@ -59,8 +68,14 @@ public class HashtagManager implements HashtagDao{
 			stmt.setDate(1, new java.sql.Date(date.getTime()));
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				hashtags.add(new Hashtag(results.getInt(3),results.getString(1),
-						results.getDate(5),results.getString(2)));
+				User user = new User(results.getInt(2), results.getString(3), 
+						results.getString(4), results.getString(5), 
+						results.getString(6), results.getString(7),
+						results.getString(8), results.getString(9), 
+						results.getDate(10), results.getString(11));
+				
+				hashtags.add(new Hashtag(results.getInt(13),results.getString(1),
+						results.getDate(14),user));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -74,7 +89,9 @@ public class HashtagManager implements HashtagDao{
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT h.hashtag, u.username, h.hashtagid,  h.date " +
+					"SELECT h.hashtag, u.id, u.name, u.surname, u.username, u.password, " +
+					"u.description, u.secret_question, u.secret_answer, u.date, u.photo, " +
+					"h.hashtagid, COUNT(b.buitid) as count , h.date " +
 					"FROM Users as u, Hashtags as h, Buits as b, Buithash as bh " +
 					"WHERE h.userid = u.userid AND u.username = ? " +
 					"GROUP BY h.hashtag, u.username, h.hashtagid, h.date ");
@@ -83,8 +100,14 @@ public class HashtagManager implements HashtagDao{
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				hashtags.add(new Hashtag(results.getInt(3),results.getString(1),
-						results.getDate(5),results.getString(2)));
+				User user = new User(results.getInt(2), results.getString(3), 
+						results.getString(4), results.getString(5), 
+						results.getString(6), results.getString(7),
+						results.getString(8), results.getString(9), 
+						results.getDate(10), results.getString(11));
+				
+				hashtags.add(new Hashtag(results.getInt(13),results.getString(1),
+						results.getDate(14),user));
 			}
 			connection.close();
 		} catch (SQLException e) {

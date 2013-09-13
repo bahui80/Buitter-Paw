@@ -18,13 +18,22 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class MyBuits extends HttpServlet	 {
 	
+	private UserService userService;
+	private BuitService buitService;
+	
+	@Override
+	public void init() throws ServletException {
+		userService = UserService.sharedInstance();
+		buitService = BuitService.sharedInstance();
+	};
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String profile = request.getParameter("name");
-		BuitManager manager = BuitManager.sharedInstance(); //TODO cambiar por el servicio
 		
-		if(profile != null && UserService.checkUsername(profile)){
-			List<Buit> buits = manager.getUserBuits(profile);
+		if(profile != null && userService.checkUsername(profile)){
+			User usr = userService.getUserByUsername(profile);
+			List<Buit> buits = buitService.getUserBuits(usr);
 			request.setAttribute("buits", buits);
 		} else {
 			request.setAttribute("user_error", "That user doesn't exist");
@@ -32,6 +41,8 @@ public class MyBuits extends HttpServlet	 {
 		request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
 	}
 	
+	
+	//TODO: ACA NOSE QUE TOCAR BAHUI O JAVI, DSP FIJENSE
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String buit = request.getParameter("buit");
@@ -39,8 +50,8 @@ public class MyBuits extends HttpServlet	 {
 		if(buit.equals("")) {
 			request.setAttribute("error_buit", "Your buit is empty");
 		} else {
-			buit = BuitService.parseBuit(buit);
-			BuitService.buit(new Buit(buit, ((User)request.getSession().getAttribute("user")).getUsername(), new Date()), (User) request.getSession().getAttribute("user"));
+			buit = buitService.parseBuit(buit);
+			buitService.buit(new Buit(buit, ((User)request.getSession().getAttribute("user")).getUsername(), new Date()), (User) request.getSession().getAttribute("user"));
 			//TODO PARSEAR BUIT Y GUARDARLO
 		}
 	}

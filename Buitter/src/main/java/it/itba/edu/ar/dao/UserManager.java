@@ -5,11 +5,11 @@ import it.itba.edu.ar.connection.DatabaseException;
 import it.itba.edu.ar.model.User;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserManager implements UserDao {
 
@@ -20,25 +20,6 @@ public class UserManager implements UserDao {
 	private static final String connectionString = "jdbc:postgresql://localhost/paw2";
 	private static final String username = "paw";
 	private static final String password = "paw";
-	
-	public static void main(String args[]){
-		UserManager manager = UserManager.sharedInstance();
-		
-		manager.insertUser(new User("Juan", "Buireo", "jujubuireo", "1234", 
-			"Sexo,drogas, rocanrol", "Como se llama mi perro?", "Boris", 
-			new Date(), null));
-		
-//		manager.updateUser(new User("Juan", "Buireo", "jujubuireo", "1234", 
-//				"Vivir al limite", "Como se llama mi perro?", "Boris", 
-//				new Date(0), null));
-//		
-//		System.out.println(manager.checkUserName("jujubuireo"));;
-//		
-//		manager.changePassword(new User("Juan", "Buireo", "jujubuireo", "12345", 
-//				"Vivir al limite", "Como se llama mi perro?", "Boris", 
-//				new Date(0), null));
-//		
-	}
 	
 	public static synchronized UserManager sharedInstance(){
 		if(instance == null){
@@ -92,6 +73,48 @@ public class UserManager implements UserDao {
 			throw new DatabaseException(e.getMessage(), e);
 		}
 		return usr;
+	}
+	
+	public List<User> getUsersBySurname(String surname) {
+		List<User> usrs = new ArrayList<User>();
+		try {
+			Connection connection = manager.getConnection();
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * FROM Users WHERE surname = ? ");
+			stmt.setString(1, surname);
+
+			ResultSet results = stmt.executeQuery();
+			while (results.next()) {
+				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10),results.getDate(5), results.getString(6)));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			throw new DatabaseException(e.getMessage(), e);
+		}
+		return usrs;
+	}
+	
+	public List<User> getUsersByName(String name) {
+		List<User> usrs = new ArrayList<User>();
+		try {
+			Connection connection = manager.getConnection();
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * FROM Users WHERE name = ? ");
+			stmt.setString(1, name);
+
+			ResultSet results = stmt.executeQuery();
+			while (results.next()) {
+				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10),results.getDate(5), results.getString(6)));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			throw new DatabaseException(e.getMessage(), e);
+		}
+		return usrs;
 	}
 
 	public User getUserByUsernameAndPassword(String username, String password) {

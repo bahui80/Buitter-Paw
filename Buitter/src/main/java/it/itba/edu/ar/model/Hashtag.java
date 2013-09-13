@@ -3,23 +3,29 @@ package it.itba.edu.ar.model;
 import java.util.Date;
 
 public class Hashtag {
-
+	
 	private Integer id;
 	private String hashtag;
 	private Date date;
-	private String username;
+	private User user;
 	
-	public Hashtag(String hashtag, Date date, String username){
+	public Hashtag(String hashtag, Date date, User user){
+		if(hashtag == null || hashtag.length() > 139 || date == null || user == null)
+			throw new IllegalArgumentException();
+		
 		this.hashtag = hashtag;
 		this.date = date;
-		this.username = username;
+		this.user = user;
 	}
 	
-	public Hashtag(int id, String hashtag, Date date, String username){
+	public Hashtag(int id, String hashtag, Date date, User user){
+		if(id == 0 || hashtag == null || hashtag.length() > 139 || date == null || user == null)
+			throw new IllegalArgumentException();
+		
 		this.id = id;
 		this.hashtag = hashtag;
 		this.date = date;
-		this.username = username;
+		this.user = user;
 	}
 	
 	public Integer getId() {
@@ -27,21 +33,29 @@ public class Hashtag {
 	}
 
 	public void setId(Integer id) {
+		if(id == 0)
+			throw new IllegalArgumentException();
 		this.id = id;
 	}
 
 	public String getHashtag() {
 		return hashtag;
 	}
-
-	public void setHashtag(String hashtag) {
-		this.hashtag = hashtag;
+	
+	public User getUser(){
+		return user;
+	}
+	
+	public void setUser(User user){
+		if(user == null)
+			throw new IllegalArgumentException();
+		this.user = user;
 	}
 
 	@Override
 	public String toString() {
 		return "Hashtag [id=" + id + ", hashtag=" + hashtag + ", date=" + date
-				+ ", username=" + username + "]";
+				+ ", username=" + user.getUsername() + "]";
 	}
 	
 }

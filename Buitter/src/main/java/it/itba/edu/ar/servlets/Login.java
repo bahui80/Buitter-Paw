@@ -13,6 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class Login extends HttpServlet{
 
+	private UserService userService;
+	
+	@Override
+	public void init() throws ServletException {
+		userService = UserService.sharedInstance();
+	};
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -25,7 +32,7 @@ public class Login extends HttpServlet{
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		
-		User user = UserService.login(new User(username,password));
+		User user = userService.login(new User(username,password));
 		
 		if(user != null){
 			req.getSession().setAttribute("user", user);

@@ -22,7 +22,14 @@ import org.apache.commons.fileupload.FileItem;
 @SuppressWarnings("serial")
 public class Register extends HttpServlet {
 	private Boolean error = false;
-		
+	private UserService userService;
+	
+	@Override
+	public void init() throws ServletException {
+		userService = UserService.sharedInstance();
+	};
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req, resp);
@@ -92,7 +99,7 @@ public class Register extends HttpServlet {
 		if(error) {
 			request.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(request, response);
 		} else {
-			UserService.register(new User(name, surname, username, password, description, question, answer, creationDate, "provisorio. Aca va la foto"));
+			userService.register(new User(name, surname, username, password, description, question, answer, creationDate, null));
 		}
         
       }
@@ -100,7 +107,7 @@ public class Register extends HttpServlet {
 	private void checkUsername(String username, HttpServletRequest request) {
 		if(!username.equals("")) {
 			if(username.length() <= 32) {
-				if(UserService.checkUsername(username)) {
+				if(userService.checkUsername(username)) {
 					request.setAttribute("error_username", "The username already exists");
 					error = true;
 				}
