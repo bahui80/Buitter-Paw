@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 
 @SuppressWarnings("serial")
 public class BuitsHttpServlet extends HttpServlet {
+	
 	public List<String> getHashTags(String buit) {
 		List<String> hashTags = new ArrayList<String>();
 		String patternStr = "#([A-Za-z0-9_]+)";
@@ -18,9 +19,7 @@ public class BuitsHttpServlet extends HttpServlet {
 		
 		while(matcher.find()) {
 			result = matcher.group();
-			System.out.println(result.replace("#", ""));
-		//	hashTags.add(result.replace("#", ""));
-			
+			hashTags.add(result.replace("#", ""));
 		}
 		
 		return hashTags;

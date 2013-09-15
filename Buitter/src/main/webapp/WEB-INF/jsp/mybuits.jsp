@@ -10,12 +10,16 @@
 			</p>
 
 			<div class="well well-lg text-center">
-				<img class="profile-pic" src="img/nopicture.png" />
+				<c:if test="${not empty user_info.photo}">
+					<img class="profile-pic" src="img/photo.jpg"/>
+				</c:if>
+				<c:if test="${empty user_info.photo}">
+					<img class="profile-pic" src="img/nopicture.png"/>
+				</c:if>
 				<h2 class="profile-name"><c:out value="${user_info.name}"/> <c:out value="${user_info.surname}"/></h2>
 				<h4 class="profile-user">@<c:out value="${user_info.username}"/></h4>
 				<p class="profile-desc"><c:out value="${user_info.description}"/></p>
 			</div>
-			
 
 			<div class="well well-lg">
 				<c:if test="${user == user_info.username }">
@@ -24,14 +28,17 @@
 							<fieldset>
 								<textarea id="buit-field" class="form-control" rows="3" name="buit"
 									placeholder="Compose new Buit..." maxlength="140"></textarea>
-							<span  id='remainingC'>140</span>
+									<span  id='remainingC'>140</span>
+                      				<c:if test="${not empty error_buit}">
+                        				<p class="text-danger" style="margin-bottom: 0px"><small><em>Your buit is empty<c:out value="${error_buit}"/></em></small></p>
+                      				</c:if>
 								<button type="submit"
 									class="btn btn-primary pull-right buit-compose-button">Buit</button>
 							</fieldset>
 						</form>
 					</div>
 				</c:if>
-				
+
 				<script>
 					var txtBoxRef = document.getElementById("buit-field");
  					var counterRef = document.getElementById("remainingC");
@@ -56,8 +63,13 @@
 
 						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
-								<a class="pull-left" href="#"> <img
-									class="media-object buit-profile-pic" src="img/nopicture.png">
+								<a class="pull-left" href="#">
+									<c:if test="${not empty user_info.photo}">
+										<img class="media-object buit-profile-pic" src="img/photo.jpg"/>
+									</c:if>
+									<c:if test="${empty user_info.photo}">
+										<img class="media-object buit-profile-pic" src="img/nopicture.png"/>
+									</c:if>
 								</a>
 								<div class="media-body">
 									<div class="media-heading">
