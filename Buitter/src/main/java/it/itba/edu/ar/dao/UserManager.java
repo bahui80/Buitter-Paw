@@ -145,17 +145,16 @@ public class UserManager implements UserDao {
 			PreparedStatement stmt = connection.prepareStatement
 					("INSERT INTO Users(name,surname,password," +
 							"date,photo,username,description,secret_question," +
-							"secret_answer) VALUES(?,?,?,?,?,?,?,?,?)");
+							"secret_answer) VALUES(?,?,?,current_timestamp,?,?,?,?,?)");
 			
 			stmt.setString(1, user.getName());
 			stmt.setString(2,user.getSurname());
 			stmt.setString(3,user.getPassword());
-			stmt.setDate(4,new java.sql.Date(user.getCreationDate().getTime()));
-			stmt.setBytes(5, user.getPhoto());
-			stmt.setString(6, user.getUsername());
-			stmt.setString(7, user.getDescription());
-			stmt.setString(8, user.getSecretQuestion());
-			stmt.setString(9, user.getSecretAnswer());
+			stmt.setBytes(4, user.getPhoto());
+			stmt.setString(5, user.getUsername());
+			stmt.setString(6, user.getDescription());
+			stmt.setString(7, user.getSecretQuestion());
+			stmt.setString(8, user.getSecretAnswer());
 			
 			stmt.executeUpdate();
 			connection.close();

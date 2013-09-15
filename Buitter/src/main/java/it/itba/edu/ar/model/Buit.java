@@ -6,9 +6,9 @@ public class Buit {
 	private Integer id;
 	private String message;
 	private User user;
-	private Timestamp date;
+	private String date;
 
-	public Buit(int id, String message, User user, Timestamp date){
+	public Buit(int id, String message, User user, String date){
 		if(id == 0 || message == null || message.length() > 140 || user == null || date == null)
 			throw new IllegalArgumentException();
 		
@@ -18,7 +18,7 @@ public class Buit {
 		this.date = date;
 	}
 
-	public Buit(String message,  User user, Timestamp date){
+	public Buit(String message,  User user, String date){
 		if(message == null || message.length() > 140 || user == null || date == null)
 			throw new IllegalArgumentException();
 		
@@ -58,7 +58,7 @@ public class Buit {
 		this.user = user;
 	}
 
-	public Timestamp getDate() {
+	public String getDate() {
 		return date;
 	}
 

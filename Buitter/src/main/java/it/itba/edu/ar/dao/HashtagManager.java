@@ -65,7 +65,7 @@ public class HashtagManager implements HashtagDao{
 					"GROUP BY h.hashtag, u.username, h.hashtagid " +
 					"ORDER BY count DESC " +
 					"LIMIT 10");
-			stmt.setDate(1, new java.sql.Date(date.getTime()));
+			stmt.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
 				User user = new User(results.getInt(2), results.getString(3), 
@@ -123,7 +123,7 @@ public class HashtagManager implements HashtagDao{
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
 					("INSERT INTO Hashtag(message,userid,date) " +
-							"VALUES(?,?,CURRENT_DATE)");
+							"VALUES(?,?,current_timestamp)");
 			
 			stmt.setString(1,hashtag.getHashtag());
 			stmt.setInt(2, hashtag.getUser().getId());

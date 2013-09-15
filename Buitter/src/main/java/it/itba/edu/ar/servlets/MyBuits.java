@@ -56,7 +56,7 @@ public class MyBuits extends BuitsHttpServlet {
 			//request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
 		} else {
 			getHashTags(buit);
-			buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Timestamp(new Date().getTime())));
+			buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), (new Timestamp(new Date().getTime()).toString())));
 		}
 	}
 	

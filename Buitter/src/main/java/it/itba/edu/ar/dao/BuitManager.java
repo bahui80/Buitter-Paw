@@ -42,11 +42,10 @@ public class BuitManager implements BuitDao{
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
 					("INSERT INTO Buits(message,userid,date) " +
-							"VALUES(?,?,?)");
+							"VALUES(?,?,current_timestamp)");
 			
 			stmt.setString(1,buit.getMessage());
 			stmt.setInt(2, buit.getUser().getId());
-			stmt.setDate(3, new java.sql.Date(buit.getDate().getTime()));
 
 			stmt.execute();
 
@@ -62,7 +61,7 @@ public class BuitManager implements BuitDao{
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT b.buitid, b.message, b.date " +
+					"SELECT b.buitid, b.message, to_char(b.date, 'Day, DD Month  HH12:MI:SS') " +
 					"FROM Users as u,Buits as b " +
 					"WHERE u.username = ? AND u.userid = b.userid " +
 					"ORDER BY b.date DESC");
@@ -71,7 +70,7 @@ public class BuitManager implements BuitDao{
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
 				System.out.println("ENTRO");
-				buits.add(new Buit(results.getInt(1),results.getString(2), user, results.getTimestamp(3)));
+				buits.add(new Buit(results.getInt(1),results.getString(2), user, results.getString(3)));
 
 			}
 			connection.close();
@@ -110,7 +109,7 @@ public class BuitManager implements BuitDao{
 						results.getString(7), results.getString(8),
 						results.getString(9), results.getString(10), 
 						results.getTimestamp(11), results.getBytes(12));
-				buits.add(new Buit(results.getInt(1),results.getString(2),user,results.getTimestamp(13)));
+				buits.add(new Buit(results.getInt(1),results.getString(2),user,results.getString(13)));
 			}
 			connection.close();
 		} catch (SQLException e) {
