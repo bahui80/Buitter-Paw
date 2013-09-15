@@ -57,6 +57,8 @@ public class MyBuits extends BuitsHttpServlet {
 		} else {
 			getHashTags(buit);
 			buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), (new Timestamp(new Date().getTime()).toString())));
+			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
+
 		}
 	}
 	

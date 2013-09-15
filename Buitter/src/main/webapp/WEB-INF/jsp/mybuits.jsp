@@ -35,10 +35,9 @@
 				<script>
 					var txtBoxRef = document.getElementById("buit-field");
  					var counterRef = document.getElementById("remainingC");
- 					txtBoxRef.addEventListener("keydown",function(){
- 				
+ 					txtBoxRef.addEventListener("input",function(){
   					var remLength = 0;
-  					remLength = 140 - parseInt(txtBoxRef.value.length);
+  					remLength = 140 - txtBoxRef.value.length;
   					if(remLength >= 0){
   						counterRef.innerHTML = remLength;
   					}
