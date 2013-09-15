@@ -15,21 +15,35 @@
 				<h4 class="profile-user">@<c:out value="${user_info.username}"/></h4>
 				<p class="profile-desc"><c:out value="${user_info.description}"/></p>
 			</div>
+			
 
 			<div class="well well-lg">
 				<c:if test="${user == user_info.username }">
 					<div class="input-group buit-compose-form">
 						<form method="post" action="profile">
 							<fieldset>
-								<textarea class="form-control" rows="3" name="buit"
+								<textarea id="buit-field" class="form-control" rows="3" name="buit"
 									placeholder="Compose new Buit..." maxlength="140"></textarea>
-
+							<span  id='remainingC'>140</span>
 								<button type="submit"
 									class="btn btn-primary pull-right buit-compose-button">Buit</button>
 							</fieldset>
 						</form>
 					</div>
 				</c:if>
+				
+				<script>
+					var txtBoxRef = document.getElementById("buit-field");
+ 					var counterRef = document.getElementById("remainingC");
+ 					txtBoxRef.addEventListener("keydown",function(){
+ 				
+  					var remLength = 0;
+  					remLength = 140 - parseInt(txtBoxRef.value.length);
+  					if(remLength >= 0){
+  						counterRef.innerHTML = remLength;
+  					}
+ 					},true);
+				</script>
 
 				<c:choose>
 					<c:when test="${empty buits}">
