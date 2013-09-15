@@ -3,7 +3,7 @@
 	name VARCHAR(32) NOT NULL,
 	surname VARCHAR(32) NOT NULL,
 	password VARCHAR(32) NOT NULL,
-	date DATE NOT NULL,
+	date TIMESTAMP NOT NULL,
 	photo BYTEA,
 	username VARCHAR(32) NOT NULL,
 	description VARCHAR(140) NOT NULL,
@@ -15,16 +15,24 @@ CREATE TABLE Buits (
 	buitid SERIAL PRIMARY KEY NOT NULL,  
 	message VARCHAR(500) NOT NULL,
 	userid INTEGER NOT NULL REFERENCES Users(userid),
-	date DATE NOT NULL
+	date TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Hashtags (
 	hashtag VARCHAR(40) NOT NULL,
-	hashtagid SERIAL PRIMARY KEY NOT NULL
+	hashtagid SERIAL PRIMARY KEY NOT NULL,
+	date TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Buithash (
 	buitid INTEGER NOT NULL,
 	hashtagid INTEGER NOT NULL,
 	PRIMARY KEY(buitid, hashtagid)
+);
+
+CREATE TABLE Urls (
+	urlid SERIAL PRIMARY KEY NOT NULL,
+	url VARCHAR(140) NOT NULL,
+	buiturl VARCHAR(140) NOT NULL,
+	buitid INTEGER NOT NULL REFERENCES Buits(buitid)
 );

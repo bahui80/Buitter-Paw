@@ -6,13 +6,11 @@ import it.itba.edu.ar.services.BuitService;
 import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -58,7 +56,7 @@ public class MyBuits extends BuitsHttpServlet {
 			//request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
 		} else {
 			getHashTags(buit);
-			buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Date()));
+			buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Timestamp(new Date().getTime())));
 		}
 	}
 	

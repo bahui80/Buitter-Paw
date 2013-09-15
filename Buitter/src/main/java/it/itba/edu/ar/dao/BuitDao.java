@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface BuitDao {
 	
-	public void buit(Buit buit, int userid);
-	public void removeBuit(int buitid, int userid);
+	public void buit(Buit buit);
+	public void removeBuit(int buitid);
 	public List<Buit> getUserBuits(User user);
 	public List<Buit> getHashtagBuits(String hashtag);
 }

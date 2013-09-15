@@ -1,15 +1,15 @@
 package it.itba.edu.ar.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Hashtag {
 	
 	private Integer id;
 	private String hashtag;
-	private Date date;
+	private Timestamp date;
 	private User user;
 	
-	public Hashtag(String hashtag, Date date, User user){
+	public Hashtag(String hashtag, Timestamp date, User user){
 		if(hashtag == null || hashtag.length() > 139 || date == null || user == null)
 			throw new IllegalArgumentException();
 		
@@ -18,7 +18,7 @@ public class Hashtag {
 		this.user = user;
 	}
 	
-	public Hashtag(int id, String hashtag, Date date, User user){
+	public Hashtag(int id, String hashtag, Timestamp date, User user){
 		if(id == 0 || hashtag == null || hashtag.length() > 139 || date == null || user == null)
 			throw new IllegalArgumentException();
 		

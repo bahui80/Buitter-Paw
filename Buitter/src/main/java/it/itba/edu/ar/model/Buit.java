@@ -1,14 +1,14 @@
 package it.itba.edu.ar.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Buit {
 	private Integer id;
 	private String message;
 	private User user;
-	private Date date;
+	private Timestamp date;
 
-	public Buit(int id, String message, User user, Date date){
+	public Buit(int id, String message, User user, Timestamp date){
 		if(id == 0 || message == null || message.length() > 140 || user == null || date == null)
 			throw new IllegalArgumentException();
 		
@@ -18,7 +18,7 @@ public class Buit {
 		this.date = date;
 	}
 
-	public Buit(String message,  User user, Date date){
+	public Buit(String message,  User user, Timestamp date){
 		if(message == null || message.length() > 140 || user == null || date == null)
 			throw new IllegalArgumentException();
 		
@@ -52,13 +52,13 @@ public class Buit {
 		return user;
 	}
 
-	public void setUser(User user	) {
+	public void setUser(User user) {
 		if(user == null)
 			throw new IllegalArgumentException();
 		this.user = user;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 

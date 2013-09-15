@@ -29,13 +29,13 @@ public class BuitService{
 	public void removeBuit(Buit buit, User user) {
 		BuitManager buitManager = BuitManager.sharedInstance();
 
-		buitManager.removeBuit(buit.getId(), user.getId());
+		buitManager.removeBuit(buit.getId());
 	}
 
 	public void buit(Buit buit) {
 		BuitManager buitManager = BuitManager.sharedInstance();
 
-		buitManager.buit(buit, buit.getUser().getId());
+		buitManager.buit(buit);
 	}
 
 	public List<Hashtag> trendingTopics(Date date) {
@@ -47,5 +47,10 @@ public class BuitService{
 		BuitManager buitManager = BuitManager.sharedInstance();
 
 		return buitManager.getUserBuits(user);
+	}
+	
+	public void addHashtag(Hashtag hashtag){
+		HashtagManager hashtagManager = HashtagManager.sharedInstance();
+		hashtagManager.insertHashtag(hashtag);
 	}
 }

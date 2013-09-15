@@ -32,8 +32,12 @@ public class BuitManager implements BuitDao{
 	private BuitManager(){
 		manager = new ConnectionManager(driver,connectionString , username, password);
 	}
-	//TODO cambiar que no reciba el userId
-	public void buit(Buit buit, int userid) {
+
+	public static void main(String args[]){
+		System.out.println(new java.sql.Timestamp(0));
+	}
+	
+	public void buit(Buit buit) {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
@@ -41,7 +45,7 @@ public class BuitManager implements BuitDao{
 							"VALUES(?,?,?)");
 			
 			stmt.setString(1,buit.getMessage());
-			stmt.setInt(2, userid);
+			stmt.setInt(2, buit.getUser().getId());
 			stmt.setDate(3, new java.sql.Date(buit.getDate().getTime()));
 
 			stmt.execute();
@@ -67,7 +71,7 @@ public class BuitManager implements BuitDao{
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
 				System.out.println("ENTRO");
-				buits.add(new Buit(results.getInt(1),results.getString(2), user, results.getDate(3)));
+				buits.add(new Buit(results.getInt(1),results.getString(2), user, results.getTimestamp(3)));
 
 			}
 			connection.close();
@@ -105,8 +109,8 @@ public class BuitManager implements BuitDao{
 						results.getString(5), results.getString(6), 
 						results.getString(7), results.getString(8),
 						results.getString(9), results.getString(10), 
-						results.getDate(11), results.getString(12));
-				buits.add(new Buit(results.getInt(1),results.getString(2),user,results.getDate(13)));
+						results.getTimestamp(11), results.getBytes(12));
+				buits.add(new Buit(results.getInt(1),results.getString(2),user,results.getTimestamp(13)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -115,15 +119,14 @@ public class BuitManager implements BuitDao{
 		return buits;
 	}
 
-	public void removeBuit(int buitid, int userid) {
+	public void removeBuit(int buitid) {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
 					("DELETE FROM Buits " +
-					"WHERE buitid = ? AND userid = ?");
+					"WHERE buitid = ?");
 			
 			stmt.setInt(1,buitid);
-			stmt.setInt(2, userid);
 			stmt.execute();
 
 			connection.close();

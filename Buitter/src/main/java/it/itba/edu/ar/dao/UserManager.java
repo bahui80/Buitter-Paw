@@ -44,7 +44,7 @@ public class UserManager implements UserDao {
 			if (results.next()) {
 				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getBytes(6));
+						results.getString(10),results.getTimestamp(5), results.getBytes(6));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -65,7 +65,7 @@ public class UserManager implements UserDao {
 			if (results.next()) {
 				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getBytes(6));
+						results.getString(10),results.getTimestamp(5), results.getBytes(6));
 
 			}
 			connection.close();
@@ -87,7 +87,7 @@ public class UserManager implements UserDao {
 			while (results.next()) {
 				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getBytes(6)));
+						results.getString(10),results.getTimestamp(5), results.getBytes(6)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -108,7 +108,7 @@ public class UserManager implements UserDao {
 			while (results.next()) {
 				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getBytes(6)));
+						results.getString(10),results.getTimestamp(5), results.getBytes(6)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -130,7 +130,7 @@ public class UserManager implements UserDao {
 			if (results.next()) {
 				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getBytes(6));
+						results.getString(10),results.getTimestamp(5), results.getBytes(6));
 			}
 			connection.close();
 		} catch (SQLException e) {

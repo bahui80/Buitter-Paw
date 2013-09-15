@@ -3,8 +3,8 @@ package it.itba.edu.ar.servlets;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.UserService;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class Register extends HttpServlet {
 		String description = fileItems.get(5).getString();
 		String question = fileItems.get(6).getString();
 		String answer = fileItems.get(7).getString();
-		Date creationDate = new Date();
+		Timestamp creationDate = new Timestamp(new Date().getTime());
 		String photoName = fileItems.get(8).getName();
 		byte[] photo = null;
 

@@ -72,10 +72,10 @@ public class HashtagManager implements HashtagDao{
 						results.getString(4), results.getString(5), 
 						results.getString(6), results.getString(7),
 						results.getString(8), results.getString(9), 
-						results.getDate(10), results.getString(11));
+						results.getTimestamp(10), results.getBytes(11));
 				
 				hashtags.add(new Hashtag(results.getInt(13),results.getString(1),
-						results.getDate(14),user));
+						results.getTimestamp(14),user));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -104,10 +104,10 @@ public class HashtagManager implements HashtagDao{
 						results.getString(4), results.getString(5), 
 						results.getString(6), results.getString(7),
 						results.getString(8), results.getString(9), 
-						results.getDate(10), results.getString(11));
+						results.getTimestamp(10), results.getBytes	(11));
 				
 				hashtags.add(new Hashtag(results.getInt(13),results.getString(1),
-						results.getDate(14),user));
+						results.getTimestamp(14),user));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -118,7 +118,7 @@ public class HashtagManager implements HashtagDao{
 	}
 	
 
-	public void insertHashtag(Hashtag hashtag,int userid) {
+	public void insertHashtag(Hashtag hashtag) {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
@@ -126,7 +126,7 @@ public class HashtagManager implements HashtagDao{
 							"VALUES(?,?,CURRENT_DATE)");
 			
 			stmt.setString(1,hashtag.getHashtag());
-			stmt.setInt(2, userid);
+			stmt.setInt(2, hashtag.getUser().getId());
 
 			stmt.execute();
 

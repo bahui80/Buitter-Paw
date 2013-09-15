@@ -9,6 +9,6 @@ public interface HashtagDao {
 
 		public List<Hashtag> getHashtagsSinceDate(Date date);
 		public List<Hashtag> hashtagForUser(String username);
-		public void insertHashtag(Hashtag hashtag,int userid);
+		public void insertHashtag(Hashtag hashtag);
 		
 }
