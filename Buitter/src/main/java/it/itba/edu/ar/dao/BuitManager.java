@@ -32,7 +32,7 @@ public class BuitManager implements BuitDao{
 	private BuitManager(){
 		manager = new ConnectionManager(driver,connectionString , username, password);
 	}
-	
+	//TODO cambiar que no reciba el userId
 	public void buit(Buit buit, int userid) {
 		try {
 			Connection connection = manager.getConnection();
@@ -42,6 +42,7 @@ public class BuitManager implements BuitDao{
 			
 			stmt.setString(1,buit.getMessage());
 			stmt.setInt(2, userid);
+			stmt.setDate(3, new java.sql.Date(buit.getDate().getTime()));
 
 			stmt.execute();
 
@@ -66,7 +67,7 @@ public class BuitManager implements BuitDao{
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
 				System.out.println("ENTRO");
-				buits.add(new Buit(results.getInt(1),results.getString(2), user, results.getDate(4)));
+				buits.add(new Buit(results.getInt(1),results.getString(2), user, results.getDate(3)));
 
 			}
 			connection.close();

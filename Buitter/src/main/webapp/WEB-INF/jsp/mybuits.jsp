@@ -11,31 +11,31 @@
 
 			<div class="well well-lg text-center">
 				<img class="profile-pic" src="img/nopicture.png" />
-				<h2 class="profile-name">Nombre Apellido</h2>
-				<h4 class="profile-user">@username</h4>
-				<p class="profile-desc">This is my description. Find out what's
-					happening, right now, with the people and organizations you care
-					about.</p>
+				<h2 class="profile-name"><c:out value="${user_info.name}"/> <c:out value="${user_info.surname}"/></h2>
+				<h4 class="profile-user">@<c:out value="${user_info.username}"/></h4>
+				<p class="profile-desc"><c:out value="${user_info.description}"/></p>
 			</div>
 
 			<div class="well well-lg">
-				<div class="input-group buit-compose-form">
-					<form>
-						<fieldset>
-							<textarea class="form-control" rows="3" id="textArea"
-								placeholder="Compose new Buit..." maxlength="140"></textarea>
+				<c:if test="${user == user_info.username }">
+					<div class="input-group buit-compose-form">
+						<form method="post" action="profile">
+							<fieldset>
+								<textarea class="form-control" rows="3" name="buit"
+									placeholder="Compose new Buit..." maxlength="140"></textarea>
 
-							<button type="submit"
-								class="btn btn-primary pull-right buit-compose-button">Buit</button>
-						</fieldset>
-					</form>
-				</div>
+								<button type="submit"
+									class="btn btn-primary pull-right buit-compose-button">Buit</button>
+							</fieldset>
+						</form>
+					</div>
+				</c:if>
 
 				<c:choose>
 					<c:when test="${empty buits}">
 						<div class="alert-box">
 							<img src="img/logo.png" class="logo-alt" /> <br />@<c:out
-									value="${user.username}" /> hasn't buited yet.
+									value="${user_info.username}" /> hasn't buited yet.
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -48,8 +48,8 @@
 								</a>
 								<div class="media-body">
 									<div class="media-heading">
-										<span class="pull-left text-bold"><c:out
-												value="${buit.username}" /></span> <span class="pull-right"><c:out
+										<span class="pull-left text-bold">@<c:out
+												value="${buit.user.username}" /></span> <span class="pull-right"><c:out
 												value="${buit.date}" /></span>
 									</div>
 									<br />

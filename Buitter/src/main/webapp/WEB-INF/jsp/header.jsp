@@ -61,8 +61,8 @@ function toggle(){
 				<ul class="nav navbar-nav" style="float:right">
 					<li class="active"><a href="#">Home</a></li>
 					<c:if test="${not empty user}">
-						<li><a href="<c:url value="profile"><c:param name="name" value="${user.username}"/></c:url>">
-							<c:out value="${user.username}"/></a></li>
+						<li><a href="<c:url value="profile"><c:param name="name" value="${user}"/></c:url>">
+							<c:out value="${user}"/></a></li>
 						<li id="dropdown" class="dropdown" onclick="toggle()">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
                           <ul class="dropdown-menu">

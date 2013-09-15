@@ -35,9 +35,10 @@ public class Login extends HttpServlet{
 		User user = userService.login(new User(username,password));
 		
 		if(user != null){
-			req.getSession().setAttribute("user", user);
+			req.getSession().setAttribute("user", username);
 			req.getRequestDispatcher("index.jsp").forward(req, resp);
-		}else{
+		} else {
+			req.setAttribute("user_username", username);
 			req.setAttribute("error_login", "Username or password incorrect");
 			req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
 		}

@@ -13,7 +13,7 @@ public class User {
 	private String secret_question;
 	private String secret_answer;
 	private Date creationDate;
-	private String photo; // TODO ver que tipo
+	private byte[] photo; // TODO ver que tipo
 
 	public User(String username, String password){
 		if(username == null || username.length() > 32 || password == null || password.length() > 32)
@@ -26,7 +26,7 @@ public class User {
 	
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Date creationDate, String photo){
+			Date creationDate, byte[] photo){
 		if(username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
@@ -41,12 +41,12 @@ public class User {
 		this.secret_answer = secret_answer;
 		this.secret_question = secret_question;
 		this.creationDate = creationDate;
-		//this.photo = photo;
+		this.photo = photo;
 	}
 	
 	public User(int id, String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Date creationDate, String photo){
+			Date creationDate, byte[] photo){
 		if(id == 0 || username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
@@ -62,7 +62,7 @@ public class User {
 		this.secret_answer = secret_answer;
 		this.secret_question = secret_question;
 		this.creationDate = creationDate;
-//		this.photo = photo;
+		this.photo = photo;
 	}
 	
 	public Integer getId() {
@@ -149,13 +149,14 @@ public class User {
 		return creationDate;
 	}
 
-	public String getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
-		if(photo == null)
+	public void setPhoto(byte[] photo) {
+		if(photo == null) {
 			throw new IllegalArgumentException();
+		}
 		this.photo = photo;
 	}
 }

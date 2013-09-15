@@ -26,19 +26,16 @@ public class BuitService{
 	private BuitService(){
 	}
 	
-	public void main(String[] args) {
-		parseBuit("hadhsajkdhsakjn#sadsada. HOla juanann");
-	}
 	public void removeBuit(Buit buit, User user) {
 		BuitManager buitManager = BuitManager.sharedInstance();
 
 		buitManager.removeBuit(buit.getId(), user.getId());
 	}
 
-	public void buit(Buit buit, User user) {
+	public void buit(Buit buit) {
 		BuitManager buitManager = BuitManager.sharedInstance();
 
-		buitManager.buit(buit, user.getId());
+		buitManager.buit(buit, buit.getUser().getId());
 	}
 
 	public List<Hashtag> trendingTopics(Date date) {
@@ -46,24 +43,6 @@ public class BuitService{
 		return hashtagManager.getHashtagsSinceDate(date);
 	}
 
-	public String parseBuit(String buit) {
-		String patternStr = "#([A-Za-z0-9_]+)";
-		Pattern pattern = Pattern.compile(patternStr);
-		Matcher matcher = pattern.matcher(buit);
-		String result = "";
-		
-		// Search for Hashtags
-		while (matcher.find()) {
-			result = matcher.group();
-			result = result.replace(" ", "");
-			String search = result.replace("#", "");
-			String searchHTML = "<a href='hashtag?name='" + search + "'>" + result + "</a>";
-			buit = buit.replace(result, searchHTML);
-		}
-		
-		return buit;
-	}
-	
 	public List<Buit> getUserBuits(User user){
 		BuitManager buitManager = BuitManager.sharedInstance();
 

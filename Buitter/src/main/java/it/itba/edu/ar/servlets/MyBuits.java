@@ -1,6 +1,5 @@
 package it.itba.edu.ar.servlets;
 
-import it.itba.edu.ar.dao.BuitManager;
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.BuitService;
@@ -9,6 +8,8 @@ import it.itba.edu.ar.services.UserService;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class MyBuits extends HttpServlet	 {
+public class MyBuits extends BuitsHttpServlet {
 	
 	private UserService userService;
 	private BuitService buitService;
@@ -31,10 +32,14 @@ public class MyBuits extends HttpServlet	 {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String profile = request.getParameter("name");
 		
-		if(profile != null && userService.checkUsername(profile)){
+		if(profile != null && userService.checkUsername(profile)) {
 			User usr = userService.getUserByUsername(profile);
 			List<Buit> buits = buitService.getUserBuits(usr);
+			for(Buit buit: buits) {
+				buit.setMessage(prepareBuit(buit.getMessage()));
+			}
 			request.setAttribute("buits", buits);
+			request.setAttribute("user_info", usr);
 		} else {
 			request.setAttribute("user_error", "That user doesn't exist");
 		}
@@ -49,10 +54,13 @@ public class MyBuits extends HttpServlet	 {
 		
 		if(buit.equals("")) {
 			request.setAttribute("error_buit", "Your buit is empty");
+			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
+			//request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
 		} else {
-			buit = buitService.parseBuit(buit);
-			buitService.buit(new Buit(buit, ((User)request.getSession().getAttribute("user")).getUsername(), new Date()), (User) request.getSession().getAttribute("user"));
-			//TODO PARSEAR BUIT Y GUARDARLO
+			getHashTags(buit);
+			buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Date()));
 		}
 	}
+	
+	
 }
