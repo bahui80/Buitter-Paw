@@ -14,7 +14,7 @@ import java.util.List;
 public class UserManager implements UserDao {
 
 	private static UserManager instance;
-	private final ConnectionManager manager;
+	private static ConnectionManager manager;
 	
 	private static final String driver = "org.postgresql.Driver";
 	private static final String connectionString = "jdbc:postgresql://localhost/paw2";
@@ -44,7 +44,7 @@ public class UserManager implements UserDao {
 			if (results.next()) {
 				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getString(6));
+						results.getString(10),results.getDate(5), results.getBytes(6));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -65,7 +65,7 @@ public class UserManager implements UserDao {
 			if (results.next()) {
 				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getString(6));
+						results.getString(10),results.getDate(5), results.getBytes(6));
 
 			}
 			connection.close();
@@ -87,7 +87,7 @@ public class UserManager implements UserDao {
 			while (results.next()) {
 				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getString(6)));
+						results.getString(10),results.getDate(5), results.getBytes(6)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -108,7 +108,7 @@ public class UserManager implements UserDao {
 			while (results.next()) {
 				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getString(6)));
+						results.getString(10),results.getDate(5), results.getBytes(6)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -130,7 +130,7 @@ public class UserManager implements UserDao {
 			if (results.next()) {
 				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
 						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getDate(5), results.getString(6));
+						results.getString(10),results.getDate(5), results.getBytes(6));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -144,18 +144,19 @@ public class UserManager implements UserDao {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
 					("INSERT INTO Users(name,surname,password," +
-							"date,username,description,secret_question," +
-							"secret_answer) VALUES(?,?,?,?,?,?,?,?)");
+							"date,photo,username,description,secret_question," +
+							"secret_answer) VALUES(?,?,?,?,?,?,?,?,?)");
 			
 			stmt.setString(1, user.getName());
 			stmt.setString(2,user.getSurname());
 			stmt.setString(3,user.getPassword());
 			stmt.setDate(4,new java.sql.Date(user.getCreationDate().getTime()));
-			stmt.setString(5, user.getUsername());
-			stmt.setString(6, user.getDescription());
-			stmt.setString(7, user.getSecretQuestion());
-			stmt.setString(8, user.getSecretAnswer());
-
+			stmt.setBytes(5, user.getPhoto());
+			stmt.setString(6, user.getUsername());
+			stmt.setString(7, user.getDescription());
+			stmt.setString(8, user.getSecretQuestion());
+			stmt.setString(9, user.getSecretAnswer());
+			
 			stmt.executeUpdate();
 			connection.close();
 		} catch (SQLException e) {
@@ -164,6 +165,8 @@ public class UserManager implements UserDao {
 
 	}
 
+	
+	// TODO modificar la atualizacion (agregar photo)
 	public void updateUser(User user) {
 		try {
 			Connection connection = manager.getConnection();
@@ -187,5 +190,5 @@ public class UserManager implements UserDao {
 			throw new DatabaseException(e.getMessage(), e);
 		}
 	}
-
+	
 }

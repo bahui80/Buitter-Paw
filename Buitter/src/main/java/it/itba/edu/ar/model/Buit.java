@@ -42,8 +42,9 @@ public class Buit {
 	}
 
 	public void setMessage(String message) {
-		if(message == null || message.length() > 140)
+		if(message == null || message.length() > 320) {
 			throw new IllegalArgumentException();
+		}
 		this.message = message;
 	}
 

@@ -4,7 +4,7 @@
 <div class="row row-offcanvas row-offcanvas-right">
 <div class="col-md-8 col-md-offset-2">
     <div class="well">
-              <form class="bs-example form-horizontal" method="post" action="register" >
+              <form class="bs-example form-horizontal" method="post" action="register" enctype="multipart/form-data">
                 <fieldset>
                   <legend>New user</legend>
                   <div class="form-group">
@@ -92,7 +92,7 @@
                   <div class="form-group">
                     <div class="col-md-5 col-md-offset-4">
                       <button class="btn btn-default">Cancel</button>
-                      <button type="submit" class="btn btn-primary">Submit</button> 
+                      <button type="submit" class="btn btn-primary">Confirm</button> 
                     </div>
                   </div>
                 </fieldset>
