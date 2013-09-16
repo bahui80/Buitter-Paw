@@ -32,8 +32,10 @@ CREATE TABLE Buithash (
 );
 
 CREATE TABLE Urls (
-	urlid SERIAL PRIMARY KEY NOT NULL,
+	urlid SERIAL NOT NULL,
 	url VARCHAR(140) NOT NULL,
 	buiturl VARCHAR(140) NOT NULL,
-	buitid INTEGER NOT NULL REFERENCES Buits(buitid)
+	buitid INTEGER NOT NULL REFERENCES Buits(buitid),
+	
+	PRIMARY KEY(urlid,buitid)
 );

@@ -26,10 +26,10 @@ public class BuitService{
 	private BuitService(){
 	}
 	
-	public void removeBuit(Buit buit, User user) {
+	public void removeBuit(int buitid) {
 		BuitManager buitManager = BuitManager.sharedInstance();
-
-		buitManager.removeBuit(buit.getId());
+		
+		buitManager.removeBuit(buitid);
 	}
 
 	public Buit buit(Buit buit) {

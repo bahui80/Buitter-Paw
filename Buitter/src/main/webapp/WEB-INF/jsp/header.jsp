@@ -67,7 +67,7 @@ function toggle(){
 						<li><a href="<c:url value="profile"><c:param name="name" value="${user}"/></c:url>">
 							<c:out value="@${user}"/></a></li>
 						<li id="dropdown" class="dropdown" onclick="toggle()">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class='icon-cog'></i><b class="caret"> </b> </a>
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class='icon-cog'></i>	 </a>
                           <ul class="dropdown-menu">
                            <li><a href="#"><i class='icon-pencil'></i>  Edit profile</a></li>
                              <li class="divider"></li>
