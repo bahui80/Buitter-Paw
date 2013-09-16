@@ -1,12 +1,12 @@
 /* BUITTER FONT-FACE */
 @font-face {
 	font-family: logo_font;
-	src: url('../fonts/The Mocking Bird.ttf');
+	src: url('../font/The Mocking Bird.ttf');
 }
 
 @font-face {
 	font-family: no-more-tweets;
-	src: url('../fonts/TheGreatEscape.ttf');
+	src: url('../font/TheGreatEscape.ttf');
 }
 /**** END BUITTER FONT FACE ****/
 

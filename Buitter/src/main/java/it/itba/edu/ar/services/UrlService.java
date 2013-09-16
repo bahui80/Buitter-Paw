@@ -23,11 +23,22 @@ public final class UrlService {
 	
 	public void insertUrl(Url url){
 		UrlManager urlManager = UrlManager.sharedInstance();
-
-		urlManager.insertUrl(url);
+		
+		int hashedUrl = url.hashCode();
+		String buiturl = "buit.li/" + hashedUrl;
+		url.setBuiturl(buiturl);
+		
+		Integer urlid = urlManager.getIdForUrl(url.getUrl());
+		if(urlid != null){
+			url.setUrlid(urlid);
+			urlManager.insertUrl(url);
+		}else{
+			urlManager.insertUrl(url);
+		}
+		
 	}
 	
-	public boolean buitHashUrl(Buit buit){
+	public boolean buitHasUrl(Buit buit){
 		UrlManager urlManager = UrlManager.sharedInstance();
 
 		if(urlManager.urlsForBuit(buit) != null)

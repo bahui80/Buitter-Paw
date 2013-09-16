@@ -8,7 +8,9 @@ import java.util.List;
 public interface UrlDao {
 
 	public void insertUrl(Url url);
+	public void insertNewUrl(Url url);
 	public List<Url> urlsForBuit(Buit buit);
-	
+	public Url getUrlForId(int id);
+
 }
 
