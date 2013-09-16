@@ -28,7 +28,7 @@
 							<fieldset>
 								<textarea id="buit-field" class="form-control" rows="3" name="buit"
 									placeholder="Compose new Buit..." maxlength="140"></textarea>
-									<span  id='remainingC'>140</span>
+									Remaining: <span  id='remainingC'>140</span>
                       				<c:if test="${not empty error_buit}">
                         				<p class="text-danger" style="margin-bottom: 0px"><small><em>Your buit is empty<c:out value="${error_buit}"/></em></small></p>
                       				</c:if>
