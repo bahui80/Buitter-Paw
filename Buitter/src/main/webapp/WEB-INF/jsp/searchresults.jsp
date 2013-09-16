@@ -12,17 +12,37 @@
 			<div class="well well-lg">
 
 				<div class="well-header">
-					People results for <span class="text-bold"><c:out
-							value="${query}" /></span>
+
+					<c:choose>
+						<c:when test="${empty query}">
+							Registered users
+						</c:when>
+						<c:otherwise>
+							People results for <span class="text-bold"><c:out
+									value="${query}" /></span>
+						</c:otherwise>
+					</c:choose>
+
 				</div>
 
 				<c:choose>
 					<c:when test="${empty results}">
+
 						<div class="alert-box">
-						<img src="img/logo.png" class="logo-alt"/>
-						<br/>No people results for <span
-							class="text-bold"><c:out value="${query}" />.</span>
+							<img src="img/logo.png" class="logo-alt" /> <br />
+
+							<c:choose>
+								<c:when test="${empty query}">
+									There are no registered users so far.
+								</c:when>
+								<c:otherwise>
+									No people results for <span class="text-bold"><c:out
+									value="${query}" />.</span>
+								</c:otherwise>
+							</c:choose>
+							
 						</div>
+						
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${results}" var="user">
