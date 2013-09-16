@@ -36,7 +36,7 @@
 		<servlet-name>ForgotPassword</servlet-name>
 		<url-pattern>/recoverpassword</url-pattern>
 	</servlet-mapping>
-		<servlet>
+	<servlet>
 		<servlet-name>MyBuits</servlet-name>
 		<servlet-class>it.itba.edu.ar.servlets.MyBuits</servlet-class>
 	</servlet>
@@ -44,7 +44,7 @@
 		<servlet-name>MyBuits</servlet-name>
 		<url-pattern>/profile</url-pattern>
 	</servlet-mapping>
-		<servlet>
+	<servlet>
 		<servlet-name>SearchResults</servlet-name>
 		<servlet-class>it.itba.edu.ar.servlets.SearchResults</servlet-class>
 	</servlet>
@@ -52,12 +52,20 @@
 		<servlet-name>SearchResults</servlet-name>
 		<url-pattern>/searchresults</url-pattern>
 	</servlet-mapping>
-		<servlet>
+	<servlet>
 		<servlet-name>Hashtag</servlet-name>
 		<servlet-class>it.itba.edu.ar.servlets.Hashtag</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Hashtag</servlet-name>
 		<url-pattern>/hashtag</url-pattern>
+	</servlet-mapping>
+		<servlet>
+		<servlet-name>DeleteBuit</servlet-name>
+		<servlet-class>it.itba.edu.ar.servlets.DeleteBuit</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteBuit</servlet-name>
+		<url-pattern>/deletebuit</url-pattern>
 	</servlet-mapping>
 </web-app>
