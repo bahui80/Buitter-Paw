@@ -159,4 +159,12 @@ public class User {
 		}
 		this.photo = photo;
 	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", surname=" + surname + ", username="
+				+ username + "]";
+	}
+	
+	
 }

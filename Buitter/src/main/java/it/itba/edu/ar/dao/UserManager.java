@@ -32,6 +32,16 @@ public class UserManager implements UserDao {
 		manager = new ConnectionManager(driver,connectionString , username, password);
 	}
 	
+	public static void main(String args[]){
+		UserManager usrm = UserManager.sharedInstance();
+		
+		List<User> list = usrm.getAllUsersMatching("gu");
+		
+		for (User user : list) {
+			System.out.println(user);
+		}
+	}
+	
 	public User getUserByUsername(String username) {
 		User usr = null;
 		try {
@@ -218,11 +228,13 @@ public class UserManager implements UserDao {
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT * " +
 					"FROM Users " +
-					"WHERE (name = ? OR surname = ? OR username = ?) " +
+					"WHERE ( (lower(name) LIKE ANY ( SELECT  ? ||'%' FROM Users ) ) OR " +
+					"(lower(surname) LIKE ANY ( SELECT  ? ||'%' FROM Users ) )  OR " +
+					"(lower(username) LIKE ANY ( SELECT  ? ||'%' FROM Users ) ) )" +
 					"ORDER BY surname, name");
-			stmt.setString(1, query);
-			stmt.setString(2, query);
-			stmt.setString(3, query);
+			stmt.setString(1, query.toLowerCase());
+			stmt.setString(2, query.toLowerCase());
+			stmt.setString(3, query.toLowerCase());
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
