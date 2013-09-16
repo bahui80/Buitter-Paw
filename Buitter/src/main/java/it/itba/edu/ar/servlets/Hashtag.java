@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class Hashtag extends HttpServlet {
+public class Hashtag extends BuitsHttpServlet {
 
 	private BuitService buitService;
 	
@@ -27,7 +27,9 @@ public class Hashtag extends HttpServlet {
 		String hashtagname = req.getParameter("name");
 		List<Buit> buits = buitService.getBuitsForHashtag(hashtagname);
 		it.itba.edu.ar.model.Hashtag hashtag = buitService.getHashtag(hashtagname);
-				
+		for(Buit buit: buits) {
+			buit.setMessage(prepareBuit(buit.getMessage()));
+		}	
 		req.setAttribute("buits", buits);
 		req.setAttribute("hashtag", hashtag);
 		

@@ -1,1 +1,1 @@
-﻿DROP TABLE buits, users, hashtags, buithash
+﻿DROP TABLE urls, buithash, hashtags, buits, users
