@@ -4,6 +4,24 @@
 <div class="row row-offcanvas row-offcanvas-right">
 <div class="col-md-6 col-md-offset-3">
 	<div class="well">
+		<c:if test="${not empty error_logged_in}">
+			<form class="bs-example form-horizontal" method="post" action="login">
+			<fieldset>
+				<legend>Logout</legend>
+                <div class="form-group text-center	">
+                	<label  control-label">Do you want to logout?</label>
+                </div>
+                <div class="form-group" style="margin-left: -27px;">
+                    <span class="col-md-offset-4">
+                      <input type="submit" value="Logout" name="logout" class="btn btn-danger"></input>
+                      <input type="submit" value="Keep buitting" name="continue" class="btn btn-success"></input>
+                    </span>	
+                    
+                </div>
+			</fieldset>
+		</form>
+		</c:if>
+		<c:if test="${empty error_logged_in}">
 		<form class="bs-example form-horizontal" method="post" action="login">
 			<fieldset>
 				<legend>Login</legend>
@@ -32,6 +50,7 @@
                 </div>
 			</fieldset>
 		</form>
+		</c:if>
 	</div>
 </div>
 </div>
