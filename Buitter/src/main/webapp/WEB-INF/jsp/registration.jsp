@@ -7,7 +7,7 @@
               <form class="bs-example form-horizontal" method="post" action="register" enctype="multipart/form-data">
                 <fieldset>
                   <legend>New user</legend>
-                  <div class="form-group">
+                  <div class="form-group <c:if test="${not empty error_username}">has-error</c:if>">
                     <label for="username" class="col-md-3 control-label">Username</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control2" placeholder="Username" name="username" value="<c:out value="${user_username}"/>"/>
@@ -16,7 +16,7 @@
                       </c:if>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group <c:if test="${not empty error_password}">has-error</c:if>">
                     <label for="password" class="col-md-3 control-label">Password</label>
                     <div class="col-md-8">
                       <input type="password" class="form-control2" placeholder="Password" name="password" value="<c:out value="${user_password}"/>"/>
@@ -25,7 +25,7 @@
                       </c:if>
                     </div>
                   </div>
-                   <div class="form-group">
+                   <div class="form-group <c:if test="${not empty error_password2}">has-error</c:if>">
                     <label for="re-password" class="col-md-3 control-label">Re-type password</label>
                     <div class="col-md-8">
                       <input type="password" class="form-control2" placeholder="Re-type password" name="password2" value="<c:out value="${user_password2}"/>"/>
@@ -34,7 +34,7 @@
                       </c:if>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group <c:if test="${not empty error_name}">has-error</c:if>">
                     <label for="name" class="col-md-3 control-label pull-left">Name</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control2" placeholder="Name" name="name" value="<c:out value="${user_name}"/>"/>
@@ -43,7 +43,7 @@
                       </c:if>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group <c:if test="${not empty error_surname}">has-error</c:if>">
                     <label for="surname" class="col-md-3 control-label">Surname</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control2" placeholder="Surname" name="surname" value="<c:out value="${user_surname}"/>"/>
@@ -52,7 +52,7 @@
                       </c:if>
                     </div>
                   </div>
-                    <div class="form-group">
+                    <div class="form-group <c:if test="${not empty error_description}">has-error</c:if>">
                     <label for="description" class="col-md-3 control-label">Description</label>
                     <div class="col-md-8">
                       <textarea class="form-control2" rows="4" name="description"><c:out value="${user_description}"/></textarea>
@@ -74,7 +74,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group <c:if test="${not empty error_answer}">has-error</c:if>">
                     <label for="answer" class="col-md-3 control-label">Secret answer</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control2" placeholder="Type your answer" name="answer" value="<c:out value="${user_answer}"/>"/>

@@ -115,6 +115,11 @@ public class Register extends HttpServlet {
 
 	private void checkUsername(String username, HttpServletRequest request) {
 		if (!username.equals("")) {
+			if(username.trim().length() == 0 || !username.matches("[a-zA-Z0-9_.-]+")) {
+				request.setAttribute("error_username",
+						"Invalid format username");
+				error = true;
+			}
 			if (username.length() <= 32) {
 				if (userService.checkUsername(username)) {
 					request.setAttribute("error_username",
@@ -128,6 +133,7 @@ public class Register extends HttpServlet {
 			}
 			request.setAttribute("user_username", username);
 		} else {
+
 			request.setAttribute("error_username",
 					"You must insert an username");
 			error = true;
@@ -137,6 +143,11 @@ public class Register extends HttpServlet {
 	private void checkPassword(String password, String password2,
 			HttpServletRequest request) {
 		if (!password.equals("")) {
+			if(!password.matches("[a-zA-Z0-9]+")) {
+				request.setAttribute("error_password",
+						"Invalid password format");
+				error = true;
+			}
 			if (password.length() > 32) {
 				request.setAttribute("error_password",
 						"The password must contain up to 32 characters");
@@ -156,6 +167,11 @@ public class Register extends HttpServlet {
 
 	private void checkName(String name, HttpServletRequest request) {
 		if (!name.equals("")) {
+			if(name.trim().length() == 0 || !name.matches("^[\\p{L} ]+$")) {
+				request.setAttribute("error_name",
+						"Invalid format name");
+				error = true;
+			}
 			if (name.length() > 32) {
 				request.setAttribute("error_name",
 						"The name must contain up to 32 characters");
@@ -170,6 +186,11 @@ public class Register extends HttpServlet {
 
 	private void checkSurname(String surname, HttpServletRequest request) {
 		if (!surname.equals("")) {
+			if(surname.trim().length() == 0 || !surname.matches("^[\\p{L} ]+$")) {
+				request.setAttribute("error_surname",
+						"Invalid format surname");
+				error = true;
+			}
 			if (surname.length() > 32) {
 				request.setAttribute("error_surname",
 						"The surname must contain up to 32 characters");
@@ -184,6 +205,11 @@ public class Register extends HttpServlet {
 
 	private void checkDescription(String description, HttpServletRequest request) {
 		if (!description.equals("")) {
+			if(description.trim().length() == 0) {
+				request.setAttribute("error_description",
+						"Invalid format description");
+				error = true;
+			}
 			if (description.length() > 140) {
 				request.setAttribute("error_description",
 						"The description must contain up to 140 characters");
@@ -199,6 +225,11 @@ public class Register extends HttpServlet {
 
 	private void checkAnswer(String answer, HttpServletRequest request) {
 		if (!answer.equals("")) {
+			if(answer.trim().length() == 0) {
+				request.setAttribute("error_answer",
+						"Invalid format answer");
+				error = true;
+			}
 			if (answer.length() > 60) {
 				request.setAttribute("error_answer",
 						"The answer must contain up to 60 characters");

@@ -1,12 +1,12 @@
 /* BUITTER FONT-FACE */
 @font-face {
 	font-family: logo_font;
-	src: url('../The Mocking Bird.ttf');
+	src: url('../fonts/The Mocking Bird.ttf');
 }
 
 @font-face {
 	font-family: no-more-tweets;
-	src: url('../TheGreatEscape.ttf');
+	src: url('../fonts/TheGreatEscape.ttf');
 }
 /**** END BUITTER FONT FACE ****/
 
@@ -128,6 +128,12 @@ footer {
 
 textarea.form-control2 {
   height: auto;
+}
+
+.has-error .form-control2 {
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
 .form-control2 {
