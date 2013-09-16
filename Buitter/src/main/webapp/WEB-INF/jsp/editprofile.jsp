@@ -1,4 +1,4 @@
-<%@ include file="WEB-INF/jsp/header.jsp"%>
+<%@ include file="header.jsp"%>
 
 <div class="container">
 
@@ -64,8 +64,7 @@
 						<div class="form-group">
 							<label for="description" class="col-md-3 control-label">Description</label>
 							<div class="col-md-8">
-								<textarea class="form-control2" rows="2" name="description"
-									value="<c:out value="${description}" />"></textarea>
+								<textarea class="form-control2" rows="2" name="description"><c:out value="${description}" /></textarea>
 								<span class="help-block">Write a description for others
 									users to get to know you</span>
 								<c:if test="${not empty error_description}">
@@ -79,13 +78,12 @@
 							<label for="question" class="col-md-3 control-label">Secret
 								question</label>
 							<div class="col-md-8">
-								<select class="form-control2" name="question"
-									value="<c:out value="${question}" />">
-									<option>What's the name of your dog?</option>
-									<option>Who was your favourite teacher?</option>
-									<option>Where do you live?</option>
-									<option>Do you hate Twitter?</option>
-									<option>What's your aunt's name?</option>
+								<select class="form-control2" name="question">
+									<option <c:if test="${question == 'What is the name of your dog?'}">selected="selected"</c:if> >What is the name of your dog?</option>
+									<option <c:if test="${question == 'Who was your favourite teacher?'}">selected="selected"</c:if> >Who was your favourite teacher?</option>
+									<option <c:if test="${question == 'Where do you live?'}">selected="selected"</c:if> >Where do you live?</option>
+									<option <c:if test="${question == 'Do you hate Twitter?'}">selected="selected"</c:if> >Do you hate Twitter?</option>
+									<option <c:if test="${question == 'What is your aunts name?'}">selected="selected"</c:if> >What is your aunts name?</option>
 								</select>
 							</div>
 						</div>
@@ -123,9 +121,9 @@
 			</div>
 		</div>
 
-		<%@ include file="WEB-INF/jsp/sidebar.jsp"%>
+		<%@ include file="sidebar.jsp"%>
 
 	</div>
 	<!--/cerrar el div si la sidebar esta presente-->
 
-	<%@ include file="WEB-INF/jsp/footer.jsp"%>
+	<%@ include file="footer.jsp"%>

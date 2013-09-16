@@ -21,6 +21,14 @@
 		<url-pattern>/register</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>EditProfile</servlet-name>
+		<servlet-class>it.itba.edu.ar.servlets.EditProfile</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditProfile</servlet-name>
+		<url-pattern>/editprofile</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>it.itba.edu.ar.servlets.Logout</servlet-class>
 	</servlet>
