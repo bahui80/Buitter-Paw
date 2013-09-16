@@ -60,7 +60,7 @@
 									<p>
 									<div class="pull-left">
 										Date registered:
-										<c:out value="${user.date}" />
+										<c:out value="${user.creationDate}" />
 									</div>
 									</p>
 								</div>
