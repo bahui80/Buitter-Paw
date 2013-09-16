@@ -32,12 +32,19 @@
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar"
 				role="navigation">
 				<div class="well sidebar-nav">
+				<span> Trending Topics </span> <span><select class="form-control" id="select">
+                        <option>1 day</option>
+                        <option>1 week</option>
+                        <option>1 month</option>
+                        
+                      </select></span>
 					<ul class="nav">
-						<li>Trending Topics</li>
 						<c:forEach items="${trending}" var="trend">
 							<li><a href="<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>">  #<c:out value="${trend.hashtag}" /></a></li>
 						</c:forEach>
+						<li><button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-refresh"> Refresh</i></button></li>
 					</ul>
+					
 				</div>
 				<!--/.well -->
 			</div>

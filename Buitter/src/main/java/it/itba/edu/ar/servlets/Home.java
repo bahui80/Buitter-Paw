@@ -27,6 +27,8 @@ public class Home extends BuitsHttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
+		
+		
 		Date tdate = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
 		
 		List<Hashtag> trendingTopics = buitService.trendingTopics(tdate);
@@ -34,6 +36,13 @@ public class Home extends BuitsHttpServlet{
 		req.setAttribute("trending", trendingTopics);
 		
 		req.getRequestDispatcher("index.jsp").forward(req,resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doPost(req, resp);
 	}
 	
 }
