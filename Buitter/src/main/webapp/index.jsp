@@ -32,7 +32,7 @@
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar"
 				role="navigation">
 				<div class="well sidebar-nav">
-				<span> Trending Topics </span> <span><select class="form-control" id="select">
+				<span> Trending Topics </span> <span><select class="form-control" id="select" style="width:100%">
                         <option>1 day</option>
                         <option>1 week</option>
                         <option>1 month</option>
