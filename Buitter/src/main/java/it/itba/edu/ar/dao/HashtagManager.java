@@ -56,13 +56,13 @@ public class HashtagManager implements HashtagDao{
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT h.hashtag, u.id, u.name, u.surname, u.username, u.password, " +
+					"SELECT h.hashtag, u.userid, u.name, u.surname, u.username, u.password, " +
 					"u.description, u.secret_question, u.secret_answer, u.date, u.photo, " +
 					"h.hashtagid, COUNT(b.buitid) as count , h.date " +
 					"FROM Users as u, Hashtags as h, Buits as b, Buithash as bh " +
 					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid AND h.userid = u.userid " +
 					"AND h.date > ? " +
-					"GROUP BY h.hashtag, u.username, h.hashtagid " +
+					"GROUP BY h.hashtag, u.userid, u.username, h.hashtagid " +
 					"ORDER BY count DESC " +
 					"LIMIT 10");
 			stmt.setTimestamp(1, new java.sql.Timestamp(date.getTime()));

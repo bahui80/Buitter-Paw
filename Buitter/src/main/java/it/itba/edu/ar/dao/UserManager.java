@@ -218,7 +218,8 @@ public class UserManager implements UserDao {
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT * " +
 					"FROM Users " +
-					"WHERE (name = ? OR surname = ? OR username = ?)");
+					"WHERE (name = ? OR surname = ? OR username = ?) " +
+					"ORDER BY surname, name");
 			stmt.setString(1, query);
 			stmt.setString(2, query);
 			stmt.setString(3, query);

@@ -27,9 +27,7 @@ public class Hashtag extends HttpServlet {
 		String hashtagname = req.getParameter("name");
 		List<Buit> buits = buitService.getBuitsForHashtag(hashtagname);
 		it.itba.edu.ar.model.Hashtag hashtag = buitService.getHashtag(hashtagname);
-		
-		System.out.println("<Hashtag:>" + hashtag);
-		
+				
 		req.setAttribute("buits", buits);
 		req.setAttribute("hashtag", hashtag);
 		
