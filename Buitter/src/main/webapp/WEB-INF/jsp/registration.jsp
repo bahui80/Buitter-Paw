@@ -55,7 +55,7 @@
                     <div class="form-group">
                     <label for="description" class="col-md-3 control-label">Description</label>
                     <div class="col-md-8">
-                      <textarea class="form-control2" rows="2" name="description"><c:out value="${user_description}"/></textarea>
+                      <textarea class="form-control2" rows="4" name="description"><c:out value="${user_description}"/></textarea>
                       <span class="help-block">Write a description for others users to get to know you</span>
                       <c:if test="${not empty error_description}">
                         <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_description}"/></em></small></p>

@@ -63,14 +63,12 @@
 
 						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
-								<a class="pull-left" href="#">
 									<c:if test="${not empty user_info.photo}">
-										<img class="media-object buit-profile-pic" src="img/photo.jpg"/>
+										<img class="pull-left media-object buit-profile-pic" src="img/photo.jpg"/>
 									</c:if>
 									<c:if test="${empty user_info.photo}">
-										<img class="media-object buit-profile-pic" src="img/nopicture.png"/>
+										<img class="pull-left media-object buit-profile-pic" src="img/nopicture.png"/>
 									</c:if>
-								</a>
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="pull-left text-bold">@<c:out
@@ -78,7 +76,26 @@
 												value="${buit.date}" /></span>
 									</div>
 									<br />
-									<p>${buit.message}</p>
+									<p style="word-wrap:break-word">${buit.message}</p>
+									<c:if test="${user == user_info.username }">
+										<button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>
+										<script>
+											function proceed (clicked_id) {
+										   		var form = document.createElement('form');
+										   		form.setAttribute('method', 'post');
+										   		form.setAttribute('action', 'deletebuit');
+										    	form.style.display = 'hidden';
+										    	var input = document.createElement('input');
+										    	input.setAttribute('type','text');
+										    	input.setAttribute('name','buitid');
+										    	input.setAttribute('value', clicked_id);
+										    	input.style.display = 'hidden';
+										    	form.appendChild(input);
+										    	document.body.appendChild(form);
+										    	form.submit();
+											}
+										</script>
+									</c:if>
 									<!-- agregar un form oculto con el id para el borrado (buit.id)-->
 								</div>
 							</div>

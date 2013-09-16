@@ -101,7 +101,7 @@ public class UserService {
 	public List<User> search(String query){
 		UserManager userManager = UserManager.sharedInstance();
 		
-		if(query == null)
+		if(query == null || query.trim().isEmpty())
 			return userManager.getAllUsers();
 		return userManager.getAllUsersMatching(query);
 	}

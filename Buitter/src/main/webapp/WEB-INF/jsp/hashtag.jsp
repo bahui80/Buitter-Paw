@@ -10,7 +10,7 @@
 			</p>
 
 			<div class="well well-lg text-center">
-				<img class="profile-pic" src="img/nopicture.png" />
+				<img class="profile-pic" src="img/hashtag.jpeg" />
 				<h2 class="profile-name">#<c:out value="${hashtag.hashtag}" /></h2>
 				<h4 class="profile-user">Created by @<c:out value="${hashtag.user.username}" /></h4>
 				<p class="profile-desc">First used: NO ME LEE EL DATE<c:out value="${}" /></p>

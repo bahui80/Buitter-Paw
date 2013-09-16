@@ -12,6 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="shortcut icon" href="img/logo.png">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <title>Buitter</title>
 
@@ -53,13 +54,13 @@ function toggle(){
 					class="logo" />Buitter</a>
 			</div>
 			<div class="collapse navbar-collapse">
-				<form class="navbar-form navbar-left">
+				<form class="navbar-form navbar-left" method="get" action="searchresults">
 					<div class="form-group">
-						<input type="text" style="margin-top: 4px" class="form-control" placeholder="Search">
+						<input type="search" name="name" style="margin-top: 4px" class="form-control" placeholder="Search">
 					</div>
 				</form>
 				<ul class="nav navbar-nav" style="float:right">
-					<li class=""><a href="#">Home</a></li>
+					<li class=""><a href="/Buitter">Home</a></li>
 					<c:if test="${not empty user}">
 						<li><a href="<c:url value="profile"><c:param name="name" value="${user}"/></c:url>">
 							<c:out value="${user}"/></a></li>

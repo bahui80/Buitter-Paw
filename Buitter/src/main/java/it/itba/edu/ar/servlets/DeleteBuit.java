@@ -1,48 +1,34 @@
 package it.itba.edu.ar.servlets;
 
-import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.dao.BuitManager;
 import it.itba.edu.ar.services.BuitService;
 import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@SuppressWarnings("serial")
-public class SearchResults extends HttpServlet {
 
+@SuppressWarnings("serial")
+public class DeleteBuit extends HttpServlet {
 	private UserService userService;
 	private BuitService buitService;
-
+	private BuitManager manager = BuitManager.sharedInstance();
+	
 	@Override
 	public void init() throws ServletException {
 		userService = UserService.sharedInstance();
 		buitService = BuitService.sharedInstance();
 	};
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-
-		String query = req.getParameter("name");
-		req.setAttribute("query", query);
-
-		List<User> results = userService.search(query);
-		req.setAttribute("results", results);
-
-		req.getRequestDispatcher("WEB-INF/jsp/searchresults.jsp").forward(req,
-				resp);
-	}
-
+	//TODO corregir que esta mal como se borra
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.getRequestDispatcher("WEB-INF/jsp/searchresults.jsp").forward(req,
-				resp);
+		String buitId = req.getParameter("buitid");
+		manager.removeBuit(Integer.valueOf(buitId));
+		resp.sendRedirect("profile?name=" + req.getSession().getAttribute("user"));
 	}
 }
