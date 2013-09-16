@@ -1,6 +1,7 @@
 package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.model.Buit;
+import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.BuitService;
 import it.itba.edu.ar.services.UserService;
@@ -71,7 +72,7 @@ public class MyBuits extends BuitsHttpServlet {
 				//por cada hashtag lo agrego con su buit
 				String username = (String) request.getSession().getAttribute("user");
 				User user = userService.getUserByUsername(username);
-				it.itba.edu.ar.model.Hashtag hashtag = new it.itba.edu.ar.model.Hashtag(hash, new Timestamp(new Date().getTime()), user);
+				Hashtag hashtag = new Hashtag(hash, new Timestamp(new Date().getTime()), user);
 				System.out.println(buitAux);
 				System.out.println(hashtag);
 				buitService.addHashtag(hashtag,buitAux);

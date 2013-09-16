@@ -63,14 +63,12 @@
 
 						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
-								<a class="pull-left" href="#">
 									<c:if test="${not empty user_info.photo}">
-										<img class="media-object buit-profile-pic" src="img/photo.jpg"/>
+										<img class="pull-left media-object buit-profile-pic" src="img/photo.jpg"/>
 									</c:if>
 									<c:if test="${empty user_info.photo}">
-										<img class="media-object buit-profile-pic" src="img/nopicture.png"/>
+										<img class="pull-left media-object buit-profile-pic" src="img/nopicture.png"/>
 									</c:if>
-								</a>
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="pull-left text-bold">@<c:out
