@@ -72,7 +72,7 @@ public class MyBuits extends BuitsHttpServlet {
 				//por cada hashtag lo agrego con su buit
 				String username = (String) request.getSession().getAttribute("user");
 				User user = userService.getUserByUsername(username);
-				Hashtag hashtag = new Hashtag(hash, new Timestamp(new Date().getTime()), user);
+				Hashtag hashtag = new Hashtag(hash, new Date().toString(), user);
 				System.out.println(buitAux);
 				System.out.println(hashtag);
 				buitService.addHashtag(hashtag,buitAux);

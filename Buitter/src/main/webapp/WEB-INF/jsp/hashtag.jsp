@@ -13,7 +13,7 @@
 				<img class="profile-pic" src="img/hashtag.jpeg" />
 				<h2 class="profile-name">#<c:out value="${hashtag.hashtag}" /></h2>
 				<h4 class="profile-user">Created by @<c:out value="${hashtag.user.username}" /></h4>
-				<p class="profile-desc">First used: NO ME LEE EL DATE<c:out value="${}" /></p>
+				<p class="profile-desc">First used: <c:out value="${hashtag.date}" /></p>
 			</div>
 
 			<div class="well well-lg">
@@ -30,12 +30,12 @@
 
 						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
-								<a class="pull-left" href="#"> <img
+								<a class="pull-left"> <img
 									class="media-object buit-profile-pic" src="img/nopicture.png">
 								</a>
 								<div class="media-body">
 									<div class="media-heading">
-										<span class="pull-left text-bold"><c:out
+										<span class="pull-left text-bold">@<c:out
 												value="${buit.user.username}" /></span> <span class="pull-right"><c:out
 												value="${buit.date}" /></span>
 									</div>

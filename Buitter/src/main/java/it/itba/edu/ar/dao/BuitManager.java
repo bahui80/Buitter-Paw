@@ -85,7 +85,7 @@ public class BuitManager implements BuitDao{
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT b.buitid, b.message, to_char(b.date, 'Day, DD Month  HH12:MI:SS') " +
+					"SELECT b.buitid, b.message, to_char(b.date, 'Day, DD Month  HH24:MI:SS') " +
 					"FROM Users as u,Buits as b " +
 					"WHERE u.username = ? AND u.userid = b.userid " +
 					"ORDER BY b.date DESC");
@@ -117,7 +117,7 @@ public class BuitManager implements BuitDao{
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT b.buitid, b.message, u.userid, u.name, u.surname, u.username, " +
 					"u.password, u.description, u.secret_question, u.secret_answer, " +
-					"u.date, u.photo, b.date " +
+					"u.date, u.photo, to_char(b.date, 'Day, DD Month  HH24:MI:SS') " +
 					"FROM Hashtags as h,Buits as b, Buithash as bh, Users as u " +
 					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid AND u.userid = b.userid " +
 					"AND h.hashtag = ? " +

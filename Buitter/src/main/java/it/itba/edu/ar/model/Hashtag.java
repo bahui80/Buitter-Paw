@@ -6,10 +6,10 @@ public class Hashtag {
 	
 	private Integer id;
 	private String hashtag;
-	private Timestamp date;
+	private String date;
 	private User user;
 	
-	public Hashtag(String hashtag, Timestamp date, User user){
+	public Hashtag(String hashtag, String date, User user){
 		if(hashtag == null || hashtag.length() > 139 || date == null || user == null)
 			throw new IllegalArgumentException();
 		
@@ -18,7 +18,7 @@ public class Hashtag {
 		this.user = user;
 	}
 	
-	public Hashtag(int id, String hashtag, Timestamp date, User user){
+	public Hashtag(int id, String hashtag, String date, User user){
 		if(id == 0 || hashtag == null || hashtag.length() > 139 || date == null || user == null)
 			throw new IllegalArgumentException();
 		
@@ -50,6 +50,10 @@ public class Hashtag {
 		if(user == null)
 			throw new IllegalArgumentException();
 		this.user = user;
+	}
+	
+	public String getDate(){
+		return this.date;
 	}
 
 	@Override
