@@ -189,5 +189,51 @@ public class UserManager implements UserDao {
 			throw new DatabaseException(e.getMessage(), e);
 		}
 	}
+
+	public List<User> getAllUsers() {
+		List<User> usrs = new ArrayList<User>();
+		try {
+			Connection connection = manager.getConnection();
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * FROM Users " +
+					"ORDER BY surname, name");
+
+			ResultSet results = stmt.executeQuery();
+			while (results.next()) {
+				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10),results.getTimestamp(5), results.getBytes(6)));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			throw new DatabaseException(e.getMessage(), e);
+		}
+		return usrs;
+	}
+
+	public List<User> getAllUsersMatching(String query) {
+		List<User> usrs = new ArrayList<User>();
+		try {
+			Connection connection = manager.getConnection();
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * " +
+					"FROM Users " +
+					"WHERE (name = ? OR surname = ? OR username = ?)");
+			stmt.setString(1, query);
+			stmt.setString(2, query);
+			stmt.setString(3, query);
+
+			ResultSet results = stmt.executeQuery();
+			while (results.next()) {
+				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
+						results.getString(4),results.getString(8),results.getString(9),
+						results.getString(10),results.getTimestamp(5), results.getBytes(6)));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			throw new DatabaseException(e.getMessage(), e);
+		}
+		return usrs;
+	}
 	
 }

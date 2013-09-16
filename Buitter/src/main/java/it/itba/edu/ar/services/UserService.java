@@ -98,20 +98,12 @@ public class UserService {
 		this.updateUser(user);
 	}
 
-	public HashMap<String,List<User>> search(String query){
-		List<User> surname_query = UserManager.sharedInstance().getUsersBySurname(query);
-		List<User> name_query = UserManager.sharedInstance().getUsersByName(query);
-		User user = UserManager.sharedInstance().getUserByUsername(query);
-		List<User> userList = new ArrayList<User>();
-		userList.add(user);
+	public List<User> search(String query){
+		UserManager userManager = UserManager.sharedInstance();
 		
-		HashMap<String, List<User>> map = new HashMap<String, List<User>>();
-		map.put("username", userList);
-		map.put("name", name_query);
-		map.put("surname", surname_query);
-		
-		return map;	
-		
+		if(query == null)
+			return userManager.getAllUsers();
+		return userManager.getAllUsersMatching(query);
 	}
 	
 }

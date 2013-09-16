@@ -13,5 +13,7 @@ public interface UserDao {
 	public void updateUser(User user);
 	public List<User> getUsersByName(String name);
 	public List<User> getUsersBySurname(String surname);
+	public List<User> getAllUsers();
+	public List<User> getAllUsersMatching(String query);
 	
 }
