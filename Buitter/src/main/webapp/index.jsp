@@ -1,5 +1,13 @@
 <%@ include file="WEB-INF/jsp/header.jsp" %>
-
+	<script>
+		function refresh(){
+			var e = document.getElementById("select");
+			var strUser = e.options[e.selectedIndex];
+			var str1 = "/Buitter/home?name=";
+			var str2 = str1.concat(strUser.id);
+			window.location = str2;
+		}
+	</script>
 	<div class="container">
 
 		<div class="row row-offcanvas row-offcanvas-right">
@@ -33,16 +41,15 @@
 				role="navigation">
 				<div class="well sidebar-nav">
 				<span> Trending Topics </span> <span><select class="form-control" id="select">
-                        <option>1 day</option>
-                        <option>1 week</option>
-                        <option>1 month</option>
-                        
+                        <option id="7">1 week</option>
+                        <option id="1">1 day</option>
+                        <option id="30">1 month</option>
                       </select></span>
 					<ul class="nav">
 						<c:forEach items="${trending}" var="trend">
 							<li><a href="<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>">  #<c:out value="${trend.hashtag}" /></a></li>
 						</c:forEach>
-						<li><button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-refresh"> Refresh</i></button></li>
+						<li><button id="<c:out value="${buit.id}"/>" type="button" onclick="refresh();" class="pull-right btn btn-link btn-xs"><i class="icon-refresh"> Refresh</i></button></li>
 					</ul>
 					
 				</div>

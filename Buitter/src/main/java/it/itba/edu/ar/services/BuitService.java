@@ -7,10 +7,9 @@ import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.User;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class BuitService{
 
@@ -42,7 +41,7 @@ public class BuitService{
 
 	public List<Hashtag> trendingTopics(Date date) {
 		HashtagManager hashtagManager = HashtagManager.sharedInstance();
-		return hashtagManager.getHashtagsSinceDate(date);
+		return hashtagManager.getHashtagsSinceDate(new Timestamp(date.getTime()));
 	}
 
 	public List<Buit> getUserBuits(User user){

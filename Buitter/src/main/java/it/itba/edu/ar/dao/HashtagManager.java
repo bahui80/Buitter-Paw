@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,17 +23,6 @@ public class HashtagManager implements HashtagDao{
 	private static final String connectionString = "jdbc:postgresql://localhost/paw2";
 	private static final String username = "paw";
 	private static final String password = "paw";
-	
-	public static void main(String args[]){
-		HashtagManager manager = HashtagManager.sharedInstance();
-		System.out.println(new java.sql.Date(new Date(2013-1900, 8, 10).getTime()));
-		List<Hashtag> trend = manager.getHashtagsSinceDate(new Date(2013-1900, 8, 10));
-		
-		for (Hashtag hashtag : trend) {
-			System.out.println(hashtag);
-		}
-		
-	}
 	
 	public static synchronized HashtagManager sharedInstance(){
 		if(instance == null){
@@ -51,7 +41,7 @@ public class HashtagManager implements HashtagDao{
 			String description, String secret_question, String secret_answer, 
 			Date creationDate, byte photo)
 	 */
-	public List<Hashtag> getHashtagsSinceDate(Date date) {
+	public List<Hashtag> getHashtagsSinceDate(Timestamp date) {
 		List<Hashtag> hashtags = new ArrayList<Hashtag>();
 		try {
 			Connection connection = manager.getConnection();

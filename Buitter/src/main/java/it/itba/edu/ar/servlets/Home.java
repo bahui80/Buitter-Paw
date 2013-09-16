@@ -1,11 +1,11 @@
 package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.services.BuitService;
-
+import it.itba.edu.ar.model.Hashtag;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import it.itba.edu.ar.model.Hashtag;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +26,19 @@ public class Home extends BuitsHttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
 		
+		int default_time = 7;
 		
-		Date tdate = new Date(System.currentTimeMillis() - (7 * DAY_IN_MS));
+		String time = req.getParameter("time");
+		if(time != null){
+			try{
+				default_time = Integer.parseInt(time);
+			}catch (NumberFormatException e){
+				
+			}
+		}
 		
+		Date tdate = new Date(System.currentTimeMillis() - (default_time * DAY_IN_MS));
 		List<Hashtag> trendingTopics = buitService.trendingTopics(tdate);
 		
 		req.setAttribute("trending", trendingTopics);
