@@ -53,9 +53,9 @@ function toggle(){
 					class="logo" />Buitter</a>
 			</div>
 			<div class="collapse navbar-collapse">
-				<form class="navbar-form navbar-left">
+				<form class="navbar-form navbar-left" method="get" action="searchresults">
 					<div class="form-group">
-						<input type="text" style="margin-top: 4px" class="form-control" placeholder="Search">
+						<input type="search" name="name" style="margin-top: 4px" class="form-control" placeholder="Search">
 					</div>
 				</form>
 				<ul class="nav navbar-nav" style="float:right">
