@@ -126,6 +126,10 @@ footer {
 	padding-right: 15px;
 }
 
+textarea.form-control2 {
+  height: auto;
+}
+
 .form-control2 {
 	display: block;
 	width: 100%;
