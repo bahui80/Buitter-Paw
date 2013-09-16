@@ -59,7 +59,7 @@ function toggle(){
 					</div>
 				</form>
 				<ul class="nav navbar-nav" style="float:right">
-					<li class="active"><a href="#">Home</a></li>
+					<li class=""><a href="#">Home</a></li>
 					<c:if test="${not empty user}">
 						<li><a href="<c:url value="profile"><c:param name="name" value="${user}"/></c:url>">
 							<c:out value="${user}"/></a></li>

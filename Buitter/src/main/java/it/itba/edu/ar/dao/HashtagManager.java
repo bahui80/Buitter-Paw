@@ -117,12 +117,29 @@ public class HashtagManager implements HashtagDao{
 		return hashtags;
 	}
 	
+	public void insertHashtagBuit(int hashtagid, int buitid){
+		try {
+			Connection connection = manager.getConnection();
+			PreparedStatement stmt = connection.prepareStatement
+					("INSERT INTO BuitHash	(buitid,hashtagid) " +
+							"VALUES(?,?)");
+			
+			stmt.setInt(1,buitid);
+			stmt.setInt(2, hashtagid);
 
+			stmt.execute();
+
+			connection.close();
+		} catch (SQLException e) {
+			throw new DatabaseException(e.getMessage(), e);
+		}
+	}
+	
 	public void insertHashtag(Hashtag hashtag) {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
-					("INSERT INTO Hashtag(message,userid,date) " +
+					("INSERT INTO Hashtags(hashtag,userid,date) " +
 							"VALUES(?,?,current_timestamp)");
 			
 			stmt.setString(1,hashtag.getHashtag());
@@ -134,8 +151,62 @@ public class HashtagManager implements HashtagDao{
 		} catch (SQLException e) {
 			throw new DatabaseException(e.getMessage(), e);
 		}
-		
-		
 	}
-
+	
+	public Integer getHashtagId(String hashtagname){
+		Integer hashtag = null;
+		 try {
+				Connection connection = manager.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(
+						"SELECT h.hashtagid " +
+						"FROM Hashtags as h " +
+						"WHERE h.hashtag = ?");
+			
+				stmt.setString(1, hashtagname);
+				
+				ResultSet results = stmt.executeQuery();
+				if (results.next()) {
+					hashtag = results.getInt(1);
+				}
+				connection.close();
+			} catch (SQLException e) {
+				throw new DatabaseException(e.getMessage(), e);
+			}
+			
+			return hashtag;
+	 }
+	
+	 public Hashtag getHashtag(String hashtagname) {
+		 Hashtag hashtag = null;
+		 try {
+				Connection connection = manager.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(
+						"SELECT h.hashtag, u.userid, u.name, u.surname, u.username, u.password, " +
+						"u.description, u.secret_question, u.secret_answer, u.date, u.photo, " +
+						"h.hashtagid, COUNT(b.buitid) as count , h.date " +
+						"FROM Users as u, Hashtags as h, Buits as b, Buithash as bh " +
+						"WHERE h.userid = u.userid  AND h.hashtag = ?" +
+						"GROUP BY h.hashtag, u.username, u.userid, h.hashtagid, h.date ");
+				
+				
+				stmt.setString(1, hashtagname);
+				
+				ResultSet results = stmt.executeQuery();
+				if (results.next()) {
+					User user = new User(results.getInt(2), results.getString(3), 
+							results.getString(4), results.getString(5), 
+							results.getString(6), results.getString(7),
+							results.getString(8), results.getString(9), 
+							results.getTimestamp(10), results.getBytes(11));
+					
+					hashtag = new Hashtag(results.getInt(13),results.getString(1),
+							results.getTimestamp(14),user);
+				}
+				connection.close();
+			} catch (SQLException e) {
+				throw new DatabaseException(e.getMessage(), e);
+			}
+			
+			return hashtag;
+	 }
 }

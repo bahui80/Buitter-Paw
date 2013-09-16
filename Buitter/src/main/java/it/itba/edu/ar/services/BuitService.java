@@ -32,10 +32,12 @@ public class BuitService{
 		buitManager.removeBuit(buit.getId());
 	}
 
-	public void buit(Buit buit) {
+	public Buit buit(Buit buit) {
 		BuitManager buitManager = BuitManager.sharedInstance();
 
 		buitManager.buit(buit);
+		
+		return buitManager.getBuit(buit.getMessage(),buit.getUser());
 	}
 
 	public List<Hashtag> trendingTopics(Date date) {
@@ -49,8 +51,25 @@ public class BuitService{
 		return buitManager.getUserBuits(user);
 	}
 	
-	public void addHashtag(Hashtag hashtag){
+	public void addHashtag(Hashtag hashtag, Buit buit){
 		HashtagManager hashtagManager = HashtagManager.sharedInstance();
-		hashtagManager.insertHashtag(hashtag);
+		
+		Integer hashtagid = hashtagManager.getHashtagId(hashtag.getHashtag());
+		if(hashtagid == null){
+			hashtagManager.insertHashtag(hashtag);
+		}
+		hashtagid = hashtagManager.getHashtagId(hashtag.getHashtag());
+		hashtagManager.insertHashtagBuit(hashtagid, buit.getId());
+	}
+	
+	public Hashtag getHashtag(String hashtag){
+		HashtagManager hashtagManager = HashtagManager.sharedInstance();
+		return hashtagManager.getHashtag(hashtag);
+	}
+	
+	public List<Buit> getBuitsForHashtag(String hashtag){
+		BuitManager buitManager = BuitManager.sharedInstance();
+		
+		return buitManager.getHashtagBuits(hashtag);
 	}
 }

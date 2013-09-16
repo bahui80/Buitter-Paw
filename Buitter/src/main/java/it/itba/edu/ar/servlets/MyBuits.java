@@ -7,6 +7,7 @@ import it.itba.edu.ar.services.UserService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -62,11 +63,19 @@ public class MyBuits extends BuitsHttpServlet {
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
 			//request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
 		} else {
+			//primero buittea
+			Buit buitAux = buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Date().toString()));
+			//busco hashtags
 			hashTags = getHashTags(buit);
 			for(String hash: hashTags) {
-				//TODO llamar al servicio que me guarda los hashtags en la tabla si no existen
+				//por cada hashtag lo agrego con su buit
+				String username = (String) request.getSession().getAttribute("user");
+				User user = userService.getUserByUsername(username);
+				it.itba.edu.ar.model.Hashtag hashtag = new it.itba.edu.ar.model.Hashtag(hash, new Timestamp(new Date().getTime()), user);
+				System.out.println(buitAux);
+				System.out.println(hashtag);
+				buitService.addHashtag(hashtag,buitAux);
 			}
-			buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Date()));
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
 		}
 	}

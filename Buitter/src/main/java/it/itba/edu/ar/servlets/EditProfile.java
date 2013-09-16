@@ -15,7 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class EditProfile extends HttpServlet {
 	private Boolean error = false;
-
+	private UserService userService;
+	
+	@Override
+	public void init() throws ServletException {
+		userService = UserService.sharedInstance();
+	};
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -80,7 +86,7 @@ public class EditProfile extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/jsp/editprofile.jsp")
 					.forward(request, response);
 		} else {
-			UserService.updateUser(user);
+			userService.updateUser(user);
 			request.getSession().setAttribute("user", user);
 		}
 		/*

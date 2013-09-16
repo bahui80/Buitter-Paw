@@ -55,6 +55,30 @@ public class BuitManager implements BuitDao{
 		}
 		
 	}
+	
+	public Buit getBuit(String message, User user){
+		Buit buit = null;
+		try {
+			Connection connection = manager.getConnection();
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT b.buitid, b.message, to_char(b.date, 'Day, DD Month  HH12:MI:SS') " +
+					"FROM Users as u,Buits as b " +
+					"WHERE u.userid = ? AND u.userid = b.userid AND b.message = ?");
+			stmt.setInt(1, user.getId());
+			stmt.setString(2, message);
+			
+			ResultSet results = stmt.executeQuery();
+			if (results.next()) {
+
+				buit = new Buit(results.getInt(1),results.getString(2), user, results.getString(3));
+
+			}
+			connection.close();
+		} catch (SQLException e) {
+			throw new DatabaseException(e.getMessage(), e);
+		}
+		return buit;
+	}
 
 	public List<Buit> getUserBuits(User user) {
 		List<Buit> buits = new ArrayList<Buit>();
@@ -69,7 +93,7 @@ public class BuitManager implements BuitDao{
 			
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				System.out.println("ENTRO");
+
 				buits.add(new Buit(results.getInt(1),results.getString(2), user, results.getString(3)));
 
 			}
@@ -91,9 +115,9 @@ public class BuitManager implements BuitDao{
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT b.buitid, b.message, u.id, u.name, u.surname, u.username, " +
+					"SELECT b.buitid, b.message, u.userid, u.name, u.surname, u.username, " +
 					"u.password, u.description, u.secret_question, u.secret_answer, " +
-					"u.creationDate, u.photo, b.date " +
+					"u.date, u.photo, b.date " +
 					"FROM Hashtags as h,Buits as b, Buithash as bh, Users as u " +
 					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid AND u.userid = b.userid " +
 					"AND h.hashtag = ? " +
@@ -103,7 +127,7 @@ public class BuitManager implements BuitDao{
 			
 			ResultSet results = stmt.executeQuery();
 			
-			if (results.next()) {
+			while (results.next()) {
 				User user = new User(results.getInt(3), results.getString(4), 
 						results.getString(5), results.getString(6), 
 						results.getString(7), results.getString(8),

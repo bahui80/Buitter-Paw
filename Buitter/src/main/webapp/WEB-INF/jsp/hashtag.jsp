@@ -11,13 +11,13 @@
 
 			<div class="well well-lg text-center">
 				<img class="profile-pic" src="img/nopicture.png" />
-				<h2 class="profile-name">#myhashtag</h2>
-				<h4 class="profile-user">Created by @username</h4>
-				<p class="profile-desc">First used: 02/03/2009</p>
+				<h2 class="profile-name">#<c:out value="${hashtag.hashtag}" /></h2>
+				<h4 class="profile-user">Created by @<c:out value="${hashtag.user.username}" /></h4>
+				<p class="profile-desc">First used: NO ME LEE EL DATE<c:out value="${}" /></p>
 			</div>
 
 			<div class="well well-lg">
-				Results for <span class="text-bold">#myhashtag</span>
+				Results for <span class="text-bold">#<c:out value="${hashtag.hashtag}" /></span>
 				<c:choose>
 					<c:when test="${empty buits}">
 						<div class="alert-box">
@@ -36,7 +36,7 @@
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="pull-left text-bold"><c:out
-												value="${buit.username}" /></span> <span class="pull-right"><c:out
+												value="${buit.user.username}" /></span> <span class="pull-right"><c:out
 												value="${buit.date}" /></span>
 									</div>
 									<br />
