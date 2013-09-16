@@ -9,7 +9,7 @@ public class Buit {
 	private String date;
 
 	public Buit(int id, String message, User user, String date){
-		if(id == 0 || message == null || message.length() > 140 || user == null || date == null)
+		if(id == 0 || message == null || message.length() < 1 || user == null || date == null)
 			throw new IllegalArgumentException();
 		
 		this.id = id;
@@ -19,7 +19,7 @@ public class Buit {
 	}
 
 	public Buit(String message,  User user, String date){
-		if(message == null || message.length() > 140 || user == null || date == null)
+		if(message == null || message.length() < 1 || user == null || date == null)
 			throw new IllegalArgumentException();
 		
 		this.message = message;

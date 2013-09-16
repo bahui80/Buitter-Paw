@@ -19,15 +19,15 @@ CREATE TABLE Buits (
 );
 
 CREATE TABLE Hashtags (
-	hashtag VARCHAR(40) NOT NULL,
+	hashtag VARCHAR(140) NOT NULL,
 	hashtagid SERIAL PRIMARY KEY NOT NULL,
 	userid INTEGER NOT NULL REFERENCES Users(userid),
 	date TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Buithash (
-	buitid INTEGER NOT NULL,
-	hashtagid INTEGER NOT NULL,
+	buitid INTEGER NOT NULL REFERENCES Buits(buitid) ON DELETE CASCADE,
+	hashtagid INTEGER NOT NULL REFERENCES Hashtags(hashtagid),
 	PRIMARY KEY(buitid, hashtagid)
 );
 
@@ -35,5 +35,5 @@ CREATE TABLE Urls (
 	urlid SERIAL PRIMARY KEY NOT NULL,
 	url VARCHAR(140) NOT NULL,
 	buiturl VARCHAR(140) NOT NULL,
-	buitid INTEGER NOT NULL REFERENCES Buits(buitid	)
+	buitid INTEGER NOT NULL REFERENCES Buits(buitid)
 );

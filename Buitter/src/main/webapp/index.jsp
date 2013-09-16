@@ -34,14 +34,9 @@
 				<div class="well sidebar-nav">
 					<ul class="nav">
 						<li>Trending Topics</li>
-						<li class="active"><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
+						<c:forEach items="${trending}" var="trend">
+							<li><a href="<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>">  #<c:out value="${trend.hashtag}" /></a></li>
+						</c:forEach>
 					</ul>
 				</div>
 				<!--/.well -->
