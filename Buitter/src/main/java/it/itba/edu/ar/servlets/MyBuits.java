@@ -6,9 +6,7 @@ import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.BuitService;
 import it.itba.edu.ar.services.UserService;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -39,11 +37,6 @@ public class MyBuits extends BuitsHttpServlet {
 			for(Buit buit: buits) {
 				buit.setMessage(prepareBuit(buit.getMessage()));
 			}
-			if (usr.getPhoto() != null && usr.getPhoto().length > 0) {
-				FileOutputStream fos = new FileOutputStream("src/main/webapp/img/photo.jpg");
-				fos.write(usr.getPhoto());
-				fos.close();
-			}
 			request.setAttribute("buits", buits);
 			request.setAttribute("user_info", usr);
 		} else {
@@ -73,8 +66,6 @@ public class MyBuits extends BuitsHttpServlet {
 				String username = (String) request.getSession().getAttribute("user");
 				User user = userService.getUserByUsername(username);
 				Hashtag hashtag = new Hashtag(hash, new Date().toString(), user);
-				System.out.println(buitAux);
-				System.out.println(hashtag);
 				buitService.addHashtag(hashtag,buitAux);
 			}
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
