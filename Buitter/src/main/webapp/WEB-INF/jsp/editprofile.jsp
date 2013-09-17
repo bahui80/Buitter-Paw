@@ -3,7 +3,7 @@
 <div class="container">
 
 	<div class="row row-offcanvas row-offcanvas-right">
-		<div class="col-md-7 col-md-offset-1">
+		<div class="col-md-8 col-md-offset-2">
 
 			<div class="well">
 				<form class="bs-example form-horizontal" method="post"
@@ -121,9 +121,7 @@
 			</div>
 		</div>
 
-		<%@ include file="sidebar.jsp"%>
 
 	</div>
-	<!--/cerrar el div si la sidebar esta presente-->
 
 	<%@ include file="footer.jsp"%>
