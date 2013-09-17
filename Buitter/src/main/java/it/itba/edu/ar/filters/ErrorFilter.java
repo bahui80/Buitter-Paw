@@ -25,7 +25,7 @@ public class ErrorFilter implements Filter {
 		try {
 			chain.doFilter(request, response);
 		} catch (RuntimeException e) {
-			((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/error.jsp");
+			((HttpServletRequest) request).getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(request, response);
 		}
 	}
 }

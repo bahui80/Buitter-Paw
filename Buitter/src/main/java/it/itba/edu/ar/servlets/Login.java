@@ -26,7 +26,7 @@ public class Login extends HttpServlet{
 		if(req.getSession().getAttribute("user") != null){
 			req.setAttribute("error_logged_in", "error");
 		}
-		req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req, resp);
+		req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
 	}
 		
 	@Override
