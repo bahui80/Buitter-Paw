@@ -253,7 +253,7 @@ public class UserManager implements UserDao {
 					"description,secret_question,secret_answer," +
 					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
 					"FROM Users " +
-					"WHERE ( (lower(name) LIKE ANY ( SELECT  ? ||'%' FROM Users ) ) OR " +
+					"WHERE ( (lower(name) LIKE ANY ( SELECT '%' || ? ||'%' FROM Users ) ) OR " +
 					"(lower(surname) LIKE ANY ( SELECT  ? ||'%' FROM Users ) )  OR " +
 					"(lower(username) LIKE ANY ( SELECT  ? ||'%' FROM Users ) ) )" +
 					"ORDER BY surname, name, username");
