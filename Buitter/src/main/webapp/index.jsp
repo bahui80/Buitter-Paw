@@ -1,7 +1,6 @@
 <%@ include file="WEB-INF/jsp/header.jsp"%>
 <script>
 		function refresh(){
-Add a comment to this line
 			var e = document.getElementById("select");
 			var strUser = e.options[e.selectedIndex];
 			var str1 = "/Buitter/home?name=";
