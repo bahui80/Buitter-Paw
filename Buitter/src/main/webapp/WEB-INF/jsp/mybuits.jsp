@@ -18,7 +18,7 @@
 				</c:if>
 				<h2 class="profile-name"><c:out value="${user_info.name}"/> <c:out value="${user_info.surname}"/></h2>
 				<h4 class="profile-user">@<c:out value="${user_info.username}"/></h4>
-				<p class="profile-desc text-muted">"<c:out value="${user_info.description}"/>"	</p>
+				<p class="profile-desc text-muted" style="word-wrap:break-word">"<c:out value="${user_info.description}"/>"	</p>
 			</div>
 
 			<div class="well well-lg">
