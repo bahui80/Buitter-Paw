@@ -51,7 +51,7 @@ public class HashtagManager implements HashtagDao{
 					"h.hashtagid, COUNT(b.buitid) as count , to_char(h.date, 'Day, DD Month  HH24:MI:SS') " +
 					"FROM Users as u, Hashtags as h, Buits as b, Buithash as bh " +
 					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid AND h.userid = u.userid " +
-					"AND h.date > ? " +
+					"AND b.date > ? " +
 					"GROUP BY h.hashtag, u.userid, u.username, h.hashtagid " +
 					"ORDER BY count DESC " +
 					"LIMIT 10");

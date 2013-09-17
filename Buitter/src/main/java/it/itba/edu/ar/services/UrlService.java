@@ -4,14 +4,12 @@ import it.itba.edu.ar.dao.UrlManager;
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Url;
 
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.UUID;
 
 public final class UrlService {
 
 	private static UrlService instance;
-	private SecureRandom random = new SecureRandom();
 
 	public static synchronized UrlService sharedInstance() {
 		if (instance == null) {
