@@ -254,8 +254,8 @@ public class UserManager implements UserDao {
 					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
 					"FROM Users " +
 					"WHERE ( (lower(name) LIKE ANY ( SELECT '%' || ? ||'%' FROM Users ) ) OR " +
-					"(lower(surname) LIKE ANY ( SELECT  ? ||'%' FROM Users ) )  OR " +
-					"(lower(username) LIKE ANY ( SELECT  ? ||'%' FROM Users ) ) )" +
+					"(lower(surname) LIKE ANY ( SELECT  '%' || ? ||'%' FROM Users ) )  OR " +
+					"(lower(username) LIKE ANY ( SELECT '%' || ? ||'%' FROM Users ) ) )" +
 					"ORDER BY surname, name, username");
 			stmt.setString(1, query.toLowerCase());
 			stmt.setString(2, query.toLowerCase());
