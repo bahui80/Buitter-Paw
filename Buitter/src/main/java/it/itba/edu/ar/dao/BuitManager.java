@@ -63,9 +63,14 @@ public class BuitManager implements BuitDao{
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT b.buitid, b.message, to_char(b.date, 'Day, DD Month  HH12:MI:SS') " +
 					"FROM Users as u,Buits as b " +
-					"WHERE u.userid = ? AND u.userid = b.userid AND b.message = ?");
+					"WHERE u.userid = ? AND u.userid = b.userid AND b.message = ? " +
+					"AND b.date >= (SELECT MAX(b.date) " +
+					"FROM Users as u,Buits as b " +
+					"WHERE u.userid = ? AND u.userid = b.userid AND b.message = ? )");
 			stmt.setInt(1, user.getId());
 			stmt.setString(2, message);
+			stmt.setInt(3,user.getId());
+			stmt.setString(4, message);
 			
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {

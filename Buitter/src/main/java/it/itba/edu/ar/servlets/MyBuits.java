@@ -79,6 +79,7 @@ public class MyBuits extends BuitsHttpServlet {
 			for(String url: urls) {
 				urlService.insertUrl(new Url(url, buitAux.getId()));
 			}
+			System.out.println(urls);
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
 			return;
 		}

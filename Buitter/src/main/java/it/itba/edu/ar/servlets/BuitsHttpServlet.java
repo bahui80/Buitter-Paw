@@ -53,11 +53,21 @@ public class BuitsHttpServlet extends HttpServlet {
 	
 	public List<String> getUrls(String buit) {
 		List<String> urls = new ArrayList<String>();
-		if (buit != null && buit.contains("http://")) {
-			int indexOfHttp = buit.indexOf("http://");
-			int endPoint = (buit.indexOf(' ', indexOfHttp) != -1) ? buit.indexOf(' ', indexOfHttp) : buit.length();
-			urls.add(buit.substring(indexOfHttp, endPoint));
+		String patternStr = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+		Pattern pattern = Pattern.compile(patternStr);
+		Matcher matcher = pattern.matcher(buit);
+		String result = "";
+//		if (buit != null && buit.contains("http://")) {
+//			int indexOfHttp = buit.indexOf("http://");
+//			int endPoint = (buit.indexOf(' ', indexOfHttp) != -1) ? buit.indexOf(' ', indexOfHttp) : buit.length();
+//			urls.add(buit.substring(indexOfHttp, endPoint));
+//		}
+		
+		while(matcher.find()) {
+			result = matcher.group();
+			urls.add(result);
 		}
+		
 		return urls;
 	}
 }
