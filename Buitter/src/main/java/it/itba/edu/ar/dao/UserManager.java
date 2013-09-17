@@ -211,7 +211,7 @@ public class UserManager implements UserDao {
 			stmt.setString(5, user.getSecretQuestion());
 			stmt.setString(6, user.getSecretAnswer());
 			stmt.setBytes(7, user.getPhoto());
-			stmt.setString(7, user.getUsername());
+			stmt.setString(8, user.getUsername());
 			
 			stmt.executeUpdate();
 			connection.close();
