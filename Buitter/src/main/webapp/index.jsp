@@ -25,7 +25,7 @@
 			<div class="row">
 				<c:forEach items="${userlist}" var="us">
 					<div class="col-6 col-sm-6 col-lg-4 text-center"
-						style="margin-bottom: 40px">
+						style="height:400px">
 						<c:if test="${not empty us.photo}">
 							<img class="img-circle profile-pic-home"
 								src="image?name=<c:out value="${us.username}"/>" />
