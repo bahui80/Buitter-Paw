@@ -16,19 +16,20 @@ import javax.servlet.http.HttpServletResponse;
 public class EditProfile extends HttpServlet {
 	private Boolean error = false;
 	private UserService userService;
-	
+
 	@Override
 	public void init() throws ServletException {
 		userService = UserService.sharedInstance();
 	};
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		if (req.getSession().getAttribute("user") != null) {
+		String username = (String) req.getSession().getAttribute("user");
+		if (username != null) {
 
-			User user = (User) req.getSession().getAttribute("user");
+			User user = userService.getUserByUsername(username);
 
 			req.setAttribute("password", user.getPassword());
 			req.setAttribute("password2", user.getPassword());
@@ -46,49 +47,62 @@ public class EditProfile extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 
-		User user = (User) request.getSession().getAttribute("user");
+		String username = (String) req.getSession().getAttribute("user");
+		User user = userService.getUserByUsername(username);
 
-		String password = request.getParameter("password");
-		String password2 = request.getParameter("password2");
-		String name = request.getParameter("name");
-		String surname = request.getParameter("surname");
-		String description = request.getParameter("description");
-		String answer = request.getParameter("answer");
-		String photo = request.getParameter("photo");
+		String password = req.getParameter("password");
+		String password2 = req.getParameter("password2");
+		String name = req.getParameter("name");
+		String surname = req.getParameter("surname");
+		String description = req.getParameter("description");
+		String question = req.getParameter("question");
+		String answer = req.getParameter("answer");
+		String photo = req.getParameter("photo");
 
 		if (!password.equals(user.getPassword())
-				&& checkPassword(password, password2, request)) {
+				&& checkPassword(password, password2, req)) {
 			user.setPassword(password);
 		}
-		if (!name.equals(user.getName()) && checkName(name, request)) {
+		if (!name.equals(user.getName()) && checkName(name, req)) {
 			user.setName(name);
 		}
-		if (!surname.equals(user.getSurname())
-				&& checkSurname(surname, request)) {
+		if (!surname.equals(user.getSurname()) && checkSurname(surname, req)) {
 			user.setSurname(surname);
 		}
 		if (!description.equals(user.getDescription())
-				&& checkDescription(description, request)) {
+				&& checkDescription(description, req)) {
 			user.setDescription(description);
 		}
-		if (!answer.equals(user.getSecretAnswer())
-				&& checkAnswer(answer, request)) {
+		if (!question.equals(user.getSecretQuestion())) {
+			user.setSecretQuestion(question);
+		}
+		if (!answer.equals(user.getSecretAnswer()) && checkAnswer(answer, req)) {
 			user.setSecretAnswer(answer);
 		}
-		if (!photo.equals(user.getPhoto())) {
-			user.setPhoto(photo);
-		}
+		// if (!photo.equals(user.getPhoto())) {
+		// user.setPhoto(photo);
+		// }
 
 		if (error) {
-			request.getRequestDispatcher("WEB-INF/jsp/editprofile.jsp")
-					.forward(request, response);
+			error = false;
 		} else {
 			userService.updateUser(user);
-			request.getSession().setAttribute("user", user);
 		}
+
+		req.setAttribute("password", password);
+		req.setAttribute("password2", password2);
+		req.setAttribute("name", name);
+		req.setAttribute("surname", surname);
+		req.setAttribute("description", description);
+		req.setAttribute("question", question);
+		req.setAttribute("answer", answer);
+		req.setAttribute("photo", photo);
+
+		req.getRequestDispatcher("WEB-INF/jsp/editprofile.jsp").forward(req,
+				resp);
 		/*
 		 * DiskFileUpload fu = new DiskFileUpload(); // If file size exceeds, a
 		 * FileUploadException will be thrown // fu.setSizeMax(100000000);

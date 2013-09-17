@@ -59,7 +59,7 @@ public class MyBuits extends BuitsHttpServlet {
 		String buit = request.getParameter("buit");
 		List<String> hashTags;
 		
-		if(buit.equals("")) {
+		if(buit.trim().isEmpty()) {
 			request.setAttribute("error_buit", "Your buit is empty");
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
 			//request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);

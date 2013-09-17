@@ -72,7 +72,7 @@
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="pull-left text-bold">@<c:out
-												value="${buit.user.username}" /></span> <span class="pull-right"><c:out
+												value="${buit.user.username}" /></span> <span class="pull-right text-muted" style="font-size:15px "><c:out
 												value="${buit.date}" /></span>
 									</div>
 									<br />
