@@ -39,6 +39,25 @@ public class BuitsHttpServlet extends HttpServlet {
 			String searchHTML = "<a href='hashtag?name=" + search + "'>" + result + "</a>";
 			buit = buit.replace(result, searchHTML);
 		}
+		
+		if (buit != null && buit.contains("http:")) {
+			int indexOfHttp = buit.indexOf("http:");
+			int endPoint = (buit.indexOf(' ', indexOfHttp) != -1) ? buit.indexOf(' ', indexOfHttp) : buit.length();
+			String url = buit.substring(indexOfHttp, endPoint);
+			String targetUrlHtml=  "<a href='${url}' target='_blank'>${url}</a>";
+			buit = buit.replace(url,targetUrlHtml);
+		}
+		
 		return buit;
+	}
+	
+	public List<String> getUrls(String buit) {
+		List<String> urls = new ArrayList<String>();
+		if (buit != null && buit.contains("http://")) {
+			int indexOfHttp = buit.indexOf("http://");
+			int endPoint = (buit.indexOf(' ', indexOfHttp) != -1) ? buit.indexOf(' ', indexOfHttp) : buit.length();
+			urls.add(buit.substring(indexOfHttp, endPoint));
+		}
+		return urls;
 	}
 }

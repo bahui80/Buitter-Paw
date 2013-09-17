@@ -2,8 +2,10 @@ package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Hashtag;
+import it.itba.edu.ar.model.Url;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.BuitService;
+import it.itba.edu.ar.services.UrlService;
 import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
@@ -19,12 +21,13 @@ public class MyBuits extends BuitsHttpServlet {
 	
 	private UserService userService;
 	private BuitService buitService;
-	
+	private UrlService urlService;
 	
 	@Override
 	public void init() throws ServletException {
 		userService = UserService.sharedInstance();
 		buitService = BuitService.sharedInstance();
+		urlService = UrlService.sharedInstance();
 	};
 	
 	@Override
@@ -40,7 +43,7 @@ public class MyBuits extends BuitsHttpServlet {
 			request.setAttribute("buits", buits);
 			request.setAttribute("user_info", usr);
 		} else {
-			request.setAttribute("user_error", "That user doesn't exist");
+			request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(request, response);
 		}
 		request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
 	}
@@ -51,6 +54,7 @@ public class MyBuits extends BuitsHttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String buit = request.getParameter("buit");
 		List<String> hashTags;
+		List<String> urls;
 		
 		if(buit.trim().isEmpty()) {
 			request.setAttribute("error_buit", "Your buit is empty");
@@ -61,12 +65,16 @@ public class MyBuits extends BuitsHttpServlet {
 			Buit buitAux = buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Date().toString()));
 			//busco hashtags
 			hashTags = getHashTags(buit);
+			urls = getUrls(buit);
 			for(String hash: hashTags) {
 				//por cada hashtag lo agrego con su buit
 				String username = (String) request.getSession().getAttribute("user");
 				User user = userService.getUserByUsername(username);
 				Hashtag hashtag = new Hashtag(hash, new Date().toString(), user);
 				buitService.addHashtag(hashtag,buitAux);
+			}
+			for(String url: urls) {
+				urlService.insertUrl(new Url(url, buitAux.getId()));
 			}
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
 		}
