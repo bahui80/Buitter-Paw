@@ -26,6 +26,7 @@ public class ForgotPassword extends HttpServlet {
 			throws ServletException, IOException {
 		req.getRequestDispatcher("WEB-INF/jsp/forgotpassword.jsp").forward(req,
 				resp);
+		return;
 	}
 
 	@Override
@@ -50,6 +51,7 @@ public class ForgotPassword extends HttpServlet {
 				req.setAttribute("error_username", "You must enter an user");
 			}
 			req.getRequestDispatcher("WEB-INF/jsp/forgotpassword.jsp").forward(req, resp);
+			return;
 		} else {
 			req.setAttribute("correct_username", username);
 			req.setAttribute("question", userService.getUserByUsername(username).getSecretQuestion());
@@ -62,11 +64,13 @@ public class ForgotPassword extends HttpServlet {
 			if(error) {
 				error = false;
 				req.getRequestDispatcher("WEB-INF/jsp/forgotpassword.jsp").forward(req, resp);
+				return;
 			} else {
 				User user = userService.getUserByUsername(username);
 				user.setPassword(password);
 				userService.updateUser(user);
 				req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
+				return;
 			}
 		}
 	}

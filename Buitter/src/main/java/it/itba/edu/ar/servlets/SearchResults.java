@@ -37,6 +37,7 @@ public class SearchResults extends HttpServlet {
 
 		req.getRequestDispatcher("WEB-INF/jsp/searchresults.jsp").forward(req,
 				resp);
+		return;
 	}
 
 	@Override
@@ -44,5 +45,6 @@ public class SearchResults extends HttpServlet {
 			throws ServletException, IOException {
 		req.getRequestDispatcher("WEB-INF/jsp/searchresults.jsp").forward(req,
 				resp);
+		return;
 	}
 }

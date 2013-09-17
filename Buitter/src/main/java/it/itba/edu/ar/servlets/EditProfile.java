@@ -1,11 +1,9 @@
 package it.itba.edu.ar.servlets;
 
-import it.itba.edu.ar.dao.UserManager;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +40,10 @@ public class EditProfile extends HttpServlet {
 
 			req.getRequestDispatcher("/WEB-INF/jsp/editprofile.jsp").forward(
 					req, resp);
+			return;
 		}
+		req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req, resp);
+		return;
 
 	}
 
@@ -90,6 +91,8 @@ public class EditProfile extends HttpServlet {
 			error = false;
 		} else {
 			userService.updateUser(user);
+			resp.sendRedirect("/Buitter/profile?name=" + username);
+			return;
 		}
 
 		req.setAttribute("password", password);
@@ -103,6 +106,7 @@ public class EditProfile extends HttpServlet {
 
 		req.getRequestDispatcher("WEB-INF/jsp/editprofile.jsp").forward(req,
 				resp);
+		return;
 		/*
 		 * DiskFileUpload fu = new DiskFileUpload(); // If file size exceeds, a
 		 * FileUploadException will be thrown // fu.setSizeMax(100000000);

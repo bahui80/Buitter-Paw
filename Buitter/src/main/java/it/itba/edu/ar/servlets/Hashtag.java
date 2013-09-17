@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,6 +26,11 @@ public class Hashtag extends BuitsHttpServlet {
 		String hashtagname = req.getParameter("name");
 		List<Buit> buits = buitService.getBuitsForHashtag(hashtagname);
 		it.itba.edu.ar.model.Hashtag hashtag = buitService.getHashtag(hashtagname);
+		if(buits.isEmpty() || hashtag == null){
+			req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req, resp);
+			return;
+		}
+		
 		for(Buit buit: buits) {
 			buit.setMessage(prepareBuit(buit.getMessage()));
 		}	
@@ -35,6 +39,7 @@ public class Hashtag extends BuitsHttpServlet {
 		
 		req.getRequestDispatcher("WEB-INF/jsp/hashtag.jsp").forward(req,
 				resp);
+		return;
 	}
 
 	@Override

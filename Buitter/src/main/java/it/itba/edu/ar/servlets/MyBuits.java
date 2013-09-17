@@ -44,8 +44,10 @@ public class MyBuits extends BuitsHttpServlet {
 			request.setAttribute("user_info", usr);
 		} else {
 			request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(request, response);
+			return;
 		}
 		request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
+		return;
 	}
 	
 	
@@ -59,6 +61,7 @@ public class MyBuits extends BuitsHttpServlet {
 		if(buit.trim().isEmpty()) {
 			request.setAttribute("error_buit", "Your buit is empty");
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
+			return;
 			//request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
 		} else {
 			//primero buittea
@@ -77,6 +80,7 @@ public class MyBuits extends BuitsHttpServlet {
 				urlService.insertUrl(new Url(url, buitAux.getId()));
 			}
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
+			return;
 		}
 	}
 }

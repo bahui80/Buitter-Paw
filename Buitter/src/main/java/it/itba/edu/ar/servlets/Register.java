@@ -33,10 +33,12 @@ public class Register extends HttpServlet {
 		if(req.getSession().getAttribute("user") != null){
 			req.setAttribute("error_logged_in", "error");
 			resp.sendRedirect("/Buitter/login");
+			return;
 		}
 		
 		req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req,
 				resp);
+		return;
 	}
 
 	@Override

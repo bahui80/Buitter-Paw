@@ -27,6 +27,7 @@ public class Login extends HttpServlet{
 			req.setAttribute("error_logged_in", "error");
 		}
 		req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
+		return;
 	}
 		
 	@Override
@@ -37,14 +38,19 @@ public class Login extends HttpServlet{
 		String cont = req.getParameter("continue");
 		if(logout != null){
 			resp.sendRedirect("logout");
+			return;
 		}
 		if(cont != null){
 			resp.sendRedirect("/Buitter");
+			return;
 		}
 		//checkeo que no este loggeado ya
 		String usernameCookie = (String)req.getSession().getAttribute("user");
-		if(usernameCookie != null)
+		if(usernameCookie != null){
 			this.doGet(req, resp);
+			return;
+		}
+			
 		
 		//logueo porque no esta ni loggeado ni se quiere desloguear
 		String username = req.getParameter("username");
@@ -55,10 +61,12 @@ public class Login extends HttpServlet{
 		if(user != null){
 			req.getSession().setAttribute("user", username);
 			resp.sendRedirect("/Buitter/home");
+			return;
 		} else {
 			req.setAttribute("user_username", username);
 			req.setAttribute("error_login", "Username or password incorrect");
 			req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
+			return;
 		}
 	}
 }

@@ -55,13 +55,14 @@ public class Home extends BuitsHttpServlet {
 		req.setAttribute("userlist", userList);
 
 		req.getRequestDispatcher("index.jsp").forward(req, resp);
+		return;
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
 		req.getRequestDispatcher("index.jsp").forward(req, resp);
+		return;
 	}
 
 }

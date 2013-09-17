@@ -1,8 +1,6 @@
 package it.itba.edu.ar.servlets;
 
-import it.itba.edu.ar.dao.BuitManager;
 import it.itba.edu.ar.services.BuitService;
-import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
 
@@ -28,5 +26,6 @@ public class DeleteBuit extends HttpServlet {
 		String buitId = req.getParameter("buitid");
 		buitService.removeBuit(Integer.valueOf(buitId));
 		resp.sendRedirect("profile?name=" + req.getSession().getAttribute("user"));
+		return;
 	}
 }

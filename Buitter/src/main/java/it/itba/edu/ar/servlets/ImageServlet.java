@@ -32,6 +32,7 @@ public class ImageServlet extends HttpServlet {
 				resp.getOutputStream().write(usr.getPhoto());
 				resp.getOutputStream().flush();
 				resp.getOutputStream().close();
+				return;
 			}
 		}
 	}
