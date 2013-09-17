@@ -27,10 +27,24 @@ Add a comment to this line
 				<c:forEach items="${userlist}" var="us">
 					<div class="col-6 col-sm-6 col-lg-4 text-center"
 						style="margin-bottom: 40px">
-						<img src="img/nopicture.png" class="img-circle profile-pic-home" />
-						<h3 class="username-home"><c:out value="${us.username}"/></h3>
-						<p class="text-muted">"<c:out value="${us.description}"/>"</p>
-						<a href="<c:url value="profile"><c:param name="name" value="${us.username}"/></c:url>" class="btn btn-link btn-xs">View profile</a>
+						<c:if test="${not empty us.photo}">
+							<img class="img-circle profile-pic-home"
+								src="image?name=<c:out value="${us.username}"/>" />
+						</c:if>
+						<c:if test="${empty us.photo}">
+							<img class="img-circle profile-pic-home" src="img/nopicture.png"/>
+						</c:if>
+						<h3 class="username-home">
+							<c:out value="${us.username}" />
+						</h3>
+						<p class="text-muted">
+							"
+							<c:out value="${us.description}" />
+							"
+						</p>
+						<a
+							href="<c:url value="profile"><c:param name="name" value="${us.username}"/></c:url>"
+							class="btn btn-link btn-xs">View profile</a>
 					</div>
 				</c:forEach>
 			</div>
