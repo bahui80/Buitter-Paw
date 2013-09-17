@@ -47,7 +47,6 @@ public class UrlManager implements UrlDao{
 			stmt.executeUpdate();
 			connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DatabaseException(e.getMessage(), e);
 		}
 	}
