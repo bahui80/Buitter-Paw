@@ -3,7 +3,7 @@
 		function refresh(){
 			var e = document.getElementById("select");
 			var strUser = e.options[e.selectedIndex];
-			var str1 = "/Buitter/home?name=";
+			var str1 = "/Buitter/home?time=";
 			var str2 = str1.concat(strUser.id);
 			window.location = str2;
 		}

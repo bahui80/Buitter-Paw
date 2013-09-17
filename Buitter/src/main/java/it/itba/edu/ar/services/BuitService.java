@@ -41,6 +41,7 @@ public class BuitService{
 
 	public List<Hashtag> trendingTopics(Date date) {
 		HashtagManager hashtagManager = HashtagManager.sharedInstance();
+		System.out.println(new Timestamp(date.getTime()));
 		return hashtagManager.getHashtagsSinceDate(new Timestamp(date.getTime()));
 	}
 

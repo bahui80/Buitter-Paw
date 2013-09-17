@@ -55,7 +55,7 @@ public class HashtagManager implements HashtagDao{
 					"GROUP BY h.hashtag, u.userid, u.username, h.hashtagid " +
 					"ORDER BY count DESC " +
 					"LIMIT 10");
-			stmt.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
+			stmt.setTimestamp(1, date);
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
 				User user = new User(results.getInt(2), results.getString(3), 
