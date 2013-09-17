@@ -47,8 +47,13 @@
 					<c:otherwise>
 						<c:forEach items="${results}" var="user">
 							<div class="media buit">
-								<a class="pull-left" href="#"> <img
-									class="media-object buit-profile-pic" src="img/nopicture.png">
+								<a class="pull-left"> 
+									<c:if test="${not empty user.photo}">
+										<img class="pull-left media-object buit-profile-pic" src="image?name=<c:out value="${user.username}"/>"/>
+									</c:if>
+									<c:if test="${empty user.photo}">
+										<img class="pull-left media-object buit-profile-pic" src="img/nopicture.png"/>
+									</c:if>
 								</a>
 								<div class="media-body">
 									<div class="media-heading">
