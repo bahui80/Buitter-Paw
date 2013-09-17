@@ -76,7 +76,7 @@
 		<servlet-name>Hashtag</servlet-name>
 		<url-pattern>/hashtag</url-pattern>
 	</servlet-mapping>
-		<servlet>
+	<servlet>
 		<servlet-name>DeleteBuit</servlet-name>
 		<servlet-class>it.itba.edu.ar.servlets.DeleteBuit</servlet-class>
 	</servlet>
@@ -84,12 +84,20 @@
 		<servlet-name>DeleteBuit</servlet-name>
 		<url-pattern>/deletebuit</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ImageServlet</servlet-name>
+		<servlet-class>it.itba.edu.ar.servlets.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ImageServlet</servlet-name>
+		<url-pattern>/image</url-pattern>
+	</servlet-mapping>
 	<filter>
-	    <filter-name>HomeFilter</filter-name>
-	    <filter-class>it.itba.edu.ar.filters.HomeFilter</filter-class>
+		<filter-name>HomeFilter</filter-name>
+		<filter-class>it.itba.edu.ar.filters.HomeFilter</filter-class>
 	</filter>
 	<filter-mapping>
-	    <filter-name>HomeFilter</filter-name>
-	    <url-pattern>/*</url-pattern>
+		<filter-name>HomeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 </web-app>
