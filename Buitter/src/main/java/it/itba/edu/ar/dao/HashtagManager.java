@@ -47,7 +47,7 @@ public class HashtagManager implements HashtagDao{
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT h.hashtag, u.userid, u.name, u.surname, u.username, u.password, " +
-					"u.description, u.secret_question, u.secret_answer, u.date, u.photo, " +
+					"u.description, u.secret_question, u.secret_answer, to_char(u.date, 'Day, DD Month  HH24:MI:SS'), u.photo, " +
 					"h.hashtagid, COUNT(b.buitid) as count , to_char(h.date, 'Day, DD Month  HH24:MI:SS') " +
 					"FROM Users as u, Hashtags as h, Buits as b, Buithash as bh " +
 					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid AND h.userid = u.userid " +
@@ -62,7 +62,7 @@ public class HashtagManager implements HashtagDao{
 						results.getString(4), results.getString(5), 
 						results.getString(6), results.getString(7),
 						results.getString(8), results.getString(9), 
-						results.getTimestamp(10), results.getBytes(11));
+						results.getString(10), results.getBytes(11));
 				
 				hashtags.add(new Hashtag(results.getInt(13),results.getString(1),
 						results.getString(14),user));
@@ -80,7 +80,7 @@ public class HashtagManager implements HashtagDao{
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT h.hashtag, u.id, u.name, u.surname, u.username, u.password, " +
-					"u.description, u.secret_question, u.secret_answer, u.date, u.photo, " +
+					"u.description, u.secret_question, u.secret_answer, to_char(u.date, 'Day, DD Month  HH24:MI:SS'), u.photo, " +
 					"h.hashtagid, COUNT(b.buitid) as count , to_char(h.date, 'Day, DD Month  HH24:MI:SS') " +
 					"FROM Users as u, Hashtags as h, Buits as b, Buithash as bh " +
 					"WHERE h.userid = u.userid AND u.username = ? " +
@@ -94,7 +94,7 @@ public class HashtagManager implements HashtagDao{
 						results.getString(4), results.getString(5), 
 						results.getString(6), results.getString(7),
 						results.getString(8), results.getString(9), 
-						results.getTimestamp(10), results.getBytes	(11));
+						results.getString(10), results.getBytes	(11));
 				
 				hashtags.add(new Hashtag(results.getInt(13),results.getString(1),
 						results.getString(14),user));
@@ -172,7 +172,7 @@ public class HashtagManager implements HashtagDao{
 				Connection connection = manager.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(
 						"SELECT h.hashtag, u.userid, u.name, u.surname, u.username, u.password, " +
-						"u.description, u.secret_question, u.secret_answer, u.date, u.photo, " +
+						"u.description, u.secret_question, u.secret_answer,to_char(u.date, 'Day, DD Month  HH24:MI:SS'), u.photo, " +
 						"h.hashtagid, COUNT(b.buitid) as count , to_char(h.date, 'Day, DD Month  HH24:MI:SS') " +
 						"FROM Users as u, Hashtags as h, Buits as b, Buithash as bh " +
 						"WHERE h.userid = u.userid  AND h.hashtag = ?" +
@@ -187,7 +187,7 @@ public class HashtagManager implements HashtagDao{
 							results.getString(4), results.getString(5), 
 							results.getString(6), results.getString(7),
 							results.getString(8), results.getString(9), 
-							results.getTimestamp(10), results.getBytes(11));
+							results.getString(10), results.getBytes(11));
 					
 					hashtag = new Hashtag(results.getInt(13),results.getString(1),
 							results.getString(14),user);

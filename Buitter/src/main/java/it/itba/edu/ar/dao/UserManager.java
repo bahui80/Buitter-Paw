@@ -42,19 +42,28 @@ public class UserManager implements UserDao {
 		}
 	}
 	
+	
+	/*
+	 * new User(int id, String name, String surname, String username, String password, 
+			String description, String secret_question, String secret_answer, 
+			String creationDate, String photo)
+	*/
 	public User getUserByUsername(String username) {
 		User usr = null;
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT * FROM Users WHERE username = ?");
+					"SELECT userid,name,surname,username,password," +
+					"description,secret_question,secret_answer," +
+					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"FROM Users WHERE username = ?");
 			stmt.setString(1,username);
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
-						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getTimestamp(5), results.getBytes(6));
+				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
+						results.getString(5),results.getString(6),results.getString(7),
+						results.getString(8),results.getString(9), results.getBytes(10));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -68,14 +77,17 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT * FROM Users WHERE userid = ?");
+					"SELECT userid,name,surname,username,password," +
+					"description,secret_question,secret_answer," +
+					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"FROM Users WHERE userid = ?");
 			stmt.setInt(1,id);
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
-						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getTimestamp(5), results.getBytes(6));
+				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
+						results.getString(5),results.getString(6),results.getString(7),
+						results.getString(8),results.getString(9), results.getBytes(10));
 
 			}
 			connection.close();
@@ -90,14 +102,17 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT * FROM Users WHERE surname = ? ");
+					"SELECT userid,name,surname,username,password," +
+					"description,secret_question,secret_answer," +
+					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"FROM Users WHERE surname = ? ");
 			stmt.setString(1, surname);
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
-						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getTimestamp(5), results.getBytes(6)));
+				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
+							results.getString(5),results.getString(6),results.getString(7),
+							results.getString(8),results.getString(9), results.getBytes(10)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -111,14 +126,17 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT * FROM Users WHERE name = ? ");
+					"SELECT userid,name,surname,username,password," +
+					"description,secret_question,secret_answer," +
+					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"FROM Users WHERE name = ? ");
 			stmt.setString(1, name);
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
-						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getTimestamp(5), results.getBytes(6)));
+				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
+							results.getString(5),results.getString(6),results.getString(7),
+							results.getString(8),results.getString(9), results.getBytes(10)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -132,15 +150,18 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT * FROM Users WHERE username = ? AND password = ?");
+					"SELECT userid,name,surname,username,password," +
+					"description,secret_question,secret_answer," +
+					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"FROM Users WHERE username = ? AND password = ?");
 			stmt.setString(1, username);
 			stmt.setString(2,password);
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
-						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getTimestamp(5), results.getBytes(6));
+				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
+						results.getString(5),results.getString(6),results.getString(7),
+						results.getString(8),results.getString(9), results.getBytes(10));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -175,13 +196,12 @@ public class UserManager implements UserDao {
 	}
 
 	
-	// TODO modificar la atualizacion (agregar photo)
 	public void updateUser(User user) {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
 					("UPDATE Users SET name =  ?, surname = ?, password = ?," +
-							"description = ?, secret_question = ?, secret_answer = ?" +
+							"description = ?, secret_question = ?, secret_answer = ?, photo = ?" +
 							" WHERE username = ?" );
 			
 			stmt.setString(1, user.getName());
@@ -190,7 +210,7 @@ public class UserManager implements UserDao {
 			stmt.setString(4, user.getDescription());
 			stmt.setString(5, user.getSecretQuestion());
 			stmt.setString(6, user.getSecretAnswer());
-			
+			stmt.setBytes(7, user.getPhoto());
 			stmt.setString(7, user.getUsername());
 			
 			stmt.executeUpdate();
@@ -205,14 +225,17 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT * FROM Users " +
+					"SELECT userid,name,surname,username,password," +
+					"description,secret_question,secret_answer," +
+					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"FROM Users " +
 					"ORDER BY surname, name");
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
-						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getTimestamp(5), results.getBytes(6)));
+				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
+							results.getString(5),results.getString(6),results.getString(7),
+							results.getString(8),results.getString(9), results.getBytes(10)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -226,21 +249,23 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT * " +
+					"SELECT userid,name,surname,username,password," +
+					"description,secret_question,secret_answer," +
+					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
 					"FROM Users " +
 					"WHERE ( (lower(name) LIKE ANY ( SELECT  ? ||'%' FROM Users ) ) OR " +
 					"(lower(surname) LIKE ANY ( SELECT  ? ||'%' FROM Users ) )  OR " +
 					"(lower(username) LIKE ANY ( SELECT  ? ||'%' FROM Users ) ) )" +
-					"ORDER BY surname, name");
+					"ORDER BY surname, name, username");
 			stmt.setString(1, query.toLowerCase());
 			stmt.setString(2, query.toLowerCase());
 			stmt.setString(3, query.toLowerCase());
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(7),
-						results.getString(4),results.getString(8),results.getString(9),
-						results.getString(10),results.getTimestamp(5), results.getBytes(6)));
+				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
+						results.getString(5),results.getString(6),results.getString(7),
+						results.getString(8),results.getString(9), results.getBytes(10)));
 			}
 			connection.close();
 		} catch (SQLException e) {

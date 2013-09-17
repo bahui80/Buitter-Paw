@@ -12,7 +12,7 @@ public class User {
 	private String description;
 	private String secret_question;
 	private String secret_answer;
-	private Timestamp creationDate;
+	private String creationDate;
 	private byte[] photo; // TODO ver que tipo
 
 	public User(String username, String password){
@@ -26,7 +26,7 @@ public class User {
 	
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Timestamp creationDate, byte[] photo){
+			String creationDate, byte[] photo){
 		if(username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
@@ -46,7 +46,7 @@ public class User {
 	
 	public User(int id, String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Timestamp creationDate, byte[] photo){
+			String creationDate, byte[] photo){
 		if(id == 0 || username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
@@ -145,7 +145,7 @@ public class User {
 		this.secret_answer = s_answer;
 	}
 
-	public Timestamp getCreationDate() {
+	public String getCreationDate() {
 		return creationDate;
 	}
 

@@ -117,7 +117,8 @@ public class BuitManager implements BuitDao{
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT b.buitid, b.message, u.userid, u.name, u.surname, u.username, " +
 					"u.password, u.description, u.secret_question, u.secret_answer, " +
-					"u.date, u.photo, to_char(b.date, 'Day, DD Month  HH24:MI:SS') " +
+					"to_char(u.date, 'Day, DD Month  HH24:MI:SS'), u.photo, " +
+					"to_char(b.date, 'Day, DD Month  HH24:MI:SS') " +
 					"FROM Hashtags as h,Buits as b, Buithash as bh, Users as u " +
 					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid AND u.userid = b.userid " +
 					"AND h.hashtag = ? " +
@@ -132,7 +133,7 @@ public class BuitManager implements BuitDao{
 						results.getString(5), results.getString(6), 
 						results.getString(7), results.getString(8),
 						results.getString(9), results.getString(10), 
-						results.getTimestamp(11), results.getBytes(12));
+						results.getString(11), results.getBytes(12));
 				buits.add(new Buit(results.getInt(1),results.getString(2),user,results.getString(13)));
 			}
 			connection.close();
