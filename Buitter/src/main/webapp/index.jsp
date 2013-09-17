@@ -21,7 +21,7 @@ Add a comment to this line
 					<h1 id="main-name">Buitter.</h1>
 					<p id="no-more-tweets">#NoMoreTweets. #WeBuitNow.</p>
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-md-offset-1 col-md-10">
 						<h4>Heading</h4>
 						<p>Donec id elit non mi porta gravida at eget metus. Fusce
@@ -30,10 +30,10 @@ Add a comment to this line
 							malesuada magna mollis euismod. Donec sed odio dui.</p>
 						<p>
 							<a class="btn btn-default" href="#">View details &raquo;</a>
-						</p>
-					</div>
+						</p> -->
+					<!-- </div> -->
 					<!--/span-->
-				</div>
+				<!-- </div> -->
 				<!--/row-->
 			</div>
 			<!--/span-->

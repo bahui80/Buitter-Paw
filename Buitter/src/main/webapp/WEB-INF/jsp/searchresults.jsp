@@ -3,7 +3,7 @@
 <div class="container">
 
 	<div class="row row-offcanvas row-offcanvas-right">
-		<div class="col-md-7 col-md-offset-1">
+		<div class="col-md-8 col-md-offset-2">
 			<p class="pull-right visible-xs">
 				<button type="button" class="btn btn-primary btn-xs"
 					data-toggle="offcanvas">Toggle nav</button>
@@ -55,10 +55,10 @@
 										<span class="text-bold"><a
 											href="<c:url value="profile"><c:param name="name" value="${user.username}" /></c:url>"><c:out
 													value="${user.name}" /> <c:out value="${user.surname}" /></a></span>
-										<c:out value="${user.username}" />
+										@<c:out value="${user.username}" />
 									</div>
 									<p>
-									<div class="pull-left">
+									<div class="pull-left text-muted">
 										Date registered:
 										<c:out value="${user.creationDate}" />
 									</div>
@@ -72,9 +72,7 @@
 			</div>
 
 		</div>
-		<%@ include file="sidebar.jsp"%>
 
 	</div>
-	<!--/cerrar el div si la sidebar esta presente-->
 
 	<%@ include file="footer.jsp"%>

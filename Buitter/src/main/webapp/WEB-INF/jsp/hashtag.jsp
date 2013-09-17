@@ -3,7 +3,7 @@
 <div class="container">
 
 	<div class="row row-offcanvas row-offcanvas-right">
-		<div class="col-md-7 col-md-offset-1">
+		<div class="col-md-8 col-md-offset-2">
 			<p class="pull-right visible-xs">
 				<button type="button" class="btn btn-primary btn-xs"
 					data-toggle="offcanvas">Toggle nav</button>
@@ -52,9 +52,7 @@
 			</div>
 
 		</div>
-		<%@ include file="sidebar.jsp"%>
 
 	</div>
-	<!--/cerrar el div si la sidebar esta presente-->
 
 	<%@ include file="footer.jsp"%>
