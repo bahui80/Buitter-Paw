@@ -4,54 +4,48 @@ import it.itba.edu.ar.dao.UrlManager;
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Url;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.UUID;
 
 public final class UrlService {
 
 	private static UrlService instance;
-	
-	public static synchronized UrlService sharedInstance(){
-		if(instance == null){
+	private SecureRandom random = new SecureRandom();
+
+	public static synchronized UrlService sharedInstance() {
+		if (instance == null) {
 			instance = new UrlService();
 		}
 		return instance;
 	}
-	
-	private UrlService(){
-		
+
+	private UrlService() {
+
 	}
-	
-	public void insertUrl(Url url){
-		UrlManager urlManager = UrlManager.sharedInstance();
-		
-		int hashedUrl = url.hashCode();
-		String buiturl = "buit.li/" + hashedUrl;
-		url.setBuiturl(buiturl);
-		
-		Integer urlid = urlManager.getIdForUrl(url.getUrl());
-		if(urlid != null){
-			url.setUrlid(urlid);
-			urlManager.insertUrl(url);
-		}else{
-			urlManager.insertUrl(url);
-		}
-		
-	}
-	
-	public boolean buitHasUrl(Buit buit){
+
+	public void insertUrl(Url url) {
 		UrlManager urlManager = UrlManager.sharedInstance();
 
-		if(urlManager.urlsForBuit(buit) != null)
+		String hashedUrl = UUID.randomUUID().toString().substring(0, 4);
+		String buiturl = "buit.li/" + hashedUrl;
+		url.setBuiturl(buiturl);
+
+		urlManager.insertUrl(url);
+	}
+
+	public boolean buitHasUrl(Buit buit) {
+		UrlManager urlManager = UrlManager.sharedInstance();
+
+		if (urlManager.urlsForBuit(buit) != null)
 			return true;
 		return false;
 	}
-	
-	public List<Url> urlsForBuit(Buit buit){
+
+	public List<Url> urlsForBuit(Buit buit) {
 		UrlManager urlManager = UrlManager.sharedInstance();
 
 		return urlManager.urlsForBuit(buit);
 	}
-	
-	
-	
+
 }

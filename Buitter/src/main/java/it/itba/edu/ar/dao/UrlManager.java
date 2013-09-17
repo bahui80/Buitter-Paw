@@ -38,16 +38,16 @@ public class UrlManager implements UrlDao{
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement
-					("INSERT INTO Urls(urlid, url, buiturl, buitid) VALUES(?,?,?,?)");
+					("INSERT INTO Urls(url, buiturl, buitid) VALUES(?,?,?)");
 			
-			stmt.setInt(1, url.getUrlid());
-			stmt.setString(2,url.getUrl());
-			stmt.setString(3,url.getBuiturl());
-			stmt.setInt(4,url.getBuitid());
+			stmt.setString(1,url.getUrl());
+			stmt.setString(2,url.getBuiturl());
+			stmt.setInt(3,url.getBuitid());
 			
 			stmt.executeUpdate();
 			connection.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DatabaseException(e.getMessage(), e);
 		}
 	}
@@ -112,7 +112,7 @@ public class UrlManager implements UrlDao{
 			return url;
 	}
 	
-	public int getIdForUrl(String url){
+	public Integer getIdForUrl(String url){
 		Integer id = null;
 		try {
 			Connection connection = manager.getConnection();
