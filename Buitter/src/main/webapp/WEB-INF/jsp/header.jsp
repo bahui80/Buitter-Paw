@@ -69,7 +69,7 @@ function toggle(){
 						<li id="dropdown" class="dropdown" onclick="toggle()">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class='icon-cog'></i>	 </a>
                           <ul class="dropdown-menu">
-                           <li><a href="#"><i class='icon-pencil'></i>  Edit profile</a></li>
+                           <li><a href="/Buitter/editprofile"><i class='icon-pencil'></i>  Edit profile</a></li>
                              <li class="divider"></li>
                              <li><a href="/Buitter/logout"><i class='icon-power-off'></i>  Logout</a></li>
                           </ul>
