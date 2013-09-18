@@ -27,6 +27,7 @@ public class Hashtag extends BuitsHttpServlet {
 		List<Buit> buits = buitService.getBuitsForHashtag(hashtagname);
 		it.itba.edu.ar.model.Hashtag hashtag = buitService.getHashtag(hashtagname);
 		if(buits.isEmpty() || hashtag == null){
+			req.setAttribute("error_log", "We couldn't find messages with \"#"+hashtagname+"\"");
 			req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req, resp);
 			return;
 		}
