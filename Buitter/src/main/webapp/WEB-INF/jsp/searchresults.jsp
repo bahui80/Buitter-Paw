@@ -65,7 +65,7 @@
 									<p>
 									<div class="pull-left text-muted">
 										Date registered:
-										<c:out value="${user.creationDate}" />
+										<c:out value="${user.date}" />
 									</div>
 									</p>
 								</div>

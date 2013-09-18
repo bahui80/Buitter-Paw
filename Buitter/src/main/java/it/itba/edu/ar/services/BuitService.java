@@ -33,8 +33,6 @@ public class BuitService{
 
 	public Buit buit(Buit buit) {
 		BuitManager buitManager = BuitManager.sharedInstance();
-		System.out.println(buit.getMessage());
-		System.out.println(buit.getMessage().length());
 		buitManager.buit(buit);
 		
 		return buitManager.getBuit(buit.getMessage(),buit.getUser());
@@ -42,7 +40,6 @@ public class BuitService{
 
 	public List<Hashtag> trendingTopics(Date date) {
 		HashtagManager hashtagManager = HashtagManager.sharedInstance();
-		System.out.println(new Timestamp(date.getTime()));
 		return hashtagManager.getHashtagsSinceDate(new Timestamp(date.getTime()));
 	}
 

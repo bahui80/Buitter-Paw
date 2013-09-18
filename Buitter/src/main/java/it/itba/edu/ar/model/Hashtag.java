@@ -78,4 +78,10 @@ public class Hashtag extends DateFormatter{
 		super.setSimpleDateFormatter(formatter);
 		this.user.setSimpleDateFormatter(formatter);
 	}
+	
+	@Override
+	public String getDate(){
+		return super.getDate();
+	}
 }
+

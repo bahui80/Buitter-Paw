@@ -32,17 +32,6 @@ public class UserManager implements UserDao {
 		manager = new ConnectionManager(driver,connectionString , username, password);
 	}
 	
-	public static void main(String args[]){
-		UserManager usrm = UserManager.sharedInstance();
-		
-		List<User> list = usrm.getAllUsersMatching("gu");
-		
-		for (User user : list) {
-			System.out.println(user);
-		}
-	}
-	
-	
 	/*
 	 * new User(int id, String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 

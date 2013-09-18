@@ -32,10 +32,6 @@ public class BuitManager implements BuitDao{
 	private BuitManager(){
 		manager = new ConnectionManager(driver,connectionString , username, password);
 	}
-
-	public static void main(String args[]){
-		System.out.println(new java.sql.Timestamp(0));
-	}
 	
 	public void buit(Buit buit) {
 		try {

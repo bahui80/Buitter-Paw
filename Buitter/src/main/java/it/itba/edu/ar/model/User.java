@@ -162,5 +162,9 @@ public class User extends DateFormatter{
 				+ username + "]";
 	}
 	
+	@Override
+	public String getDate(){
+		return super.getDate();
+	}
 	
 }

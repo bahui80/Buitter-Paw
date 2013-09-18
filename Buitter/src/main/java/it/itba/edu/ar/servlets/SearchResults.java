@@ -5,6 +5,7 @@ import it.itba.edu.ar.services.BuitService;
 import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,11 +19,14 @@ public class SearchResults extends HttpServlet {
 
 	private UserService userService;
 	private BuitService buitService;
+	private SimpleDateFormat formatter;
+
 
 	@Override
 	public void init() throws ServletException {
 		userService = UserService.sharedInstance();
 		buitService = BuitService.sharedInstance();
+		formatter =  new SimpleDateFormat("EEE, MMM d, HH:mm:ss");
 	};
 
 	@Override
@@ -33,6 +37,9 @@ public class SearchResults extends HttpServlet {
 		req.setAttribute("query", query);
 
 		List<User> results = userService.search(query);
+		for (User user : results) {
+			user.setSimpleDateFormatter(formatter);
+		}
 		req.setAttribute("results", results);
 
 		req.getRequestDispatcher("WEB-INF/jsp/searchresults.jsp").forward(req,
