@@ -8,26 +8,39 @@ public class Hashtag extends DateFormatter{
 	private Integer id;
 	private String hashtag;
 	private User user;
+	private int count;
 	
-	public Hashtag(String hashtag, Timestamp date, User user){
+	public Hashtag(String hashtag, Timestamp date, User user, int count){
 		super(date);
-		if(hashtag == null || hashtag.length() > 139 || user == null)
+		if(hashtag == null || hashtag.length() > 139 || user == null || count < 0)
 			throw new IllegalArgumentException();
 		
 		this.hashtag = hashtag;
 		this.date = date;
 		this.user = user;
+		this.count = count;
 	}
 	
-	public Hashtag(int id, String hashtag, Timestamp date, User user){
+	public Hashtag(int id, String hashtag, Timestamp date, User user, int count){
 		super(date);
-		if(id == 0 || hashtag == null || hashtag.length() > 139 || user == null)
+		if(id == 0 || hashtag == null || hashtag.length() > 139 || user == null || count < 0)
 			throw new IllegalArgumentException();
 		
 		this.id = id;
 		this.hashtag = hashtag;
 		this.date = date;
 		this.user = user;
+		this.count = count;
+	}
+	
+	public int getCount(){
+		return count;
+	}
+	
+	public void setCount(int count){
+		if(count < 0)
+			throw new IllegalArgumentException();
+		this.count = count;
 	}
 	
 	public Integer getId() {

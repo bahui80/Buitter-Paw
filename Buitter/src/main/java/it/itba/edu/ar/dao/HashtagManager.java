@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class HashtagManager implements HashtagDao{
@@ -64,8 +63,8 @@ public class HashtagManager implements HashtagDao{
 						results.getString(8), results.getString(9), 
 						results.getTimestamp(10), results.getBytes(11));
 				
-				hashtags.add(new Hashtag(results.getInt(13),results.getString(1),
-						results.getTimestamp(14),user));
+				hashtags.add(new Hashtag(results.getInt(12),results.getString(1),
+						results.getTimestamp(14),user, results.getInt(13)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -96,8 +95,8 @@ public class HashtagManager implements HashtagDao{
 						results.getString(8), results.getString(9), 
 						results.getTimestamp(10), results.getBytes	(11));
 				
-				hashtags.add(new Hashtag(results.getInt(13),results.getString(1),
-						results.getTimestamp(14),user));
+				hashtags.add(new Hashtag(results.getInt(12),results.getString(1),
+						results.getTimestamp(14),user, results.getInt(13)));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -189,8 +188,8 @@ public class HashtagManager implements HashtagDao{
 							results.getString(8), results.getString(9), 
 							results.getTimestamp(10), results.getBytes(11));
 					
-					hashtag = new Hashtag(results.getInt(13),results.getString(1),
-							results.getTimestamp(14),user);
+					hashtag = new Hashtag(results.getInt(12),results.getString(1),
+							results.getTimestamp(14),user, results.getInt(13));
 				}
 				connection.close();
 			} catch (SQLException e) {

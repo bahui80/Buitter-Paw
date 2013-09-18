@@ -30,7 +30,7 @@ public class MyBuits extends BuitsHttpServlet {
 		userService = UserService.sharedInstance();
 		buitService = BuitService.sharedInstance();
 		urlService = UrlService.sharedInstance();
-		formatter = formatter = new SimpleDateFormat("EEE, MMM d, HH:mm:ss");
+		formatter =  new SimpleDateFormat("EEE, MMM d, HH:mm:ss");
 	};
 	
 	@Override
@@ -85,7 +85,7 @@ public class MyBuits extends BuitsHttpServlet {
 				//por cada hashtag lo agrego con su buit
 				String username = (String) request.getSession().getAttribute("user");
 				User user = userService.getUserByUsername(username);
-				Hashtag hashtag = new Hashtag(hash, new Timestamp(0), user);
+				Hashtag hashtag = new Hashtag(hash, new Timestamp(0), user,0);
 				buitService.addHashtag(hashtag,buitAux);
 			}
 			for(String url: urls) {

@@ -59,7 +59,7 @@
 					<c:forEach items="${trending}" var="trend">
 						<li><a
 							href="<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>">
-								#<c:out value="${trend.hashtag}" />
+								#<c:out value="${trend.hashtag}" /> <c:out value="( ${trend.count} )" />
 						</a></li>
 					</c:forEach>
 					<li><button id="<c:out value="${buit.id}"/>" type="button"
