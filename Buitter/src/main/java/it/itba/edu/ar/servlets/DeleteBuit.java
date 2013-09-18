@@ -19,6 +19,12 @@ public class DeleteBuit extends HttpServlet {
 		buitService = BuitService.sharedInstance();
 	};
 	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req, resp);
+	}
+	
 	//TODO corregir que esta mal como se borra
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

@@ -229,7 +229,7 @@ public class UserManager implements UserDao {
 					"description,secret_question,secret_answer," +
 					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
 					"FROM Users " +
-					"ORDER BY surname, name");
+					"ORDER BY surname, name, username");
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
