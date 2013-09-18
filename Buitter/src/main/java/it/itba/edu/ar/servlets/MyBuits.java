@@ -43,6 +43,7 @@ public class MyBuits extends BuitsHttpServlet {
 			request.setAttribute("buits", buits);
 			request.setAttribute("user_info", usr);
 		} else {
+			request.setAttribute("error_log", "We couldn't find an account named \""+profile+"\"");
 			request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(request, response);
 			return;
 		}

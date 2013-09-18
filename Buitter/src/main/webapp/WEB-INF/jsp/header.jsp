@@ -44,14 +44,10 @@ function toggle(){
 </head>
 
 <body>
-	<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+	<div class="navbar navbar-fixed-top navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
+				
 				<a id="logo" class="navbar-brand" href="/Buitter/home"><img src="img/logo.png"
 					class="logo" />Buitter</a>
 			</div>
