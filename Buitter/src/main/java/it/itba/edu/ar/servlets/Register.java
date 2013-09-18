@@ -39,9 +39,11 @@ public class Register extends HttpServlet {
 				return;
 			}
 		} else {
+			req.setAttribute("action", "editprofile");
 			if (username != null) {
 				User user = userService.getUserByUsername(username);
-
+				
+				req.setAttribute("user_username", user.getUsername());
 				req.setAttribute("user_password", user.getPassword());
 				req.setAttribute("user_password2", user.getPassword());
 				req.setAttribute("user_name", user.getName());
@@ -87,7 +89,9 @@ public class Register extends HttpServlet {
 			photo = fileItems.get(8).get();
 		}
 
-		checkUsername(username, request);
+		if(request.getRequestURI().contains("register")) {
+			checkUsername(username, request);
+		}
 		checkPassword(password, password2, request);
 		checkName(name, request);
 		checkSurname(surname, request);
@@ -96,6 +100,8 @@ public class Register extends HttpServlet {
 		
 		if(!request.getRequestURI().contains("editprofile")) {
 			request.setAttribute("action", "register");
+		} else {
+			request.setAttribute("action", "editprofile");
 		}
 		
 		if (error) {
@@ -106,6 +112,9 @@ public class Register extends HttpServlet {
 				userService.register(new User(name, surname, username, password, description, question, answer, creationDate, photo));
 				request.getSession().setAttribute("user", username);
 			} else {
+				if(photo == null) {
+					photo = userService.getUserByUsername(username).getPhoto();
+				}
 				userService.updateUser(new User(name, surname, username, password, description, question, answer, creationDate, photo));
 			}
 			request.getRequestDispatcher("index.jsp").forward(request, response);

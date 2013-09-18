@@ -4,9 +4,12 @@
 <div class="row row-offcanvas row-offcanvas-right">
 <div class="col-md-8 col-md-offset-2">
     <div class="well">
-              <form class="bs-example form-horizontal" method="post" action="register" enctype="multipart/form-data">
+              <form class="bs-example form-horizontal" method="post" action="<c:out value="${action}"/>" enctype="multipart/form-data">
                 <fieldset>
                   <legend>New user</legend>
+                  <c:if test="${action == 'editprofile'}">
+                      <input type="hidden" class="form-control2" name="username" value="<c:out value="${user_username}"/>"/>
+                  </c:if>
                   <c:if test="${action == 'register'}">
                     <div class="form-group <c:if test="${not empty error_username}">has-error</c:if>">
                       <label for="username" class="col-md-3 control-label">Username</label>

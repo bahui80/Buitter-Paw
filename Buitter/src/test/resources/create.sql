@@ -35,7 +35,7 @@ CREATE TABLE Urls (
 	urlid SERIAL NOT NULL,
 	url VARCHAR(140) NOT NULL,
 	buiturl VARCHAR(140) NOT NULL,
-	buitid INTEGER NOT NULL REFERENCES Buits(buitid),
+	buitid INTEGER NOT NULL REFERENCES Buits(buitid) ON DELETE CASCADE,
 	
 	PRIMARY KEY(urlid,buitid)
 );
