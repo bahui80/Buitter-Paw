@@ -74,6 +74,10 @@ public class MyBuits extends BuitsHttpServlet {
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
 			return;
 			//request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
+		} else if(buit.length() > 140) {
+			request.setAttribute("error_buit", "Buits can have up to 140 characters");
+			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
+			return;
 		} else {
 			//primero buittea
 			Buit buitAux = buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Timestamp(0)));
