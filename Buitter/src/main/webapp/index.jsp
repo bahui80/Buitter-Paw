@@ -55,6 +55,7 @@
 						<option id="30">1 month</option>
 				</select></span>
 				<ul class="nav">
+				<c:if test="${empty trending}"><br/><p class="text-muted">There are no hashtags for this period of time.</p></c:if>
 					<c:forEach items="${trending}" var="trend">
 						<li><a
 							href="<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>">
