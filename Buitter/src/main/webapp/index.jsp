@@ -29,10 +29,10 @@
 						<c:if test="${empty us.photo}">
 							<img class="img-circle profile-pic-home" src="img/nopicture.png"/>
 						</c:if>
-						<h3 class="username-home">
+						<h3 class="username-home" style="word-wrap:break-word">
 							<c:out value="${us.username}" />
 						</h3>
-						<p class="text-muted">
+						<p class="text-muted" style="word-wrap:break-word">
 							"
 							<c:out value="${us.description}" />
 							"
@@ -58,8 +58,8 @@
 				<c:if test="${empty trending}"><br/><p class="text-muted">There are no hashtags for this period of time.</p></c:if>
 					<c:forEach items="${trending}" var="trend">
 						<li><a
-							href="<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>">
-								#<c:out value="${trend.hashtag}" /> <c:out value="( ${trend.count} )" />
+							href="<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>" style="word-wrap:break-word">
+								#<c:out value="${trend.hashtag}" /> <c:out value="( ${trend.count} )"/>
 						</a></li>
 					</c:forEach>
 					<li><button id="<c:out value="${buit.id}"/>" type="button"

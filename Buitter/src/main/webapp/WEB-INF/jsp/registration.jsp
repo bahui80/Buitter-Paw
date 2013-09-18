@@ -1,7 +1,7 @@
 <%@ include file="header.jsp" %>
 <script>
     function home() {
-      var str1 = "/Buitter/editprofile";
+      var str1 = "/Buitter/home";
       window.location = str1;
     }
 </script>
@@ -105,7 +105,7 @@
                   </div>
                   <div class="form-group">
                     <div class="col-md-5 col-md-offset-4">
-                      <button class="btn btn-default" onClick="home();">Cancel</button>
+                      <button type="button" class="btn btn-default" onclick="home();">Cancel</button>
                       <button type="submit" class="btn btn-primary">Confirm</button> 
                     </div>
                   </div>

@@ -15,7 +15,7 @@
                     				<input type="hidden" name="recover" value="recover"/>
                     				<input type="text" class="form-control3" placeholder="Username" name="username" value="<c:out value="${user_username}"/>"/>
                     				<c:if test="${not empty error_username}">
-                        				<p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_username}"/></em></small></p>
+                        				<p class="text-danger" style="margin-bottom: 0px; word-wrap:break-word;"><small><em><c:out value="${error_username}"/></em></small></p>
                       				</c:if>
                     			</div>
                 			</div>
@@ -26,7 +26,7 @@
                 			</div>
                 		</c:if>
                 		<c:if test="${not empty correct_username}">
-                			<p style="margin-bottom:20px" class="text-success">Please, <c:out value="${correct_username}"/> enter your secret answer and a new password</p>
+                			<p style="margin-bottom:20px; word-wrap:break-word;" class="text-success">Please, <c:out value="${correct_username}"/> enter your secret answer and a new password</p>
                 			<div class="form-group">
                                 <label for="question" class="col-md-4 control-label">Secret question</label>
                                 <div class="col-md-8">

@@ -11,7 +11,7 @@
 
 			<div class="well well-lg text-center">
 				<img class="profile-pic" src="img/hashtag.jpeg" />
-				<h2 class="profile-name">#<c:out value="${hashtag.hashtag}" /></h2>
+				<h2 class="profile-name" style="word-wrap:break-word">#<c:out value="${hashtag.hashtag}" /></h2>
 				<h4 class="profile-user">Created by @<c:out value="${hashtag.user.username}" /></h4>
 				<p class="profile-desc text-muted">First used: <c:out value="${hashtag.date}" /></p>
 			</div>
