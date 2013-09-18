@@ -5,7 +5,6 @@ import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -51,7 +50,6 @@ public class Register extends HttpServlet {
 				req.setAttribute("user_description", user.getDescription());
 				req.setAttribute("user_question", user.getSecretQuestion());
 				req.setAttribute("user_answer", user.getSecretAnswer());
-				//req.setAttribute("user_photo", user.getPhoto());
 			} else {
 				req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req, resp);
 				return;
@@ -86,11 +84,18 @@ public class Register extends HttpServlet {
 		byte[] photo = null;
 
 		if (!photoName.equals("")) {
-			photo = fileItems.get(8).get();
-		}
+			if(photoName.toLowerCase().contains("jpg") || photoName.toLowerCase().contains("jpeg") || photoName.toLowerCase().contains("png")) {
+				photo = fileItems.get(8).get();
+			} else {
+				request.setAttribute("error_photo", "File invalid. Only jpeg, jpg or png images");
+				error = true;
+			}
+		} 
 
 		if(request.getRequestURI().contains("register")) {
 			checkUsername(username, request);
+		} else {
+			request.setAttribute("user_username", username);
 		}
 		checkPassword(password, password2, request);
 		checkName(name, request);
@@ -117,7 +122,7 @@ public class Register extends HttpServlet {
 				}
 				userService.updateUser(new User(name, surname, username, password, description, question, answer, creationDate, photo));
 			}
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			response.sendRedirect("/Buitter/home");
 		}
 
 	}
