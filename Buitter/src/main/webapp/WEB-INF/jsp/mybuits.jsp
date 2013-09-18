@@ -1,4 +1,10 @@
 <%@ include file="header.jsp"%>
+<script>
+		function edit() {
+			var str1 = "/Buitter/editprofile";
+			window.location = str1;
+		}
+</script>
 
 <div class="container">
 
@@ -10,6 +16,7 @@
 			</p>
 
 			<div class="well well-lg text-center">
+
 				<c:if test="${not empty user_info.photo}">
 					<img class="profile-pic" src="image?name=<c:out value="${user_info.username}"/>"/>
 				</c:if>
@@ -19,6 +26,9 @@
 				<h2 class="profile-name"><c:out value="${user_info.name}"/> <c:out value="${user_info.surname}"/></h2>
 				<h4 class="profile-user">@<c:out value="${user_info.username}"/></h4>
 				<p class="profile-desc text-muted" style="word-wrap:break-word">"<c:out value="${user_info.description}"/>"	</p>
+				<c:if test="${user == user_info.username }">
+					<button onclick="edit();" type="button" class="pull-right btn btn-link btn-xs"><i class="icon-pencil"> Edit profile</i></button>
+				</c:if>
 			</div>
 
 			<div class="well well-lg">
