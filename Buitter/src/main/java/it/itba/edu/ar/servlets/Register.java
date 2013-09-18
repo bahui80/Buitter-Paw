@@ -81,7 +81,7 @@ public class Register extends HttpServlet {
 		String description = fileItems.get(5).getString();
 		String question = fileItems.get(6).getString();
 		String answer = fileItems.get(7).getString();
-		String creationDate = new Timestamp(new Date().getTime()).toString();
+		Timestamp creationDate = new Timestamp(0);
 		String photoName = fileItems.get(8).getName();
 		byte[] photo = null;
 

@@ -6,6 +6,7 @@ import it.itba.edu.ar.services.BuitService;
 import it.itba.edu.ar.services.UrlService;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,11 +18,13 @@ public class Hashtag extends BuitsHttpServlet {
 
 	private BuitService buitService;
 	private UrlService urlService;
+	private SimpleDateFormat formatter;
 	
 	@Override
 	public void init() throws ServletException {
 		buitService = BuitService.sharedInstance();
 		urlService = UrlService.sharedInstance();
+		formatter = new SimpleDateFormat("EEE, MMM d, HH:mm:ss");
 	};
 	
 	@Override
@@ -30,7 +33,9 @@ public class Hashtag extends BuitsHttpServlet {
 		String hashtagname = req.getParameter("name");
 		List<Url> urls;
 		List<Buit> buits = buitService.getBuitsForHashtag(hashtagname);
+
 		it.itba.edu.ar.model.Hashtag hashtag = buitService.getHashtag(hashtagname);
+		hashtag.setSimpleDateFormatter(formatter);
 		if(buits.isEmpty() || hashtag == null){
 			req.setAttribute("error_log", "We couldn't find messages with \"#"+hashtagname+"\"");
 			req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req, resp);
@@ -39,6 +44,7 @@ public class Hashtag extends BuitsHttpServlet {
 		
 		for(Buit buit: buits) {
 			buit.setMessage(prepareBuitHashtag(buit.getMessage()));
+			buit.setSimpleDateFormatter(formatter);
 			if(urlService.buitHasUrl(buit)){
 				urls = urlService.urlsForBuit(buit);
 				buit.setMessage(prepareBuitUrl(buit.getMessage(), urls));

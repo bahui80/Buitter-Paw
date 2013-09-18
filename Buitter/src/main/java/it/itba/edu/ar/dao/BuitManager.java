@@ -61,7 +61,7 @@ public class BuitManager implements BuitDao{
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT b.buitid, b.message, to_char(b.date, 'Day, DD Month  HH12:MI:SS') " +
+					"SELECT b.buitid, b.message, b.date " +
 					"FROM Users as u,Buits as b " +
 					"WHERE u.userid = ? AND u.userid = b.userid AND b.message = ? " +
 					"AND b.date >= (SELECT MAX(b.date) " +
@@ -75,7 +75,7 @@ public class BuitManager implements BuitDao{
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
 
-				buit = new Buit(results.getInt(1),results.getString(2), user, results.getString(3));
+				buit = new Buit(results.getInt(1),results.getString(2), user, results.getTimestamp(3));
 
 			}
 			connection.close();
@@ -90,7 +90,7 @@ public class BuitManager implements BuitDao{
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT b.buitid, b.message, to_char(b.date, 'Day, DD Month  HH24:MI:SS') " +
+					"SELECT b.buitid, b.message, b.date " +
 					"FROM Users as u,Buits as b " +
 					"WHERE u.username = ? AND u.userid = b.userid " +
 					"ORDER BY b.date DESC");
@@ -99,7 +99,7 @@ public class BuitManager implements BuitDao{
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
 
-				buits.add(new Buit(results.getInt(1),results.getString(2), user, results.getString(3)));
+				buits.add(new Buit(results.getInt(1),results.getString(2), user, results.getTimestamp(3)));
 
 			}
 			connection.close();
@@ -122,8 +122,8 @@ public class BuitManager implements BuitDao{
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT b.buitid, b.message, u.userid, u.name, u.surname, u.username, " +
 					"u.password, u.description, u.secret_question, u.secret_answer, " +
-					"to_char(u.date, 'Day, DD Month  HH24:MI:SS'), u.photo, " +
-					"to_char(b.date, 'Day, DD Month  HH24:MI:SS') " +
+					"u.date, u.photo, " +
+					"b.date " +
 					"FROM Hashtags as h,Buits as b, Buithash as bh, Users as u " +
 					"WHERE h.hashtagid = bh.hashtagid AND b.buitid = bh.buitid AND u.userid = b.userid " +
 					"AND h.hashtag = ? " +
@@ -138,8 +138,8 @@ public class BuitManager implements BuitDao{
 						results.getString(5), results.getString(6), 
 						results.getString(7), results.getString(8),
 						results.getString(9), results.getString(10), 
-						results.getString(11), results.getBytes(12));
-				buits.add(new Buit(results.getInt(1),results.getString(2),user,results.getString(13)));
+						results.getTimestamp(11), results.getBytes(12));
+				buits.add(new Buit(results.getInt(1),results.getString(2),user,results.getTimestamp(13)));
 			}
 			connection.close();
 		} catch (SQLException e) {

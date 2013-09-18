@@ -1,16 +1,17 @@
 package it.itba.edu.ar.model;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
-public class Hashtag {
+public class Hashtag extends DateFormatter{
 	
 	private Integer id;
 	private String hashtag;
-	private String date;
 	private User user;
 	
-	public Hashtag(String hashtag, String date, User user){
-		if(hashtag == null || hashtag.length() > 139 || date == null || user == null)
+	public Hashtag(String hashtag, Timestamp date, User user){
+		super(date);
+		if(hashtag == null || hashtag.length() > 139 || user == null)
 			throw new IllegalArgumentException();
 		
 		this.hashtag = hashtag;
@@ -18,8 +19,9 @@ public class Hashtag {
 		this.user = user;
 	}
 	
-	public Hashtag(int id, String hashtag, String date, User user){
-		if(id == 0 || hashtag == null || hashtag.length() > 139 || date == null || user == null)
+	public Hashtag(int id, String hashtag, Timestamp date, User user){
+		super(date);
+		if(id == 0 || hashtag == null || hashtag.length() > 139 || user == null)
 			throw new IllegalArgumentException();
 		
 		this.id = id;
@@ -51,10 +53,6 @@ public class Hashtag {
 			throw new IllegalArgumentException();
 		this.user = user;
 	}
-	
-	public String getDate(){
-		return this.date;
-	}
 
 	@Override
 	public String toString() {
@@ -62,4 +60,9 @@ public class Hashtag {
 				+ ", username=" + user.getUsername() + "]";
 	}
 	
+	@Override
+	public void setSimpleDateFormatter(SimpleDateFormat formatter) {
+		super.setSimpleDateFormatter(formatter);
+		this.user.setSimpleDateFormatter(formatter);
+	}
 }

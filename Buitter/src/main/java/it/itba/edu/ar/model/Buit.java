@@ -1,25 +1,26 @@
 package it.itba.edu.ar.model;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
-public class Buit {
+public class Buit extends DateFormatter{
 	private Integer id;
 	private String message;
 	private User user;
-	private String date;
 
-	public Buit(int id, String message, User user, String date){
-		if(id == 0 || message == null || message.length() < 1 || user == null || date == null)
+	public Buit(int id, String message, User user, Timestamp date){
+		super(date);
+		if(id == 0 || message == null || message.length() < 1 || user == null )
 			throw new IllegalArgumentException();
-		
 		this.id = id;
 		this.message = message;
 		this.user = user;
 		this.date = date;
 	}
 
-	public Buit(String message,  User user, String date){
-		if(message == null || message.length() < 1 || user == null || date == null)
+	public Buit(String message,  User user, Timestamp date){
+		super(date);
+		if(message == null || message.length() < 1 || user == null )
 			throw new IllegalArgumentException();
 		
 		this.message = message;
@@ -58,10 +59,6 @@ public class Buit {
 		this.user = user;
 	}
 
-	public String getDate() {
-		return date;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,6 +88,12 @@ public class Buit {
 	public String toString() {
 		return "Buit [id=" + id + ", message=" + message + ", username="
 				+ user.getUsername() + ", date=" + date + "]";
+	}
+
+	@Override
+	public void setSimpleDateFormatter(SimpleDateFormat formatter) {
+		super.setSimpleDateFormatter(formatter);
+		this.user.setSimpleDateFormatter(formatter);
 	}
 }
 

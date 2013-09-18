@@ -9,7 +9,8 @@ import it.itba.edu.ar.services.UrlService;
 import it.itba.edu.ar.services.UserService;
 
 import java.io.IOException;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,12 +23,14 @@ public class MyBuits extends BuitsHttpServlet {
 	private UserService userService;
 	private BuitService buitService;
 	private UrlService urlService;
+	private SimpleDateFormat formatter;
 	
 	@Override
 	public void init() throws ServletException {
 		userService = UserService.sharedInstance();
 		buitService = BuitService.sharedInstance();
 		urlService = UrlService.sharedInstance();
+		formatter = formatter = new SimpleDateFormat("EEE, MMM d, HH:mm:ss");
 	};
 	
 	@Override
@@ -37,8 +40,10 @@ public class MyBuits extends BuitsHttpServlet {
 		
 		if(profile != null && userService.checkUsername(profile)) {
 			User usr = userService.getUserByUsername(profile);
+			usr.setSimpleDateFormatter(formatter);
 			List<Buit> buits = buitService.getUserBuits(usr);
 			for(Buit buit: buits) {
+				buit.setSimpleDateFormatter(formatter);
 				buit.setMessage(prepareBuitHashtag(buit.getMessage()));
 				if(urlService.buitHasUrl(buit)){
 					urls = urlService.urlsForBuit(buit);
@@ -71,7 +76,7 @@ public class MyBuits extends BuitsHttpServlet {
 			//request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(request, response);
 		} else {
 			//primero buittea
-			Buit buitAux = buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Date().toString()));
+			Buit buitAux = buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Timestamp(0)));
 			//busco hashtags
 			hashTags = getHashTags(buit);
 			//busco urls
@@ -80,7 +85,7 @@ public class MyBuits extends BuitsHttpServlet {
 				//por cada hashtag lo agrego con su buit
 				String username = (String) request.getSession().getAttribute("user");
 				User user = userService.getUserByUsername(username);
-				Hashtag hashtag = new Hashtag(hash, new Date().toString(), user);
+				Hashtag hashtag = new Hashtag(hash, new Timestamp(0), user);
 				buitService.addHashtag(hashtag,buitAux);
 			}
 			for(String url: urls) {

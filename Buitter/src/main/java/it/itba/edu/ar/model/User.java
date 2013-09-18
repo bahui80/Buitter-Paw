@@ -2,7 +2,7 @@ package it.itba.edu.ar.model;
 
 import java.sql.Timestamp;
 
-public class User {
+public class User extends DateFormatter{
 	
 	private Integer id;
 	private String name;
@@ -12,10 +12,10 @@ public class User {
 	private String description;
 	private String secret_question;
 	private String secret_answer;
-	private String creationDate;
 	private byte[] photo; // TODO ver que tipo
 
 	public User(String username, String password){
+		super(new Timestamp(0));
 		if(username == null || username.length() > 32 || password == null || password.length() > 32)
 			throw new IllegalArgumentException();
 		this.username = username;
@@ -26,7 +26,8 @@ public class User {
 	
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			String creationDate, byte[] photo){
+			Timestamp creationDate, byte[] photo){
+		super(creationDate);
 		if(username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
@@ -40,13 +41,13 @@ public class User {
 		this.description = description;
 		this.secret_answer = secret_answer;
 		this.secret_question = secret_question;
-		this.creationDate = creationDate;
 		this.photo = photo;
 	}
 	
 	public User(int id, String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			String creationDate, byte[] photo){
+			Timestamp creationDate, byte[] photo){
+		super(creationDate);
 		if(id == 0 || username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
@@ -61,7 +62,6 @@ public class User {
 		this.description = description;
 		this.secret_answer = secret_answer;
 		this.secret_question = secret_question;
-		this.creationDate = creationDate;
 		this.photo = photo;
 	}
 	
@@ -143,10 +143,6 @@ public class User {
 		if(s_answer == null || s_answer.length() > 60)
 			throw new IllegalArgumentException();
 		this.secret_answer = s_answer;
-	}
-
-	public String getCreationDate() {
-		return creationDate;
 	}
 
 	public byte[] getPhoto() {

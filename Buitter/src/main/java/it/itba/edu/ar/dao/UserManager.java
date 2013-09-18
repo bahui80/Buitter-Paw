@@ -53,17 +53,16 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT userid,name,surname,username,password," +
-					"description,secret_question,secret_answer," +
-					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"SELECT * " +
 					"FROM Users WHERE username = ?");
 			stmt.setString(1,username);
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
-						results.getString(5),results.getString(6),results.getString(7),
-						results.getString(8),results.getString(9), results.getBytes(10));
+				usr = new User(results.getInt("userid"),results.getString("name"),results.getString("surname"),
+						results.getString("username"),results.getString("password"),results.getString("description"),
+						results.getString("secret_question"),
+						results.getString("secret_answer"),results.getTimestamp("date"), results.getBytes("photo"));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -77,17 +76,16 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT userid,name,surname,username,password," +
-					"description,secret_question,secret_answer," +
-					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"SELECT * " +
 					"FROM Users WHERE userid = ?");
 			stmt.setInt(1,id);
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
-						results.getString(5),results.getString(6),results.getString(7),
-						results.getString(8),results.getString(9), results.getBytes(10));
+				usr = new User(results.getInt("userid"),results.getString("name"),results.getString("surname"),
+						results.getString("username"),results.getString("password"),results.getString("description"),
+						results.getString("secret_question"),
+						results.getString("secret_answer"),results.getTimestamp("date"), results.getBytes("photo"));
 
 			}
 			connection.close();
@@ -102,17 +100,16 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT userid,name,surname,username,password," +
-					"description,secret_question,secret_answer," +
-					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"SELECT * " +
 					"FROM Users WHERE surname = ? ");
 			stmt.setString(1, surname);
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
-							results.getString(5),results.getString(6),results.getString(7),
-							results.getString(8),results.getString(9), results.getBytes(10)));
+				 usrs.add(new User(results.getInt("userid"),results.getString("name"),results.getString("surname"),
+							results.getString("username"),results.getString("password"),results.getString("description"),
+							results.getString("secret_question"),
+							results.getString("secret_answer"),results.getTimestamp("date"), results.getBytes("photo")));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -126,17 +123,16 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT userid,name,surname,username,password," +
-					"description,secret_question,secret_answer," +
-					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"SELECT * " +
 					"FROM Users WHERE name = ? ");
 			stmt.setString(1, name);
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
-							results.getString(5),results.getString(6),results.getString(7),
-							results.getString(8),results.getString(9), results.getBytes(10)));
+				 usrs.add(new User(results.getInt("userid"),results.getString("name"),results.getString("surname"),
+							results.getString("username"),results.getString("password"),results.getString("description"),
+							results.getString("secret_question"),
+							results.getString("secret_answer"),results.getTimestamp("date"), results.getBytes("photo")));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -150,18 +146,17 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT userid,name,surname,username,password," +
-					"description,secret_question,secret_answer," +
-					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"SELECT * " +
 					"FROM Users WHERE username = ? AND password = ?");
 			stmt.setString(1, username);
 			stmt.setString(2,password);
 
 			ResultSet results = stmt.executeQuery();
 			if (results.next()) {
-				usr = new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
-						results.getString(5),results.getString(6),results.getString(7),
-						results.getString(8),results.getString(9), results.getBytes(10));
+				usr = new User(results.getInt("userid"),results.getString("name"),results.getString("surname"),
+						results.getString("username"),results.getString("password"),results.getString("description"),
+						results.getString("secret_question"),
+						results.getString("secret_answer"),results.getTimestamp("date"), results.getBytes("photo"));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -225,17 +220,16 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT userid,name,surname,username,password," +
-					"description,secret_question,secret_answer," +
-					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"SELECT * " +
 					"FROM Users " +
 					"ORDER BY surname, name, username");
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
-							results.getString(5),results.getString(6),results.getString(7),
-							results.getString(8),results.getString(9), results.getBytes(10)));
+				 usrs.add(new User(results.getInt("userid"),results.getString("name"),results.getString("surname"),
+							results.getString("username"),results.getString("password"),results.getString("description"),
+							results.getString("secret_question"),
+							results.getString("secret_answer"),results.getTimestamp("date"), results.getBytes("photo")));
 			}
 			connection.close();
 		} catch (SQLException e) {
@@ -249,9 +243,7 @@ public class UserManager implements UserDao {
 		try {
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
-					"SELECT userid,name,surname,username,password," +
-					"description,secret_question,secret_answer," +
-					"to_char(date, 'Day, DD Month  HH24:MI:SS'),photo " +
+					"SELECT * " +
 					"FROM Users " +
 					"WHERE ( (lower(name) LIKE ANY ( SELECT '%' || ? ||'%' FROM Users ) ) OR " +
 					"(lower(surname) LIKE ANY ( SELECT  '%' || ? ||'%' FROM Users ) )  OR " +
@@ -263,9 +255,10 @@ public class UserManager implements UserDao {
 
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
-				 usrs.add(new User(results.getInt(1),results.getString(2),results.getString(3),results.getString(4),
-						results.getString(5),results.getString(6),results.getString(7),
-						results.getString(8),results.getString(9), results.getBytes(10)));
+				 usrs.add(new User(results.getInt("userid"),results.getString("name"),results.getString("surname"),
+						results.getString("username"),results.getString("password"),results.getString("description"),
+						results.getString("secret_question"),
+						results.getString("secret_answer"),results.getTimestamp("date"), results.getBytes("photo")));
 			}
 			connection.close();
 		} catch (SQLException e) {
