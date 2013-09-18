@@ -28,17 +28,35 @@ public class Register extends HttpServlet {
 	};
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		if(req.getSession().getAttribute("user") != null){
-			req.setAttribute("error_logged_in", "error");
-			resp.sendRedirect("/Buitter/login");
-			return;
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String username = (String) req.getSession().getAttribute("user");
+		
+		if(!req.getRequestURI().contains("editprofile")) {
+			req.setAttribute("action", "register");
+			if(req.getSession().getAttribute("user") != null){
+				req.setAttribute("error_logged_in", "error");
+				resp.sendRedirect("/Buitter/login");
+				return;
+			}
+		} else {
+			if (username != null) {
+				User user = userService.getUserByUsername(username);
+
+				req.setAttribute("user_password", user.getPassword());
+				req.setAttribute("user_password2", user.getPassword());
+				req.setAttribute("user_name", user.getName());
+				req.setAttribute("user_surname", user.getSurname());
+				req.setAttribute("user_description", user.getDescription());
+				req.setAttribute("user_question", user.getSecretQuestion());
+				req.setAttribute("user_answer", user.getSecretAnswer());
+				//req.setAttribute("user_photo", user.getPhoto());
+			} else {
+				req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req, resp);
+				return;
+			}
 		}
 		
-		req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req,
-				resp);
-		return;
+		req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -67,54 +85,29 @@ public class Register extends HttpServlet {
 
 		if (!photoName.equals("")) {
 			photo = fileItems.get(8).get();
-//			FileOutputStream fos = new FileOutputStream("/home/juan/Escritorio/jaja.jpg");
-//			fos.write(photo);
-//			fos.close();
 		}
-
-		// If file size exceeds, a FileUploadException will be thrown
-		// fu.setSizeMax(100000000);
-		// try {
-		// while(itr.hasNext()) {
-		// FileItem fi = (FileItem)itr.next();
-
-		// Check if not form field so as to only handle the file inputs
-		// else condition handles the submit button input
-		// if(!fi.isFormField()) {specified byte array starting
-		// System.out.println("NAME: "+fi.getName());
-		// System.out.println("SIZE: "+fi.getSize());
-		// System.out.println(fi.getOutputStream().toString());
-		// File fNew = new File(fi.getName());
-
-		// System.out.println(fNew.getAbsolutePath());
-		// fi.write(fNew);
-		// DE ACA
-		// FileInputStream fis = new FileInputStream(fNew);
-		// PreparedStatement ps =
-		// conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
-		// ps.setString(1, file.getName());
-		// ps.setBinaryStream(2, fis, file.length());
-		// ps.executeUpdate();
-		// ps.close();
-		// fis.close();
-		// A ACA LA CONVERSION DE LA FOTO
-
-		// }
-		// }
 
 		checkUsername(username, request);
 		checkPassword(password, password2, request);
 		checkName(name, request);
 		checkSurname(surname, request);
 		checkDescription(description, request);
-		checkAnswer(answer, request);
-
+		checkAnswer(answer, question, request);
+		
+		if(!request.getRequestURI().contains("editprofile")) {
+			request.setAttribute("action", "register");
+		}
+		
 		if (error) {
 			error = false;
 			request.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(request, response);
 		} else {
-			userService.register(new User(name, surname, username, password,
-					description, question, answer, creationDate, photo));
+			if(!request.getRequestURI().contains("editprofile")) {
+				userService.register(new User(name, surname, username, password, description, question, answer, creationDate, photo));
+				request.getSession().setAttribute("user", username);
+			} else {
+				userService.updateUser(new User(name, surname, username, password, description, question, answer, creationDate, photo));
+			}
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 
@@ -230,7 +223,7 @@ public class Register extends HttpServlet {
 		}
 	}
 
-	private void checkAnswer(String answer, HttpServletRequest request) {
+	private void checkAnswer(String answer, String question, HttpServletRequest request) {
 		if (!answer.equals("")) {
 			if(answer.trim().length() == 0) {
 				request.setAttribute("error_answer",
@@ -243,10 +236,12 @@ public class Register extends HttpServlet {
 				error = true;
 			}
 			request.setAttribute("user_answer", answer);
+			
 		} else {
 			request.setAttribute("error_answer",
 					"You must insert a secret answer");
 			error = true;
 		}
+		request.setAttribute("question", question);
 	}
 }

@@ -7,15 +7,17 @@
               <form class="bs-example form-horizontal" method="post" action="register" enctype="multipart/form-data">
                 <fieldset>
                   <legend>New user</legend>
-                  <div class="form-group <c:if test="${not empty error_username}">has-error</c:if>">
-                    <label for="username" class="col-md-3 control-label">Username</label>
-                    <div class="col-md-8">
-                      <input type="text" class="form-control2" maxlength="32" placeholder="Username" name="username" value="<c:out value="${user_username}"/>"/>
-                      <c:if test="${not empty error_username}">
-                        <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_username}"/></em></small></p>
-                      </c:if>
+                  <c:if test="${action == 'register'}">
+                    <div class="form-group <c:if test="${not empty error_username}">has-error</c:if>">
+                      <label for="username" class="col-md-3 control-label">Username</label>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control2" maxlength="32" placeholder="Username" name="username" value="<c:out value="${user_username}"/>"/>
+                        <c:if test="${not empty error_username}">
+                          <p class="text-danger" style="margin-bottom: 0px"><small><em><c:out value="${error_username}"/></em></small></p>
+                        </c:if>
+                      </div>
                     </div>
-                  </div>
+                  </c:if>
                   <div class="form-group <c:if test="${not empty error_password}">has-error</c:if>">
                     <label for="password" class="col-md-3 control-label">Password</label>
                     <div class="col-md-8">
@@ -66,11 +68,11 @@
                     <label for="question" class="col-md-3 control-label">Secret question</label>
                     <div class="col-md-8">
                       <select class="form-control2" name="question">
-                        <option>What's the name of your dog?</option>
-                        <option>Who was your favourite teacher?</option>
-                        <option>Where do you live?</option>
-                        <option>Do you hate Twitter?</option>
-                        <option>What's your aunt's name?</option>
+                        <option <c:if test="${question == 'What is the name of your dog?'}">selected="selected"</c:if> >What is the name of your dog?</option>
+                        <option <c:if test="${question == 'Who was your favourite teacher?'}">selected="selected"</c:if> >Who was your favourite teacher?</option>
+                        <option <c:if test="${question == 'Where do you live?'}">selected="selected"</c:if> >Where do you live?</option>
+                        <option <c:if test="${question == 'Do you hate Twitter?'}">selected="selected"</c:if> >Do you hate Twitter?</option>
+                        <option <c:if test="${question == 'What is your aunts name?'}">selected="selected"</c:if> >What is your aunts name?</option>
                       </select>
                     </div>
                   </div>

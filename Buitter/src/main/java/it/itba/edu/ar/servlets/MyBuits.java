@@ -33,12 +33,17 @@ public class MyBuits extends BuitsHttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String profile = request.getParameter("name");
+		List<Url> urls;
 		
 		if(profile != null && userService.checkUsername(profile)) {
 			User usr = userService.getUserByUsername(profile);
 			List<Buit> buits = buitService.getUserBuits(usr);
 			for(Buit buit: buits) {
-				buit.setMessage(prepareBuit(buit.getMessage()));
+				buit.setMessage(prepareBuitHashtag(buit.getMessage()));
+				if(urlService.buitHasUrl(buit)){
+					urls = urlService.urlsForBuit(buit);
+					buit.setMessage(prepareBuitUrl(buit.getMessage(), urls));
+				}
 			}
 			request.setAttribute("buits", buits);
 			request.setAttribute("user_info", usr);
@@ -69,6 +74,7 @@ public class MyBuits extends BuitsHttpServlet {
 			Buit buitAux = buitService.buit(new Buit(buit, userService.getUserByUsername((String)request.getSession().getAttribute("user")), new Date().toString()));
 			//busco hashtags
 			hashTags = getHashTags(buit);
+			//busco urls
 			urls = getUrls(buit);
 			for(String hash: hashTags) {
 				//por cada hashtag lo agrego con su buit
@@ -78,9 +84,9 @@ public class MyBuits extends BuitsHttpServlet {
 				buitService.addHashtag(hashtag,buitAux);
 			}
 			for(String url: urls) {
+				//por cada url la agrego
 				urlService.insertUrl(new Url(url, buitAux.getId()));
 			}
-			System.out.println(urls);
 			response.sendRedirect("profile?name=" + request.getSession().getAttribute("user"));
 			return;
 		}

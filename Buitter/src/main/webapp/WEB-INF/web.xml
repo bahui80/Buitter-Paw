@@ -19,13 +19,6 @@
 	<servlet-mapping>
 		<servlet-name>Register</servlet-name>
 		<url-pattern>/register</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>EditProfile</servlet-name>
-		<servlet-class>it.itba.edu.ar.servlets.EditProfile</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EditProfile</servlet-name>
 		<url-pattern>/editprofile</url-pattern>
 	</servlet-mapping>
 	<servlet>

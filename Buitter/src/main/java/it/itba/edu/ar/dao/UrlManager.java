@@ -74,7 +74,7 @@ public class UrlManager implements UrlDao{
 			Connection connection = manager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(
 					"SELECT urlid, url, buiturl, buitid " +
-					"FROM urls" +
+					"FROM urls " +
 					"WHERE buitid = ?");
 			stmt.setInt(1, buit.getId());
 			
@@ -87,6 +87,7 @@ public class UrlManager implements UrlDao{
 			}
 			connection.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DatabaseException(e.getMessage(), e);
 		}
 		return urls;

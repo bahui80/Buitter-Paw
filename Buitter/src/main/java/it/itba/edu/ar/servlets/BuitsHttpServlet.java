@@ -1,5 +1,7 @@
 package it.itba.edu.ar.servlets;
 
+import it.itba.edu.ar.model.Url;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -25,7 +27,16 @@ public class BuitsHttpServlet extends HttpServlet {
 		return hashTags;
 	}
 	
-	public String prepareBuit(String buit) {
+	public String prepareBuitUrl(String buit, List<Url> urls) {
+		for(Url url: urls) {
+			String searchHTML = "<a href='" + url.getUrl() + "' target='_blank'>" + url.getBuiturl() + "</a>";
+			buit = buit.replace(url.getUrl(),searchHTML);
+		}
+		return buit;
+	}
+	
+	
+	public String prepareBuitHashtag(String buit) {
 		String patternStr = "#([A-Za-z0-9_]+)";
 		Pattern pattern = Pattern.compile(patternStr);
 		Matcher matcher = pattern.matcher(buit);
@@ -40,14 +51,6 @@ public class BuitsHttpServlet extends HttpServlet {
 			buit = buit.replace(result, searchHTML);
 		}
 		
-		if (buit != null && buit.contains("http:")) {
-			int indexOfHttp = buit.indexOf("http:");
-			int endPoint = (buit.indexOf(' ', indexOfHttp) != -1) ? buit.indexOf(' ', indexOfHttp) : buit.length();
-			String url = buit.substring(indexOfHttp, endPoint);
-			String targetUrlHtml=  "<a href='${url}' target='_blank'>${url}</a>";
-			buit = buit.replace(url,targetUrlHtml);
-		}
-		
 		return buit;
 	}
 	
@@ -57,11 +60,6 @@ public class BuitsHttpServlet extends HttpServlet {
 		Pattern pattern = Pattern.compile(patternStr);
 		Matcher matcher = pattern.matcher(buit);
 		String result = "";
-//		if (buit != null && buit.contains("http://")) {
-//			int indexOfHttp = buit.indexOf("http://");
-//			int endPoint = (buit.indexOf(' ', indexOfHttp) != -1) ? buit.indexOf(' ', indexOfHttp) : buit.length();
-//			urls.add(buit.substring(indexOfHttp, endPoint));
-//		}
 		
 		while(matcher.find()) {
 			result = matcher.group();
