@@ -29,6 +29,25 @@
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
+	<listener>
+    <listener-class>it.itba.edu.ar.connection.ServletListener</listener-class>
+  </listener>
+	<context-param>
+		<param-name>driver</param-name>
+		<param-value>org.postgresql.Driver</param-value>
+	</context-param>
+	<context-param>
+		<param-name>connectionString</param-name>
+		<param-value>jdbc:postgresql://localhost/paw2</param-value>
+	</context-param>
+	<context-param>
+		<param-name>username</param-name>
+		<param-value>paw</param-value>
+	</context-param>
+	<context-param>
+		<param-name>password</param-name>
+		<param-value>paw</param-value>
+	</context-param>
 	<servlet>
 		<servlet-name>Login</servlet-name>
 		<servlet-class>it.itba.edu.ar.servlets.Login</servlet-class>

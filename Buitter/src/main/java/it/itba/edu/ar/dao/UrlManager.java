@@ -1,6 +1,7 @@
 package it.itba.edu.ar.dao;
 
 import it.itba.edu.ar.connection.ConnectionManager;
+import it.itba.edu.ar.connection.DBInfo;
 import it.itba.edu.ar.connection.DatabaseException;
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Url;
@@ -18,11 +19,6 @@ public class UrlManager implements UrlDao{
 	private static UrlManager instance;
 	private static ConnectionManager manager;
 	
-	private static final String driver = "org.postgresql.Driver";
-	private static final String connectionString = "jdbc:postgresql://localhost/paw2";
-	private static final String username = "paw";
-	private static final String password = "paw";
-	
 	public static synchronized UrlManager sharedInstance(){
 		if(instance == null){
 			instance = new UrlManager();
@@ -31,7 +27,8 @@ public class UrlManager implements UrlDao{
 	}
 	
 	private UrlManager(){
-		manager = new ConnectionManager(driver,connectionString , username, password);
+		DBInfo info = DBInfo.sharedInstance();
+		manager = new ConnectionManager(info.getDriver(),info.getConnectionString() , info.getUsername(), info.getPassword());
 	}
 
 	public void insertUrl(Url url) {
