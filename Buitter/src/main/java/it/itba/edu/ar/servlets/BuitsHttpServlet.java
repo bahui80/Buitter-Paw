@@ -29,9 +29,9 @@ public class BuitsHttpServlet extends HttpServlet {
 	
 	public String prepareBuitUrl(String buit, List<Url> urls) {
 		for(Url url: urls) {
-			String searchHTML = "<a href='" + url.getUrl() + "' target='_blank'>" + url.getBuiturl() + "</a>";
-			buit = buit.replace(url.getUrl(),searchHTML);
-		}
+			String searchHTML = " <a href='" + url.getUrl() + "' target='_blank'>" + url.getBuiturl() + "</a> ";
+			buit = buit.replaceAll("((?:\\A)|(?:\\s))" + Pattern.quote(url.getUrl()) + "((?:\\s)|(?:\\Z))", searchHTML);
+		}	
 		return buit;
 	}
 	
