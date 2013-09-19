@@ -3,6 +3,7 @@ package it.itba.edu.ar.services;
 import it.itba.edu.ar.dao.UrlManager;
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Url;
+import it.itba.edu.ar.servlets.ServletValidationException;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +24,9 @@ public final class UrlService {
 	}
 
 	public void insertUrl(Url url) {
+		if (url == null) {
+			throw new ServletValidationException();
+		}
 		UrlManager urlManager = UrlManager.sharedInstance();
 
 		String hashedUrl = UUID.randomUUID().toString().substring(0, 4);
@@ -33,6 +37,9 @@ public final class UrlService {
 	}
 
 	public boolean buitHasUrl(Buit buit) {
+		if (buit == null) {
+			throw new ServletValidationException();
+		}
 		UrlManager urlManager = UrlManager.sharedInstance();
 
 		if (urlManager.urlsForBuit(buit) != null)
@@ -41,6 +48,9 @@ public final class UrlService {
 	}
 
 	public List<Url> urlsForBuit(Buit buit) {
+		if (buit == null) {
+			throw new ServletValidationException();
+		}
 		UrlManager urlManager = UrlManager.sharedInstance();
 
 		return urlManager.urlsForBuit(buit);

@@ -24,6 +24,9 @@ public class UserService {
 	}
 
 	public User getUserByUsername(String username) {
+		if (username == null) {
+			throw new ServletValidationException();
+		}
 		UserManager userManager = UserManager.sharedInstance();
 
 		User user = userManager.getUserByUsername(username);
@@ -31,6 +34,9 @@ public class UserService {
 	}
 
 	public User getUserById(int id) {
+		if (id <= 0) {
+			throw new ServletValidationException();
+		}
 		UserManager userManager = UserManager.sharedInstance();
 
 		User user = userManager.getUserById(id);
@@ -38,6 +44,9 @@ public class UserService {
 	}
 	
 	public User getUserByUsernameAndPassword(String username, String password){
+		if (username == null || password == null) {
+			throw new ServletValidationException();
+		}
 		UserManager userManager = UserManager.sharedInstance();
 
 		User user = userManager.getUserByUsernameAndPassword(username,password);
