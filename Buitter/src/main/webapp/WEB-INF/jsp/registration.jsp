@@ -12,7 +12,7 @@
     <div class="well">
               <form class="bs-example form-horizontal" method="post" action="<c:out value="${action}"/>" enctype="multipart/form-data">
                 <fieldset>
-                  <legend>New user</legend>
+                  <legend>Your personal details</legend>
                   <c:if test="${action == 'editprofile'}">
                       <input type="hidden" class="form-control2" name="username" value="<c:out value="${user_username}"/>"/>
                   </c:if>
@@ -77,11 +77,11 @@
                     <label for="question" class="col-md-3 control-label">Secret question</label>
                     <div class="col-md-8">
                       <select class="form-control2" name="question">
-                        <option <c:if test="${question == 'What is the name of your dog?'}">selected="selected"</c:if> >What is the name of your dog?</option>
-                        <option <c:if test="${question == 'Who was your favourite teacher?'}">selected="selected"</c:if> >Who was your favourite teacher?</option>
-                        <option <c:if test="${question == 'Where do you live?'}">selected="selected"</c:if> >Where do you live?</option>
-                        <option <c:if test="${question == 'Do you hate Twitter?'}">selected="selected"</c:if> >Do you hate Twitter?</option>
-                        <option <c:if test="${question == 'What is your aunts name?'}">selected="selected"</c:if> >What is your aunts name?</option>
+                        <option <c:if test="${user_question == 'What is the name of your dog?'}">selected="selected"</c:if> >What is the name of your dog?</option>
+                        <option <c:if test="${user_question == 'Who was your favourite teacher?'}">selected="selected"</c:if> >Who was your favourite teacher?</option>
+                        <option <c:if test="${user_question == 'Where do you live?'}">selected="selected"</c:if> >Where do you live?</option>
+                        <option <c:if test="${user_question == 'Do you hate Twitter?'}">selected="selected"</c:if> >Do you hate Twitter?</option>
+                        <option <c:if test="${user_question == 'What is your aunts name?'}">selected="selected"</c:if> >What is your aunts name?</option>
                       </select>
                     </div>
                   </div>

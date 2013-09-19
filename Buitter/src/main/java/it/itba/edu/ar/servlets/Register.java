@@ -101,6 +101,7 @@ public class Register extends HttpServlet {
 		checkName(name, request);
 		checkSurname(surname, request);
 		checkDescription(description, request);
+		request.setAttribute("user_question", question);
 		checkAnswer(answer, question, request);
 		
 		if(!request.getRequestURI().contains("editprofile")) {
