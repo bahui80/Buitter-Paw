@@ -40,7 +40,7 @@ public class HashtagManager implements HashtagDao{
 			String description, String secret_question, String secret_answer, 
 			Date creationDate, byte photo)
 	 */
-	public List<Hashtag> getHashtagsSinceDate(Timestamp date) {
+	public List<Hashtag> getHashtagsSinceDate(Timestamp date, int quantity) {
 		List<Hashtag> hashtags = new ArrayList<Hashtag>();
 		try {
 			Connection connection = manager.getConnection();
@@ -53,8 +53,9 @@ public class HashtagManager implements HashtagDao{
 					"AND b.date > ? " +
 					"GROUP BY h.hashtag, u.userid, u.username, h.hashtagid " +
 					"ORDER BY count DESC " +
-					"LIMIT 10");
+					"LIMIT ?");
 			stmt.setTimestamp(1, date);
+			stmt.setInt(2, quantity);
 			ResultSet results = stmt.executeQuery();
 			while (results.next()) {
 				User user = new User(results.getInt(2), results.getString(3), 

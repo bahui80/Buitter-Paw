@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface HashtagDao {
 
-		public List<Hashtag> getHashtagsSinceDate(Timestamp date);
+		public List<Hashtag> getHashtagsSinceDate(Timestamp date, int quantity);
 		public List<Hashtag> hashtagForUser(String username);
 		public void insertHashtag(Hashtag hashtag);
 		public Hashtag getHashtag(String hashtagname);

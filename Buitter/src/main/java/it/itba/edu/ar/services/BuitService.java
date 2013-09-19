@@ -38,9 +38,9 @@ public class BuitService{
 		return buitManager.getBuit(buit.getMessage(),buit.getUser());
 	}
 
-	public List<Hashtag> trendingTopics(Date date) {
+	public List<Hashtag> trendingTopics(Date date, int quantity) {
 		HashtagManager hashtagManager = HashtagManager.sharedInstance();
-		return hashtagManager.getHashtagsSinceDate(new Timestamp(date.getTime()));
+		return hashtagManager.getHashtagsSinceDate(new Timestamp(date.getTime()), quantity);
 	}
 
 	public List<Buit> getUserBuits(User user){

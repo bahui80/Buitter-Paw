@@ -19,6 +19,7 @@ public class Home extends BuitsHttpServlet {
 	private BuitService buitService;
 	private UserService userService;
 	private long DAY_IN_MS = 1000 * 60 * 60 * 24;
+	private static final int trendingQuantity  = 10;
 
 	@Override
 	public void init() throws ServletException {
@@ -44,7 +45,7 @@ public class Home extends BuitsHttpServlet {
 
 		Date tdate = new Date(System.currentTimeMillis()
 				- (default_time * DAY_IN_MS));
-		List<Hashtag> trendingTopics = buitService.trendingTopics(tdate);
+		List<Hashtag> trendingTopics = buitService.trendingTopics(tdate, trendingQuantity);
 
 		req.setAttribute("trending", trendingTopics);
 
