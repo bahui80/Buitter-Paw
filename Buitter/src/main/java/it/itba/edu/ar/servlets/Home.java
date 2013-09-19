@@ -37,7 +37,12 @@ public class Home extends BuitsHttpServlet {
 		String time = req.getParameter("time");
 		if (time != null) {
 			try {
-				default_time = Integer.parseInt(time);
+				int aux = Integer.parseInt(time);
+				if(aux!= 7 && aux != 30 && aux != 1){
+					req.getRequestDispatcher("error.jsp").forward(req, resp);
+					return;
+				}
+				default_time = aux;
 			} catch (NumberFormatException e) {
 
 			}
@@ -63,7 +68,7 @@ public class Home extends BuitsHttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.getRequestDispatcher("index.jsp").forward(req, resp);
+		this.doGet(req, resp);
 		return;
 	}
 
