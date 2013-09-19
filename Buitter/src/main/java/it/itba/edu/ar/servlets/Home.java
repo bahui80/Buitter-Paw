@@ -33,7 +33,7 @@ public class Home extends BuitsHttpServlet {
 			throws ServletException, IOException {
 
 		int default_time = 7;
-
+		
 		String time = req.getParameter("time");
 		if (time != null) {
 			try {
@@ -54,6 +54,7 @@ public class Home extends BuitsHttpServlet {
 			userList = userList.subList(0, 5);
 		}
 		req.setAttribute("userlist", userList);
+		req.setAttribute("selectedTime", default_time);
 
 		req.getRequestDispatcher("index.jsp").forward(req, resp);
 		return;

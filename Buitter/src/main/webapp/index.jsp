@@ -50,9 +50,9 @@
 			<div class="well sidebar-nav">
 				<span> Trending Topics </span> <span><select
 					class="form-control" id="select" style="width: 100%">
-						<option id="7">1 week</option>
-						<option id="1">1 day</option>
-						<option id="30">1 month</option>
+						<option id="7" <c:if test="${selectedTime == '7'}">selected="selected"</c:if>>1 week</option>
+						<option id="1" <c:if test="${selectedTime == '1'}">selected="selected"</c:if>>1 day</option>
+						<option id="30" <c:if test="${selectedTime == '30'}">selected="selected"</c:if>>1 month</option>
 				</select></span>
 				<ul class="nav">
 				<c:if test="${empty trending}"><br/><p class="text-muted">There are no hashtags for this period of time.</p></c:if>
