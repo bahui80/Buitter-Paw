@@ -1,7 +1,9 @@
 
 package it.itba.edu.ar.services;
 
+import it.itba.edu.ar.dao.BuitDao;
 import it.itba.edu.ar.dao.BuitManager;
+import it.itba.edu.ar.dao.HashtagDao;
 import it.itba.edu.ar.dao.HashtagManager;
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Hashtag;
@@ -15,22 +17,25 @@ import java.util.List;
 public class BuitServiceImpl{
 
 	private static BuitServiceImpl instance;
+	private static BuitDao buitManager;
+	private static HashtagDao hashtagManager;
 	
-	public static synchronized BuitServiceImpl sharedInstance(){
-		if(instance == null){
-			instance = new BuitServiceImpl();
-		}
-		return instance;
-	}
+//	public static synchronized BuitServiceImpl sharedInstance(){
+//		if(instance == null){
+//			instance = new BuitServiceImpl();
+//		}
+//		return instance;
+//	}
 	
-	private BuitServiceImpl(){
+	public BuitServiceImpl(BuitDao buitDao, HashtagDao hashtagDao){
+		this.buitManager = buitDao;
+		this.hashtagManager = hashtagDao;
 	}
 	
 	public void removeBuit(int buitid) {
 		if (buitid <= 0) {
 			throw new ServletValidationException();
 		}
-		BuitManager buitManager = BuitManager.sharedInstance();
 		
 		buitManager.removeBuit(buitid);
 	}
@@ -39,7 +44,7 @@ public class BuitServiceImpl{
 		if (buit == null) {
 			throw new ServletValidationException();
 		}
-		BuitManager buitManager = BuitManager.sharedInstance();
+		
 		buitManager.buit(buit);
 		
 		return buitManager.getBuit(buit.getMessage(),buit.getUser());
@@ -49,7 +54,6 @@ public class BuitServiceImpl{
 		if (date == null || quantity <= 0) {
 			throw new ServletValidationException();
 		}
-		HashtagManager hashtagManager = HashtagManager.sharedInstance();
 		return hashtagManager.getHashtagsSinceDate(new Timestamp(date.getTime()), quantity);
 	}
 
@@ -57,7 +61,6 @@ public class BuitServiceImpl{
 		if (user == null) {
 			throw new ServletValidationException();
 		}
-		BuitManager buitManager = BuitManager.sharedInstance();
 
 		return buitManager.getUserBuits(user);
 	}
@@ -66,7 +69,6 @@ public class BuitServiceImpl{
 		if (hashtag == null || buit == null) {
 			throw new ServletValidationException();
 		}
-		HashtagManager hashtagManager = HashtagManager.sharedInstance();
 		
 		Integer hashtagid = hashtagManager.getHashtagId(hashtag.getHashtag());
 		if(hashtagid == null){
@@ -80,16 +82,13 @@ public class BuitServiceImpl{
 		if (hashtag == null) {
 			throw new ServletValidationException();
 		}
-		HashtagManager hashtagManager = HashtagManager.sharedInstance();
 		return hashtagManager.getHashtag(hashtag);
 	}
 	
 	public List<Buit> getBuitsForHashtag(String hashtag){
 		if (hashtag == null) {
 			throw new ServletValidationException();
-		}
-		BuitManager buitManager = BuitManager.sharedInstance();
-		
+		}		
 		return buitManager.getHashtagBuits(hashtag);
 	}
 }

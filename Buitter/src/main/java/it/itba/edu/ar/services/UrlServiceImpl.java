@@ -1,5 +1,6 @@
 package it.itba.edu.ar.services;
 
+import it.itba.edu.ar.dao.UrlDao;
 import it.itba.edu.ar.dao.UrlManager;
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Url;
@@ -11,23 +12,22 @@ import java.util.UUID;
 public final class UrlServiceImpl {
 
 	private static UrlServiceImpl instance;
+	private static UrlDao urlManager;
+//	public static synchronized UrlServiceImpl sharedInstance() {
+//		if (instance == null) {
+//			instance = new UrlServiceImpl();
+//		}
+//		return instance;
+//	}
 
-	public static synchronized UrlServiceImpl sharedInstance() {
-		if (instance == null) {
-			instance = new UrlServiceImpl();
-		}
-		return instance;
-	}
-
-	private UrlServiceImpl() {
-
+	public UrlServiceImpl(UrlDao urlDao) {
+		this.urlManager = urlDao;
 	}
 
 	public void insertUrl(Url url) {
 		if (url == null) {
 			throw new ServletValidationException();
 		}
-		UrlManager urlManager = UrlManager.sharedInstance();
 
 		String hashedUrl = UUID.randomUUID().toString().substring(0, 4);
 		String buiturl = "buit.li/" + hashedUrl;
@@ -40,7 +40,6 @@ public final class UrlServiceImpl {
 		if (buit == null) {
 			throw new ServletValidationException();
 		}
-		UrlManager urlManager = UrlManager.sharedInstance();
 
 		if (urlManager.urlsForBuit(buit) != null)
 			return true;
@@ -51,7 +50,6 @@ public final class UrlServiceImpl {
 		if (buit == null) {
 			throw new ServletValidationException();
 		}
-		UrlManager urlManager = UrlManager.sharedInstance();
 
 		return urlManager.urlsForBuit(buit);
 	}

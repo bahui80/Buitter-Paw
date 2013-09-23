@@ -1,33 +1,31 @@
 package it.itba.edu.ar.services;
 
-import it.itba.edu.ar.dao.UserManager;
+import it.itba.edu.ar.dao.UserDao;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.servlets.ServletValidationException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class UserServiceImpl {
 
 	private static UserServiceImpl instance;
+	private static UserDao userManager;
+	
+//	public static synchronized UserServiceImpl sharedInstance() {
+//		if (instance == null) {
+//			instance = new UserServiceImpl();
+//		}
+//		return instance;
+//	}
 
-	public static synchronized UserServiceImpl sharedInstance() {
-		if (instance == null) {
-			instance = new UserServiceImpl();
-		}
-		return instance;
-	}
-
-	private UserServiceImpl() {
-
+	public UserServiceImpl(UserDao userDao) {
+		userManager = userDao;
 	}
 
 	public User getUserByUsername(String username) {
 		if (username == null) {
 			throw new ServletValidationException();
 		}
-		UserManager userManager = UserManager.sharedInstance();
 
 		User user = userManager.getUserByUsername(username);
 		return user;
@@ -37,7 +35,6 @@ public class UserServiceImpl {
 		if (id <= 0) {
 			throw new ServletValidationException();
 		}
-		UserManager userManager = UserManager.sharedInstance();
 
 		User user = userManager.getUserById(id);
 		return user;
@@ -47,7 +44,6 @@ public class UserServiceImpl {
 		if (username == null || password == null) {
 			throw new ServletValidationException();
 		}
-		UserManager userManager = UserManager.sharedInstance();
 
 		User user = userManager.getUserByUsernameAndPassword(username,password);
 		return user;
@@ -57,7 +53,6 @@ public class UserServiceImpl {
 		if (username == null) {
 			throw new ServletValidationException();
 		}
-		UserManager userManager = UserManager.sharedInstance();
 
 		User user = userManager.getUserByUsername(username);
 
@@ -71,8 +66,6 @@ public class UserServiceImpl {
 			throw new ServletValidationException();
 		}
 
-		UserManager userManager = UserManager.sharedInstance();
-
 		User usr = userManager.getUserByUsernameAndPassword(user.getUsername(),
 				user.getPassword());
 
@@ -84,8 +77,6 @@ public class UserServiceImpl {
 			throw new ServletValidationException();
 		}
 
-		UserManager userManager = UserManager.sharedInstance();
-
 		userManager.insertUser(user);
 
 		return userManager.getUserByUsername(user.getUsername());
@@ -95,8 +86,6 @@ public class UserServiceImpl {
 		if (user == null) {
 			throw new ServletValidationException();
 		}
-		UserManager userManager = UserManager.sharedInstance();
-
 		userManager.updateUser(user);
 	}
 
@@ -108,7 +97,6 @@ public class UserServiceImpl {
 	}
 
 	public List<User> search(String query){
-		UserManager userManager = UserManager.sharedInstance();
 		
 		if(query == null || query.trim().isEmpty())
 			return userManager.getAllUsers();
