@@ -1,8 +1,8 @@
 package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.services.BuitService;
-import it.itba.edu.ar.services.UserService;
+import it.itba.edu.ar.services.BuitServiceImpl;
+import it.itba.edu.ar.services.UserServiceImpl;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -17,15 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class SearchResults extends HttpServlet {
 
-	private UserService userService;
-	private BuitService buitService;
+	private UserServiceImpl userService;
+	private BuitServiceImpl buitService;
 	private SimpleDateFormat formatter;
 
 
 	@Override
 	public void init() throws ServletException {
-		userService = UserService.sharedInstance();
-		buitService = BuitService.sharedInstance();
+		userService = UserServiceImpl.sharedInstance();
+		buitService = BuitServiceImpl.sharedInstance();
 		formatter =  new SimpleDateFormat("EEE, MMM d, HH:mm:ss");
 	};
 

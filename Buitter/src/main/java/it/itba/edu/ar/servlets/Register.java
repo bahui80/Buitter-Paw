@@ -1,7 +1,7 @@
 package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.services.UserService;
+import it.itba.edu.ar.services.UserServiceImpl;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -19,11 +19,11 @@ import org.apache.commons.fileupload.FileUploadException;
 @SuppressWarnings({ "serial", "deprecation" })
 public class Register extends HttpServlet {
 	private Boolean error = false;
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@Override
 	public void init() throws ServletException {
-		userService = UserService.sharedInstance();
+		userService = UserServiceImpl.sharedInstance();
 	};
 
 	@Override

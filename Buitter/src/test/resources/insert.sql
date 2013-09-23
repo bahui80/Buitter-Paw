@@ -1,4 +1,4 @@
--- BEGIN USERS
+﻿-- BEGIN USERS
 INSERT INTO users(name, surname, password, date, username, description, 
             secret_question, secret_answer) VALUES ('Julian','Gutierrez','123456789','2013-09-13 20:58:12.557','gurygutierrez',
     'Pues toma pa que te enamores more, more','Who was your favourite teacher?','Rinaldi');
@@ -22,6 +22,10 @@ INSERT INTO users(name, surname, password, date, username, description,
 INSERT INTO users(name, surname, password, date, username, description, 
             secret_question, secret_answer) VALUES ('Andres','Gregoire','12345678','2013-09-19 16:00:00.557','andipaw',
     'Amante de Buitter','Do you hate Twitter?','Si, Buitter es superior');
+
+INSERT INTO users(name, surname, password, date, username, description, 
+            secret_question, secret_answer) VALUES ('Agustin','Prado','12345678','2013-09-19 20:00:00.557','laloprado',
+    'Esto esta bien piola','Do you hate Twitter?','Si, Buitter es superior');
 
 -- END USERS
 
@@ -70,7 +74,7 @@ INSERT INTO buithash(buitid, hashtagid) VALUES('9','4');
 INSERT INTO buithash(buitid, hashtagid) VALUES('10','5');
 INSERT INTO buithash(buitid, hashtagid) VALUES('11','2');
 INSERT INTO buithash(buitid, hashtagid) VALUES('12','6');
-INSERT INTO buithash(buitid, hashtagid) VALUES('12','7');
+INSERT INTO buithash(buitid, hashtagid) VALUES('12','7');	
 INSERT INTO buithash(buitid, hashtagid) VALUES('12','8');
 INSERT INTO buithash(buitid, hashtagid) VALUES('13','9');
 INSERT INTO buithash(buitid, hashtagid) VALUES('14','10');
