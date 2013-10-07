@@ -1,4 +1,4 @@
-<%@ include file="header.jsp"%>
+<%@ include file="/WEB-INF/jsp/header.jsp" %>
 
 <div class="container">
 
@@ -10,7 +10,7 @@
 			</p>
 
 			<div class="well well-lg text-center">
-				<img class="profile-pic" src="img/hashtag.jpeg" />
+				<img class="profile-pic" src="../../img/hashtag.jpeg" />
 				<h2 class="profile-name" style="word-wrap:break-word">#<c:out value="${hashtag.hashtag}" /></h2>
 				<h4 class="profile-user">Created by @<c:out value="${hashtag.user.username}" /></h4>
 				<p class="profile-desc text-muted">First used: <c:out value="${hashtag.date}" /></p>
@@ -21,7 +21,7 @@
 				<c:choose>
 					<c:when test="${empty buits}">
 						<div class="alert-box">
-							<img src="img/logo.png" class="logo-alt" /> <br />No Buit
+							<img src="../../img/logo.png" class="logo-alt" /> <br />No Buit
 							results for #myhashtag.
 						</div>
 					</c:when>
@@ -35,7 +35,7 @@
 										<img class="pull-left media-object buit-profile-pic" src="image?name=<c:out value="${buit.user.username}"/>"/>
 									</c:if>
 									<c:if test="${empty buit.user.photo}">
-										<img class="pull-left media-object buit-profile-pic" src="img/nopicture.png"/>
+										<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
 									</c:if>
 								</a>
 								<div class="media-body">
@@ -60,4 +60,4 @@
 
 	</div>
 
-	<%@ include file="footer.jsp"%>
+<%@ include file="/WEB-INF/jsp/footer.jsp" %>

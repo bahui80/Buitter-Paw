@@ -1,4 +1,4 @@
-<%@ include file="header.jsp"%>
+<%@ include file="/WEB-INF/jsp/header.jsp" %>
 <script>
 		function edit() {
 			var str1 = "/Buitter/editprofile";
@@ -21,7 +21,7 @@
 					<img class="profile-pic" src="image?name=<c:out value="${user_info.username}"/>"/>
 				</c:if>
 				<c:if test="${empty user_info.photo}">
-					<img class="profile-pic" src="img/nopicture.png"/>
+					<img class="profile-pic" src="../../img/nopicture.png"/>
 				</c:if>
 				<h2 class="profile-name"><c:out value="${user_info.name}"/> <c:out value="${user_info.surname}"/></h2>
 				<h4 class="profile-user">@<c:out value="${user_info.username}"/></h4>
@@ -34,7 +34,7 @@
 			<div class="well well-lg">
 				<c:if test="${user == user_info.username }">
 					<div class="input-group buit-compose-form">
-						<form method="post" action="profile">
+						<form method="post" action="buit">
 							<fieldset>
 								<textarea id="buit-field" class="form-control" rows="3" name="buit"
 									placeholder="Compose new Buit..." maxlength="140"></textarea>
@@ -64,7 +64,7 @@
 				<c:choose>
 					<c:when test="${empty buits}">
 						<div class="alert-box">
-							<img src="img/logo.png" class="logo-alt" /> <br />@<c:out
+							<img src="../../img/logo.png" class="logo-alt" /> <br />@<c:out
 									value="${user_info.username}" /> hasn't buited yet.
 						</div>
 					</c:when>
@@ -77,7 +77,7 @@
 										<img class="pull-left media-object buit-profile-pic" src="image?name=<c:out value="${user_info.username}"/>"/>
 									</c:if>
 									<c:if test="${empty user_info.photo}">
-										<img class="pull-left media-object buit-profile-pic" src="img/nopicture.png"/>
+										<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
 									</c:if>
 								<div class="media-body">
 									<div class="media-heading">
@@ -93,7 +93,7 @@
 											function proceed (clicked_id) {
 										   		var form = document.createElement('form');
 										   		form.setAttribute('method', 'post');
-										   		form.setAttribute('action', 'deletebuit');
+										   		form.setAttribute('action', 'delete');
 										    	form.style.display = 'hidden';
 										    	var input = document.createElement('input');
 										    	input.setAttribute('type','text');
@@ -120,4 +120,4 @@
 
 	</div>
 
-	<%@ include file="footer.jsp"%>
+<%@ include file="/WEB-INF/jsp/footer.jsp" %>

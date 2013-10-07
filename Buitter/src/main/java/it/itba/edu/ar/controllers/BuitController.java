@@ -54,7 +54,8 @@ public class BuitController {
 		// TODO: VER COMO GARCHA REDIRIGIR
 		// resp.sendRedirect("profile?name=" +
 		// req.getSession().getAttribute("user"));
-		return this.profile((String)session.getAttribute("user"));
+		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		return mav;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -63,11 +64,6 @@ public class BuitController {
 
 		List<String> hashTags;
 		List<String> urls;
-
-		RequestAttributes requestAttributes = RequestContextHolder
-				.getRequestAttributes();
-		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes)
-				.getRequest();
 
 		if (buit.trim().isEmpty()) {
 			mav.addObject("error_buit", "Your buit is empty");
@@ -85,15 +81,14 @@ public class BuitController {
 		} else {
 			// primero buittea
 			Buit buitAux = buitService.buit(new Buit(buit, userService
-					.getUserByUsername((String) request.getSession()
-							.getAttribute("user")), new Timestamp(0)));
+					.getUserByUsername((String) session.getAttribute("user")), new Timestamp(0)));
 			// busco hashtags
 			hashTags = ViewControllerHelper.getHashTags(buit);
 			// busco urls
 			urls = ViewControllerHelper.getUrls(buit);
 			for (String hash : hashTags) {
 				// por cada hashtag lo agrego con su buit
-				String username = (String) request.getSession().getAttribute(
+				String username = (String) session.getAttribute(
 						"user");
 				User user = userService.getUserByUsername(username);
 				Hashtag hashtag = new Hashtag(hash, new Timestamp(0), user, 0);
@@ -108,7 +103,8 @@ public class BuitController {
 			// + request.getSession().getAttribute("user"));
 			
 		}
-		return this.profile((String)session.getAttribute("user"));
+		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		return mav;
 	}
 
 	/*
@@ -160,7 +156,6 @@ public class BuitController {
 		List<Buit> buits = buitService.getBuitsForHashtag(hashtagname);
 
 		Hashtag hashtag = buitService.getHashtag(hashtagname);
-		hashtag.setSimpleDateFormatter(formatter);
 		if (buits.isEmpty() || hashtag == null) {
 			// TODO: VER COMO GARCHA REDIRIGIR
 			// req.setAttribute("error_log",
@@ -168,8 +163,9 @@ public class BuitController {
 			// req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req,
 			// resp);
 			// return;
-			return new ModelAndView("error");
+			return new ModelAndView("../error");
 		}
+		hashtag.setSimpleDateFormatter(formatter);
 
 		for (Buit buit : buits) {
 			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit

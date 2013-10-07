@@ -38,7 +38,7 @@ public class UserController {
 	 * POST METHODS
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView forgotPassword(
+	public ModelAndView forgotpassword(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "recover", required = false) String state,
 			@RequestParam(value = "answer", required = false) String answer,
@@ -170,7 +170,7 @@ public class UserController {
 			}
 		}
 
-		if (request.getRequestURI().contains("register")) {
+		if (request.getRequestURI().contains("registration")) {
 			checkUsername(username, request);
 		} else {
 			request.setAttribute("user_username", username);
@@ -183,7 +183,7 @@ public class UserController {
 		checkAnswer(answer, question, request);
 
 		if (!request.getRequestURI().contains("editprofile")) {
-			mav.addObject("action", "register");
+			mav.addObject("action", "registration");
 		} else {
 			mav.addObject("action", "editprofile");
 		}
@@ -228,7 +228,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView forgotPassword() {
+	public ModelAndView forgotpassword() {
 		return new ModelAndView();
 	}
 

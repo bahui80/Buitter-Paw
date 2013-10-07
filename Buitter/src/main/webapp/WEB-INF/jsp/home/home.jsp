@@ -58,7 +58,7 @@
 				<c:if test="${empty trending}"><br/><p class="text-muted">There are no hashtags for this period of time.</p></c:if>
 					<c:forEach items="${trending}" var="trend">
 						<li><a
-							href="<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>" style="word-wrap:break-word">
+							href="/Buitter/web/buit/<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>" style="word-wrap:break-word">
 								#<c:out value="${trend.hashtag}" /> <c:out value="( ${trend.count} )"/>
 						</a></li>
 					</c:forEach>
