@@ -48,7 +48,7 @@ function toggle(){
 		<div class="container">
 			<div class="navbar-header">
 				
-				<a id="logo" class="navbar-brand" href="/Buitter/home"><img src="../../img/logo.png"
+				<a id="logo" class="navbar-brand" href="/Buitter/web/home/home"><img src="../../img/logo.png"
 					class="logo" />Buitter</a>
 			</div>
 			<div class="collapse navbar-collapse">
@@ -58,16 +58,16 @@ function toggle(){
 					</div>
 				</form>
 				<ul class="nav navbar-nav" style="float:right">
-					<li class=""><a href="/Buitter/home"><i class='icon-home'></i> Home</a></li>
+					<li class=""><a href="/Buitter/web/home/home"><i class='icon-home'></i> Home</a></li>
 					<c:if test="${not empty user}">
 						<li><a href="<c:url value="profile"><c:param name="name" value="${user}"/></c:url>">
 							<c:out value="@${user}"/></a></li>
 						<li id="dropdown" class="dropdown" onclick="toggle()">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class='icon-cog'></i>	 </a>
                           <ul class="dropdown-menu">
-                           <li><a href="/Buitter/editprofile"><i class='icon-pencil'></i>  Edit profile</a></li>
+                           <li><a href="/Buitter/web/user/editprofile"><i class='icon-pencil'></i>  Edit profile</a></li>
                              <li class="divider"></li>
-                             <li><a href="/Buitter/logout"><i class='icon-power-off'></i>  Logout</a></li>
+                             <li><a href="/Buitter/web/user/logout"><i class='icon-power-off'></i>  Logout</a></li>
                           </ul>
                         </li>
 					</c:if>

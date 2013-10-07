@@ -1,10 +1,10 @@
-<%@ include file="header.jsp" %>
+<%@ include file="/WEB-INF/jsp/header.jsp" %>
 
 <div class="container">
 	<div class="row row-offcanvas row-offcanvas-right">
         <div class="col-md-6 col-md-offset-3">
 			<div class="well">
-				<form class="bs-example form-horizontal" method="post" action="recoverpassword">
+				<form class="bs-example form-horizontal" method="post" action="/Buitter/web/user/forgotPassword">
 					<fieldset>
 						<legend>Reset your password</legend>
 						<c:if test="${empty correct_username}">
@@ -74,4 +74,4 @@
 		</div>
 	</div>
 
-<%@ include file="footer.jsp" %>
+<%@ include file="/WEB-INF/jsp/footer.jsp" %>

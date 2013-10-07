@@ -74,7 +74,6 @@ public class HomeController {
 		mav.addObject("userlist", userList);
 		mav.addObject("selectedTime", default_time);
 
-		// req.getRequestDispatcher("index.jsp").forward(req, resp);
 		return mav;
 	}
 

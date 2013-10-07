@@ -38,11 +38,11 @@ public class UserController {
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView forgotPassword(
-			@RequestParam("username") String username,
-			@RequestParam("recover") String state,
-			@RequestParam("answer") String answer,
-			@RequestParam("password") String password,
-			@RequestParam("password2") String password2) {
+			@RequestParam(value = "username") String username,
+			@RequestParam(value = "recover", required = false) String state,
+			@RequestParam(value = "answer", required = false) String answer,
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "password2", required = false) String password2) {
 
 		ModelAndView mav = new ModelAndView();
 
@@ -60,10 +60,6 @@ public class UserController {
 			} else {
 				mav.addObject("error_username", "You must enter an user");
 			}
-			// TODO: VER COMO DISPATCHEAR
-			// req.getRequestDispatcher("WEB-INF/jsp/forgotpassword.jsp").forward(req,
-			// resp);
-			 return mav;
 		} else {
 			mav.addObject("correct_username", username);
 			mav.addObject("question", userService.getUserByUsername(username)
@@ -81,24 +77,21 @@ public class UserController {
 			checkPassword(password, password2, req);
 			if (error) {
 				error = false;
-				// TODO: VER COMO DISPATCHEAR
-				// req.getRequestDispatcher("WEB-INF/jsp/forgotpassword.jsp").forward(req,
-				// resp);
-				 return mav;
 			} else {
 				User user = userService.getUserByUsername(username);
 				user.setPassword(password);
 				userService.updateUser(user);
-				//TODO: iba al login con requestddispatcher
-				return this.login();
+				
+				return new ModelAndView("redirect:login");
 			}
 		}
-
+		return mav;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView login(@RequestParam("logout") String logout,
-			@RequestParam("cont") String cont,
+	public ModelAndView login(
+			@RequestParam(value = "logout", required = false) String logout,
+			@RequestParam(value = "cont", required = false) String cont,
 			@RequestParam("username") String username,
 			@RequestParam("password") String password) {
 		ModelAndView mav = new ModelAndView();
@@ -108,22 +101,18 @@ public class UserController {
 				.getRequest();
 		// checkeo que no venga del formulario de logout
 		if (logout != null) {
-			// TODO ver como redirigir
-			// resp.sendRedirect("logout");
+
 			return this.logout();
 		}
 		if (cont != null) {
-			// TODO ver como redigir
-			// resp.sendRedirect("/Buitter");
-			return new ModelAndView("home");
-
+			mav.setViewName("home/home");
+			return mav;
 		}
 		// checkeo que no este loggeado ya
 		String usernameCookie = (String) request.getSession().getAttribute(
 				"user");
 		if (usernameCookie != null) {
-			return this.login();
-			// return;
+			return new ModelAndView("redirect:login");
 		}
 
 		// logueo porque no esta ni loggeado ni se quiere desloguear
@@ -132,18 +121,16 @@ public class UserController {
 
 		if (user != null) {
 			request.getSession().setAttribute("user", username);
-			// TODO ver como redigir
-			return new ModelAndView("home");
+			return new ModelAndView("redirect:../home/home");
 		} else {
 			mav.addObject("user_username", username);
 			mav.addObject("error_login", "Username or password incorrect");
-			// TODO redirigir bien
 			// req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req,
 			// resp);
-			return this.login();
+			return new ModelAndView("redirect:user/login");
 		}
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView registration(@RequestParam("a") String a) {
 		ModelAndView mav = new ModelAndView();
@@ -173,15 +160,18 @@ public class UserController {
 		byte[] photo = null;
 
 		if (!photoName.equals("")) {
-			if(photoName.toLowerCase().contains("jpg") || photoName.toLowerCase().contains("jpeg") || photoName.toLowerCase().contains("png")) {
+			if (photoName.toLowerCase().contains("jpg")
+					|| photoName.toLowerCase().contains("jpeg")
+					|| photoName.toLowerCase().contains("png")) {
 				photo = fileItems.get(8).get();
 			} else {
-				mav.addObject("error_photo", "File invalid. Only jpeg, jpg or png images");
+				mav.addObject("error_photo",
+						"File invalid. Only jpeg, jpg or png images");
 				error = true;
 			}
-		} 
+		}
 
-		if(request.getRequestURI().contains("register")) {
+		if (request.getRequestURI().contains("register")) {
 			checkUsername(username, request);
 		} else {
 			request.setAttribute("user_username", username);
@@ -192,31 +182,31 @@ public class UserController {
 		checkDescription(description, request);
 		request.setAttribute("user_question", question);
 		checkAnswer(answer, question, request);
-		
-		if(!request.getRequestURI().contains("editprofile")) {
+
+		if (!request.getRequestURI().contains("editprofile")) {
 			mav.addObject("action", "register");
 		} else {
 			mav.addObject("action", "editprofile");
 		}
-		
+
 		if (error) {
 			error = false;
-			//TODO cambiar redirect
-			//request.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(request, response);
 			return mav;
 		} else {
-			if(!request.getRequestURI().contains("editprofile")) {
-				userService.register(new User(name, surname, username, password, description, question, answer, creationDate, photo));
+			if (!request.getRequestURI().contains("editprofile")) {
+				userService.register(new User(name, surname, username,
+						password, description, question, answer, creationDate,
+						photo));
 				request.getSession().setAttribute("user", username);
 			} else {
-				if(photo == null) {
+				if (photo == null) {
 					photo = userService.getUserByUsername(username).getPhoto();
 				}
-				userService.updateUser(new User(name, surname, username, password, description, question, answer, creationDate, photo));
+				userService.updateUser(new User(name, surname, username,
+						password, description, question, answer, creationDate,
+						photo));
 			}
-			//TODO redirigir
-			//response.sendRedirect("/Buitter/home");
-			return new ModelAndView("home");
+			return new ModelAndView("redirect:home/home");
 		}
 
 	}
@@ -235,9 +225,12 @@ public class UserController {
 		if (request.getSession().getAttribute("user") != null) {
 			mav.addObject("error_logged_in", "error");
 		}
-		// TODO: ver cmo redirigi
-		// req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
 		return mav;
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView forgotPassword() {
+		return new ModelAndView();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -247,9 +240,8 @@ public class UserController {
 		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes)
 				.getRequest();
 		request.getSession().invalidate();
-		// TODO ver como redirigi
-		// resp.sendRedirect("/Buitter/home");
-		return new ModelAndView("home");
+
+		return new ModelAndView("redirect:../home/home");
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -266,8 +258,6 @@ public class UserController {
 			mav.addObject("action", "register");
 			if (request.getSession().getAttribute("user") != null) {
 				mav.addObject("error_logged_in", "error");
-				// TODO ver como redirigir
-				// resp.sendRedirect("/Buitter/login");
 				return this.login();
 			}
 		} else {
@@ -284,15 +274,12 @@ public class UserController {
 				mav.addObject("user_question", user.getSecretQuestion());
 				mav.addObject("user_answer", user.getSecretAnswer());
 			} else {
-				// TODO redirigr
-				// req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req,
-				// resp);
-				return new ModelAndView("error");
+
+				mav.setViewName("error");
+				return mav;
 			}
 		}
-		//TODO redirigi
-//		req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req,
-		//		resp);
+
 		return mav;
 	}
 
@@ -301,7 +288,8 @@ public class UserController {
 	 */
 	private void checkUsername(String username, HttpServletRequest request) {
 		if (!username.equals("")) {
-			if(username.trim().length() == 0 || !username.matches("[a-zA-Z0-9_.-]+")) {
+			if (username.trim().length() == 0
+					|| !username.matches("[a-zA-Z0-9_.-]+")) {
 				request.setAttribute("error_username",
 						"Invalid format username");
 				error = true;
@@ -329,7 +317,7 @@ public class UserController {
 	private void checkPassword(String password, String password2,
 			HttpServletRequest request) {
 		if (!password.equals("")) {
-			if(!password.matches("[a-zA-Z0-9]+")) {
+			if (!password.matches("[a-zA-Z0-9]+")) {
 				request.setAttribute("error_password",
 						"Invalid password format");
 				error = true;
@@ -353,9 +341,8 @@ public class UserController {
 
 	private void checkName(String name, HttpServletRequest request) {
 		if (!name.equals("")) {
-			if(name.trim().length() == 0 || !name.matches("^[\\p{L} ]+$")) {
-				request.setAttribute("error_name",
-						"Invalid format name");
+			if (name.trim().length() == 0 || !name.matches("^[\\p{L} ]+$")) {
+				request.setAttribute("error_name", "Invalid format name");
 				error = true;
 			}
 			if (name.length() > 32) {
@@ -372,9 +359,9 @@ public class UserController {
 
 	private void checkSurname(String surname, HttpServletRequest request) {
 		if (!surname.equals("")) {
-			if(surname.trim().length() == 0 || !surname.matches("^[\\p{L} ]+$")) {
-				request.setAttribute("error_surname",
-						"Invalid format surname");
+			if (surname.trim().length() == 0
+					|| !surname.matches("^[\\p{L} ]+$")) {
+				request.setAttribute("error_surname", "Invalid format surname");
 				error = true;
 			}
 			if (surname.length() > 32) {
@@ -391,7 +378,7 @@ public class UserController {
 
 	private void checkDescription(String description, HttpServletRequest request) {
 		if (!description.equals("")) {
-			if(description.trim().length() == 0) {
+			if (description.trim().length() == 0) {
 				request.setAttribute("error_description",
 						"Invalid format description");
 				error = true;
@@ -409,11 +396,11 @@ public class UserController {
 		}
 	}
 
-	private void checkAnswer(String answer, String question, HttpServletRequest request) {
+	private void checkAnswer(String answer, String question,
+			HttpServletRequest request) {
 		if (!answer.equals("")) {
-			if(answer.trim().length() == 0) {
-				request.setAttribute("error_answer",
-						"Invalid format answer");
+			if (answer.trim().length() == 0) {
+				request.setAttribute("error_answer", "Invalid format answer");
 				error = true;
 			}
 			if (answer.length() > 60) {
@@ -422,7 +409,7 @@ public class UserController {
 				error = true;
 			}
 			request.setAttribute("user_answer", answer);
-			
+
 		} else {
 			request.setAttribute("error_answer",
 					"You must insert a secret answer");
