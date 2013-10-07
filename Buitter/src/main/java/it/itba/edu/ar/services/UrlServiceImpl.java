@@ -9,10 +9,10 @@ import it.itba.edu.ar.servlets.ServletValidationException;
 import java.util.List;
 import java.util.UUID;
 
-public final class UrlServiceImpl {
+public final class UrlServiceImpl implements UrlService{
 
 	private static UrlServiceImpl instance;
-	private static UrlDao urlManager;
+	private UrlDao urlManager;
 //	public static synchronized UrlServiceImpl sharedInstance() {
 //		if (instance == null) {
 //			instance = new UrlServiceImpl();

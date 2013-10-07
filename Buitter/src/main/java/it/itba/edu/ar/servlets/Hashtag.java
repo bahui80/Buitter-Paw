@@ -2,8 +2,8 @@ package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Url;
-import it.itba.edu.ar.services.BuitService;
-import it.itba.edu.ar.services.UrlService;
+import it.itba.edu.ar.services.BuitServiceImpl;
+import it.itba.edu.ar.services.UrlServiceImpl;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class Hashtag extends BuitsHttpServlet {
 
-	private BuitService buitService;
-	private UrlService urlService;
+	private BuitServiceImpl buitService;
+	private UrlServiceImpl urlService;
 	private SimpleDateFormat formatter;
 	
 	@Override
 	public void init() throws ServletException {
-		buitService = BuitService.sharedInstance();
-		urlService = UrlService.sharedInstance();
+		buitService = BuitServiceImpl.sharedInstance();
+		urlService = UrlServiceImpl.sharedInstance();
 		formatter = new SimpleDateFormat("EEE, MMM d, HH:mm:ss");
 	};
 	

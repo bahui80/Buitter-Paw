@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +32,8 @@ public class BuitController {
 	private BuitService buitService;
 	private UserService userService;
 	private UrlService urlService;
-	private final SimpleDateFormat formatter =  new SimpleDateFormat("EEE, MMM d, HH:mm:ss");
-
+	private final SimpleDateFormat formatter = new SimpleDateFormat(
+			"EEE, MMM d, HH:mm:ss");
 
 	/*
 	 * POST METHODS
@@ -45,19 +46,19 @@ public class BuitController {
 		this.userService = userService;
 		this.urlService = urlService;
 	}
-	
-	@RequestMapping(method = RequestMethod.POST){
-		public ModelAndView delete(@RequestParam("buitid") int buitid){
-			ModelAndView mav = new ModelAndView();			
-			buitService.removeBuit(buitid);
-//			TODO: VER COMO GARCHA REDIRIGIR
-//			resp.sendRedirect("profile?name=" + req.getSession().getAttribute("user"));
-//			return;
-		}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView delete(@RequestParam("buitid") int buitid, HttpSession session ) {
+		ModelAndView mav = new ModelAndView();
+		buitService.removeBuit(buitid);
+		// TODO: VER COMO GARCHA REDIRIGIR
+		// resp.sendRedirect("profile?name=" +
+		// req.getSession().getAttribute("user"));
+		return this.profile((String)session.getAttribute("user"));
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView buit(@RequestParam("buit") String buit) {
+	public ModelAndView buit(@RequestParam("buit") String buit, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 
 		List<String> hashTags;
@@ -81,7 +82,6 @@ public class BuitController {
 			// TODO: REDIRIGIR A BUITCONTROLLER CON GET
 			// response.sendRedirect("profile?name=" +
 			// request.getSession().getAttribute("user"));
-			// return;
 		} else {
 			// primero buittea
 			Buit buitAux = buitService.buit(new Buit(buit, userService
@@ -106,8 +106,9 @@ public class BuitController {
 			// TODO: VER A QUE GARCHA REDIRIGIR
 			// response.sendRedirect("profile?name="
 			// + request.getSession().getAttribute("user"));
-			// return;
+			
 		}
+		return this.profile((String)session.getAttribute("user"));
 	}
 
 	/*
@@ -116,7 +117,7 @@ public class BuitController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView profile(@RequestParam("name") String profile) {
 		ModelAndView mav = new ModelAndView();
-		
+
 		List<Url> urls;
 
 		if (profile != null && userService.checkUsername(profile)) {
@@ -125,58 +126,68 @@ public class BuitController {
 			List<Buit> buits = buitService.getUserBuits(usr);
 			for (Buit buit : buits) {
 				buit.setSimpleDateFormatter(formatter);
-				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage()));
+				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit
+						.getMessage()));
 				if (urlService.buitHasUrl(buit)) {
 					urls = urlService.urlsForBuit(buit);
-					buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), urls));
+					buit.setMessage(ViewControllerHelper.prepareBuitUrl(
+							buit.getMessage(), urls));
 				}
 			}
 			mav.addObject("buits", buits);
 			mav.addObject("user_info", usr);
 		} else {
-			mav.addObject("error_log",
-					"We couldn't find an account named \"" + profile + "\"");
-//			TODO: VER COMO REDIRIGIR
-			//			request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(
-//					request, response);
-//			return;
+			mav.addObject("error_log", "We couldn't find an account named \""
+					+ profile + "\"");
+			// TODO: VER COMO REDIRIGIR
+			// request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(
+			// request, response);
+			// return;
+			return new ModelAndView("home");
 		}
-//		TODO: VER COMO REDIRIGIR
-		//		request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(
-//				request, response);
-//		return;
+		// TODO: VER COMO REDIRIGIR
+		// request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(
+		// request, response);
+		// return;
+		return mav;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView hashtag(@RequestParam("name") String hashtagname){
+	public ModelAndView hashtag(@RequestParam("name") String hashtagname) {
 		ModelAndView mav = new ModelAndView();
-		
+
 		List<Url> urls;
 		List<Buit> buits = buitService.getBuitsForHashtag(hashtagname);
 
 		Hashtag hashtag = buitService.getHashtag(hashtagname);
 		hashtag.setSimpleDateFormatter(formatter);
-		if(buits.isEmpty() || hashtag == null){
-//			TODO: VER COMO GARCHA REDIRIGIR
-//			req.setAttribute("error_log", "We couldn't find messages with \"#"+hashtagname+"\"");
-//			req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req, resp);
-//			return;
+		if (buits.isEmpty() || hashtag == null) {
+			// TODO: VER COMO GARCHA REDIRIGIR
+			// req.setAttribute("error_log",
+			// "We couldn't find messages with \"#"+hashtagname+"\"");
+			// req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req,
+			// resp);
+			// return;
+			return new ModelAndView("error");
 		}
-		
-		for(Buit buit: buits) {
-			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage()));
+
+		for (Buit buit : buits) {
+			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit
+					.getMessage()));
 			buit.setSimpleDateFormatter(formatter);
-			if(urlService.buitHasUrl(buit)){
+			if (urlService.buitHasUrl(buit)) {
 				urls = urlService.urlsForBuit(buit);
-				buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), urls));
+				buit.setMessage(ViewControllerHelper.prepareBuitUrl(
+						buit.getMessage(), urls));
 			}
-		}	
+		}
 		mav.addObject("buits", buits);
 		mav.addObject("hashtag", hashtag);
-		
-//		TODO: VER COMO GARCHA REDIRIGIR
-//		req.getRequestDispatcher("WEB-INF/jsp/hashtag.jsp").forward(req,
-//				resp);
-//		return;
+
+		// TODO: VER COMO GARCHA REDIRIGIR
+		// req.getRequestDispatcher("WEB-INF/jsp/hashtag.jsp").forward(req,
+		// resp);
+		// return;
+		return mav;
 	}
 }

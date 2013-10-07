@@ -16,19 +16,11 @@ import java.util.List;
 
 public class UrlManager implements UrlDao{
 
-	private static UrlManager instance;
-	private static ConnectionManager manager;
+	private final ConnectionManager manager;
 	
-	public static synchronized UrlManager sharedInstance(){
-		if(instance == null){
-			instance = new UrlManager();
-		}
-		return instance;
-	}
-	
-	private UrlManager(){
-		DBInfo info = DBInfo.sharedInstance();
-		manager = new ConnectionManager(info.getDriver(),info.getConnectionString() , info.getUsername(), info.getPassword());
+	public UrlManager(){
+//		DBInfo info = DBInfo.sharedInstance();
+		manager = new ConnectionManager("org.postgresql.Driver","jdbc:postgresql://localhost/paw2" , "paw", "paw");
 	}
 
 	public void insertUrl(Url url) {

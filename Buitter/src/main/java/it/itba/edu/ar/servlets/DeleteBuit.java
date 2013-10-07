@@ -1,6 +1,6 @@
 package it.itba.edu.ar.servlets;
 
-import it.itba.edu.ar.services.BuitService;
+import it.itba.edu.ar.services.BuitServiceImpl;
 
 import java.io.IOException;
 
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class DeleteBuit extends HttpServlet {
-	private BuitService buitService;
+	private BuitServiceImpl buitService;
 	
 	@Override
 	public void init() throws ServletException {
-		buitService = BuitService.sharedInstance();
+		buitService = BuitServiceImpl.sharedInstance();
 	};
 	
 	@Override

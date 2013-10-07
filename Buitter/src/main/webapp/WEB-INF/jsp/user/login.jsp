@@ -1,4 +1,4 @@
-<%@ include file="header.jsp" %>
+<%@ include file="/WEB-INF/jsp/header.jsp" %>
 
 <div class="container">
 <div class="row row-offcanvas row-offcanvas-right">
@@ -55,4 +55,4 @@
 </div>
 </div>
 
-<%@ include file="footer.jsp" %>
+<%@ include file="/WEB-INF/jsp/footer.jsp" %>

@@ -1,9 +1,9 @@
-<%@ include file="WEB-INF/jsp/header.jsp"%>
+<%@ include file="/WEB-INF/jsp/header.jsp" %>
 <script>
 		function refresh(){
 			var e = document.getElementById("select");
 			var strUser = e.options[e.selectedIndex];
-			var str1 = "/Buitter/home?time=";
+			var str1 = "/Buitter/web/home/home?time=";
 			var str2 = str1.concat(strUser.id);
 			window.location = str2;
 		}
@@ -27,7 +27,7 @@
 								src="image?name=<c:out value="${us.username}"/>" />
 						</c:if>
 						<c:if test="${empty us.photo}">
-							<img class="img-circle profile-pic-home" src="img/nopicture.png"/>
+							<img class="img-circle profile-pic-home" src="../../img/nopicture.png"/>
 						</c:if>
 						<h3 class="username-home" style="word-wrap:break-word">
 							<c:out value="${us.username}" />
@@ -75,4 +75,4 @@
 	</div>
 	<!--/row-->
 
-	<%@ include file="WEB-INF/jsp/footer.jsp"%>
+<%@ include file="/WEB-INF/jsp/footer.jsp" %>

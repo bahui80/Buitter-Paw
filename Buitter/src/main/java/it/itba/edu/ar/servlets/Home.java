@@ -2,8 +2,8 @@ package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.services.BuitService;
-import it.itba.edu.ar.services.UserService;
+import it.itba.edu.ar.services.BuitServiceImpl;
+import it.itba.edu.ar.services.UserServiceImpl;
 
 import java.io.IOException;
 import java.util.Date;
@@ -16,16 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class Home extends BuitsHttpServlet {
 
-	private BuitService buitService;
-	private UserService userService;
+	private BuitServiceImpl buitService;
+	private UserServiceImpl userService;
 	private long DAY_IN_MS = 1000 * 60 * 60 * 24;
 	private static final int trendingQuantity  = 10;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		buitService = BuitService.sharedInstance();
-		userService = UserService.sharedInstance();
+		buitService = BuitServiceImpl.sharedInstance();
+		userService = UserServiceImpl.sharedInstance();
 	}
 
 	@Override

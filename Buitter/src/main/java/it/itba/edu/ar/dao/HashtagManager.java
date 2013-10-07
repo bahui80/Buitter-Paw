@@ -16,19 +16,12 @@ import java.util.List;
 
 public class HashtagManager implements HashtagDao{
 
-	private static HashtagManager instance;
 	private final ConnectionManager manager;
 	
-	public static synchronized HashtagManager sharedInstance(){
-		if(instance == null){
-			instance = new HashtagManager();
-		}
-		return instance;
-	}
 	
-	private HashtagManager(){
-		DBInfo info = DBInfo.sharedInstance();
-		manager = new ConnectionManager(info.getDriver(),info.getConnectionString() , info.getUsername(), info.getPassword());
+	public HashtagManager(){
+//		DBInfo info = DBInfo.sharedInstance();
+		manager = new ConnectionManager("org.postgresql.Driver","jdbc:postgresql://localhost/paw2" , "paw", "paw");
 	}
 	
 	/*

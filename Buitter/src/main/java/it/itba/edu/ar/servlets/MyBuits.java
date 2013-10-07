@@ -14,11 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class MyBuits extends BuitsHttpServlet {
+public class MyBuits extends HttpServlet {
 	
 	private UserServiceImpl userService;
 	private BuitServiceImpl buitService;

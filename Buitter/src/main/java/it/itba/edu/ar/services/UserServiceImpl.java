@@ -6,7 +6,7 @@ import it.itba.edu.ar.servlets.ServletValidationException;
 
 import java.util.List;
 
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService{
 
 	private static UserServiceImpl instance;
 	private static UserDao userManager;

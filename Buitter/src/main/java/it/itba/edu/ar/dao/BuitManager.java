@@ -15,19 +15,11 @@ import java.util.List;
 
 public class BuitManager implements BuitDao{
 
-	private static BuitManager instance;
 	private final ConnectionManager manager;
 	
-	public static synchronized BuitManager sharedInstance(){
-		if(instance == null){
-			instance = new BuitManager();
-		}
-		return instance;
-	}
-	
-	private BuitManager(){
-		DBInfo info = DBInfo.sharedInstance();
-		manager = new ConnectionManager(info.getDriver(),info.getConnectionString() , info.getUsername(), info.getPassword());
+	public BuitManager(){
+//		DBInfo info = DBInfo.sharedInstance();
+		manager = new ConnectionManager("org.postgresql.Driver","jdbc:postgresql://localhost/paw2" , "paw", "paw");
 	}
 	
 	public void buit(Buit buit) {

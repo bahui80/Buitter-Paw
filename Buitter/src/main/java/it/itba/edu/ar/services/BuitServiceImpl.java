@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-public class BuitServiceImpl{
+public class BuitServiceImpl implements BuitService{
 
 	private static BuitServiceImpl instance;
 	private static BuitDao buitManager;

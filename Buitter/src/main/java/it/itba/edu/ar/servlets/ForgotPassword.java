@@ -1,7 +1,7 @@
 package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.services.UserService;
+import it.itba.edu.ar.services.UserServiceImpl;
 
 import java.io.IOException;
 
@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class ForgotPassword extends HttpServlet {
 	
-	private UserService userService;
+	private UserServiceImpl userService;
 	private Boolean error = false;
 	
 	@Override
 	public void init() throws ServletException {
-		userService = UserService.sharedInstance();
+		userService = UserServiceImpl.sharedInstance();
 	}
 	
 	@Override

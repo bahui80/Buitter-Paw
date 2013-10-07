@@ -1,21 +1,19 @@
 package it.itba.edu.ar.controllers;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.List;
-
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.services.UserService;
 import it.itba.edu.ar.servlets.ServletValidationException;
 
-import javax.servlet.ServletException;
+import java.sql.Timestamp;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +22,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+@Controller
 public class UserController {
 
 	private UserService userService;
@@ -64,7 +63,7 @@ public class UserController {
 			// TODO: VER COMO DISPATCHEAR
 			// req.getRequestDispatcher("WEB-INF/jsp/forgotpassword.jsp").forward(req,
 			// resp);
-			// return;
+			 return mav;
 		} else {
 			mav.addObject("correct_username", username);
 			mav.addObject("question", userService.getUserByUsername(username)
@@ -85,15 +84,13 @@ public class UserController {
 				// TODO: VER COMO DISPATCHEAR
 				// req.getRequestDispatcher("WEB-INF/jsp/forgotpassword.jsp").forward(req,
 				// resp);
-				// return;
+				 return mav;
 			} else {
 				User user = userService.getUserByUsername(username);
 				user.setPassword(password);
 				userService.updateUser(user);
-				// TODO: VER COMO DISPATCHEAR
-				// req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req,
-				// resp);
-				// return;
+				//TODO: iba al login con requestddispatcher
+				return this.login();
 			}
 		}
 
@@ -113,18 +110,19 @@ public class UserController {
 		if (logout != null) {
 			// TODO ver como redirigir
 			// resp.sendRedirect("logout");
-			// return;
+			return this.logout();
 		}
 		if (cont != null) {
 			// TODO ver como redigir
 			// resp.sendRedirect("/Buitter");
-			// return;
+			return new ModelAndView("home");
+
 		}
 		// checkeo que no este loggeado ya
 		String usernameCookie = (String) request.getSession().getAttribute(
 				"user");
 		if (usernameCookie != null) {
-			this.login();
+			return this.login();
 			// return;
 		}
 
@@ -135,20 +133,19 @@ public class UserController {
 		if (user != null) {
 			request.getSession().setAttribute("user", username);
 			// TODO ver como redigir
-			// resp.sendRedirect("/Buitter/home");
-			return;
+			return new ModelAndView("home");
 		} else {
 			mav.addObject("user_username", username);
 			mav.addObject("error_login", "Username or password incorrect");
 			// TODO redirigir bien
 			// req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req,
 			// resp);
-			// return;
+			return this.login();
 		}
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView register() {
+	public ModelAndView registration(@RequestParam("a") String a) {
 		ModelAndView mav = new ModelAndView();
 		RequestAttributes requestAttributes = RequestContextHolder
 				.getRequestAttributes();
@@ -206,6 +203,7 @@ public class UserController {
 			error = false;
 			//TODO cambiar redirect
 			//request.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(request, response);
+			return mav;
 		} else {
 			if(!request.getRequestURI().contains("editprofile")) {
 				userService.register(new User(name, surname, username, password, description, question, answer, creationDate, photo));
@@ -218,6 +216,7 @@ public class UserController {
 			}
 			//TODO redirigir
 			//response.sendRedirect("/Buitter/home");
+			return new ModelAndView("home");
 		}
 
 	}
@@ -250,11 +249,11 @@ public class UserController {
 		request.getSession().invalidate();
 		// TODO ver como redirigi
 		// resp.sendRedirect("/Buitter/home");
-		// return;
+		return new ModelAndView("home");
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView register() {
+	public ModelAndView registration() {
 		ModelAndView mav = new ModelAndView();
 		RequestAttributes requestAttributes = RequestContextHolder
 				.getRequestAttributes();
@@ -269,7 +268,7 @@ public class UserController {
 				mav.addObject("error_logged_in", "error");
 				// TODO ver como redirigir
 				// resp.sendRedirect("/Buitter/login");
-				// return;
+				return this.login();
 			}
 		} else {
 			mav.addObject("action", "editprofile");
@@ -288,12 +287,13 @@ public class UserController {
 				// TODO redirigr
 				// req.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(req,
 				// resp);
-				// return;
+				return new ModelAndView("error");
 			}
 		}
 		//TODO redirigi
 //		req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req,
 		//		resp);
+		return mav;
 	}
 
 	/*

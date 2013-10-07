@@ -14,19 +14,12 @@ import java.util.List;
 
 public class UserManager implements UserDao {
 
-	private static UserManager instance;
 	private static ConnectionManager manager;
 	
-	public static synchronized UserManager sharedInstance(){
-		if(instance == null){
-			instance = new UserManager();
-		}
-		return instance;
-	}
 	
-	private UserManager(){
-		DBInfo info = DBInfo.sharedInstance();
-		manager = new ConnectionManager(info.getDriver(),info.getConnectionString() , info.getUsername(), info.getPassword());
+	public UserManager(){
+//		DBInfo info = DBInfo.sharedInstance();
+		manager = new ConnectionManager("org.postgresql.Driver","jdbc:postgresql://localhost/paw2" , "paw", "paw");
 	}
 	
 	/*
