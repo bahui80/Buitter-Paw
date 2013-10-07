@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
@@ -81,7 +82,7 @@ public class UserController {
 				User user = userService.getUserByUsername(username);
 				user.setPassword(password);
 				userService.updateUser(user);
-				
+
 				return new ModelAndView("redirect:login");
 			}
 		}
@@ -93,7 +94,7 @@ public class UserController {
 			@RequestParam(value = "logout", required = false) String logout,
 			@RequestParam(value = "cont", required = false) String cont,
 			@RequestParam("username") String username,
-			@RequestParam("password") String password) {
+			@RequestParam("password") String password, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		RequestAttributes requestAttributes = RequestContextHolder
 				.getRequestAttributes();
@@ -101,16 +102,13 @@ public class UserController {
 				.getRequest();
 		// checkeo que no venga del formulario de logout
 		if (logout != null) {
-
-			return this.logout();
+			return new ModelAndView("redirect:logout");
 		}
 		if (cont != null) {
-			mav.setViewName("home/home");
-			return mav;
+			return new ModelAndView("redirect:../home/home");
 		}
 		// checkeo que no este loggeado ya
-		String usernameCookie = (String) request.getSession().getAttribute(
-				"user");
+		String usernameCookie = (String) session.getAttribute("user");
 		if (usernameCookie != null) {
 			return new ModelAndView("redirect:login");
 		}
@@ -120,19 +118,20 @@ public class UserController {
 		User user = userService.login(new User(username, password));
 
 		if (user != null) {
-			request.getSession().setAttribute("user", username);
+			session.setAttribute("user", username);
 			return new ModelAndView("redirect:../home/home");
 		} else {
 			mav.addObject("user_username", username);
 			mav.addObject("error_login", "Username or password incorrect");
-			// req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req,
-			// resp);
-			return new ModelAndView("redirect:user/login");
+
+			return new ModelAndView("redirect:login");
 		}
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView registration(@RequestParam("a") String a) {
+	public ModelAndView registration(
+			@RequestParam(value = "a", required = false) String a,
+			HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		RequestAttributes requestAttributes = RequestContextHolder
 				.getRequestAttributes();
@@ -197,7 +196,7 @@ public class UserController {
 				userService.register(new User(name, surname, username,
 						password, description, question, answer, creationDate,
 						photo));
-				request.getSession().setAttribute("user", username);
+				session.setAttribute("user", username);
 			} else {
 				if (photo == null) {
 					photo = userService.getUserByUsername(username).getPhoto();
@@ -206,7 +205,7 @@ public class UserController {
 						password, description, question, answer, creationDate,
 						photo));
 			}
-			return new ModelAndView("redirect:home/home");
+			return new ModelAndView("redirect:../home/home");
 		}
 
 	}
@@ -215,14 +214,14 @@ public class UserController {
 	 * GET METHODS
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView login() {
+	public ModelAndView login(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		RequestAttributes requestAttributes = RequestContextHolder
 				.getRequestAttributes();
 		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes)
 				.getRequest();
 
-		if (request.getSession().getAttribute("user") != null) {
+		if (session.getAttribute("user") != null) {
 			mav.addObject("error_logged_in", "error");
 		}
 		return mav;
@@ -234,31 +233,57 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView logout() {
+	public ModelAndView logout(HttpSession session) {
 		RequestAttributes requestAttributes = RequestContextHolder
 				.getRequestAttributes();
 		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes)
 				.getRequest();
-		request.getSession().invalidate();
+		session.invalidate();
 
 		return new ModelAndView("redirect:../home/home");
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView registration() {
+	public ModelAndView editprofile(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		String username = (String) session.getAttribute("user");
+		mav.addObject("action", "editprofile");
+		if (username != null) {
+			User user = userService.getUserByUsername(username);
+
+			mav.addObject("user_username", user.getUsername());
+			mav.addObject("user_password", user.getPassword());
+			mav.addObject("user_password2", user.getPassword());
+			mav.addObject("user_name", user.getName());
+			mav.addObject("user_surname", user.getSurname());
+			mav.addObject("user_description", user.getDescription());
+			mav.addObject("user_question", user.getSecretQuestion());
+			mav.addObject("user_answer", user.getSecretAnswer());
+			
+			mav.setViewName("user/registration");
+		} else {
+
+			mav.setViewName("error");
+		}
+		return mav;
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView registration(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		RequestAttributes requestAttributes = RequestContextHolder
 				.getRequestAttributes();
 		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes)
 				.getRequest();
 
-		String username = (String) request.getSession().getAttribute("user");
+		String username = (String) session.getAttribute("user");
 
 		if (!request.getRequestURI().contains("editprofile")) {
-			mav.addObject("action", "register");
-			if (request.getSession().getAttribute("user") != null) {
+			mav.addObject("action", "registration");
+			if (session.getAttribute("user") != null) {
 				mav.addObject("error_logged_in", "error");
-				return this.login();
+				return new ModelAndView("redirect:login");
 			}
 		} else {
 			mav.addObject("action", "editprofile");

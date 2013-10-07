@@ -24,20 +24,21 @@ public class SearchController {
 	public SearchController(UserService userService,
 			UrlService urlService) {
 		this.userService = userService;
+		formatter =  new SimpleDateFormat("EEE, MMM d, HH:mm:ss");
 	}
 
 	/*
 	 * POST METHODS
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView search_post(@RequestParam("name") String query) {
-		return this.search(query);
+	public ModelAndView search_post(@RequestParam(value = "name", required = false) String query) {
+		return new ModelAndView("redirect:search");
 	}
 	/*
 	 * GET METHODS
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView search(@RequestParam("name") String query) {
+	public ModelAndView search(@RequestParam(value = "name", required = false) String query) {
 		ModelAndView mav  = new ModelAndView();
 		mav.addObject("query", query);
 
@@ -47,8 +48,6 @@ public class SearchController {
 		}
 		mav.addObject("results", results);
 	
-	//	req.getRequestDispatcher("WEB-INF/jsp/searchresults.jsp").forward(req,
-		//		resp);
 		return mav;
 	}
 }

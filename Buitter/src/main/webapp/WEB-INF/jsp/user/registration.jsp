@@ -1,7 +1,7 @@
-<%@ include file="header.jsp" %>
+<%@ include file="/WEB-INF/jsp/header.jsp" %>
 <script>
     function home() {
-      var str1 = "/Buitter/home";
+      var str1 = "/Buitter/web/home/home";
       window.location = str1;
     }
 </script>
@@ -16,7 +16,7 @@
                   <c:if test="${action == 'editprofile'}">
                       <input type="hidden" class="form-control2" name="username" value="<c:out value="${user_username}"/>"/>
                   </c:if>
-                  <c:if test="${action == 'register'}">
+                  <c:if test="${action == 'registration'}">
                     <div class="form-group <c:if test="${not empty error_username}">has-error</c:if>">
                       <label for="username" class="col-md-3 control-label">Username</label>
                       <div class="col-md-8">
@@ -117,4 +117,4 @@
       </div>
 
           
-<%@ include file="footer.jsp" %>
+<%@ include file="/WEB-INF/jsp/footer.jsp" %>

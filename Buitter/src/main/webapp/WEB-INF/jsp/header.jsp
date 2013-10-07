@@ -52,7 +52,7 @@ function toggle(){
 					class="logo" />Buitter</a>
 			</div>
 			<div class="collapse navbar-collapse">
-				<form class="navbar-form navbar-left" method="get" action="searchresults">
+				<form class="navbar-form navbar-left" method="get" action="/Buitter/web/search/search">
 					<div class="form-group">
 						<input type="search" name="name" style="margin-top: 4px" class="form-control" placeholder="Search">
 					</div>
@@ -73,7 +73,7 @@ function toggle(){
 					</c:if>
 					<c:if test="${empty user}">
 						<li style="margin-top: 8px"><button type="button" class="btn btn-primary" onclick="location.assign('/Buitter/web/user/login');">Log in</button></li>
-						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success" onclick="location.assign('/Buitter/web/user/register');">Register</button></li>
+						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success" onclick="location.assign('/Buitter/web/user/registration');">Register</button></li>
 					</c:if>
 				</ul>
 			<div>
