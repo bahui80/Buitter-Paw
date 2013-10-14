@@ -1,21 +1,39 @@
 package it.itba.edu.ar.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-public class User extends DateFormatter{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+public class User{
 	
-	private Integer id;
-	private String name;
-	private String surname;
-	private String username;
-	private String password;
-	private String description;
-	private String secret_question;
-	private String secret_answer;
-	private byte[] photo; // TODO ver que tipo
-
+	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)	private Integer userid;
+	@Column(length=32,nullable=false)private String name;
+	@Column(length=32,nullable=false)private String surname;
+	@Column(length=32, unique=true,nullable=false)private String username;
+	@Column(length=32,nullable=false)private String password;
+	@Column(length=140,nullable=false)private String description;
+	@Column(length=60,nullable=false)private String secret_question;
+	@Column(length=60,nullable=false)private String secret_answer;
+	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)
+	private Timestamp creationDate;
+	@Lob private byte[] photo; 
+	@OneToMany(mappedBy="user")	@OrderBy("date")private List<Buit> buits;
+	
+	public User(){
+	}
+	
 	public User(String username, String password){
-		super(new Timestamp(0));
 		if(username == null || username.length() > 32 || password == null || password.length() > 32)
 			throw new IllegalArgumentException();
 		this.username = username;
@@ -27,7 +45,6 @@ public class User extends DateFormatter{
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
 			Timestamp creationDate, byte[] photo){
-		super(creationDate);
 		if(username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
@@ -47,14 +64,13 @@ public class User extends DateFormatter{
 	public User(int id, String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
 			Timestamp creationDate, byte[] photo){
-		super(creationDate);
 		if(id == 0 || username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
 				|| secret_answer.length() > 60 || creationDate == null)
 			throw new IllegalArgumentException();
 		
-		this.id = id;
+		this.userid = id;
 		this.name = name;
 		this.username = username;	
 		this.surname = surname;
@@ -66,13 +82,13 @@ public class User extends DateFormatter{
 	}
 	
 	public Integer getId() {
-		return id;
+		return userid;
 	}
 
 	public void setId(Integer id) {
 		if(id == 0)
 			throw new IllegalArgumentException();
-		this.id = id;
+		this.userid = id;
 	}
 
 	public String getName() {
@@ -162,9 +178,8 @@ public class User extends DateFormatter{
 				+ username + "]";
 	}
 	
-	@Override
 	public String getDate(){
-		return super.getDate();
+		return creationDate.toString();
 	}
 	
 }

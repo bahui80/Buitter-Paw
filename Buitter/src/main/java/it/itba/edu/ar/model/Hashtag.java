@@ -1,28 +1,37 @@
 package it.itba.edu.ar.model;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
-public class Hashtag extends DateFormatter{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+@Entity
+public class Hashtag{
 	
-	private Integer id;
-	private String hashtag;
-	private User user;
+	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)private Integer id;
+	@Column(length=140,nullable=false,unique=true)private String hashtag;
+	@OneToOne @Column(nullable=false)private User user;
 	private int count;
+	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)private Timestamp date;
+	
+	public Hashtag(){
+	}
 	
 	public Hashtag(String hashtag, Timestamp date, User user, int count){
-		super(date);
 		if(hashtag == null || hashtag.length() > 139 || user == null || count < 0)
 			throw new IllegalArgumentException();
 		
 		this.hashtag = hashtag;
-		this.date = date;
 		this.user = user;
 		this.count = count;
 	}
 	
 	public Hashtag(int id, String hashtag, Timestamp date, User user, int count){
-		super(date);
 		if(id == 0 || hashtag == null || hashtag.length() > 139 || user == null || count < 0)
 			throw new IllegalArgumentException();
 		
@@ -73,15 +82,8 @@ public class Hashtag extends DateFormatter{
 				+ ", username=" + user.getUsername() + "]";
 	}
 	
-	@Override
-	public void setSimpleDateFormatter(SimpleDateFormat formatter) {
-		super.setSimpleDateFormatter(formatter);
-		this.user.setSimpleDateFormatter(formatter);
-	}
-	
-	@Override
 	public String getDate(){
-		return super.getDate();
+		return date.toString();
 	}
 }
 

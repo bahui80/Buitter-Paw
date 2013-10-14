@@ -1,15 +1,25 @@
 package it.itba.edu.ar.model;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
-public class Buit extends DateFormatter{
-	private Integer id;
-	private String message;
-	private User user;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+@Entity
+public class Buit {
+	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)	private Integer id;
+	@Column(length=500, nullable=false)	private String message;
+	@ManyToOne @Column(nullable=false) private User user;
+	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)private Timestamp date;
+	
+	public Buit(){
+	}
+	
 	public Buit(int id, String message, User user, Timestamp date){
-		super(date);
 		if(id == 0 || message == null || message.length() < 1 || user == null )
 			throw new IllegalArgumentException();
 		this.id = id;
@@ -19,7 +29,6 @@ public class Buit extends DateFormatter{
 	}
 
 	public Buit(String message,  User user, Timestamp date){
-		super(date);
 		if(message == null || message.length() < 1 || user == null )
 			throw new IllegalArgumentException();
 		
@@ -90,15 +99,8 @@ public class Buit extends DateFormatter{
 				+ user.getUsername() + ", date=" + date + "]";
 	}
 
-	@Override
-	public void setSimpleDateFormatter(SimpleDateFormat formatter) {
-		super.setSimpleDateFormatter(formatter);
-		this.user.setSimpleDateFormatter(formatter);
-	}
-	
-	@Override
 	public String getDate(){
-		return super.getDate();
+		return date.toString();
 	}
 }
 
