@@ -9,14 +9,19 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-3.0.xsd
          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-	
+
 	<!-- DAOs -->
 	<import resource="classpath:dao.xml" />
-    
+
 	<!-- Servicios -->
 	<import resource="classpath:services.xml" />
 
 	<!-- Beans relacionados con Spring MVC -->
 	<import resource="classpath:mvc.xml" />
-	
+
+	<!-- Converters -->
+	<mvc:annotation-driven conversion-service="conversionService" />
+	<bean id="conversionService"
+		class="it.itba.edu.ar.converters.EnhancedFormattingConversionServiceFactoryBean" />
+
 </beans>
