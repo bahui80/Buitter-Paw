@@ -92,9 +92,9 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView login(
 			@RequestParam(value = "logout", required = false) String logout,
-			@RequestParam(value = "cont", required = false) String cont,
-			@RequestParam("username") String username,
-			@RequestParam("password") String password, HttpSession session) {
+			@RequestParam(value = "continue", required = false) String cont,
+			@RequestParam(value = "username", required = false) String username,
+			@RequestParam(value = "password", required = false) String password, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		RequestAttributes requestAttributes = RequestContextHolder
 				.getRequestAttributes();
@@ -127,11 +127,69 @@ public class UserController {
 			return new ModelAndView("redirect:login");
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView editprofile(@RequestParam(value = "a", required = false) String a,	HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		RequestAttributes requestAttributes = RequestContextHolder
+				.getRequestAttributes();
+		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes)
+				.getRequest();
+		
+		DiskFileUpload fu = new DiskFileUpload();
+		List<FileItem> fileItems;
+
+		try {
+			fileItems = fu.parseRequest(request);
+		} catch (FileUploadException e) {
+			throw new ServletValidationException();
+		}
+
+		String username = fileItems.get(0).getString();
+		String password = fileItems.get(1).getString();
+		String password2 = fileItems.get(2).getString();
+		String name = fileItems.get(3).getString();
+		String surname = fileItems.get(4).getString();
+		String description = fileItems.get(5).getString();
+		String question = fileItems.get(6).getString();
+		String answer = fileItems.get(7).getString();
+		Timestamp creationDate = new Timestamp(0);
+		String photoName = fileItems.get(8).getName();
+		byte[] photo = null;
+		
+		if(checkPhoto(photoName, mav)) {
+			photo = fileItems.get(8).get();
+		}
+		
+		checkPassword(password, password2, request);
+		checkName(name, request);
+		checkSurname(surname, request);
+		checkDescription(description, request);
+		request.setAttribute("user_question", question);
+		checkAnswer(answer, question, request);
+
+		if (error) {
+			error = false;
+			request.setAttribute("user_username", username);
+			request.setAttribute("action", "editprofile");
+			mav.setViewName("user/registration");
+			return mav;
+		}
+		
+		if (photo == null) {
+			photo = userService.getUserByUsername(username).getPhoto();
+		}
+		userService.updateUser(new User(name, surname, username,
+				password, description, question, answer, creationDate,
+				photo));
+		
+		mav.setViewName("user/registration");
+		return mav;
+	}
+	
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView registration(
-			@RequestParam(value = "a", required = false) String a,
-			HttpSession session) {
+	public ModelAndView registration(@RequestParam(value = "a", required = false) String a,	HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		RequestAttributes requestAttributes = RequestContextHolder
 				.getRequestAttributes();
@@ -158,56 +216,27 @@ public class UserController {
 		String photoName = fileItems.get(8).getName();
 		byte[] photo = null;
 
-		if (!photoName.equals("")) {
-			if (photoName.toLowerCase().contains("jpg")
-					|| photoName.toLowerCase().contains("jpeg")
-					|| photoName.toLowerCase().contains("png")) {
-				photo = fileItems.get(8).get();
-			} else {
-				mav.addObject("error_photo",
-						"File invalid. Only jpeg, jpg or png images");
-				error = true;
-			}
+		if(checkPhoto(photoName, mav)) {
+			photo = fileItems.get(8).get();
 		}
-
-		if (request.getRequestURI().contains("registration")) {
-			checkUsername(username, request);
-		} else {
-			request.setAttribute("user_username", username);
-		}
+		
+		checkUsername(username, request);
 		checkPassword(password, password2, request);
 		checkName(name, request);
 		checkSurname(surname, request);
 		checkDescription(description, request);
 		request.setAttribute("user_question", question);
 		checkAnswer(answer, question, request);
-
-		if (!request.getRequestURI().contains("editprofile")) {
-			mav.addObject("action", "registration");
-		} else {
-			mav.addObject("action", "editprofile");
-		}
-
+		mav.addObject("action", "registration");
 		if (error) {
 			error = false;
 			return mav;
 		} else {
-			if (!request.getRequestURI().contains("editprofile")) {
-				userService.register(new User(name, surname, username,
-						password, description, question, answer, creationDate,
+			userService.register(new User(name, surname, username, password, description, question, answer, creationDate,
 						photo));
-				session.setAttribute("user", username);
-			} else {
-				if (photo == null) {
-					photo = userService.getUserByUsername(username).getPhoto();
-				}
-				userService.updateUser(new User(name, surname, username,
-						password, description, question, answer, creationDate,
-						photo));
-			}
-			return new ModelAndView("redirect:../home/home");
+			session.setAttribute("user", username);
 		}
-
+		return new ModelAndView("redirect:../home/home");
 	}
 
 	/*
@@ -263,48 +292,27 @@ public class UserController {
 			
 			mav.setViewName("user/registration");
 		} else {
-
 			mav.setViewName("error");
 		}
+		
+		mav.addObject("action", "editprofile");
+		
 		return mav;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView registration(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		RequestAttributes requestAttributes = RequestContextHolder
-				.getRequestAttributes();
-		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes)
-				.getRequest();
-
+	
 		String username = (String) session.getAttribute("user");
-
-		if (!request.getRequestURI().contains("editprofile")) {
-			mav.addObject("action", "registration");
-			if (session.getAttribute("user") != null) {
-				mav.addObject("error_logged_in", "error");
-				return new ModelAndView("redirect:login");
-			}
-		} else {
-			mav.addObject("action", "editprofile");
-			if (username != null) {
-				User user = userService.getUserByUsername(username);
-
-				mav.addObject("user_username", user.getUsername());
-				mav.addObject("user_password", user.getPassword());
-				mav.addObject("user_password2", user.getPassword());
-				mav.addObject("user_name", user.getName());
-				mav.addObject("user_surname", user.getSurname());
-				mav.addObject("user_description", user.getDescription());
-				mav.addObject("user_question", user.getSecretQuestion());
-				mav.addObject("user_answer", user.getSecretAnswer());
-			} else {
-
-				mav.setViewName("error");
-				return mav;
-			}
+		
+		if (username != null) {
+			mav.addObject("error_logged_in", "error");
+			return new ModelAndView("redirect:login");
 		}
-
+		
+		mav.addObject("action", "registration");
+	
 		return mav;
 	}
 
@@ -441,5 +449,20 @@ public class UserController {
 			error = true;
 		}
 		request.setAttribute("question", question);
+	}
+	
+	private boolean checkPhoto(String photoName, ModelAndView mav) {
+		if (!photoName.equals("")) {
+			if (photoName.toLowerCase().contains("jpg")
+					|| photoName.toLowerCase().contains("jpeg")
+					|| photoName.toLowerCase().contains("png")) {
+				return true;
+			} else {
+				mav.addObject("error_photo",
+						"File invalid. Only jpeg, jpg or png images");
+				error = true;
+			}
+		}
+		return false;
 	}
 }

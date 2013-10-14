@@ -9,7 +9,7 @@
 			<fieldset>
 				<legend>Logout</legend>
                 <div class="form-group text-center	">
-                	<label  control-label">Do you want to logout?</label>
+                	<label class="control-label">Do you want to logout?</label>
                 </div>
                 <div class="form-group" style="margin-left: -27px;">
                     <span class="col-md-offset-4">
