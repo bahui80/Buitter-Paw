@@ -92,7 +92,7 @@ public class BuitController {
 			}
 			for (String url : urls) {
 				// por cada url la agrego
-				urlService.insertUrl(new Url(url, buitAux.getId()));
+//				urlService.insertUrl(new Url(url, buitAux.getId()));
 			}
 			// TODO: VER A QUE GARCHA REDIRIGIR
 			// response.sendRedirect("profile?name="
@@ -114,10 +114,10 @@ public class BuitController {
 
 		if (profile != null && userService.checkUsername(profile)) {
 			User usr = userService.getUserByUsername(profile);
-			usr.setSimpleDateFormatter(formatter);
+//			usr.setSimpleDateFormatter(formatter);
 			List<Buit> buits = buitService.getUserBuits(usr);
 			for (Buit buit : buits) {
-				buit.setSimpleDateFormatter(formatter);
+//				buit.setSimpleDateFormatter(formatter);
 				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit
 						.getMessage()));
 				if (urlService.buitHasUrl(buit)) {
@@ -161,12 +161,12 @@ public class BuitController {
 			// return;
 			return new ModelAndView("../error");
 		}
-		hashtag.setSimpleDateFormatter(formatter);
+//		hashtag.setSimpleDateFormatter(formatter);
 
 		for (Buit buit : buits) {
 			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit
 					.getMessage()));
-			buit.setSimpleDateFormatter(formatter);
+//			buit.setSimpleDateFormatter(formatter);
 			if (urlService.buitHasUrl(buit)) {
 				urls = urlService.urlsForBuit(buit);
 				buit.setMessage(ViewControllerHelper.prepareBuitUrl(

@@ -1,7 +1,7 @@
 package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.services.UserServiceImpl;
+import it.itba.edu.ar.services.impl.UserServiceImpl;
 
 import java.io.IOException;
 

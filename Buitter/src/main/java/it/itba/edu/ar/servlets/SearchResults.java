@@ -1,8 +1,8 @@
 package it.itba.edu.ar.servlets;
 
 import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.services.BuitServiceImpl;
-import it.itba.edu.ar.services.UserServiceImpl;
+import it.itba.edu.ar.services.impl.BuitServiceImpl;
+import it.itba.edu.ar.services.impl.UserServiceImpl;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

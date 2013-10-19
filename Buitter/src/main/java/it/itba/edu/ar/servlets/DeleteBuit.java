@@ -1,6 +1,6 @@
 package it.itba.edu.ar.servlets;
 
-import it.itba.edu.ar.services.BuitServiceImpl;
+import it.itba.edu.ar.services.impl.BuitServiceImpl;
 
 import java.io.IOException;
 

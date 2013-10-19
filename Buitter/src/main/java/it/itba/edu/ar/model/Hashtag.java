@@ -1,12 +1,11 @@
 package it.itba.edu.ar.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,14 +14,14 @@ public class Hashtag{
 	
 	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)private Integer id;
 	@Column(length=140,nullable=false,unique=true)private String hashtag;
-	@OneToOne @Column(nullable=false)private User user;
+	@OneToOne private User user;
 	private int count;
-	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)private Timestamp date;
+	@Temporal(TemporalType.DATE)@Column(nullable=false)private Date date;
 	
 	public Hashtag(){
 	}
 	
-	public Hashtag(String hashtag, Timestamp date, User user, int count){
+	public Hashtag(String hashtag, Date date, User user, int count){
 		if(hashtag == null || hashtag.length() > 139 || user == null || count < 0)
 			throw new IllegalArgumentException();
 		
@@ -31,7 +30,7 @@ public class Hashtag{
 		this.count = count;
 	}
 	
-	public Hashtag(int id, String hashtag, Timestamp date, User user, int count){
+	public Hashtag(int id, String hashtag, Date date, User user, int count){
 		if(id == 0 || hashtag == null || hashtag.length() > 139 || user == null || count < 0)
 			throw new IllegalArgumentException();
 		

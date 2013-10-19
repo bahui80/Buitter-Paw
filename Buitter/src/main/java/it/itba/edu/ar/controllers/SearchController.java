@@ -43,9 +43,9 @@ public class SearchController {
 		mav.addObject("query", query);
 
 		List<User> results = userService.search(query);
-		for (User user : results) {
-			user.setSimpleDateFormatter(formatter);
-		}
+//		for (User user : results) {
+//			user.setSimpleDateFormatter(formatter);
+//		}
 		mav.addObject("results", results);
 	
 		return mav;

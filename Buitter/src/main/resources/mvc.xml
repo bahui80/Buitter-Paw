@@ -26,4 +26,8 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<mvc:annotation-driven conversion-service="conversionService" />
+	<bean id="conversionService"
+		class="it.itba.edu.ar.converters.EnhancedFormattingConversionServiceFactoryBean" />
+
 </beans>

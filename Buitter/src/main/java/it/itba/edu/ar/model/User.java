@@ -1,16 +1,12 @@
 package it.itba.edu.ar.model;
 
-import java.sql.Timestamp;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,10 +21,10 @@ public class User{
 	@Column(length=140,nullable=false)private String description;
 	@Column(length=60,nullable=false)private String secret_question;
 	@Column(length=60,nullable=false)private String secret_answer;
-	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)
-	private Timestamp creationDate;
+	@Temporal(TemporalType.DATE)@Column(nullable=false)
+	private Date creationDate;
 	@Lob private byte[] photo; 
-	@OneToMany(mappedBy="user")	@OrderBy("date")private List<Buit> buits;
+	//@OneToMany(mappedBy="user")	@OrderBy("date")private List<Buit> buits;
 	
 	public User(){
 	}
@@ -44,7 +40,7 @@ public class User{
 	
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Timestamp creationDate, byte[] photo){
+			Date creationDate, byte[] photo){
 		if(username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
@@ -63,7 +59,7 @@ public class User{
 	
 	public User(int id, String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Timestamp creationDate, byte[] photo){
+			Date creationDate, byte[] photo){
 		if(id == 0 || username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 

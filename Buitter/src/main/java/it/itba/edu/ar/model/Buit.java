@@ -1,6 +1,6 @@
 package it.itba.edu.ar.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,13 +13,13 @@ import javax.persistence.TemporalType;
 public class Buit {
 	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)	private Integer id;
 	@Column(length=500, nullable=false)	private String message;
-	@ManyToOne @Column(nullable=false) private User user;
-	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)private Timestamp date;
+	@ManyToOne private User user;
+	@Temporal(TemporalType.DATE)@Column(nullable=false)private Date date;
 	
 	public Buit(){
 	}
 	
-	public Buit(int id, String message, User user, Timestamp date){
+	public Buit(int id, String message, User user, Date date){
 		if(id == 0 || message == null || message.length() < 1 || user == null )
 			throw new IllegalArgumentException();
 		this.id = id;
@@ -28,7 +28,7 @@ public class Buit {
 		this.date = date;
 	}
 
-	public Buit(String message,  User user, Timestamp date){
+	public Buit(String message,  User user, Date date){
 		if(message == null || message.length() < 1 || user == null )
 			throw new IllegalArgumentException();
 		
