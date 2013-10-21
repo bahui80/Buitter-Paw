@@ -1,22 +1,28 @@
 package it.itba.edu.ar.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name="buitters")
 public class User{
 	
 	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)	private Integer userid;
 	@Column(length=32,nullable=false)private String name;
 	@Column(length=32,nullable=false)private String surname;
-	@Column(length=32, unique=true,nullable=false)private String username;
+	@Column (updatable = false, length=32, unique=true,nullable=false)private String username;
 	@Column(length=32,nullable=false)private String password;
 	@Column(length=140,nullable=false)private String description;
 	@Column(length=60,nullable=false)private String secret_question;
@@ -24,7 +30,7 @@ public class User{
 	@Temporal(TemporalType.DATE)@Column(nullable=false)
 	private Date creationDate;
 	@Lob private byte[] photo; 
-	//@OneToMany(mappedBy="user")	@OrderBy("date")private List<Buit> buits;
+	@OneToMany(mappedBy="user", cascade = {CascadeType.REMOVE})	@OrderBy("date")private List<Buit> buits;
 	
 	public User(){
 	}
@@ -35,9 +41,7 @@ public class User{
 		this.username = username;
 		this.password = password;
 	}
-	
-	//TODO FALTA VER DE QUE TIPO VA LA FOTO
-	
+		
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
 			Date creationDate, byte[] photo){

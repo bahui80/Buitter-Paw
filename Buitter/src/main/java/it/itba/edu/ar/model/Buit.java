@@ -1,25 +1,33 @@
 package it.itba.edu.ar.model;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 @Entity
+@Table(name="buits")
 public class Buit {
 	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)	private Integer id;
 	@Column(length=500, nullable=false)	private String message;
 	@ManyToOne private User user;
-	@Temporal(TemporalType.DATE)@Column(nullable=false)private Date date;
+	@Basic(fetch = FetchType.LAZY) @ManyToMany private List<Hashtag> hashtags;
+	@Temporal(TemporalType.DATE)@Column(nullable=false)private Calendar date;
 	
 	public Buit(){
 	}
 	
-	public Buit(int id, String message, User user, Date date){
+	public Buit(int id, String message, User user, Calendar date){
 		if(id == 0 || message == null || message.length() < 1 || user == null )
 			throw new IllegalArgumentException();
 		this.id = id;
@@ -28,7 +36,7 @@ public class Buit {
 		this.date = date;
 	}
 
-	public Buit(String message,  User user, Date date){
+	public Buit(String message,  User user, Calendar date){
 		if(message == null || message.length() < 1 || user == null )
 			throw new IllegalArgumentException();
 		

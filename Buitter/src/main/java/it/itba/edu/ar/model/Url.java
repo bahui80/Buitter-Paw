@@ -4,7 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 @Entity
+@Table(name="urls")
 public class Url {
 	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)private int urlid;
 	@Column(length=140)	private String url;

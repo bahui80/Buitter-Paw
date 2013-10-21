@@ -1,22 +1,31 @@
 package it.itba.edu.ar.model;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 @Entity
+@Table(name="hashtags")
 public class Hashtag{
 	
 	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)private Integer id;
 	@Column(length=140,nullable=false,unique=true)private String hashtag;
-	@OneToOne private User user;
+	@ManyToOne private User user;
+	@Basic(fetch = FetchType.LAZY) @ManyToMany(mappedBy="hashtags") private List<Buit> buits;
 	private int count;
-	@Temporal(TemporalType.DATE)@Column(nullable=false)private Date date;
+	@Temporal(TemporalType.DATE)@Column(nullable=false)private Calendar date;
 	
 	public Hashtag(){
 	}
@@ -30,7 +39,7 @@ public class Hashtag{
 		this.count = count;
 	}
 	
-	public Hashtag(int id, String hashtag, Date date, User user, int count){
+	public Hashtag(int id, String hashtag, Calendar date, User user, int count){
 		if(id == 0 || hashtag == null || hashtag.length() > 139 || user == null || count < 0)
 			throw new IllegalArgumentException();
 		
