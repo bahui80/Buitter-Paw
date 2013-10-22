@@ -3,9 +3,10 @@ package it.itba.edu.ar.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -27,10 +28,14 @@ public class User{
 	@Column(length=140,nullable=false)private String description;
 	@Column(length=60,nullable=false)private String secret_question;
 	@Column(length=60,nullable=false)private String secret_answer;
-	@Temporal(TemporalType.DATE)@Column(nullable=false)
-	private Date creationDate;
+	@Temporal(TemporalType.DATE)@Column(nullable=false) private Date creationDate;
+	private boolean visible;
+	private int qty;
 	@Lob private byte[] photo; 
-	@OneToMany(mappedBy="user", cascade = {CascadeType.REMOVE})	@OrderBy("date")private List<Buit> buits;
+	@Basic(fetch = FetchType.LAZY) @OneToMany (mappedBy="creator")	@OrderBy("date")private List<Buit> mybuits;
+	@Basic(fetch = FetchType.LAZY) @OneToMany @OrderBy("username") private List<User> following;
+	@Basic(fetch = FetchType.LAZY) @OneToMany @OrderBy("date") private List<Buit> favorites;
+	@Basic(fetch = FetchType.LAZY) @OneToMany (mappedBy="user") @OrderBy("date") private List<Event> events;
 	
 	public User(){
 	}
@@ -44,7 +49,7 @@ public class User{
 		
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Date creationDate, byte[] photo){
+			Date creationDate, byte[] photo){		
 		if(username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 

@@ -9,6 +9,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,12 +27,13 @@ public class HibernateBuitDao extends HibernateGenericDao implements BuitDao {
 	}
 	
 	public Buit getBuit(String message, User user){
-		Query query = getSession().createQuery("SELECT b.buitid, b.message, b.date " +
-					"FROM Users as u,Buits as b " +
-					"WHERE u.userid = ? AND u.userid = b.userid AND b.message = ? " +
-					"AND b.date >= (SELECT MAX(b.date) " +
-					"FROM Users as u,Buits as b " +
-					"WHERE u.userid = ? AND u.userid = b.userid AND b.message = ? )");
+		Query query = getSession().createQuery("" +
+				"SELECT b.buitid, b.message, b.date " +
+				"FROM Users as u,Buits as b " +
+				"WHERE u.userid = ? AND u.userid = b.userid AND b.message = ? " +
+				"AND b.date >= (SELECT MAX(b.date) " +
+				"FROM Users as u,Buits as b " +
+				"WHERE u.userid = ? AND u.userid = b.userid AND b.message = ? )");
 		
 		query.setParameter(1, user.getId());
 		query.setParameter(2, message);
@@ -80,10 +82,13 @@ public class HibernateBuitDao extends HibernateGenericDao implements BuitDao {
 	}
 
 	public void removeBuit(int buitid) {
-		Query query = getSession().createQuery("DELETE FROM Buits " +
+		Session session = getSession();
+		Transaction t = session.beginTransaction();
+		Query query = session.createQuery("DELETE FROM Buits " +
 					"WHERE buitid = ?");
 			
 		query.setParameter(1, buitid);
 		query.executeUpdate();
+		t.commit();
 	}
 }

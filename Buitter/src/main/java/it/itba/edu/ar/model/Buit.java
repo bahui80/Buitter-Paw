@@ -1,6 +1,6 @@
 package it.itba.edu.ar.model;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,32 +18,33 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="buits")
 public class Buit {
 	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)	private Integer id;
 	@Column(length=500, nullable=false)	private String message;
-	@ManyToOne private User user;
+	@ManyToOne private User creator;
 	@Basic(fetch = FetchType.LAZY) @ManyToMany private List<Hashtag> hashtags;
-	@Temporal(TemporalType.DATE)@Column(nullable=false)private Calendar date;
+	@Temporal(TemporalType.DATE)@Column(nullable=false)private Date date;
 	
 	public Buit(){
 	}
 	
-	public Buit(int id, String message, User user, Calendar date){
-		if(id == 0 || message == null || message.length() < 1 || user == null )
+	public Buit(int id, String message, User creator, Date date){
+		if(id == 0 || message == null || message.length() < 1 || creator == null )
 			throw new IllegalArgumentException();
 		this.id = id;
 		this.message = message;
-		this.user = user;
+		this.creator = creator;
 		this.date = date;
 	}
 
-	public Buit(String message,  User user, Calendar date){
-		if(message == null || message.length() < 1 || user == null )
+	public Buit(String message,  User creator, Date date){
+		if(message == null || message.length() < 1 || creator == null )
 			throw new IllegalArgumentException();
 		
 		this.message = message;
-		this.user = user;
+		this.creator = creator;
 		this.date = date;
 	}
 	
@@ -67,13 +70,13 @@ public class Buit {
 	}
 
 	public User getUser() {
-		return user;
+		return creator;
 	}
 
 	public void setUser(User user) {
 		if(user == null)
 			throw new IllegalArgumentException();
-		this.user = user;
+		this.creator = creator;
 	}
 
 	@Override
@@ -104,7 +107,7 @@ public class Buit {
 	@Override
 	public String toString() {
 		return "Buit [id=" + id + ", message=" + message + ", username="
-				+ user.getUsername() + ", date=" + date + "]";
+				+ creator.getUsername() + ", date=" + date + "]";
 	}
 
 	public String getDate(){

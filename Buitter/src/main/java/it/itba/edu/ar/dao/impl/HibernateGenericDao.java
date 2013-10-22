@@ -1,5 +1,7 @@
 package it.itba.edu.ar.dao.impl;
 
+import java.io.Serializable;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -10,7 +12,11 @@ public class HibernateGenericDao {
 		this.sessionFactory = sessionFactory;		
 	}
 	
-	protected Session getSession() {
+	protected org.hibernate.classic.Session getSession() {
 		return sessionFactory.getCurrentSession();
+	}
+	
+	public Serializable save(Object o) {
+		return getSession().save(o);
 	}
 }
