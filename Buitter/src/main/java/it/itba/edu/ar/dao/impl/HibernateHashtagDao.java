@@ -9,6 +9,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +29,7 @@ public class HibernateHashtagDao extends HibernateGenericDao implements HashtagD
 			Date creationDate, byte photo)
 	 */
 	public List<Hashtag> getHashtagsSinceDate(Timestamp date, int quantity) {
+		Transaction tr = getSession().beginTransaction();
 		Query query = getSession().createQuery("" +
 				"SELECT h.hashtag, u.userid, u.name, u.surname, u.username, u.password, " +
 				"u.description, u.secret_question, u.secret_answer, u.date, u.photo, " +
@@ -42,10 +44,12 @@ public class HibernateHashtagDao extends HibernateGenericDao implements HashtagD
 		query.setParameter(2, quantity);
 		
 		List<Hashtag> hashtags = (List<Hashtag>)query.list();
+		tr.commit();
 		return hashtags;
 	}
 
 	public List<Hashtag> hashtagForUser(String username) {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("SELECT h.hashtag, u.id, u.name, u.surname, u.username, u.password, " +
 					"u.description, u.secret_question, u.secret_answer, u.date, u.photo, " +
 					"h.hashtagid, COUNT(b.buitid) as count , h.date " +
@@ -55,6 +59,7 @@ public class HibernateHashtagDao extends HibernateGenericDao implements HashtagD
 		
 		query.setParameter(1,username);
 		List<Hashtag> hashtags = (List<Hashtag>)query.list();
+		tr.commit();
 		return hashtags;
 	}
 	
@@ -83,6 +88,7 @@ public class HibernateHashtagDao extends HibernateGenericDao implements HashtagD
 	}
 	
 	public Integer getHashtagId(String hashtagname){
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("SELECT h.hashtagid " +
 						"FROM Hashtags as h " +
 						"WHERE h.hashtag = ?");
@@ -90,10 +96,12 @@ public class HibernateHashtagDao extends HibernateGenericDao implements HashtagD
 		query.setParameter(1, hashtagname);
 		List<Integer> hashtags = (List<Integer>)query.list();
 		Integer hashtag = hashtags.get(0);
+		tr.commit();
 		return hashtag;
 	 }
 	
 	 public Hashtag getHashtag(String hashtagname) {
+		Transaction tr = getSession().getTransaction();
 		 Query query = getSession().createQuery("SELECT h.hashtag, u.userid, u.name, u.surname, u.username, u.password, " +
 						"u.description, u.secret_question, u.secret_answer,u.date, u.photo, " +
 						"h.hashtagid, COUNT(b.buitid) as count , h.date " +
@@ -105,6 +113,7 @@ public class HibernateHashtagDao extends HibernateGenericDao implements HashtagD
 		query.setParameter(1, hashtagname);
 		List<Hashtag> hashtags = (List<Hashtag>)query.list();
 		Hashtag hashtag = hashtags.get(0);
+		tr.commit();
 		return hashtag;
 	 }
 }

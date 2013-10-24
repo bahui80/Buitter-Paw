@@ -15,7 +15,7 @@
 					data-toggle="offcanvas">Toggle nav</button>
 			</p>
 
-			<div class="well well-lg text-center">
+			<div class="well well-lg text-center" style="margin-bottom: 0px">
 
 				<c:if test="${not empty user_info.photo}">
 					<img class="profile-pic" src="image?name=<c:out value="${user_info.username}"/>"/>
@@ -30,7 +30,36 @@
 					<button onclick="edit();" type="button" class="pull-right btn btn-link btn-xs"><i class="icon-pencil"> Edit profile</i></button>
 				</c:if>
 			</div>
-
+			<div class="bs-example table-responsive">
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th><a href="#"><small><p style="margin-bottom: 0px;">1237</p></small><small><p style="margin-bottom: 0px;">Visitors</p></small></a></th>
+							<th><a href="#"><small><p style="margin-bottom: 0px">4</p></small><small><p style="margin-bottom: 0px;">Following</p></small></a></th>
+							<th><a href="#"><small><p style="margin-bottom: 0px">1237</p></small><small><p style="margin-bottom: 0px;">Followers</p></small></a></th>
+							<c:if test="${not empty user}">
+								<th><button id="<c:out value="${user_info.username}"/>" class="btn btn-follow btn-sm pull-right" style="margin-bottom: 3px" onclick="follow(this.id);"><img src="img/logo.png" class="logo" />Follow</img></button></th>
+								<script>
+										function follow (username) {
+											var form = document.createElement('form');
+											form.setAttribute('method', 'post');
+											form.setAttribute('action', 'follow');
+											form.style.display = 'hidden';
+										    var input = document.createElement('input');
+										    input.setAttribute('type','text');
+										    input.setAttribute('name','username');
+										    input.setAttribute('value', username);
+										    input.style.display = 'hidden';
+										    form.appendChild(input);
+										    document.body.appendChild(form);
+										    form.submit();
+										}
+								</script>
+							</c:if>
+						</tr>
+					</thead>
+				</table> 
+			</div>
 			<div class="well well-lg">
 				<c:if test="${user == user_info.username }">
 					<div class="input-group buit-compose-form">
@@ -88,9 +117,9 @@
 									<br />
 									<p style="word-wrap:break-word">${buit.message}</p>
 									<c:if test="${user == user_info.username }">
-										<button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>
+										<button id="<c:out value="${buit.id}"/>" type="button" onclick="delete(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>
 										<script>
-											function proceed (clicked_id) {
+											function delete (clicked_id) {
 										   		var form = document.createElement('form');
 										   		form.setAttribute('method', 'post');
 										   		form.setAttribute('action', 'delete');
@@ -106,7 +135,11 @@
 											}
 										</script>
 									</c:if>
-									<!-- agregar un form oculto con el id para el borrado (buit.id)-->
+									<!-- Cambiar los valores para el favorito y hacer la funcion javascript. Poner ifs-->
+									<button id="<c:out value="${buit.id}"/>" type="button" onclick="favorite(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-star"> Favorite</i></button>
+									<!-- cambiar lso valores para rebuiteo y hacer la funcion javscript. Poner los ifs-->
+									<button id="<c:out value="${buit.id}"/>" type="button" onclick="rebuit(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-retweet"> Rebuit</i></button>
+									
 								</div>
 							</div>
 						</c:forEach>

@@ -215,3 +215,24 @@ textarea.form-control2 {
 		width: 50%; /* 6 columns */
 	}
 }
+
+/*
+ * Follow button
+ */
+.btn-follow {
+  background-color: #DDDDDD !important;
+  background-repeat: repeat-x !important;
+  background-image: linear-gradient(#ffffff,#dddddd) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd') !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  line-height: 18px !important;
+  color: #333333 !important;
+  text-shadow: 0 1px 1px rgba(255,255,255,.5) !important;
+  border: 1px solid rgb(204,204,204) !important;
+  cursor: pointer;
+  border-radius: 4px !important;
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.5) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.5) !important;
+  font-family: "Helvetica Neue", Arial, sans-serif !important; 
+}

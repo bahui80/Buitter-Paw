@@ -27,6 +27,7 @@ public class HibernateBuitDao extends HibernateGenericDao implements BuitDao {
 	}
 	
 	public Buit getBuit(String message, User user){
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("" +
 				"SELECT b.buitid, b.message, b.date " +
 				"FROM Users as u,Buits as b " +
@@ -43,10 +44,13 @@ public class HibernateBuitDao extends HibernateGenericDao implements BuitDao {
 		List<Buit> list = (List<Buit>)query.list();
 		Buit buit = list.get(0);
 		
+		tr.commit();
+		
 		return buit;
 	}
 
 	public List<Buit> getUserBuits(User user) {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery(" from Buit where user = ?");
 		query.setParameter(0, user);
 		List<Buit> buits = (List<Buit>)query.list();
@@ -56,7 +60,7 @@ public class HibernateBuitDao extends HibernateGenericDao implements BuitDao {
 //					"WHERE u.username = ? AND u.userid = b.userid " +
 //					"ORDER BY b.date DESC");
 //			stmt.setString(1, user.getUsername());
-			
+		tr.commit();
 		return buits;
 	}
 	
@@ -67,6 +71,7 @@ public class HibernateBuitDao extends HibernateGenericDao implements BuitDao {
 	 * new Buit(int id, String message, User user, Date date);
 	 */
 	public List<Buit> getHashtagBuits(String hashtag) {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("SELECT b.buitid, b.message, u.userid, u.name, u.surname, u.username, " +
 					"u.password, u.description, u.secret_question, u.secret_answer, " +
 					"u.date, u.photo, " +
@@ -78,6 +83,7 @@ public class HibernateBuitDao extends HibernateGenericDao implements BuitDao {
 			
 		query.setParameter(1, hashtag);
 		List<Buit> buits = (List<Buit>)query.list();
+		tr.commit();
 		return buits;
 	}
 

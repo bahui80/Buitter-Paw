@@ -42,7 +42,32 @@ public class BuitController {
 		this.userService = userService;
 		this.urlService = urlService;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView follow(@RequestParam("username") String username, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		// TODO VER como manejar el tema que ya estoy siguiendo al usuario
+		if(session.getAttribute("user") == null || session.getAttribute("user").equals(username)) {
+			// TODO manejar el error. No puede un usuario no logueado seguir a alguien. Tampoco puede autoseguirse un usuario logueado
+		}
+		//TODO llaamar al servicio que me hace seguir un usuario
+		mav.setViewName("redirect:profile?name=" + username);
+		return mav;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView unfollow(@RequestParam("username") String username, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		// TODO VER como manejar el tema que no estoy siguiendo al usuario
+		if(session.getAttribute("user") == null || session.getAttribute("user").equals(username)) {
+			// TODO manejar el error. No puede un usuario no logueado dejar de seguir a alguien. Tampoco puede autoseguirse un usuario logueado
+		}
+		//TODO llaamar al servicio que me hace dejar de seguir un usuario
+		mav.setViewName("redirect:profile?name=" + username);
+		return mav;
+	}
 
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView delete(@RequestParam("buitid") int buitid, HttpSession session ) {
 		ModelAndView mav = new ModelAndView();
@@ -135,7 +160,7 @@ public class BuitController {
 			// request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(
 			// request, response);
 			// return;
-			return new ModelAndView("home");
+			return new ModelAndView("error");
 		}
 		// TODO: VER COMO REDIRIGIR
 		// request.getRequestDispatcher("WEB-INF/jsp/mybuits.jsp").forward(

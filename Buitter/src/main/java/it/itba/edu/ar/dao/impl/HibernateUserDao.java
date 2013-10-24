@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,43 +26,52 @@ public class HibernateUserDao extends HibernateGenericDao implements UserDao {
 			String creationDate, String photo)
 	*/
 	public User getUserByUsername(String username) {
-		Query query = getSession().createQuery("SELECT * " +
-												"FROM Users WHERE username = ?");
+		Transaction tr = getSession().beginTransaction();
+		Query query = getSession().createQuery("Select * FROM Users WHERE username = ?");
 		query.setParameter(0, username);
 		List<User> result = (List<User>)query.list();
-		return result.get(0);
+		tr.commit();
+		return result.size() > 0 ? result.get(0): null;
 	}
 	
 	public User getUserById(int id) {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("SELECT * " +
 					"FROM Users WHERE userid = ?");
 		query.setParameter(0, id);
 		List<User> result = (List<User>)query.list();
+		tr.commit();
 		return result.get(0);
 	}
 	
 	public List<User> getUsersBySurname(String surname) {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("SELECT * " +
 					"FROM Users WHERE surname = ? ");
 		query.setParameter(0, surname);
 		List<User> users = (List<User>)query.list();
+		tr.commit();
 		return users;
 	}
 	
 	public List<User> getUsersByName(String name) {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("SELECT * " +
 					"FROM Users WHERE name = ? ");
 		query.setParameter(0, name);
 		List<User> users = (List<User>)query.list();
+		tr.commit();
 		return users;
 	}
 
 	public User getUserByUsernameAndPassword(String username, String password) {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("SELECT * " +
 					"FROM Users WHERE username = ? AND password = ?");
 		query.setParameter(0, username);
 		query.setParameter(1, password);
 		List<User> user = (List<User>)query.list();
+		tr.commit();
 		return user.get(0);
 	}
 
@@ -72,6 +82,7 @@ public class HibernateUserDao extends HibernateGenericDao implements UserDao {
 
 	
 	public void updateUser(User user) {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("UPDATE Users SET name =  ?, surname = ?, password = ?," +
 							"description = ?, secret_question = ?, secret_answer = ?, photo = ?" +
 							" WHERE username = ?" );
@@ -85,17 +96,21 @@ public class HibernateUserDao extends HibernateGenericDao implements UserDao {
 		query.setParameter(6, user.getPhoto());
 		query.setParameter(7, user.getUsername());
 		query.executeUpdate();
+		tr.commit();
 	}
 
 	public List<User> getAllUsers() {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("SELECT * " +
 					"FROM Users " +
 					"ORDER BY surname, name, username");
 		List<User> users = (List<User>)query.list();
+		tr.commit();
 		return users;
 	}
 
 	public List<User> getAllUsersMatching(String consult) {
+		Transaction tr = getSession().getTransaction();
 		Query query = getSession().createQuery("SELECT * " +
 					"FROM Users " +
 					"WHERE ( (lower(name) LIKE ANY ( SELECT '%' || ? ||'%' FROM Users ) ) OR " +
@@ -106,7 +121,7 @@ public class HibernateUserDao extends HibernateGenericDao implements UserDao {
 		query.setParameter(1, consult.toLowerCase());
 		query.setParameter(3, consult.toLowerCase());
 		List<User> users = (List<User>)query.list();
-		
+		tr.commit();
 		return users;
 	}
 }
