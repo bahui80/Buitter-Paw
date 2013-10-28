@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -26,10 +27,10 @@ public class User extends PersistentModel {
 	@Column(length=60,nullable=false)private String secret_answer;
 	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false) private Date creationDate;
 	private boolean privacy;
-	private int qty;
+	private int visits;
 	@Lob private byte[] photo; 
 	@OneToMany (mappedBy="creator") private List<Buit> mybuits;
- 	@ManyToMany (mappedBy="followers") private Set<User> following;
+ 	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL) private Set<User> following;
  	@ManyToMany private Set<User> followers;
  	@OneToMany private List<Buit> favorites;
  	@OneToMany (mappedBy="user")  private List<Event> events;
@@ -46,11 +47,11 @@ public class User extends PersistentModel {
 		
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Date creationDate, int qty, boolean privacy, byte[] photo){		
+			Date creationDate, int visits, boolean privacy, byte[] photo){		
 		if(username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
-				|| secret_answer.length() > 60 || creationDate == null || qty < 0)
+				|| secret_answer.length() > 60 || creationDate == null || visits < 0)
 			throw new IllegalArgumentException();
 		
 		this.name = name;
@@ -61,7 +62,7 @@ public class User extends PersistentModel {
 		this.secret_answer = secret_answer;
 		this.secret_question = secret_question;
 		this.creationDate = creationDate;
-		this.qty = qty;
+		this.visits = visits;
 		this.privacy = privacy;
 		this.photo = photo;
 	}
@@ -76,8 +77,16 @@ public class User extends PersistentModel {
 		this.name = name;
 	}
 	
-	public int getQuantity() {
-		return this.qty;
+	public Set<User> getFollowing() {
+		return this.following;
+	}
+	
+	public Set<User> getFollowers() {
+		return this.followers;
+	}
+	
+	public int getVisits() {
+		return this.visits;
 	}
 	
 	public boolean getPrivacy() {
@@ -168,5 +177,13 @@ public class User extends PersistentModel {
 	
 	public String getDate(){
 		return creationDate.toString();
-	}	
+	}
+	
+	public void addVisit() {
+		this.visits++;
+	}
+	
+	public void removeVisit() {
+		this.visits--;
+	}
 }

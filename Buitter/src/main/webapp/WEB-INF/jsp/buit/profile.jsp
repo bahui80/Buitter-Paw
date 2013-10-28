@@ -34,26 +34,32 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th><a href="#"><small><p style="margin-bottom: 0px;">1237</p></small><small><p style="margin-bottom: 0px;">Visitors</p></small></a></th>
+							<th><a href="#"><small><p style="margin-bottom: 0px;"><c:out value="${user_info.visits}"/></p></small><small><p style="margin-bottom: 0px;">Visits</p></small></a></th>
 							<th><a href="#"><small><p style="margin-bottom: 0px">4</p></small><small><p style="margin-bottom: 0px;">Following</p></small></a></th>
 							<th><a href="#"><small><p style="margin-bottom: 0px">1237</p></small><small><p style="margin-bottom: 0px;">Followers</p></small></a></th>
 							<c:if test="${not empty user}">
-								<th><button id="<c:out value="${user_info.username}"/>" class="btn btn-follow btn-sm pull-right" style="margin-bottom: 3px" onclick="follow(this.id);"><img src="../../img/logo.png" class="logo" />Follow</img></button></th>
+								<c:set var="found" value='false'/>
+								<c:forEach items="${user_info.followers}" var="follower">
+									<c:if test="${follower.username == user}"><c:set var="found" value='true'/></c:if>
+								</c:forEach>
+								<c:if test="${found == 'true'}"><c:set var="method" value='Unfollow'/></c:if>
+								<c:if test="${found == 'false'}"><c:set var="method" value='Follow'/></c:if>
+								<th><button id="<c:out value="${user_info.username}"/>" class="btn btn-follow btn-sm pull-right" style="margin-bottom: 3px" onclick="follow(this.id, '<c:out value="${method}"/>');"><img src="../../img/logo.png" class="logo" /><c:out value="${method}"/></img></button></th>
 								<script>
-										function follow (username) {
-											var form = document.createElement('form');
-											form.setAttribute('method', 'post');
-											form.setAttribute('action', 'follow');
-											form.style.display = 'hidden';
-										    var input = document.createElement('input');
-										    input.setAttribute('type','text');
-										    input.setAttribute('name','username');
-										    input.setAttribute('value', username);
-										    input.style.display = 'hidden';
-										    form.appendChild(input);
-										    document.body.appendChild(form);
-										    form.submit();
-										}
+									function follow (username, method) {
+										var form = document.createElement('form');
+										form.setAttribute('method', 'post');
+										form.setAttribute('action', method.toLowerCase());
+										form.style.display = 'hidden';
+									    var input = document.createElement('input');
+									    input.setAttribute('type','text');
+									    input.setAttribute('name','username');
+									    input.setAttribute('value', username);
+									    input.style.display = 'hidden';
+									    form.appendChild(input);
+									    document.body.appendChild(form);
+									    form.submit();
+									}
 								</script>
 							</c:if>
 						</tr>

@@ -39,26 +39,29 @@ public class BuitController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView follow(@RequestParam("username") String username, HttpSession session) {
+	public ModelAndView follow(@RequestParam("username") User userToFollow, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		User user = userRepo.get((String) session.getAttribute("user"));
 		// TODO VER como manejar el tema que ya estoy siguiendo al usuario
-		if(session.getAttribute("user") == null || session.getAttribute("user").equals(username)) {
+		if(session.getAttribute("user") == null || user.getUsername().equals(userToFollow.getUsername())) {
 			// TODO manejar el error. No puede un usuario no logueado seguir a alguien. Tampoco puede autoseguirse un usuario logueado
 		}
-		//TODO llaamar al servicio que me hace seguir un usuario
-		mav.setViewName("redirect:profile?name=" + username);
+		userToFollow.getFollowers().add(user);
+		mav.setViewName("redirect:profile?name=" + userToFollow.getUsername());
 		return mav;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView unfollow(@RequestParam("username") String username, HttpSession session) {
+	public ModelAndView unfollow(@RequestParam("username") User userToUnfollow, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		User user = userRepo.get((String) session.getAttribute("user"));
 		// TODO VER como manejar el tema que no estoy siguiendo al usuario
-		if(session.getAttribute("user") == null || session.getAttribute("user").equals(username)) {
+		if(session.getAttribute("user") == null || session.getAttribute("user").equals(userToUnfollow.getUsername())) {
 			// TODO manejar el error. No puede un usuario no logueado dejar de seguir a alguien. Tampoco puede autoseguirse un usuario logueado
 		}
 		//TODO llaamar al servicio que me hace dejar de seguir un usuario
-		mav.setViewName("redirect:profile?name=" + username);
+		userToUnfollow.getFollowers().remove(user);
+		mav.setViewName("redirect:profile?name=" + userToUnfollow.getUsername());
 		return mav;
 	}
 
@@ -71,6 +74,7 @@ public class BuitController {
 			mav.setViewName("error");
 		}
 		buitRepo.removeBuit(buit);
+		buit.getUser().removeVisit();
 		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
 		return mav;
 	}
@@ -78,7 +82,8 @@ public class BuitController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView buit(@RequestParam("buit") String message, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-
+		User user  = userRepo.get((String) session.getAttribute("user"));
+		
 		List<String> urls;
 
 		if (message.trim().isEmpty()) {
@@ -86,8 +91,10 @@ public class BuitController {
 		} else if (message.length() > 140) {
 			mav.addObject("error_buit", "Buits can have up to 140 characters");
 		} else {
-			buitRepo.buit(message, userRepo.get((String) session.getAttribute("user")));
+			buitRepo.buit(message, user);
 		}
+		
+		user.removeVisit();
 		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
 		return mav;
 	}
@@ -113,6 +120,7 @@ public class BuitController {
 			}
 			mav.addObject("buits", buits);
 			mav.addObject("user_info", usr);
+			usr.addVisit();
 		} else {
 			mav.addObject("error_log", "We couldn't find an account for that user");
 			mav.setViewName("error");
