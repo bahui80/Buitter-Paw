@@ -34,9 +34,10 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th><a href="#"><small><p style="margin-bottom: 0px;"><c:out value="${user_info.visits}"/></p></small><small><p style="margin-bottom: 0px;">Visits</p></small></a></th>
+							<th><a href="#"><small><p style="margin-bottom: 0px;">User</p></small><small><p style="margin-bottom: 0px;">Buits</p></small></a></th>
 							<th><a href="#"><small><p style="margin-bottom: 0px">4</p></small><small><p style="margin-bottom: 0px;">Following</p></small></a></th>
 							<th><a href="#"><small><p style="margin-bottom: 0px">1237</p></small><small><p style="margin-bottom: 0px;">Followers</p></small></a></th>
+							<th><small><p style="margin-bottom: 0px;"><c:out value="${user_info.visits}"/></p></small><small><p style="margin-bottom: 0px;">Visitors</p></small></th>
 							<c:if test="${not empty user}">
 								<c:set var="found" value='false'/>
 								<c:forEach items="${user_info.followers}" var="follower">
