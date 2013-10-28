@@ -1,4 +1,4 @@
-package it.itba.edu.ar.dao.impl;
+package it.itba.edu.ar.repo;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;

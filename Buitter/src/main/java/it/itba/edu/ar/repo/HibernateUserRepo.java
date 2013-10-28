@@ -1,7 +1,6 @@
-package it.itba.edu.ar.dao.impl;
+package it.itba.edu.ar.repo;
 
 import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.repo.UserRepo;
 
 import java.util.List;
 

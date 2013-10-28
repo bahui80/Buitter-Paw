@@ -4,6 +4,7 @@ import it.itba.edu.ar.model.Url;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,13 +25,24 @@ public class ViewControllerHelper {
 		return hashTags;
 	}
 
+	public static String shortenBuit(String buit, List<Url> urls) {
+		for (Url url : urls) {
+			buit = buit.replace(url.getUrl(), url.getBuiturl());
+//			buit = buit.replaceAll(
+//					"((?:\\A)|(?:\\s))" + Pattern.quote(url.getUrl())
+//							+ "((?:\\s)|(?:\\Z))", url.getBuiturl());
+		}
+		return buit;
+	}
+	
 	public static String prepareBuitUrl(String buit, List<Url> urls) {
 		for (Url url : urls) {
-			String searchHTML = " <a href='" + url.getUrl()
+			String replaceHTML = " <a href='" + url.getUrl()
 					+ "' target='_blank'>" + url.getBuiturl() + "</a> ";
-			buit = buit.replaceAll(
-					"((?:\\A)|(?:\\s))" + Pattern.quote(url.getUrl())
-							+ "((?:\\s)|(?:\\Z))", searchHTML);
+			buit = buit.replace(url.getBuiturl(), replaceHTML);
+//			buit = buit.replaceAll(
+//					"((?:\\A)|(?:\\s))" + Pattern.quote(url.getBuiturl())
+//							+ "((?:\\s)|(?:\\Z))", searchHTML);
 		}
 		return buit;
 	}
@@ -67,5 +79,14 @@ public class ViewControllerHelper {
 		}
 
 		return urls;
+	}
+	
+	public static String cutUrl(String url) {
+		if (url == null) {
+			throw new IllegalArgumentException();
+		}
+		String hashedUrl = UUID.randomUUID().toString().substring(0, 4);
+		String buiturl = "buit.li/" + hashedUrl;
+		return buiturl;
 	}
 }

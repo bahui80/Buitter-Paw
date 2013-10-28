@@ -1,6 +1,7 @@
 package it.itba.edu.ar.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;

@@ -24,7 +24,7 @@ public class UrlServiceImpl implements UrlService {
 
 	public void insertUrl(Url url) {
 		if (url == null) {
-			throw new ServletValidationException();
+			throw new IllegalArgumentException();
 		}
 
 		String hashedUrl = UUID.randomUUID().toString().substring(0, 4);

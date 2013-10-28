@@ -2,6 +2,7 @@ package it.itba.edu.ar.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,11 +16,10 @@ public class Url extends PersistentModel {
 	}
 	
 	public Url(String url, String buiturl){
-		if(url == null || url.length() > 140 || buiturl == null || 
+		this(url);
+		if(buiturl == null || 
 				buiturl.length() > 140)
 			throw new IllegalArgumentException();
-		
-		this.url = url;
 		this.buiturl = buiturl;
 	}
 	
@@ -51,6 +51,7 @@ public class Url extends PersistentModel {
 			throw new IllegalArgumentException();
 		this.buiturl = buiturl;
 	}
+
 
 	@Override
 	public int hashCode() {

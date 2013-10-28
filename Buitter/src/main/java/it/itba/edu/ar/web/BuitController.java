@@ -5,10 +5,10 @@ import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.Url;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.repo.BuitRepo;
-import it.itba.edu.ar.repo.UrlRepo;
 import it.itba.edu.ar.repo.UserRepo;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,19 +23,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class BuitController {
 
 	private BuitRepo buitRepo;
-	private UserRepo userRepo;
-	private UrlRepo urlRepo;
+	UserRepo userRepo;
 
 	/*
 	 * POST METHODS
 	 */
 
 	@Autowired
-	public BuitController(BuitRepo buitRepo, UserRepo userRepo,
-			UrlRepo urlRepo) {
+	public BuitController(BuitRepo buitRepo, UserRepo userRepo) {
 		this.buitRepo = buitRepo;
 		this.userRepo = userRepo;
-		this.urlRepo = urlRepo;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -108,15 +105,11 @@ public class BuitController {
 		List<Url> urls;
 
 		if (usr != null) {
-			List<Buit> buits = usr.getBuits();
+			Set<Buit> buits = usr.getBuits();
 					
 			for (Buit buit : buits) {
 				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage()));
-//				if (urlService.buitHasUrl(buit)) {
-//					urls = urlService.urlsForBuit(buit);
-//					buit.setMessage(ViewControllerHelper.prepareBuitUrl(
-//							buit.getMessage(), urls));
-//				}
+				buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));
 			}
 			mav.addObject("buits", buits);
 			mav.addObject("user_info", usr);

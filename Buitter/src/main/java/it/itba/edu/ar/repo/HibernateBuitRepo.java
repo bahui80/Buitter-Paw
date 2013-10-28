@@ -1,16 +1,14 @@
-package it.itba.edu.ar.dao.impl;
+package it.itba.edu.ar.repo;
 
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Hashtag;
+import it.itba.edu.ar.model.Url;
 import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.repo.BuitRepo;
 import it.itba.edu.ar.web.ViewControllerHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.ScrollableResults;
@@ -39,9 +37,10 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 		Date date = new Date();
 		
 		Hashtag hashtg;
-		Set<Hashtag> hashtgs = new HashSet<Hashtag>();
+		List<Hashtag> hashtgs = new ArrayList<Hashtag>();
 		List<String> hashtags = ViewControllerHelper.getHashTags(message);
-		
+		List<String>  s_urls = ViewControllerHelper.getUrls(message);
+		List<Url> urls = new ArrayList<Url>();
 		for(String hashtag: hashtags) {
 			if((hashtg = getHashtag(hashtag)) == null) {
 				hashtg = new Hashtag(hashtag, date, user);
@@ -49,7 +48,13 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 			}
 			hashtgs.add(hashtg);
 		}
-		addbuit(new Buit(message, user, hashtgs, date));
+		for (String s : s_urls) {
+			Url url = new Url(s);
+			url.setBuiturl(ViewControllerHelper.cutUrl(s));
+			urls.add(url);
+		}
+		message = ViewControllerHelper.shortenBuit(message, urls);
+		addbuit(new Buit(message, user, hashtgs, date,urls));
 	}
 	
 	/* 
@@ -61,7 +66,8 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 	public List<Hashtag> getHashtagsSinceDate(Date date, int quantity) {
 		Query query = getSession().createQuery("SELECT h.hashtag, COUNT(*) " +
 												"FROM Buit b INNER JOIN b.hashtags h " +
-												"WHERE b.date > ? GROUP BY h.hashtag " +
+												"WHERE b.date > ? " +
+												"GROUP BY h.hashtag " +
 												"ORDER BY count(*) desc");
 		query.setParameter(0, date);
 		query.setMaxResults(quantity);

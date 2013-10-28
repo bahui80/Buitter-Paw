@@ -1,8 +1,7 @@
-package it.itba.edu.ar.dao.impl;
+package it.itba.edu.ar.repo;
 
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Url;
-import it.itba.edu.ar.repo.UrlRepo;
 
 import java.util.List;
 
@@ -12,15 +11,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class HibernateUrlDao extends HibernateGenericRepo implements UrlRepo {
+public class HibernateUrlDao extends HibernateGenericRepo {
 
 	
-	@Autowired
 	public HibernateUrlDao(SessionFactory sessionFactory){
 		super(sessionFactory);
 	}
-	
 	
 	public void insertUrl(Url url) {
 		Session session = getSession();

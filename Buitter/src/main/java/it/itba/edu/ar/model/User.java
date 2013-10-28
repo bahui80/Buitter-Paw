@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
+
 @Entity
 @Table(name="buitters")
 public class User extends PersistentModel {
@@ -29,7 +32,8 @@ public class User extends PersistentModel {
 	private boolean privacy;
 	private int visits;
 	@Lob private byte[] photo; 
-	@OneToMany (mappedBy="creator") private List<Buit> mybuits;
+	@OneToMany (mappedBy="creator") @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class)
+		private Set<Buit> mybuits;
  	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL) private Set<User> following;
  	@ManyToMany private Set<User> followers;
  	@OneToMany private List<Buit> favorites;
@@ -93,7 +97,7 @@ public class User extends PersistentModel {
 		return this.privacy;
 	}
 	
-	public List<Buit> getBuits() {
+	public Set<Buit> getBuits() {
 		return this.mybuits;
 	}
 

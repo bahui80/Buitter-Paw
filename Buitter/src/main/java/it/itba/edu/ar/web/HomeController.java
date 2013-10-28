@@ -3,7 +3,6 @@ package it.itba.edu.ar.web;
 import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.repo.BuitRepo;
-import it.itba.edu.ar.repo.UrlRepo;
 import it.itba.edu.ar.repo.UserRepo;
 
 import java.util.Date;
@@ -25,8 +24,7 @@ public class HomeController {
 	private static final int trendingQuantity = 10;
 
 	@Autowired
-	public HomeController(BuitRepo buitRepo, UserRepo userRepo,
-			UrlRepo urlRepo) {
+	public HomeController(BuitRepo buitRepo, UserRepo userRepo) {
 		this.buitRepo = buitRepo;
 		this.userRepo = userRepo;
 	}
