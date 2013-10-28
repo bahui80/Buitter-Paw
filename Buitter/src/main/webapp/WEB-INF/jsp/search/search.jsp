@@ -29,7 +29,7 @@
 					<c:when test="${empty results}">
 
 						<div class="alert-box">
-							<img src="img/logo.png" class="logo-alt" /> <br />
+							<img src="../../img/logo.png" class="logo-alt" /> <br />
 
 							<c:choose>
 								<c:when test="${empty query}">
@@ -49,7 +49,7 @@
 							<div class="media buit">
 								<a class="pull-left"> 
 									<c:if test="${not empty user.photo}">
-										<img class="pull-left media-object buit-profile-pic" src="image?name=<c:out value="${user.username}"/>"/>
+										<img class="pull-left media-object buit-profile-pic" src="../image/image?name=<c:out value="${user.username}"/>"/>
 									</c:if>
 									<c:if test="${empty user.photo}">
 										<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
@@ -58,7 +58,7 @@
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="text-bold"><a
-											href="<c:url value="profile"><c:param name="name" value="${user.username}" /></c:url>"><c:out
+											href="<c:url value="../buit/profile"><c:param name="name" value="${user.username}" /></c:url>"><c:out
 													value="${user.name}" /> <c:out value="${user.surname}" /></a></span>
 										@<c:out value="${user.username}" />
 									</div>

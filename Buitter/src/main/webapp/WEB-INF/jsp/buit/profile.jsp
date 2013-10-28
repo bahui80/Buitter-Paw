@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/header.jsp" %>
 <script>
 		function edit() {
-			var str1 = "/Buitter/editprofile";
+			var str1 = "../user/editprofile";
 			window.location = str1;
 		}
 </script>
@@ -18,7 +18,7 @@
 			<div class="well well-lg text-center" style="margin-bottom: 0px">
 
 				<c:if test="${not empty user_info.photo}">
-					<img class="profile-pic" src="image?name=<c:out value="${user_info.username}"/>"/>
+					<img class="profile-pic" src="../image?name=<c:out value="${user_info.username}"/>"/>
 				</c:if>
 				<c:if test="${empty user_info.photo}">
 					<img class="profile-pic" src="../../img/nopicture.png"/>
@@ -38,7 +38,7 @@
 							<th><a href="#"><small><p style="margin-bottom: 0px">4</p></small><small><p style="margin-bottom: 0px;">Following</p></small></a></th>
 							<th><a href="#"><small><p style="margin-bottom: 0px">1237</p></small><small><p style="margin-bottom: 0px;">Followers</p></small></a></th>
 							<c:if test="${not empty user}">
-								<th><button id="<c:out value="${user_info.username}"/>" class="btn btn-follow btn-sm pull-right" style="margin-bottom: 3px" onclick="follow(this.id);"><img src="img/logo.png" class="logo" />Follow</img></button></th>
+								<th><button id="<c:out value="${user_info.username}"/>" class="btn btn-follow btn-sm pull-right" style="margin-bottom: 3px" onclick="follow(this.id);"><img src="../../img/logo.png" class="logo" />Follow</img></button></th>
 								<script>
 										function follow (username) {
 											var form = document.createElement('form');
@@ -103,7 +103,7 @@
 						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
 									<c:if test="${not empty user_info.photo}">
-										<img class="pull-left media-object buit-profile-pic" src="image?name=<c:out value="${user_info.username}"/>"/>
+										<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${user_info.username}"/>"/>
 									</c:if>
 									<c:if test="${empty user_info.photo}">
 										<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
@@ -117,9 +117,9 @@
 									<br />
 									<p style="word-wrap:break-word">${buit.message}</p>
 									<c:if test="${user == user_info.username }">
-										<button id="<c:out value="${buit.id}"/>" type="button" onclick="delete(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>
+										<button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>
 										<script>
-											function delete (clicked_id) {
+											function proceed(clicked_id) {
 										   		var form = document.createElement('form');
 										   		form.setAttribute('method', 'post');
 										   		form.setAttribute('action', 'delete');

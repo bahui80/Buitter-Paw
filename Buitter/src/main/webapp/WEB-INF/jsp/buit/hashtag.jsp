@@ -22,7 +22,7 @@
 					<c:when test="${empty buits}">
 						<div class="alert-box">
 							<img src="../../img/logo.png" class="logo-alt" /> <br />No Buit
-							results for #myhashtag.
+							results for #<c:out value="${hashtagName}" />.
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -32,7 +32,7 @@
 							<div class="media buit">
 								<a class="pull-left"> 
 									<c:if test="${not empty buit.user.photo}">
-										<img class="pull-left media-object buit-profile-pic" src="image?name=<c:out value="${buit.user.username}"/>"/>
+										<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${buit.user.username}"/>"/>
 									</c:if>
 									<c:if test="${empty buit.user.photo}">
 										<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>

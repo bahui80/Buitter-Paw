@@ -2,31 +2,19 @@ package it.itba.edu.ar.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="urls")
-public class Url {
-	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)private int urlid;
+public class Url extends PersistentModel {
+
 	@Column(length=140)	private String url;
 	@Column(length=140)	private String buiturl;
 	
-	public Url(){
+	Url(){
 	}
 	
-	public Url(int urlid, String url, String buiturl, int buitid){
-		if(urlid < 1 || url == null || url.length() > 140 || buiturl == null || 
-				buiturl.length() > 140)
-			throw new IllegalArgumentException();
-		
-		this.urlid = urlid;
-		this.url = url;
-		this.buiturl = buiturl;
-	}
-	
-	public Url(String url, String buiturl, int buitid){
+	public Url(String url, String buiturl){
 		if(url == null || url.length() > 140 || buiturl == null || 
 				buiturl.length() > 140)
 			throw new IllegalArgumentException();
@@ -43,27 +31,21 @@ public class Url {
 	}
 	
 	
-	public int getUrlid() {
-		return urlid;
-	}
-	public void setUrlid(int urlid) {
-		if(urlid < 1 )
-			throw new IllegalArgumentException();
-		
-		this.urlid = urlid;
-	}
 	public String getUrl() {
 		return url;
 	}
+
 	public void setUrl(String url) {
 		if(url == null || url.length() > 140 )
 			throw new IllegalArgumentException();
 		
 		this.url = url;
 	}
+	
 	public String getBuiturl() {
 		return buiturl;
 	}
+	
 	public void setBuiturl(String buiturl) {
 		if( buiturl == null || buiturl.length() > 140)
 			throw new IllegalArgumentException();
@@ -94,7 +76,4 @@ public class Url {
 			return false;
 		return true;
 	}
-	
-	
-	
 }

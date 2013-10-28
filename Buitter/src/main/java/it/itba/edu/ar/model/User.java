@@ -2,42 +2,39 @@ package it.itba.edu.ar.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="buitters")
-public class User{
+public class User extends PersistentModel {
 	
-	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)	private Integer userid;
-	@Column(length=32,nullable=false)private String name;
-	@Column(length=32,nullable=false)private String surname;
 	@Column (updatable = false, length=32, unique=true,nullable=false)private String username;
 	@Column(length=32,nullable=false)private String password;
+	@Column(length=32,nullable=false)private String name;
+	@Column(length=32,nullable=false)private String surname;
 	@Column(length=140,nullable=false)private String description;
 	@Column(length=60,nullable=false)private String secret_question;
 	@Column(length=60,nullable=false)private String secret_answer;
-	@Temporal(TemporalType.DATE)@Column(nullable=false) private Date creationDate;
-	private boolean visible;
+	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false) private Date creationDate;
+	private boolean privacy;
 	private int qty;
 	@Lob private byte[] photo; 
-	@Basic(fetch = FetchType.LAZY) @OneToMany (mappedBy="creator")	@OrderBy("date")private List<Buit> mybuits;
-	@Basic(fetch = FetchType.LAZY) @OneToMany @OrderBy("username") private List<User> following;
-	@Basic(fetch = FetchType.LAZY) @OneToMany @OrderBy("date") private List<Buit> favorites;
-	@Basic(fetch = FetchType.LAZY) @OneToMany (mappedBy="user") @OrderBy("date") private List<Event> events;
+	@OneToMany (mappedBy="creator") private List<Buit> mybuits;
+ 	@ManyToMany (mappedBy="followers") private Set<User> following;
+ 	@ManyToMany private Set<User> followers;
+ 	@OneToMany private List<Buit> favorites;
+ 	@OneToMany (mappedBy="user")  private List<Event> events;
 	
-	public User(){
+	User(){
 	}
 	
 	public User(String username, String password){
@@ -49,11 +46,11 @@ public class User{
 		
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Date creationDate, byte[] photo){		
+			Date creationDate, int qty, boolean privacy, byte[] photo){		
 		if(username == null || username.length() > 32 || password == null || password.length() > 32 
 				|| description == null || description.length() > 140 || secret_question == null 
 				|| secret_question.length() > 60 || secret_answer == null 
-				|| secret_answer.length() > 60 || creationDate == null)
+				|| secret_answer.length() > 60 || creationDate == null || qty < 0)
 			throw new IllegalArgumentException();
 		
 		this.name = name;
@@ -63,39 +60,12 @@ public class User{
 		this.description = description;
 		this.secret_answer = secret_answer;
 		this.secret_question = secret_question;
+		this.creationDate = creationDate;
+		this.qty = qty;
+		this.privacy = privacy;
 		this.photo = photo;
 	}
 	
-	public User(int id, String name, String surname, String username, String password, 
-			String description, String secret_question, String secret_answer, 
-			Date creationDate, byte[] photo){
-		if(id == 0 || username == null || username.length() > 32 || password == null || password.length() > 32 
-				|| description == null || description.length() > 140 || secret_question == null 
-				|| secret_question.length() > 60 || secret_answer == null 
-				|| secret_answer.length() > 60 || creationDate == null)
-			throw new IllegalArgumentException();
-		
-		this.userid = id;
-		this.name = name;
-		this.username = username;	
-		this.surname = surname;
-		this.password = password;
-		this.description = description;
-		this.secret_answer = secret_answer;
-		this.secret_question = secret_question;
-		this.photo = photo;
-	}
-	
-	public Integer getId() {
-		return userid;
-	}
-
-	public void setId(Integer id) {
-		if(id == 0)
-			throw new IllegalArgumentException();
-		this.userid = id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -104,6 +74,18 @@ public class User{
 		if(name == null || name.length() > 32)
 			throw new IllegalArgumentException();
 		this.name = name;
+	}
+	
+	public int getQuantity() {
+		return this.qty;
+	}
+	
+	public boolean getPrivacy() {
+		return this.privacy;
+	}
+	
+	public List<Buit> getBuits() {
+		return this.mybuits;
 	}
 
 	public String getSurname() {
@@ -116,6 +98,10 @@ public class User{
 		this.surname = surname;
 	}
 
+	public void setPrivacy(boolean privacy) {
+		this.privacy = privacy;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -171,9 +157,6 @@ public class User{
 	}
 
 	public void setPhoto(byte[] photo) {
-		if(photo == null) {
-			throw new IllegalArgumentException();
-		}
 		this.photo = photo;
 	}
 
@@ -185,6 +168,5 @@ public class User{
 	
 	public String getDate(){
 		return creationDate.toString();
-	}
-	
+	}	
 }

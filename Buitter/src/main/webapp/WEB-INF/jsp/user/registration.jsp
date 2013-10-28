@@ -94,6 +94,15 @@
                       </c:if>
                     </div>
                   </div>
+                  <div class="form-group">
+                    <label for="privacy" class="col-md-3 control-label">Privacy</label>
+                    <div class="col-md-8">
+                      <select class="form-control2" name="privacy">
+                        <option <c:if test="${user_privacy == false}">selected="selected"</c:if> >Public</option>
+                        <option <c:if test="${user_privacy == true}">selected="selected"</c:if> >Private</option>
+                      </select>
+                    </div>
+                  </div>
                   <div class="form-group <c:if test="${not empty error_photo}">has-error</c:if>">
                     <label for="photo" class="col-md-3 control-label">Profile picture</label>
                     <div class="col-md-8">

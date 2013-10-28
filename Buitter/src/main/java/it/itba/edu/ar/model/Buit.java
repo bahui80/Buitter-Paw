@@ -1,14 +1,11 @@
 package it.itba.edu.ar.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
@@ -20,42 +17,24 @@ import javax.persistence.TemporalType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="buits")
-public class Buit {
-	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)	private Integer id;
-	@Column(length=500, nullable=false)	private String message;
+public class Buit extends PersistentModel {
+
+	@Column(length=500, nullable=false, updatable = false)	private String message;
 	@ManyToOne private User creator;
-	@Basic(fetch = FetchType.LAZY) @ManyToMany private List<Hashtag> hashtags;
-	@Temporal(TemporalType.DATE)@Column(nullable=false)private Date date;
+	@ManyToMany private Set<Hashtag> hashtags;
+	@Temporal(TemporalType.TIMESTAMP) @Column(nullable=false)private Date date;
 	
-	public Buit(){
+	Buit(){
 	}
 	
-	public Buit(int id, String message, User creator, Date date){
-		if(id == 0 || message == null || message.length() < 1 || creator == null )
+	public Buit(String message, User creator, Set<Hashtag> hashtags, Date date){
+		if(message == null || message.length() < 1 || creator == null || date == null || hashtags == null) {
 			throw new IllegalArgumentException();
-		this.id = id;
+		}
 		this.message = message;
+		this.hashtags = hashtags;
 		this.creator = creator;
 		this.date = date;
-	}
-
-	public Buit(String message,  User creator, Date date){
-		if(message == null || message.length() < 1 || creator == null )
-			throw new IllegalArgumentException();
-		
-		this.message = message;
-		this.creator = creator;
-		this.date = date;
-	}
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		if(id == 0)
-			throw new IllegalArgumentException();
-		this.id = id;
 	}
 
 	public String getMessage() {
@@ -76,37 +55,14 @@ public class Buit {
 	public void setUser(User user) {
 		if(user == null)
 			throw new IllegalArgumentException();
-		this.creator = creator;
+		this.creator = user;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Buit other = (Buit) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
 	
 	@Override
 	public String toString() {
-		return "Buit [id=" + id + ", message=" + message + ", username="
+		return "Buit [message=" + message + ", username="
 				+ creator.getUsername() + ", date=" + date + "]";
 	}
 

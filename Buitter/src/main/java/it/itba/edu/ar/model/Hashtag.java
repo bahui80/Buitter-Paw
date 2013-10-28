@@ -1,32 +1,28 @@
 package it.itba.edu.ar.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="hashtags")
-public class Hashtag{
+public class Hashtag extends PersistentModel {
 	
-	@Id @GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)private int id;
-	@Column(updatable = false, length=140,nullable=false,unique=true)private String hashtag;
+	@Column(updatable = false, length=140,nullable=false, unique = true)private String hashtag;
 	@ManyToOne private User user;
-	@Basic(fetch = FetchType.LAZY) @ManyToMany(mappedBy="hashtags") private List<Buit> buits;
-	private int count;
-	@Temporal(TemporalType.DATE)@Column(nullable=false)private Date date;
+	@ManyToMany(mappedBy="hashtags") private Set<Buit> buits;
+	@Transient private long count;
+	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)private Date date;
 	
-	public Hashtag(){
+	Hashtag(){
 	}
 	
 	public Hashtag(String hashtag, Date date, User user, int count){
@@ -35,22 +31,30 @@ public class Hashtag{
 		
 		this.hashtag = hashtag;
 		this.user = user;
+		this.date = date;
 		this.count = count;
 	}
 	
-	public Hashtag(int id, String hashtag, Date date, User user, int count){
-		if(id == 0 || hashtag == null || hashtag.length() > 139 || user == null || count < 0)
+	public Hashtag(String hashtag, Date date, User user){
+		if(hashtag == null || hashtag.length() > 139 || user == null)
 			throw new IllegalArgumentException();
 		
-		this.id = id;
 		this.hashtag = hashtag;
-		this.date = date;
 		this.user = user;
+		this.date = date;
+	}
+	
+	public Hashtag(String hashtag, long count) {
+		this.hashtag = hashtag;
 		this.count = count;
 	}
 	
-	public int getCount(){
+	public long getCount(){
 		return count;
+	}
+	
+	public Set<Buit> getBuits() {
+		return this.buits;
 	}
 	
 	public void setCount(int count){
@@ -59,16 +63,6 @@ public class Hashtag{
 		this.count = count;
 	}
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		if(id == 0)
-			throw new IllegalArgumentException();
-		this.id = id;
-	}
-
 	public String getHashtag() {
 		return hashtag;
 	}
@@ -85,7 +79,7 @@ public class Hashtag{
 
 	@Override
 	public String toString() {
-		return "Hashtag [id=" + id + ", hashtag=" + hashtag + ", date=" + date
+		return "Hashtag [hashtag=" + hashtag + ", date=" + date
 				+ ", username=" + user.getUsername() + "]";
 	}
 	

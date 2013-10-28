@@ -11,7 +11,7 @@
                  <c:if test="${empty error_log}">
                 	<p>We are working to solve your problems. Please report this.</p>
                 </c:if>
-                <img style="position:fixed; top:100px; right:60px;" src="img/tired_vulture.png">
+                <img style="position:fixed; top:100px; right:60px;" src="../../img/tired_vulture.png">
            	  </div>
    	</div>
 <%@ include file="footer.jsp"%>

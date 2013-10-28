@@ -24,7 +24,7 @@
 						style="height:400px">
 						<c:if test="${not empty us.photo}">
 							<img class="img-circle profile-pic-home"
-								src="image?name=<c:out value="${us.username}"/>" />
+								src="../image?name=<c:out value="${us.username}"/>" />
 						</c:if>
 						<c:if test="${empty us.photo}">
 							<img class="img-circle profile-pic-home" src="../../img/nopicture.png"/>
@@ -38,7 +38,7 @@
 							"
 						</p>
 						<a
-							href="<c:url value="profile"><c:param name="name" value="${us.username}"/></c:url>"
+							href="<c:url value="../buit/profile"><c:param name="name" value="${us.username}"/></c:url>"
 							class="btn btn-link btn-xs">View profile</a>
 					</div>
 				</c:forEach>

@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 public class ReBuit extends Buit {
 	
 	@ManyToOne private User user;
-	@Temporal(TemporalType.DATE)@Column(nullable=false)private Date rebuit_date;
+	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)private Date rebuit_date;
 	
 	public ReBuit(){
 	}
