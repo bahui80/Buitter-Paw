@@ -1,0 +1,148 @@
+package it.itba.edu.ar.web;
+
+import it.itba.edu.ar.model.Buit;
+import it.itba.edu.ar.model.Hashtag;
+import it.itba.edu.ar.model.Url;
+import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.repo.BuitRepo;
+import it.itba.edu.ar.repo.UrlRepo;
+import it.itba.edu.ar.repo.UserRepo;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class BuitController {
+
+	private BuitRepo buitRepo;
+	private UserRepo userRepo;
+	private UrlRepo urlRepo;
+
+	/*
+	 * POST METHODS
+	 */
+
+	@Autowired
+	public BuitController(BuitRepo buitRepo, UserRepo userRepo,
+			UrlRepo urlRepo) {
+		this.buitRepo = buitRepo;
+		this.userRepo = userRepo;
+		this.urlRepo = urlRepo;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView follow(@RequestParam("username") String username, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		// TODO VER como manejar el tema que ya estoy siguiendo al usuario
+		if(session.getAttribute("user") == null || session.getAttribute("user").equals(username)) {
+			// TODO manejar el error. No puede un usuario no logueado seguir a alguien. Tampoco puede autoseguirse un usuario logueado
+		}
+		//TODO llaamar al servicio que me hace seguir un usuario
+		mav.setViewName("redirect:profile?name=" + username);
+		return mav;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView unfollow(@RequestParam("username") String username, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		// TODO VER como manejar el tema que no estoy siguiendo al usuario
+		if(session.getAttribute("user") == null || session.getAttribute("user").equals(username)) {
+			// TODO manejar el error. No puede un usuario no logueado dejar de seguir a alguien. Tampoco puede autoseguirse un usuario logueado
+		}
+		//TODO llaamar al servicio que me hace dejar de seguir un usuario
+		mav.setViewName("redirect:profile?name=" + username);
+		return mav;
+	}
+
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView delete(@RequestParam("buitid") Buit buit, HttpSession session ) {
+		ModelAndView mav = new ModelAndView();
+		
+		if(buit == null || buit.getUser().getUsername() != session.getAttribute("user")) {
+			mav.setViewName("error");
+		}
+		buitRepo.removeBuit(buit);
+		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		return mav;
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView buit(@RequestParam("buit") String message, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+
+		List<String> urls;
+
+		if (message.trim().isEmpty()) {
+			mav.addObject("error_buit", "Your buit can't be empty");
+		} else if (message.length() > 140) {
+			mav.addObject("error_buit", "Buits can have up to 140 characters");
+		} else {
+			buitRepo.buit(message, userRepo.get((String) session.getAttribute("user")));
+		}
+		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		return mav;
+	}
+
+	/*
+	 * GET METHODS
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView profile(@RequestParam("name") User usr) {
+		ModelAndView mav = new ModelAndView();
+		List<Url> urls;
+
+		if (usr != null) {
+			List<Buit> buits = usr.getBuits();
+					
+			for (Buit buit : buits) {
+				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage()));
+//				if (urlService.buitHasUrl(buit)) {
+//					urls = urlService.urlsForBuit(buit);
+//					buit.setMessage(ViewControllerHelper.prepareBuitUrl(
+//							buit.getMessage(), urls));
+//				}
+			}
+			mav.addObject("buits", buits);
+			mav.addObject("user_info", usr);
+		} else {
+			mav.addObject("error_log", "We couldn't find an account for that user");
+			mav.setViewName("error");
+		}
+		return mav;
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView hashtag(@RequestParam("name") Hashtag hashtag, @RequestParam("name") String hashtagName) {
+		ModelAndView mav = new ModelAndView();
+		List<Url> urls;
+
+		if (hashtag == null) {
+			mav.addObject("error_log", "Sorry, #" + hashtagName + " doesn't exist");
+			mav.setViewName("error");
+			return mav;
+		}
+
+		for (Buit buit : hashtag.getBuits()) {
+			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage()));
+//			if (urlService.buitHasUrl(buit)) {
+//				urls = urlService.urlsForBuit(buit);
+//				buit.setMessage(ViewControllerHelper.prepareBuitUrl(
+//						buit.getMessage(), urls));
+//			}
+		}
+		mav.addObject("buits", hashtag.getBuits());
+		mav.addObject("hashtag", hashtag);
+		mav.addObject("hashtagName",hashtagName);
+
+		return mav;
+	}
+}
