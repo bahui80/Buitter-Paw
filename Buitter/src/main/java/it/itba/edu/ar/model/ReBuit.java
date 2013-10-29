@@ -40,6 +40,7 @@ public class ReBuit extends Buit {
 		this.user = buit.getBuitter();
 	}
 
+	//GETTERS
 	public User getUser(){
 		return this.user;
 	}
