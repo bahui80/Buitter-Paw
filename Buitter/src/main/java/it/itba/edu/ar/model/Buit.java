@@ -26,7 +26,9 @@ public class Buit extends PersistentModel {
 
 	@Column(length = 500, nullable = false, updatable = false)
 	private String message;
-	@ManyToOne
+	@ManyToMany (mappedBy="favourites")
+	private Set<User> favouritters;
+	@ManyToOne 
 	private User buitter;
 	@ManyToMany
 	private List<Hashtag> hashtags;

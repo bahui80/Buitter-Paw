@@ -111,7 +111,7 @@
 										<button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>
 									</c:if>
 									<!-- Cambiar los valores para el favorito y hacer la funcion javascript. Poner ifs-->
-									<button id="<c:out value="${buit.id}"/>" type="button" onclick="favorite(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-star"> Favorite</i></button>
+									<button id="<c:out value="${buit.id}"/>" type="button" onclick="favorite(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-star"> </i></button>
 									<!-- cambiar lso valores para rebuiteo y hacer la funcion javscript. Poner los ifs-->
 									<c:if test="${user != user_info.username }">
 										<button id="<c:out value="${buit.id}"/>" type="button" onclick="rebuit(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-retweet"> Rebuit</i></button>
@@ -157,6 +157,21 @@
 		}
 	</script>
 	<script>
+		function favorite (id) {
+			var form = document.createElement('form');
+			form.setAttribute('method', 'post');
+			form.setAttribute('action', 'favorite');
+			form.style.display = 'hidden';
+			var input = document.createElement('input');
+		    input.setAttribute('type','text');
+			input.setAttribute('name','buitid');
+			input.setAttribute('value', id);
+			input.style.display = 'hidden';
+			form.appendChild(input);
+			document.body.appendChild(form);
+			form.submit();
+		}
+		
 		function rebuit (id) {
 			var form = document.createElement('form');
 			form.setAttribute('method', 'post');

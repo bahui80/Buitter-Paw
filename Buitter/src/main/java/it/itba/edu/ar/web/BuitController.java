@@ -23,8 +23,6 @@ public class BuitController {
 	private BuitRepo buitRepo;
 	private UserRepo userRepo;
 
-
-
 	@Autowired
 	public BuitController(BuitRepo buitRepo, UserRepo userRepo) {
 		this.buitRepo = buitRepo;
@@ -34,6 +32,19 @@ public class BuitController {
 	/*
 	 * POST METHODS
 	 */
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView favorite(@RequestParam("buitid") Buit fav, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user  = userRepo.get((String) session.getAttribute("user"));
+		user.getFavourites().add(fav);
+
+		user.getFollowers().add(user);
+		user.removeVisit();
+
+		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		return mav;
+	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView follow(@RequestParam("username") User userToFollow, HttpSession session) {

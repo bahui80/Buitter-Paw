@@ -36,7 +36,7 @@ public class User extends PersistentModel {
 		private Set<Buit> mybuits;
  	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL) private Set<User> following;
  	@ManyToMany private Set<User> followers;
- 	@OneToMany private List<Buit> favorites;
+ 	@ManyToMany private Set<Buit> favourites;
  	@OneToMany (mappedBy="user")  private List<Event> events;
 	
 	User(){
@@ -91,6 +91,10 @@ public class User extends PersistentModel {
 	
 	public Set<User> getFollowing() {
 		return this.following;
+	}
+	
+	public Set<Buit> getFavourites() {
+		return this.favourites;
 	}
 	
 	public Set<User> getFollowers() {
