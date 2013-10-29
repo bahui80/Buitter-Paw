@@ -4,7 +4,9 @@ import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.Url;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,13 +27,25 @@ public class ViewControllerHelper {
 
 		return hashTags;
 	}
+	
+	public static Set<String> getUsers(String buit) {
+		Set<String> users = new HashSet<String>();
+		String patternStr = "@([A-Za-z0-9]+)";
+		Pattern pattern = Pattern.compile(patternStr);
+		Matcher matcher = pattern.matcher(buit);
+		String result = "";
+
+		while (matcher.find()) {
+			result = matcher.group();
+			users.add(result.replace("@", ""));
+		}
+
+		return users;
+	}
 
 	public static String shortenBuit(String buit, List<Url> urls) {
 		for (Url url : urls) {
 			buit = buit.replaceFirst(url.getUrl(), url.getBuiturl());
-//			buit = buit.replaceAll(
-//					"((?:\\A)|(?:\\s))" + Pattern.quote(url.getUrl())
-//							+ "((?:\\s)|(?:\\Z))", url.getBuiturl());
 		}
 		return buit;
 	}
@@ -41,9 +55,6 @@ public class ViewControllerHelper {
 			String replaceHTML = " <a href='" + url.getUrl()
 					+ "' target='_blank'>" + url.getBuiturl() + "</a> ";
 			buit = buit.replace(url.getBuiturl(), replaceHTML);
-//			buit = buit.replaceAll(
-//					"((?:\\A)|(?:\\s))" + Pattern.quote(url.getBuiturl())
-//							+ "((?:\\s)|(?:\\Z))", searchHTML);
 		}
 		return buit;
 	}
@@ -54,6 +65,16 @@ public class ViewControllerHelper {
 					+ "#" +hashtag.getHashtag() + "</a>";
 			buit = buit.replaceAll("#" + hashtag.getHashtag() + "((?:\\s)|(?:\\Z))", replaceHTML);
 		}
+		return buit;
+	}
+	
+	public static String prepareBuitUser(String buit, Set<String> users) {
+		for (String user : users) {
+			String replaceHTML = " <a href=profile?name=" + user + ">"
+					+ "@" + user + "</a>";
+			buit = buit.replaceAll("@" + user + "((?:\\s)|(?:\\Z))", replaceHTML);
+		}
+		
 		return buit;
 	}
 

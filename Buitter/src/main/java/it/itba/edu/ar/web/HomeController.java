@@ -35,6 +35,7 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView home(@RequestParam(value = "time", required = false) Integer time) {
 		ModelAndView mav = new ModelAndView();
+		
 		int default_time = 7;
 
 		if (time != null) {

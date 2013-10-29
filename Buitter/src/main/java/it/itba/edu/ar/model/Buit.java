@@ -3,6 +3,7 @@ package it.itba.edu.ar.model;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -32,6 +35,8 @@ public class Buit extends PersistentModel {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
 	private Date date;
+	@CollectionOfElements
+	private Set<String> mentioned_buitters;
 
 	Buit() {
 	}
@@ -46,14 +51,19 @@ public class Buit extends PersistentModel {
 	}
 
 	public Buit(String message, User buitter, List<Hashtag> hashtags,
-			Date date, List<Url> urls) {
+			Date date, List<Url> urls, Set<String> mentioned_buitters) {
 		this(message,buitter,hashtags,date);
 		this.setUrls(urls);
+		this.mentioned_buitters = mentioned_buitters;
 	}
 
 	//GETTERS
 	public String getMessage() {
 		return message;
+	}
+	
+	public Set<String> getMentionedBuitters() {
+		return mentioned_buitters;
 	}
 
 	public User getBuitter() {

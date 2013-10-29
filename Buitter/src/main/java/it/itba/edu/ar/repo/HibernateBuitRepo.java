@@ -9,7 +9,9 @@ import it.itba.edu.ar.web.ViewControllerHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.ScrollableResults;
@@ -19,10 +21,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo {
-
+	private UserRepo userRepo;
+	
 	@Autowired
-	public HibernateBuitRepo(SessionFactory sessionFactory) {
+	public HibernateBuitRepo(SessionFactory sessionFactory, UserRepo userRepo) {
 		super(sessionFactory);
+		this.userRepo = userRepo;
 	}
 	
 	/* 
@@ -56,32 +60,41 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 		addrebuit(rebuit);
 	}
 	
-	// TODO VER BIEN COMO RESOLVER LO DE LAS URLS
 	public void buit(String message, User user) {
 		if(message == null || user == null || message.isEmpty() || message.trim().length() == 0) {
 			throw new IllegalArgumentException();
 		}
 		Date date = new Date();
 		
-		Hashtag hashtg;
-		List<Hashtag> hashtgs = new ArrayList<Hashtag>();
-		List<String> hashtags = ViewControllerHelper.getHashTags(message);
+		Hashtag hashtag;
+		List<String> s_hashtags = ViewControllerHelper.getHashTags(message);
+		List<Hashtag> hashtags = new ArrayList<Hashtag>();
+		Set<String> s_users = ViewControllerHelper.getUsers(message);
 		List<String>  s_urls = ViewControllerHelper.getUrls(message);
 		List<Url> urls = new ArrayList<Url>();
-		for(String hashtag: hashtags) {
-			if((hashtg = getHashtag(hashtag)) == null) {
-				hashtg = new Hashtag(hashtag, date, user);
-				addHashtag(hashtg);
+		for(String s_hashtag: s_hashtags) {
+			if((hashtag = getHashtag(s_hashtag)) == null) {
+				hashtag = new Hashtag(s_hashtag, date, user);
+				addHashtag(hashtag);
 			}
-			hashtgs.add(hashtg);
+			hashtags.add(hashtag);
 		}
+		
+		Iterator<String> it = s_users.iterator();
+		while(it.hasNext()) {
+			if(userRepo.get(it.next()) == null) {
+				it.remove();
+			}
+		}
+		
 		for (String s : s_urls) {
 			Url url = new Url(s);
 			url.setBuiturl(ViewControllerHelper.cutUrl(s));
 			urls.add(url);
 		}
 		message = ViewControllerHelper.shortenBuit(message, urls);
-		addbuit(new Buit(message, user, hashtgs, date,urls));
+		
+		addbuit(new Buit(message, user, hashtags, date, urls, s_users));
 	}
 	
 	/* 

@@ -119,6 +119,7 @@ public class BuitController {
 			for (Buit buit : buits) {
 				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags()));
 				buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));
+				buit.setMessage(ViewControllerHelper.prepareBuitUser(buit.getMessage(), buit.getMentionedBuitters()));
 			}
 			mav.addObject("buits", buits);
 			mav.addObject("user_info", usr);

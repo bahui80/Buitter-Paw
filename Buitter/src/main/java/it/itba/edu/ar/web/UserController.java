@@ -311,7 +311,7 @@ public class UserController {
 	private void checkUsername(String username, HttpServletRequest request) {
 		if (!username.equals("")) {
 			if (username.trim().length() == 0
-					|| !username.matches("[a-zA-Z0-9_.-]+")) {
+					|| !username.matches("[a-zA-Z0-9]+")) {
 				request.setAttribute("error_username",
 						"Invalid format username");
 				error = true;

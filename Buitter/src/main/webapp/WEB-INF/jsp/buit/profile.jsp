@@ -113,8 +113,9 @@
 									<!-- Cambiar los valores para el favorito y hacer la funcion javascript. Poner ifs-->
 									<button id="<c:out value="${buit.id}"/>" type="button" onclick="favorite(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-star"> Favorite</i></button>
 									<!-- cambiar lso valores para rebuiteo y hacer la funcion javscript. Poner los ifs-->
-									<button id="<c:out value="${buit.id}"/>" type="button" onclick="rebuit(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-retweet"> Rebuit</i></button>
-									
+									<c:if test="${user != user_info.username }">
+										<button id="<c:out value="${buit.id}"/>" type="button" onclick="rebuit(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-retweet"> Rebuit</i></button>
+									</c:if>
 								</div>
 							</div>
 						</c:forEach>
