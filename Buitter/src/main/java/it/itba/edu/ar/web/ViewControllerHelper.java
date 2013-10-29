@@ -28,7 +28,7 @@ public class ViewControllerHelper {
 
 	public static String shortenBuit(String buit, List<Url> urls) {
 		for (Url url : urls) {
-			buit = buit.replace(url.getUrl(), url.getBuiturl());
+			buit = buit.replaceFirst(url.getUrl(), url.getBuiturl());
 //			buit = buit.replaceAll(
 //					"((?:\\A)|(?:\\s))" + Pattern.quote(url.getUrl())
 //							+ "((?:\\s)|(?:\\Z))", url.getBuiturl());

@@ -31,17 +31,17 @@
 						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
 								<a class="pull-left"> 
-									<c:if test="${not empty buit.user.photo}">
-										<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${buit.user.username}"/>"/>
+									<c:if test="${not empty buit.buitter.photo}">
+										<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${buit.buitter.username}"/>"/>
 									</c:if>
-									<c:if test="${empty buit.user.photo}">
+									<c:if test="${empty buit.buitter.photo}">
 										<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
 									</c:if>
 								</a>
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="pull-left text-bold">@<c:out
-												value="${buit.user.username}" /></span> <span class="pull-right text-muted"><c:out
+												value="${buit.buitter.username}" /></span> <span class="pull-right text-muted"><c:out
 												value="${buit.date}" /></span>
 									</div>
 									<br />

@@ -2,12 +2,10 @@ package it.itba.edu.ar.web;
 
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Hashtag;
-import it.itba.edu.ar.model.Url;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.repo.BuitRepo;
 import it.itba.edu.ar.repo.UserRepo;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -23,17 +21,19 @@ import org.springframework.web.servlet.ModelAndView;
 public class BuitController {
 
 	private BuitRepo buitRepo;
-	UserRepo userRepo;
+	private UserRepo userRepo;
 
-	/*
-	 * POST METHODS
-	 */
+
 
 	@Autowired
 	public BuitController(BuitRepo buitRepo, UserRepo userRepo) {
 		this.buitRepo = buitRepo;
 		this.userRepo = userRepo;
 	}
+	
+	/*
+	 * POST METHODS
+	 */
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView follow(@RequestParam("username") User userToFollow, HttpSession session) {
@@ -44,7 +44,23 @@ public class BuitController {
 			// TODO manejar el error. No puede un usuario no logueado seguir a alguien. Tampoco puede autoseguirse un usuario logueado
 		}
 		userToFollow.getFollowers().add(user);
+		userToFollow.removeVisit();
 		mav.setViewName("redirect:profile?name=" + userToFollow.getUsername());
+		return mav;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView unfollow(@RequestParam("username") User userToUnfollow, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user = userRepo.get((String) session.getAttribute("user"));
+		// TODO VER como manejar el tema que no estoy siguiendo al usuario
+		if(session.getAttribute("user") == null || session.getAttribute("user").equals(userToUnfollow.getUsername())) {
+			// TODO manejar el error. No puede un usuario no logueado dejar de seguir a alguien. Tampoco puede autoseguirse un usuario logueado
+		}
+		//TODO llaamar al servicio que me hace dejar de seguir un usuario
+		userToUnfollow.getFollowers().remove(user);
+		userToUnfollow.removeVisit();
+		mav.setViewName("redirect:profile?name=" + userToUnfollow.getUsername());
 		return mav;
 	}
 	
@@ -57,22 +73,7 @@ public class BuitController {
 		
 		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
 		return mav;
-}
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView unfollow(@RequestParam("username") User userToUnfollow, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		User user = userRepo.get((String) session.getAttribute("user"));
-		// TODO VER como manejar el tema que no estoy siguiendo al usuario
-		if(session.getAttribute("user") == null || session.getAttribute("user").equals(userToUnfollow.getUsername())) {
-			// TODO manejar el error. No puede un usuario no logueado dejar de seguir a alguien. Tampoco puede autoseguirse un usuario logueado
-		}
-		//TODO llaamar al servicio que me hace dejar de seguir un usuario
-		userToUnfollow.getFollowers().remove(user);
-		mav.setViewName("redirect:profile?name=" + userToUnfollow.getUsername());
-		return mav;
 	}
-
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView delete(@RequestParam("buitid") Buit buit, HttpSession session ) {
@@ -92,8 +93,6 @@ public class BuitController {
 		ModelAndView mav = new ModelAndView();
 		User user  = userRepo.get((String) session.getAttribute("user"));
 		
-		List<String> urls;
-
 		if (message.trim().isEmpty()) {
 			mav.addObject("error_buit", "Your buit can't be empty");
 		} else if (message.length() > 140) {
@@ -113,8 +112,7 @@ public class BuitController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView profile(@RequestParam("name") User usr) {
 		ModelAndView mav = new ModelAndView();
-		List<Url> urls;
-
+	
 		if (usr != null) {
 			Set<Buit> buits = usr.getBuits();
 					
@@ -135,8 +133,7 @@ public class BuitController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView hashtag(@RequestParam("name") Hashtag hashtag, @RequestParam("name") String hashtagName) {
 		ModelAndView mav = new ModelAndView();
-		List<Url> urls;
-
+	
 		if (hashtag == null) {
 			mav.addObject("error_log", "Sorry, #" + hashtagName + " doesn't exist");
 			mav.setViewName("error");
@@ -145,11 +142,7 @@ public class BuitController {
 
 		for (Buit buit : hashtag.getBuits()) {
 			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags()));
-//			if (urlService.buitHasUrl(buit)) {
-//				urls = urlService.urlsForBuit(buit);
-//				buit.setMessage(ViewControllerHelper.prepareBuitUrl(
-//						buit.getMessage(), urls));
-//			}
+			buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));
 		}
 		mav.addObject("buits", hashtag.getBuits());
 		mav.addObject("hashtag", hashtag);
