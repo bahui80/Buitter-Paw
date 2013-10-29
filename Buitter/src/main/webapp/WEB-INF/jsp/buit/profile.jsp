@@ -34,10 +34,10 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th><a href="#"><small><p style="margin-bottom: 0px;">User</p></small><small><p style="margin-bottom: 0px;">Buits</p></small></a></th>
-							<th><a href="#"><small><p style="margin-bottom: 0px">4</p></small><small><p style="margin-bottom: 0px;">Following</p></small></a></th>
-							<th><a href="#"><small><p style="margin-bottom: 0px">1237</p></small><small><p style="margin-bottom: 0px;">Followers</p></small></a></th>
-							<th><small><p style="margin-bottom: 0px;"><c:out value="${user_info.visits}"/></p></small><small><p style="margin-bottom: 0px;">Visitors</p></small></th>
+							<th><a href="#"><small><p style="margin-bottom: 0px;color: #000000;">${fn:length(user_info.mybuits)}</p></small><small><p style="margin-bottom: 0px;color: #999;">Buits</p></small></a></th>
+							<th><a href="#"><small><p style="margin-bottom: 0px;color: #000000;";>4</p></small><small><p style="margin-bottom: 0px;color: #999;">FOLLOWING</p></small></a></th>
+							<th><a href="#"><small><p style="margin-bottom: 0px;color: #000000;">1237</p></small><small><p style="margin-bottom: 0px;color: #999;">FOLLOWERS</p></small></a></th>
+							<th><small><p style="margin-bottom: 0px;color: #000000;"><c:out value="${user_info.visits}"/></p></small><small><p style="margin-bottom: 0px; color: #999;">VISITORS</p></small></th>
 							<c:if test="${not empty user}">
 								<c:set var="found" value='false'/>
 								<c:forEach items="${user_info.followers}" var="follower">
@@ -118,7 +118,7 @@
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="pull-left text-bold">@<c:out
-												value="${buit.user.username}" /></span> <span class="pull-right text-muted" style="font-size:15px "><c:out
+												value="${buit.buitter.username}" /></span> <span class="pull-right text-muted" style="font-size:15px "><c:out
 												value="${buit.date}" /></span>
 									</div>
 									<br />
@@ -159,5 +159,20 @@
 		</div>
 
 	</div>
-
+	<script>
+									function rebuit (id) {
+										var form = document.createElement('form');
+										form.setAttribute('method', 'post');
+										form.setAttribute('action', 'rebuit');
+										form.style.display = 'hidden';
+									    var input = document.createElement('input');
+									    input.setAttribute('type','text');
+									    input.setAttribute('name','buitid');
+									    input.setAttribute('value', id);
+									    input.style.display = 'hidden';
+									    form.appendChild(input);
+									    document.body.appendChild(form);
+									    form.submit();
+									}
+								</script>
 <%@ include file="/WEB-INF/jsp/footer.jsp" %>

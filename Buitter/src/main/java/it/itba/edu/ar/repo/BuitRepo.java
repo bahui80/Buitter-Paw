@@ -16,4 +16,5 @@ public interface BuitRepo {
 	public void addbuit(Buit buit);
 	public void addHashtag(Hashtag hashtag);
 	public void removeBuit(Buit buit);
+	public void rebuit(Buit buit, User user);
 }

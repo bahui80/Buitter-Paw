@@ -17,6 +17,31 @@ import javax.persistence.Transient;
 @Table(name="hashtags")
 public class Hashtag extends PersistentModel {
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((hashtag == null) ? 0 : hashtag.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Hashtag other = (Hashtag) obj;
+		if (hashtag == null) {
+			if (other.hashtag != null)
+				return false;
+		} else if (!hashtag.equals(other.hashtag))
+			return false;
+		return true;
+	}
+
 	@Column(updatable = false, length=140,nullable=false, unique = true)private String hashtag;
 	@ManyToOne private User user;
 	@ManyToMany(mappedBy="hashtags") private Set<Buit> buits;

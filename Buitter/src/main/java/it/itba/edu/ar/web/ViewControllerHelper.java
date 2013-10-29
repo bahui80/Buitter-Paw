@@ -1,5 +1,6 @@
 package it.itba.edu.ar.web;
 
+import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.Url;
 
 import java.util.ArrayList;
@@ -47,22 +48,12 @@ public class ViewControllerHelper {
 		return buit;
 	}
 
-	public static String prepareBuitHashtag(String buit) {
-		String patternStr = "#([A-Za-z0-9_]+)";
-		Pattern pattern = Pattern.compile(patternStr);
-		Matcher matcher = pattern.matcher(buit);
-		String result = "";
-
-		// Search for Hashtags
-		while (matcher.find()) {
-			result = matcher.group();
-			result = result.replace(" ", "");
-			String search = result.replace("#", "");
-			String searchHTML = "<a href='hashtag?name=" + search + "'>"
-					+ result + "</a>";
-			buit = buit.replace(result, searchHTML);
+	public static String prepareBuitHashtag(String buit, List<Hashtag> hashtags) {
+		for (Hashtag hashtag : hashtags) {
+			String replaceHTML = " <a href=hashtag?name=" + hashtag.getHashtag() + ">"
+					+ "#" +hashtag.getHashtag() + "</a>";
+			buit = buit.replaceAll("#" + hashtag.getHashtag() + "((?:\\s)|(?:\\Z))", replaceHTML);
 		}
-
 		return buit;
 	}
 

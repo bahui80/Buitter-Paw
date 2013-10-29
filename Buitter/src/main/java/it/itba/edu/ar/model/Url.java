@@ -9,8 +9,8 @@ import javax.persistence.Table;
 @Table(name="urls")
 public class Url extends PersistentModel {
 
-	@Column(length=140)	private String url;
-	@Column(length=140)	private String buiturl;
+	@Column(length=140, updatable = false)	private String url;
+	@Column(length=140, updatable = false)	private String buiturl;
 	
 	Url(){
 	}

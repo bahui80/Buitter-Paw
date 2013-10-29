@@ -2,6 +2,7 @@ package it.itba.edu.ar.repo;
 
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Hashtag;
+import it.itba.edu.ar.model.ReBuit;
 import it.itba.edu.ar.model.Url;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.web.ViewControllerHelper;
@@ -29,6 +30,32 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 	 * Methods for business logic.
 	 * 
 	 */
+	
+	public void rebuit(Buit buit, User user){
+		Date date = new Date();
+		ReBuit rebuit = new ReBuit(buit,user, date);
+				
+		Hashtag hashtg;
+		String message = rebuit.getMessage();
+//		List<Hashtag> hashtgs = new ArrayList<Hashtag>();
+		List<String> hashtags = ViewControllerHelper.getHashTags(message);
+//		List<String>  s_urls = ViewControllerHelper.getUrls(message);
+//		List<Url> urls = new ArrayList<Url>();
+		for(String hashtag: hashtags) {
+			if((hashtg = getHashtag(hashtag)) == null) {
+				hashtg = new Hashtag(hashtag, date, user);
+				addHashtag(hashtg);
+			}
+		}
+//		for (String s : s_urls) {
+//			Url url = new Url(s);
+//			url.setBuiturl(ViewControllerHelper.cutUrl(s));
+//			urls.add(url);
+//		}
+//		message = ViewControllerHelper.shortenBuit(message, urls);
+		addrebuit(rebuit);
+	}
+	
 	// TODO VER BIEN COMO RESOLVER LO DE LAS URLS
 	public void buit(String message, User user) {
 		if(message == null || user == null || message.isEmpty() || message.trim().length() == 0) {
@@ -95,6 +122,10 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 	public void addbuit(Buit buit) {
 		getSession().save(buit);
 	
+	}
+	
+	public void addrebuit(ReBuit buit){
+		getSession().save(buit);
 	}
 	
 	public void addHashtag(Hashtag hashtag) {

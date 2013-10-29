@@ -49,6 +49,17 @@ public class BuitController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView rebuit(@RequestParam("buitid") Buit rebuit, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user  = userRepo.get((String) session.getAttribute("user"));
+		
+		buitRepo.rebuit(rebuit, user);
+		
+		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		return mav;
+}
+	
+	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView unfollow(@RequestParam("username") User userToUnfollow, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = userRepo.get((String) session.getAttribute("user"));
@@ -67,11 +78,11 @@ public class BuitController {
 	public ModelAndView delete(@RequestParam("buitid") Buit buit, HttpSession session ) {
 		ModelAndView mav = new ModelAndView();
 		
-		if(buit == null || buit.getUser().getUsername() != session.getAttribute("user")) {
+		if(buit == null || buit.getBuitter().getUsername() != session.getAttribute("user")) {
 			mav.setViewName("error");
 		}
 		buitRepo.removeBuit(buit);
-		buit.getUser().removeVisit();
+		buit.getBuitter().removeVisit();
 		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
 		return mav;
 	}
@@ -108,7 +119,7 @@ public class BuitController {
 			Set<Buit> buits = usr.getBuits();
 					
 			for (Buit buit : buits) {
-				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage()));
+				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags()));
 				buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));
 			}
 			mav.addObject("buits", buits);
@@ -133,7 +144,7 @@ public class BuitController {
 		}
 
 		for (Buit buit : hashtag.getBuits()) {
-			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage()));
+			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags()));
 //			if (urlService.buitHasUrl(buit)) {
 //				urls = urlService.urlsForBuit(buit);
 //				buit.setMessage(ViewControllerHelper.prepareBuitUrl(
