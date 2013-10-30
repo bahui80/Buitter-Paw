@@ -1,3 +1,28 @@
+<script>
+		function edit() {
+			var str1 = "../user/editprofile";
+			window.location = str1;
+		}
+</script>
+<script>
+	function follow (username, method) {
+		var form = document.createElement('form');
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', method.toLowerCase());
+		form.style.display = 'hidden';
+		var input = document.createElement('input');
+		input.setAttribute('type','text');
+		input.setAttribute('name','username');
+		input.setAttribute('value', username);
+		input.style.display = 'hidden';
+		form.appendChild(input);
+		document.body.appendChild(form);
+		form.submit();
+	}
+</script>
+
+
+
 <div class="well well-lg text-center" style="margin-bottom: 0px">
 				<c:if test="${not empty user_info.photo}">
 					<img class="profile-pic" src="../image?name=<c:out value="${user_info.username}"/>"/>

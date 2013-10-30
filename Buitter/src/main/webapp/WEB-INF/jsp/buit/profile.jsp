@@ -90,13 +90,6 @@
 </c:if>
 
 <script>
-		function edit() {
-			var str1 = "../user/editprofile";
-			window.location = str1;
-		}
-</script>
-
-<script>
 	function proceed(clicked_id) {
 		var form = document.createElement('form');
 		form.setAttribute('method', 'post');
@@ -106,22 +99,6 @@
 		input.setAttribute('type','text');
 		input.setAttribute('name','buitid');
 		input.setAttribute('value', clicked_id);
-		input.style.display = 'hidden';
-		form.appendChild(input);
-		document.body.appendChild(form);
-		form.submit();
-	}
-</script>
-<script>
-	function follow (username, method) {
-		var form = document.createElement('form');
-		form.setAttribute('method', 'post');
-		form.setAttribute('action', method.toLowerCase());
-		form.style.display = 'hidden';
-		var input = document.createElement('input');
-		input.setAttribute('type','text');
-		input.setAttribute('name','username');
-		input.setAttribute('value', username);
 		input.style.display = 'hidden';
 		form.appendChild(input);
 		document.body.appendChild(form);
