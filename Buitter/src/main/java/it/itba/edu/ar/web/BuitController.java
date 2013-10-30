@@ -120,6 +120,23 @@ public class BuitController {
 	/*
 	 * GET METHODS
 	 */
+	
+	// TODO AGREGAR CHEQUEOS DE VALIDACION
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView following(@RequestParam("name") User user) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("user_info", user);
+		return mav;
+	}
+	
+	// TODO AGREGAR CHEQUEOS DE VALIDACION
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView followers(@RequestParam("name") User user) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("user_info", user);
+		return mav;
+	}
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView profile(@RequestParam("name") User usr) {
 		ModelAndView mav = new ModelAndView();
