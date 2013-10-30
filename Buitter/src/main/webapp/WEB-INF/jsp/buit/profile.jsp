@@ -7,7 +7,7 @@
 </script>
 
 <div class="container">
-
+<c:if test="${not empty user || user_info.privacy=='false'}">
 	<div class="row row-offcanvas row-offcanvas-right">
 		<div class="col-md-8 col-md-offset-2">
 			<p class="pull-right visible-xs">
@@ -93,29 +93,29 @@
 
 						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
-									<c:if test="${not empty user_info.photo}">
-										<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${user_info.username}"/>"/>
-									</c:if>
-									<c:if test="${empty user_info.photo}">
-										<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
-									</c:if>
+								<c:if test="${not empty user_info.photo}">
+									<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${user_info.username}"/>"/>
+								</c:if>
+								<c:if test="${empty user_info.photo}">
+									<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
+								</c:if>
 								<div class="media-body">
 									<div class="media-heading">
-										<span class="pull-left text-bold">@<c:out
-												value="${buit.buitter.username}" /></span> <span class="pull-right text-muted" style="font-size:15px "><c:out
-												value="${buit.date}" /></span>
+										<span class="pull-left text-bold">@<c:out value="${buit.buitter.username}" /></span> <span class="pull-right text-muted" style="font-size:15px "><c:out value="${buit.date}" /></span>
 									</div>
 									<br />
 									<p style="word-wrap:break-word">${buit.message}</p>
-									<c:if test="${user == user_info.username }">
-										<button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>
-									</c:if>
-									<!-- Cambiar los valores para el favorito y hacer la funcion javascript. Poner ifs-->
-									<button id="<c:out value="${buit.id}"/>" type="button" onclick="favorite(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-star"> </i></button>
-									<!-- cambiar lso valores para rebuiteo y hacer la funcion javscript. Poner los ifs-->
-									<c:if test="${user != user_info.username }">
-										<button id="<c:out value="${buit.id}"/>" type="button" onclick="rebuit(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-retweet"> Rebuit</i></button>
-									</c:if>
+									<c:if test="${not empty user}">
+										<c:if test="${user == user_info.username }">
+											<button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>
+										</c:if>
+										<!-- Cambiar los valores para el favorito y hacer la funcion javascript. Poner ifs-->
+										<button id="<c:out value="${buit.id}"/>" type="button" onclick="favorite(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-star"> Favorite</i></button>
+										<!-- cambiar lso valores para rebuiteo y hacer la funcion javscript. Poner los ifs-->
+										<c:if test="${user != user_info.username }">
+											<button id="<c:out value="${buit.id}"/>" type="button" onclick="rebuit(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-retweet"> Rebuit</i></button>
+										</c:if>
+									</c:if>	
 								</div>
 							</div>
 						</c:forEach>
@@ -124,6 +124,17 @@
 			</div>
 		</div>
 	</div>
+</c:if>
+<c:if test="${empty user && user_info.privacy=='true'}">
+	<div class="bs-example">
+        <div class="jumbotron">
+        	<img style="display: block; margin-left: auto;  margin-right: auto;" src="../../img/stop_vulture.png">
+          	<h2 style="text-align:center">Sorry, user @<c:out value="${user_info.username}"/> is private</h1>
+          	<p style="text-align:center">You must be logged in to see this profile.</p>
+        </div>
+   	</div>
+</c:if>
+
 	<script>
 		function proceed(clicked_id) {
 			var form = document.createElement('form');

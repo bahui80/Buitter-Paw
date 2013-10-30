@@ -39,7 +39,6 @@ public class BuitController {
 		User user  = userRepo.get((String) session.getAttribute("user"));
 		user.getFavourites().add(fav);
 
-		user.getFollowers().add(user);
 		user.removeVisit();
 
 		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
@@ -90,8 +89,9 @@ public class BuitController {
 	public ModelAndView delete(@RequestParam("buitid") Buit buit, HttpSession session ) {
 		ModelAndView mav = new ModelAndView();
 		
-		if(buit == null || buit.getBuitter().getUsername() != session.getAttribute("user")) {
+		if(buit == null || !buit.getBuitter().getUsername().equals(session.getAttribute("user"))) {
 			mav.setViewName("error");
+			return mav;
 		}
 		buitRepo.removeBuit(buit);
 		buit.getBuitter().removeVisit();
