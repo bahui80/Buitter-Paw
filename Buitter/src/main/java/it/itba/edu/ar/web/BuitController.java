@@ -1,11 +1,13 @@
 package it.itba.edu.ar.web;
 
 import it.itba.edu.ar.model.Buit;
+import it.itba.edu.ar.model.FollowedEvent;
 import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.repo.BuitRepo;
 import it.itba.edu.ar.repo.UserRepo;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -52,6 +54,7 @@ public class BuitController {
 		if(session.getAttribute("user") == null || user.getUsername().equals(userToFollow.getUsername())) {
 			// TODO manejar el error. No puede un usuario no logueado seguir a alguien. Tampoco puede autoseguirse un usuario logueado
 		}
+		userToFollow.getEvents().add(new FollowedEvent(new Date(),user));
 		userToFollow.getFollowers().add(user);
 		userToFollow.removeVisit();
 		mav.setViewName("redirect:profile?name=" + userToFollow.getUsername());
