@@ -17,7 +17,7 @@
 					</c:when>
 					<c:otherwise>
 
-
+						<h3 class="text-bold" style="margin-left:40px">Followers</h3>
 						<c:forEach items="${user_info.followers}" var="follower">
 							<div class="media buit">
 								<c:if test="${not empty follower.photo}">

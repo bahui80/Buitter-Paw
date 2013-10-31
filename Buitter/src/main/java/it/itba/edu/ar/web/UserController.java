@@ -3,7 +3,6 @@ package it.itba.edu.ar.web;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.repo.UserRepo;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 

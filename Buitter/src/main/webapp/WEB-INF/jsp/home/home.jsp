@@ -17,33 +17,52 @@
 				<p id="no-more-tweets">#NoMoreTweets. #WeBuitNow.</p>
 			</div>
 
-
-			<div class="row">
-				<c:forEach items="${userlist}" var="us">
-					<div class="col-6 col-sm-6 col-lg-4 text-center"
-						style="height:400px">
-						<c:if test="${not empty us.photo}">
-							<img class="img-circle profile-pic-home"
-								src="../image?name=<c:out value="${us.username}"/>" />
+			<c:if test="${empty user}"> 
+				<div class="row">
+					<c:forEach items="${userlist}" var="us">
+						<div class="col-6 col-sm-6 col-lg-4 text-center"
+							style="height:400px">
+							<c:if test="${not empty us.photo}">
+								<img class="img-circle profile-pic-home" src="../image?name=<c:out value="${us.username}"/>" />
+							</c:if>
+							<c:if test="${empty us.photo}">
+								<img class="img-circle profile-pic-home" src="../../img/nopicture.png"/>
+							</c:if>
+							<h3 class="username-home" style="word-wrap:break-word">
+								<c:out value="${us.username}" />
+							</h3>
+							<p class="text-muted" style="word-wrap:break-word">
+								"
+								<c:out value="${us.description}" />
+								"
+							</p>
+							<a
+								href="<c:url value="../buit/profile"><c:param name="name" value="${us.username}"/></c:url>"
+								class="btn btn-link btn-xs">View profile</a>
+						</div>
+					</c:forEach>
+				</div>
+			</c:if>
+			<c:if test="${not empty user}">
+				<h3 class="text-bold" style="margin-left:40px">Buits</h3>
+				<c:forEach items="${buits}" var="buit">
+					<div class="media buit">
+						<c:if test="${not empty buit.buitter.photo}">
+							<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${buit.buitter.username}"/>"/>
 						</c:if>
-						<c:if test="${empty us.photo}">
-							<img class="img-circle profile-pic-home" src="../../img/nopicture.png"/>
+						<c:if test="${empty buit.buitter.photo}">
+							<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
 						</c:if>
-						<h3 class="username-home" style="word-wrap:break-word">
-							<c:out value="${us.username}" />
-						</h3>
-						<p class="text-muted" style="word-wrap:break-word">
-							"
-							<c:out value="${us.description}" />
-							"
-						</p>
-						<a
-							href="<c:url value="../buit/profile"><c:param name="name" value="${us.username}"/></c:url>"
-							class="btn btn-link btn-xs">View profile</a>
+						<div class="media-body">
+							<div class="media-heading">
+								<span class="pull-left text-bold">@<c:out value="${buit.buitter.username}" /></span> <span class="pull-right text-muted" style="font-size:15px "><c:out value="${buit.date}" /></span>
+							</div>
+							<br />
+						<p style="word-wrap:break-word">${buit.message}</p>
+					</div>
 					</div>
 				</c:forEach>
-			</div>
-
+			</c:if>
 		</div>
 
 		<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">

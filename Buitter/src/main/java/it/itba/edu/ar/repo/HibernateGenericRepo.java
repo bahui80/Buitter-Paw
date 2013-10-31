@@ -14,5 +14,3 @@ public abstract class HibernateGenericRepo {
 		return sessionFactory.getCurrentSession();
 	}
 }
-
-

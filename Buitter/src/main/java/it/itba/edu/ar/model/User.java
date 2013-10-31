@@ -31,7 +31,7 @@ public class User extends PersistentModel {
 	@Column(length=60,nullable=false) private String secret_question;
 	@Column(length=60,nullable=false) private String secret_answer;
 	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false) private Date creationDate;
-	private boolean 	privacy;
+	private boolean privacy;
 	private int visits;		
 	@Lob private byte[] photo; 
 	@OneToMany (mappedBy="buitter") @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class)
@@ -39,7 +39,7 @@ public class User extends PersistentModel {
  	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL) private Set<User> following;
  	@ManyToMany private Set<User> followers;
  	@OneToMany (mappedBy="favoritter", cascade=CascadeType.ALL)private Set<Buit> favorites;
- 	@OneToMany (mappedBy="user")  private List<Event> events;
+ 	//@OneToMany (mappedBy="user")  private List<Event> events;
 	
 	User(){
 	}

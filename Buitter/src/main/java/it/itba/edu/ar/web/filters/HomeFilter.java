@@ -1,4 +1,4 @@
-package it.itba.edu.ar.filters;
+package it.itba.edu.ar.web.filters;
 
 import java.io.IOException;
 

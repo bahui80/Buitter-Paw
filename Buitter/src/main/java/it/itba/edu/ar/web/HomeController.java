@@ -1,12 +1,19 @@
 package it.itba.edu.ar.web;
 
+import it.itba.edu.ar.model.Buit;
+import it.itba.edu.ar.model.Buit.BuitComparator;
 import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.repo.BuitRepo;
 import it.itba.edu.ar.repo.UserRepo;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +40,37 @@ public class HomeController {
 	 * GET METHODS
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView home(@RequestParam(value = "time", required = false) Integer time) {
+	public ModelAndView home(@RequestParam(value = "time", required = false) Integer time, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
+		// DE ACA 
+		if(session.getAttribute("user") != null) {
+		User user = userRepo.get((String) session.getAttribute("user"));
+			Set<Buit> buits = new TreeSet<Buit>(new Comparator<Buit>() {
+				@Override
+				public int compare(Buit d1, Buit d2) {
+					Date t1 = d1.getDate();
+					Date t2 = d2.getDate();
+					return t2.compareTo(t1);
+				}
+			});
+			
+			for(Buit buit: user.getBuits()) {
+				buits.add(buit);
+			}
+			
+			for(User following: user.getFollowing()) {
+				for(Buit buit: following.getBuits()) {
+					buits.add(buit);
+				}
+			}
+			
+			mav.addObject("buits",buits);
+			
+		}	
+		
+		
+		// A ACA VERLO MUY BIEN
 		
 		int default_time = 7;
 

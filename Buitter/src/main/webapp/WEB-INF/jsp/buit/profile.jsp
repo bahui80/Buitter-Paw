@@ -44,7 +44,7 @@
 					</c:when>
 					<c:otherwise>
 
-
+						<h3 class="text-bold" style="margin-left:40px">Buits</h3>
 						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
 								<c:if test="${not empty user_info.photo}">
