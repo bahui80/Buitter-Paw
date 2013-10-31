@@ -38,7 +38,9 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 	public void rebuit(Buit buit, User user){
 		Date date = new Date();
 		ReBuit rebuit = new ReBuit(buit,user, date);
-				
+		
+		buit.getRebuits().add(rebuit);
+		
 		Hashtag hashtg;
 		String message = rebuit.getMessage();
 //		List<Hashtag> hashtgs = new ArrayList<Hashtag>();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -17,6 +18,7 @@ public class ReBuit extends Buit {
 	
 	@ManyToOne private User user;
 	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)private Date rebuit_date;
+	@ManyToOne private Buit buit;
 	
 	ReBuit(){
 	}
@@ -31,6 +33,7 @@ public class ReBuit extends Buit {
 			Url newU = new Url(u.getUrl(),u.getBuiturl());
 			urls.add(newU);
 		}
+		this.buit = buit;
 		this.setUrls(urls);
 		this.rebuit_date = buit.getDate();
 		this.user = buit.getBuitter();
@@ -41,6 +44,14 @@ public class ReBuit extends Buit {
 		return this.user;
 	}
 	
+	public Buit getBuit() {
+		return buit;
+	}
+
+	public void setBuit(Buit buit) {
+		this.buit = buit;
+	}
+
 	//MISCELANEOUS
 	@Override
 	public int hashCode() {

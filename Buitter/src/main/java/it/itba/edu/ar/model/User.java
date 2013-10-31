@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -29,14 +31,14 @@ public class User extends PersistentModel {
 	@Column(length=60,nullable=false) private String secret_question;
 	@Column(length=60,nullable=false) private String secret_answer;
 	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false) private Date creationDate;
-	private boolean privacy;
+	private boolean 	privacy;
 	private int visits;		
 	@Lob private byte[] photo; 
 	@OneToMany (mappedBy="buitter") @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class)
 		private Set<Buit> mybuits;
  	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL) private Set<User> following;
  	@ManyToMany private Set<User> followers;
- 	@ManyToMany private Set<Buit> favourites;
+ 	@OneToMany (mappedBy="favoritter", cascade=CascadeType.ALL)private Set<Buit> favorites;
  	@OneToMany (mappedBy="user")  private List<Event> events;
 	
 	User(){
@@ -94,7 +96,7 @@ public class User extends PersistentModel {
 	}
 	
 	public Set<Buit> getFavourites() {
-		return this.favourites;
+		return this.favorites;
 	}
 	
 	public Set<User> getFollowers() {

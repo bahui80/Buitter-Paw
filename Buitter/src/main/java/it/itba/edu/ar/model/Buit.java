@@ -26,20 +26,14 @@ public class Buit extends PersistentModel {
 
 	@Column(length = 500, nullable = false, updatable = false)
 	private String message;
-	@ManyToMany (mappedBy="favourites")
-	private Set<User> favouritters;
-	@ManyToOne 
-	private User buitter;
-	@ManyToMany
-	private List<Hashtag> hashtags;
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Url> urls;
+	@ManyToOne private User favoritter;
+	@ManyToOne private User buitter;
+	@ManyToMany private List<Hashtag> hashtags;
+	@OneToMany(cascade = CascadeType.ALL) private List<Url> urls;
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
-	private Date date;
-	@CollectionOfElements
-	private Set<String> mentioned_buitters;
-
+	@Column(nullable = false) private Date date;
+	@CollectionOfElements private Set<String> mentioned_buitters;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="buit") private Set<ReBuit> rebuits;
 	Buit() {
 	}
 	
@@ -116,6 +110,14 @@ public class Buit extends PersistentModel {
 		this.hashtags = hashtags;
 	}
 	
+	public Set<ReBuit> getRebuits() {
+		return rebuits;
+	}
+
+	public void setRebuits(Set<ReBuit> rebuits) {
+		this.rebuits = rebuits;
+	}
+
 	//MISCELANEOUS
 	@Override
 	public String toString() {

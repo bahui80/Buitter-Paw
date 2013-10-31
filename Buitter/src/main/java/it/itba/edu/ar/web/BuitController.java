@@ -40,7 +40,6 @@ public class BuitController {
 		user.getFavourites().add(fav);
 
 		user.removeVisit();
-
 		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
 		return mav;
 	}
