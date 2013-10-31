@@ -12,16 +12,68 @@
 
 	<div class="row row-offcanvas row-offcanvas-right">
 		<div class="col-xs-12 col-sm-9">
-			<div class="jumbotron">
-				<h1 id="main-name">Buitter.</h1>
-				<p id="no-more-tweets">#NoMoreTweets. #WeBuitNow.</p>
+			<div class="jumbotron" style="padding-left: 0px; padding-right: 0px;">
+				<p id="no-more-tweets" style="text-align:center">#NoMoreTweets. #WeBuitNow.</p>
+				<c:if test="${not empty user}">
+					<div class="row">
+						<div class="col-6 col-sm-6 col-lg-6">
+							<h3 class="text-bold" style="text-align:center; margin-top: 12px;">Buits</h3>
+							<c:forEach items="${user_info.buits}" var="buit">
+							<div class="media buit">
+								<c:if test="${not empty user_info.photo}">
+									<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${user_info.username}"/>"/>
+								</c:if>
+								<c:if test="${empty user_info.photo}">
+									<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
+								</c:if>
+								<div class="media-body">
+									<div class="media-heading">
+										<div class="row" style="margin-left: 0px; margin-right: 0px;">
+											<span class="pull-left text-bold" style="font-size:15px;">@<c:out value="${user_info.username}"/></span> 
+											<span class="pull-right text-muted" style="font-size:15px"><fmt:formatDate type="both" value="${buit.date}"/></span>
+										</div>
+										<div class="row" style="margin-left: 0px; margin-right: 0px;">
+											<p style="word-wrap:break-word; font-size:15px">${buit.message}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							</c:forEach>
+						</div>
+						<div class="col-6 col-sm-6 col-lg-6">
+							<h3 class="text-bold" style="text-align:center; margin-top: 12px;">Following</h3>
+							<c:forEach items="${user_info.following}" var="following">
+								<c:forEach items="${following.buits}" var="buit">
+									<div class="media buit">
+										<c:if test="${not empty following.photo}">
+											<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${following.username}"/>"/>
+										</c:if>
+										<c:if test="${empty follwing.photo}">
+											<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
+										</c:if>
+										<div class="media-body">
+											<div class="media-heading">
+												<div class="row" style="margin-left: 0px; margin-right: 0px;">
+													<span class="pull-left text-bold" style="font-size:15px">@<c:out value="${following.username}"/></span> 
+													<span class="pull-right text-muted" style="font-size:15px"><c:out value="${buit.date}"/></span>
+												</div>
+												<div class="row" style="margin-left: 0px; margin-right: 0px;">
+													<p style="word-wrap:break-word; font-size:15px">${buit.message}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+							</c:forEach>
+						</div>
+					</div>	
+				</c:if>
 			</div>
 
 			<c:if test="${empty user}"> 
 				<div class="row">
 					<c:forEach items="${userlist}" var="us">
-						<div class="col-6 col-sm-6 col-lg-4 text-center"
-							style="height:400px">
+						<div class="col-6 col-sm-6 col-lg-4 text-center" style="height:400px">
 							<c:if test="${not empty us.photo}">
 								<img class="img-circle profile-pic-home" src="../image?name=<c:out value="${us.username}"/>" />
 							</c:if>
@@ -43,26 +95,7 @@
 					</c:forEach>
 				</div>
 			</c:if>
-			<c:if test="${not empty user}">
-				<h3 class="text-bold" style="margin-left:40px">Buits</h3>
-				<c:forEach items="${buits}" var="buit">
-					<div class="media buit">
-						<c:if test="${not empty buit.buitter.photo}">
-							<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${buit.buitter.username}"/>"/>
-						</c:if>
-						<c:if test="${empty buit.buitter.photo}">
-							<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
-						</c:if>
-						<div class="media-body">
-							<div class="media-heading">
-								<span class="pull-left text-bold">@<c:out value="${buit.buitter.username}" /></span> <span class="pull-right text-muted" style="font-size:15px "><c:out value="${buit.date}" /></span>
-							</div>
-							<br />
-						<p style="word-wrap:break-word">${buit.message}</p>
-					</div>
-					</div>
-				</c:forEach>
-			</c:if>
+		
 		</div>
 
 		<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">

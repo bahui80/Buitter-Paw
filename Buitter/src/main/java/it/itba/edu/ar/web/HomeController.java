@@ -45,28 +45,8 @@ public class HomeController {
 		
 		// DE ACA 
 		if(session.getAttribute("user") != null) {
-		User user = userRepo.get((String) session.getAttribute("user"));
-			Set<Buit> buits = new TreeSet<Buit>(new Comparator<Buit>() {
-				@Override
-				public int compare(Buit d1, Buit d2) {
-					Date t1 = d1.getDate();
-					Date t2 = d2.getDate();
-					return t2.compareTo(t1);
-				}
-			});
-			
-			for(Buit buit: user.getBuits()) {
-				buits.add(buit);
-			}
-			
-			for(User following: user.getFollowing()) {
-				for(Buit buit: following.getBuits()) {
-					buits.add(buit);
-				}
-			}
-			
-			mav.addObject("buits",buits);
-			
+			User user = userRepo.get((String) session.getAttribute("user"));
+			mav.addObject("user_info", user);
 		}	
 		
 		

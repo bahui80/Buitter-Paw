@@ -6,7 +6,7 @@
 			<p class="pull-right visible-xs">
 				<button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
 			</p>
-<%@ include file="user_header.jsp" %>	
+		<%@ include file="user_header.jsp" %>	
 			<div class="well well-lg">
 				<c:choose>
 					<c:when test="${empty user_info.following}">
