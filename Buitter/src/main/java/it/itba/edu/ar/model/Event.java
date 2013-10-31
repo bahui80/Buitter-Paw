@@ -7,11 +7,11 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
+//@MappedSuperclass
 public abstract class Event extends PersistentModel {
 	
-	@Column() private Date date;
-	@Column private String message;
-	@ManyToOne private User user;
+	//@Column() private Date date;
+	//@Column private String message;
+	//@ManyToOne private User user;
 	
 }
