@@ -1,6 +1,7 @@
 package it.itba.edu.ar.web;
 
 import it.itba.edu.ar.model.Buit;
+import it.itba.edu.ar.model.Event;
 import it.itba.edu.ar.model.FollowedEvent;
 import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.ReBuitEvent;
@@ -9,6 +10,7 @@ import it.itba.edu.ar.repo.BuitRepo;
 import it.itba.edu.ar.repo.UserRepo;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -181,4 +183,13 @@ public class BuitController {
 
 		return mav;
 	}
+	
+	// TODO AGREGAR CHEQUEOS DE VALIDACION
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView connect(@RequestParam("name") User user) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("events", user.getEvents());
+		return mav;
+	}
+
 }
