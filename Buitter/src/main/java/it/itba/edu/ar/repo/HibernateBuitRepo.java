@@ -2,7 +2,9 @@ package it.itba.edu.ar.repo;
 
 import it.itba.edu.ar.model.Buit;
 import it.itba.edu.ar.model.Hashtag;
+import it.itba.edu.ar.model.MentionedEvent;
 import it.itba.edu.ar.model.ReBuit;
+import it.itba.edu.ar.model.ReBuitEvent;
 import it.itba.edu.ar.model.Url;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.web.ViewControllerHelper;
@@ -38,6 +40,8 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 	public void rebuit(Buit buit, User user){
 		Date date = new Date();
 		ReBuit rebuit = new ReBuit(buit,user, date);
+		
+		buit.getBuitter().getEvents().add(new ReBuitEvent(date,user));
 		
 		buit.getRebuits().add(rebuit);
 		
@@ -84,8 +88,11 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 		
 		Iterator<String> it = s_users.iterator();
 		while(it.hasNext()) {
-			if(userRepo.get(it.next()) == null) {
+			User u;
+			if((u = userRepo.get(it.next())) == null) {
 				it.remove();
+			}else{
+				u.getEvents().add(new MentionedEvent(new Date(),user));
 			}
 		}
 		

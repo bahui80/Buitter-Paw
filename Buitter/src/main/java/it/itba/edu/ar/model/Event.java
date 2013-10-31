@@ -25,7 +25,6 @@ public abstract class Event extends PersistentModel {
 	@Column(nullable = false) @Temporal(TemporalType.TIMESTAMP) private Date date;
 	@Column private String message;
 	@OneToOne private User firer;
-//	@Enumerated(EnumType.STRING) private Type type;
 
 	Event(){
 	}

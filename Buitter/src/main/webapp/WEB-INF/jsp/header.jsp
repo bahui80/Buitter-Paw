@@ -62,6 +62,7 @@ function toggle(){
 				<ul class="nav navbar-nav" style="float:right">
 					<li class=""><a href="/Buitter/web/home/home"><i class='icon-home'></i> Home</a></li>
 					<c:if test="${not empty user}">
+					<li><a href="#">Messages <span class="badge">${fn:length(user_info.events)}</span></a></li>
 						<li><a href="/Buitter/web/buit/<c:url value="profile"><c:param name="name" value="${user}"/></c:url>">
 							<c:out value="@${user}"/></a></li>
 						<li id="dropdown" class="dropdown" onclick="toggle()">
