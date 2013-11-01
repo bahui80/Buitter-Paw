@@ -57,6 +57,9 @@ public class BuitController {
 		if(session.getAttribute("user") == null || user.getUsername().equals(userToFollow.getUsername())) {
 			// TODO manejar el error. No puede un usuario no logueado seguir a alguien. Tampoco puede autoseguirse un usuario logueado
 		}
+		
+		userToFollow.getEvents().add(new FollowedEvent(new Date(), user));
+		
 		userToFollow.getFollowers().add(user);
 		userToFollow.removeVisit();
 		mav.setViewName("redirect:profile?name=" + userToFollow.getUsername());

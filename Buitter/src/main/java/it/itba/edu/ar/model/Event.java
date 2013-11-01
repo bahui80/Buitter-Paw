@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Event extends PersistentModel {
 	
 	@Column(nullable = false) @Temporal(TemporalType.TIMESTAMP) private Date date;

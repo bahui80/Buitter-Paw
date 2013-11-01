@@ -92,7 +92,8 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 			if((u = userRepo.get(it.next())) == null) {
 				it.remove();
 			}else{
-				u.getEvents().add(new MentionedEvent(new Date(),user));
+				MentionedEvent e = new MentionedEvent(new Date(),user);
+				u.getEvents().add(e);
 			}
 		}
 		
