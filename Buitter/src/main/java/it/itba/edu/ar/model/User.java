@@ -41,7 +41,7 @@ public class User extends PersistentModel {
  	@OneToMany (mappedBy="favoritter", cascade=CascadeType.ALL)private Set<Buit> favorites;
  	@OneToMany (targetEntity = Event.class ,cascade=CascadeType.ALL) 
  	@Sort(type=SortType.COMPARATOR, comparator = Event.EventComparator.class)  
- 	private Set<Event> events;
+ 	private List<Event> events;
 	
 	User(){
 	}
@@ -189,11 +189,11 @@ public class User extends PersistentModel {
 		this.photo = photo;
 	}
 
-	public Set<Event> getEvents() {
+	public List<Event> getEvents() {
 		return events;
 	}
 
-	public void setEvents(Set<Event> events) {
+	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
 

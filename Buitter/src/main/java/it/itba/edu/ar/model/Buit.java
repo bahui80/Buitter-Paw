@@ -34,6 +34,7 @@ public class Buit extends PersistentModel {
 	@Column(nullable = false) private Date date;
 	@CollectionOfElements private Set<String> mentioned_buitters;
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="buit") private Set<ReBuit> rebuits;
+	
 	Buit() {
 	}
 	
