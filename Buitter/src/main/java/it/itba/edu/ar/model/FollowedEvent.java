@@ -15,6 +15,7 @@ public class FollowedEvent extends Event{
 	public FollowedEvent(Date date, User firer) {
 		this.setDate(date);
 		this.setFirer(firer);
+		this.setMessage("started following you");
 	}
 	
 	FollowedEvent() {

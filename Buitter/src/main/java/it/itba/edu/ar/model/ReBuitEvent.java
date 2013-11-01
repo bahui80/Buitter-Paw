@@ -15,6 +15,7 @@ public class ReBuitEvent extends Event {
 	public ReBuitEvent(Date date, User firer) {
 		this.setDate(date);
 		this.setFirer(firer);
+		this.setMessage("rebuitted your buit");
 	}
 	 ReBuitEvent(){
 	 }

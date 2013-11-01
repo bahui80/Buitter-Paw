@@ -189,8 +189,9 @@ public class BuitController {
 	
 	// TODO AGREGAR CHEQUEOS DE VALIDACION
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView connect(@RequestParam("name") User user) {
+	public ModelAndView connect( HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		User user  = userRepo.get((String) session.getAttribute("user"));
 		mav.addObject("events", user.getEvents());
 		return mav;
 	}

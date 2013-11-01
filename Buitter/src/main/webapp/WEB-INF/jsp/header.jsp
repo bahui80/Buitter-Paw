@@ -66,7 +66,7 @@
 				<ul class="nav navbar-nav" style="float: right">
 					<c:if test="${not empty user}">
 
-						<li><a href="#">Notifications <span class="badge">${fn:length(user_info.events)}</span></a></li>
+						<li><a href="/Buitter/web/buit/connect">Notifications <span class="badge">${fn:length(user_info.events)}</span></a></li>
 
 						<li class=""><a href="/Buitter/web/home/home"><i
 								class='icon-star'></i> Favorites</a></li>

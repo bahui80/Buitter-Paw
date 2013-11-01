@@ -15,6 +15,8 @@ public class MentionedEvent extends Event {
 	public MentionedEvent(Date date, User firer) {
 		this.setDate(date);
 		this.setFirer(firer);
+		this.setMessage("mentioned you");
+
 	}
 	
 	MentionedEvent() {

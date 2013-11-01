@@ -20,10 +20,10 @@
 						<c:forEach items="${events}" var="event">
 							<div class="media buit">
 								<a class="pull-left"> <c:if
-										test="${not empty event.user.photo}">
+										test="${not empty event.firer.photo}">
 										<img class="pull-left media-object buit-profile-pic"
-											src="../image?name=<c:out value="${event.user.username}"/>" />
-									</c:if> <c:if test="${empty event.user.photo}">
+											src="../image?name=<c:out value="${event.firer.username}"/>" />
+									</c:if> <c:if test="${empty event.firer.photo}">
 										<img class="pull-left media-object buit-profile-pic"
 											src="../../img/nopicture.png" />
 									</c:if>
@@ -31,16 +31,14 @@
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="pull-left"> <strong>@<c:out
-													value="${event.user.username}" /></strong> <c:if
-												test="${event.kind == 'followed'}"> followed you</c:if> <c:if
-												test="${event.kind == 'mentioned'}"> mentioned you</c:if> <c:if
-												test="${event.kind == 'retweeted'}"> rebuited you</c:if>
+													value="${event.firer.username}" /></strong> 
 
 										</span> <span class="pull-right text-muted"><c:out
 												value="${event.date}" /></span>
 									</div>
 									<br />
-									<p>${event.message}</p>
+									<p><c:out
+												value="${event.message}" /></p>
 								</div>
 							</div>
 						</c:forEach>
