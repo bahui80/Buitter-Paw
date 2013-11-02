@@ -69,8 +69,8 @@
 													style="margin-left: 0px; margin-right: 0px;">
 													<span class="pull-left text-bold" style="font-size: 15px">@<c:out
 															value="${following.username}" /></span> <span
-														class="pull-right text-muted" style="font-size: 15px"><c:out
-															value="${buit.date}" /></span>
+														class="pull-right text-muted" style="font-size: 15px"><fmt:formatDate
+														type="both" value="${buit.date}" /></span>
 												</div>
 												<div class="row"
 													style="margin-left: 0px; margin-right: 0px;">
@@ -155,15 +155,11 @@
 			</div>
 			<div class="well sidebar-nav">
 				<strong>Who to follow</strong><br/><br/>
-
 				<c:choose>
 					<c:when test="${empty suggested_users}">
-						<p class="text-muted">
-							There are no users to follow at this time.
-						</p>
+						<p class="text-muted"> There are no users to follow at this time. </p>
 					</c:when>
 					<c:otherwise>
-
 						<c:forEach items="${suggested_users}" var="suggested">
 							<div class="media buit">
 								<c:if test="${not empty suggested.photo}">
@@ -178,8 +174,7 @@
 									<div class="media-heading">
 										<strong> <a
 											href="<c:url value="../buit/profile"><c:param name="name" value="${suggested.username}" /></c:url>">
-												<c:out value="${suggested.name}" /> <c:out
-													value="${suggested.surname}" />
+												<c:out value="${suggested.name}" /> <c:out value="${suggested.surname}" />
 										</a>
 										</strong>
 										@<c:out value="${follower.username}" />
@@ -187,10 +182,8 @@
 								</div>
 							</div>
 						</c:forEach>
-
 					</c:otherwise>
 				</c:choose>
-				
 			</div>
 			<!--/.well -->
 		</div>
