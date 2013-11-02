@@ -152,9 +152,9 @@ public class BuitController {
 			Set<Buit> buits = usr.getBuits();
 					
 			for (Buit buit : buits) {
-				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags()));
+				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags(), "profile"));
 				buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));
-				buit.setMessage(ViewControllerHelper.prepareBuitUser(buit.getMessage(), buit.getMentionedBuitters()));
+				buit.setMessage(ViewControllerHelper.prepareBuitUser(buit.getMessage(), buit.getMentionedBuitters(), "profile"));
 			}
 			mav.addObject("buits", buits);
 			mav.addObject("user_info", usr);
@@ -177,7 +177,7 @@ public class BuitController {
 		}
 
 		for (Buit buit : hashtag.getBuits()) {
-			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags()));
+			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags(), "hashtag"));
 			buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));
 		}
 		mav.addObject("buits", hashtag.getBuits());
@@ -189,10 +189,33 @@ public class BuitController {
 	
 	// TODO AGREGAR CHEQUEOS DE VALIDACION
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView connect( HttpSession session) {
+	public ModelAndView connect(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user  = userRepo.get((String) session.getAttribute("user"));
 		mav.addObject("events", user.getEvents());
+		return mav;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView favorites(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String username;
+		User user;
+		
+		if((username = (String) session.getAttribute("user")) == null) {
+			mav.setViewName("error");
+			return mav;
+		}
+		
+		user = userRepo.get(username);
+		
+		for(Buit buit: user.getFavourites()) {
+			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags(), "favorites"));
+			buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));
+			buit.setMessage(ViewControllerHelper.prepareBuitUser(buit.getMessage(), buit.getMentionedBuitters(), "favorites"));
+		}
+		
+		mav.addObject("favorites", user.getFavourites());		
 		return mav;
 	}
 

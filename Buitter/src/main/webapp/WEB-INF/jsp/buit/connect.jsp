@@ -33,8 +33,7 @@
 										<span class="pull-left"> <strong>@<c:out
 													value="${event.firer.username}" /></strong> 
 
-										</span> <span class="pull-right text-muted"><c:out
-												value="${event.date}" /></span>
+										</span> <span class="pull-right text-muted"><fmt:formatDate	type="both" value="${event.date}" /></span>
 									</div>
 									<br />
 									<p><c:out

@@ -14,8 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -203,8 +201,8 @@ public class User extends PersistentModel {
 				+ username + "]";
 	}
 	
-	public String getDate(){
-		return creationDate.toString();
+	public Date getDate(){
+		return creationDate;
 	}
 	
 	public void addVisit() {

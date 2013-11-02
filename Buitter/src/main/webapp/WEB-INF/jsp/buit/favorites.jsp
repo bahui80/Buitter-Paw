@@ -9,7 +9,7 @@
 				<span style="font-size: 25.5px">Favorites</span>
 				<c:choose>
 					<c:when test="${empty favorites}">
-						<div class="alert-box">
+						<div class="alert-box">	
 							<img src="../../img/logo.png" class="logo-alt" /> <br />No
 							favorites so far.
 						</div>
@@ -19,7 +19,7 @@
 
 						<c:forEach items="${favorites}" var="favorite">
 							<div class="media buit">
-								<c:if test="${not empty favorite.user.photo}">
+								<c:if test="${not empty favorite.favoritter.photo}">
 									<img class="pull-left media-object buit-profile-pic"
 										src="../image?name=<c:out value="${favorite.user.username}"/>" />
 								</c:if>

@@ -1,17 +1,13 @@
 package it.itba.edu.ar.web;
 
 import it.itba.edu.ar.model.Buit;
-import it.itba.edu.ar.model.Buit.BuitComparator;
 import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.repo.BuitRepo;
 import it.itba.edu.ar.repo.UserRepo;
 
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.http.HttpSession;
 
@@ -46,6 +42,9 @@ public class HomeController {
 		// DE ACA 
 		if(session.getAttribute("user") != null) {
 			User user = userRepo.get((String) session.getAttribute("user"));
+			for(Buit buit: user.getBuits()) {
+				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(), buit.getHashtags(), "home"));
+			}
 			mav.addObject("user_info", user);
 		}	
 		

@@ -9,7 +9,7 @@
 				<img class="profile-pic" src="../../img/hashtag.jpeg" />
 				<h2 class="profile-name" style="word-wrap:break-word">#<c:out value="${hashtag.hashtag}" /></h2>
 				<h4 class="profile-user">Created by @<c:out value="${hashtag.user.username}" /></h4>
-				<p class="profile-desc text-muted">First used: <c:out value="${hashtag.date}" /></p>
+				<p class="profile-desc text-muted">First used: <fmt:formatDate type="both" value="${hashtag.date}" /></p>
 			</div>
 
 			<div class="well well-lg">
@@ -36,9 +36,7 @@
 								</a>
 								<div class="media-body">
 									<div class="media-heading">
-										<span class="pull-left text-bold">@<c:out
-												value="${buit.buitter.username}" /></span> <span class="pull-right text-muted"><c:out
-												value="${buit.date}" /></span>
+										<span class="pull-left text-bold">@<c:out value="${buit.buitter.username}" /></span> <span class="pull-right text-muted"><fmt:formatDate type="both" value="${buit.date}" /></span>
 									</div>
 									<br />
 									<p>${buit.message}</p>

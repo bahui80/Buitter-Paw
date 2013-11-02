@@ -53,7 +53,7 @@
 								</c:if>
 								<div class="media-body">
 									<div class="media-heading">
-										<span class="pull-left text-bold">@<c:out value="${buit.buitter.username}" /></span> <span class="pull-right text-muted" style="font-size:15px "><c:out value="${buit.date}" /></span>
+										<span class="pull-left text-bold">@<c:out value="${buit.buitter.username}" /></span> <span class="pull-right text-muted" style="font-size:15px "><fmt:formatDate type="both" value="${buit.date}" /></span>
 									</div>
 									<br />
 									<p style="word-wrap:break-word">${buit.message}</p>
