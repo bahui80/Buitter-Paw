@@ -1,22 +1,20 @@
 package it.itba.edu.ar.web;
 
 import it.itba.edu.ar.model.Buit;
-import it.itba.edu.ar.model.Event;
 import it.itba.edu.ar.model.FollowedEvent;
 import it.itba.edu.ar.model.Hashtag;
-import it.itba.edu.ar.model.ReBuitEvent;
 import it.itba.edu.ar.model.User;
 import it.itba.edu.ar.repo.BuitRepo;
 import it.itba.edu.ar.repo.UserRepo;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,13 +43,14 @@ public class BuitController {
 		user.getFavourites().add(fav);
 
 		user.removeVisit();
-		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
 		return mav;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView follow(@RequestParam("username") User userToFollow, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
 		User user = userRepo.get((String) session.getAttribute("user"));
 		// TODO VER como manejar el tema que ya estoy siguiendo al usuario
 		if(session.getAttribute("user") == null || user.getUsername().equals(userToFollow.getUsername())) {
@@ -62,13 +61,14 @@ public class BuitController {
 		
 		userToFollow.getFollowers().add(user);
 		userToFollow.removeVisit();
-		mav.setViewName("redirect:profile?name=" + userToFollow.getUsername());
+		mav.setViewName("redirect:../profile/" + userToFollow.getUsername());
 		return mav;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView unfollow(@RequestParam("username") User userToUnfollow, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
 		User user = userRepo.get((String) session.getAttribute("user"));
 		// TODO VER como manejar el tema que no estoy siguiendo al usuario
 		if(session.getAttribute("user") == null || session.getAttribute("user").equals(userToUnfollow.getUsername())) {
@@ -77,7 +77,7 @@ public class BuitController {
 		//TODO llaamar al servicio que me hace dejar de seguir un usuario
 		userToUnfollow.getFollowers().remove(user);
 		userToUnfollow.removeVisit();
-		mav.setViewName("redirect:profile?name=" + userToUnfollow.getUsername());
+		mav.setViewName("redirect:../profile/" + userToUnfollow.getUsername());
 		return mav;
 	}
 	
@@ -88,7 +88,7 @@ public class BuitController {
 		
 		buitRepo.rebuit(rebuit, user);
 		
-		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
 		return mav;
 	}
 	
@@ -102,7 +102,7 @@ public class BuitController {
 		}
 		buitRepo.removeBuit(buit);
 		buit.getBuitter().removeVisit();
-		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
 		return mav;
 	}
 
@@ -120,7 +120,7 @@ public class BuitController {
 		}
 		
 		user.removeVisit();
-		mav.setViewName("redirect:profile?name=" + session.getAttribute("user"));
+		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
 		return mav;
 	}
 
@@ -129,24 +129,24 @@ public class BuitController {
 	 */
 	
 	// TODO AGREGAR CHEQUEOS DE VALIDACION
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView following(@RequestParam("name") User user) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping(value = "/buit/following/{user}", method = RequestMethod.GET)
+	public ModelAndView following(@PathVariable User user) {
+		ModelAndView mav = new ModelAndView("buit/following");
 		mav.addObject("user_info", user);
 		return mav;
 	}
 	
 	// TODO AGREGAR CHEQUEOS DE VALIDACION
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView followers(@RequestParam("name") User user) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping(value = "/buit/followers/{user}", method = RequestMethod.GET)
+	public ModelAndView followers(@PathVariable User user) {
+		ModelAndView mav = new ModelAndView("buit/followers");
 		mav.addObject("user_info", user);
 		return mav;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView profile(@RequestParam("name") User usr) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping(value = "/buit/profile/{usr}", method = RequestMethod.GET)
+	public ModelAndView profile(@PathVariable User usr) {
+		ModelAndView mav = new ModelAndView("buit/profile");
 	
 		if (usr != null) {
 			Set<Buit> buits = usr.getBuits();
