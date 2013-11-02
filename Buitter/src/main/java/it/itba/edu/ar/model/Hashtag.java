@@ -12,6 +12,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
+
 @Entity
 @Table(name="hashtags")
 public class Hashtag extends PersistentModel {
@@ -19,7 +22,8 @@ public class Hashtag extends PersistentModel {
 	
 	@Column(updatable = false, length=140,nullable=false, unique = true)private String hashtag;
 	@ManyToOne private User user;
-	@ManyToMany(mappedBy="hashtags") private Set<Buit> buits;
+	@ManyToMany(mappedBy="hashtags") @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class) 
+		private Set<Buit> buits;
 	@Transient private long count;
 	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)private Date date;
 	

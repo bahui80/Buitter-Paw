@@ -33,7 +33,7 @@
 											<span class="pull-left text-bold" style="font-size: 15px;">@<c:out
 													value="${favorite.buitter.username}" /></span> <span
 												class="pull-right text-muted" style="font-size: 15px"><fmt:formatDate
-													type="both" value="${favorite.buitter.date}" /></span>
+													type="both" value="${favorite.date}" /></span>
 										</div>
 										<div class="row" style="margin-left: 0px; margin-right: 0px;">
 											<p style="word-wrap: break-word; font-size: 15px">${favorite.message}</p>
