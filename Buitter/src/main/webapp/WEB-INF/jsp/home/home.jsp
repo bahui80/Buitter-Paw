@@ -18,8 +18,9 @@
 					style="text-align: center; font-size: 25.5px">#NoMoreTweets.
 					#WeBuitNow.</h1>
 			</div>
-			<div class="well well-lg">
-				<c:if test="${not empty user}">
+
+			<c:if test="${not empty user}">
+				<div class="well well-lg">
 					<div class="row">
 						<div class="col-6 col-sm-6 col-lg-6">
 							<h3 style="text-align: center; margin-top: 12px;">Buits</h3>
@@ -82,9 +83,11 @@
 							</c:forEach>
 						</div>
 					</div>
-				</c:if>
+				</div>
+			</c:if>
 
-				<c:if test="${empty user}">
+			<c:if test="${empty user && not empty userlist}">
+				<div class="well well-lg">
 					<div class="row">
 						<c:forEach items="${userlist}" var="us">
 							<div class="col-6 col-sm-6 col-lg-4 text-center"
@@ -110,8 +113,9 @@
 							</div>
 						</c:forEach>
 					</div>
-				</c:if>
-			</div>
+				</div>
+			</c:if>
+
 
 		</div>
 
