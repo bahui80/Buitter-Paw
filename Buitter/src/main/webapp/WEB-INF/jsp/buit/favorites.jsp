@@ -19,11 +19,11 @@
 
 						<c:forEach items="${favorites}" var="favorite">
 							<div class="media buit">
-								<c:if test="${not empty favorite.favoritter.photo}">
+								<c:if test="${not empty favorite.buitter.photo}">
 									<img class="pull-left media-object buit-profile-pic"
-										src="../image?name=<c:out value="${favorite.user.username}"/>" />
+										src="../image?name=<c:out value="${favorite.buitter.username}"/>" />
 								</c:if>
-								<c:if test="${empty favorite.user.photo}">
+								<c:if test="${empty favorite.buitter.photo}">
 									<img class="pull-left media-object buit-profile-pic"
 										src="../../img/nopicture.png" />
 								</c:if>
@@ -31,12 +31,12 @@
 									<div class="media-heading">
 										<div class="row" style="margin-left: 0px; margin-right: 0px;">
 											<span class="pull-left text-bold" style="font-size: 15px;">@<c:out
-													value="${favorite.user.username}" /></span> <span
+													value="${favorite.buitter.username}" /></span> <span
 												class="pull-right text-muted" style="font-size: 15px"><fmt:formatDate
-													type="both" value="${favorite.buit.date}" /></span>
+													type="both" value="${favorite.buitter.date}" /></span>
 										</div>
 										<div class="row" style="margin-left: 0px; margin-right: 0px;">
-											<p style="word-wrap: break-word; font-size: 15px">${favorite.buit.message}</p>
+											<p style="word-wrap: break-word; font-size: 15px">${favorite.message}</p>
 										</div>
 									</div>
 								</div>
