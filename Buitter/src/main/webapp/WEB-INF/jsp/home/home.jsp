@@ -3,7 +3,7 @@
 		function refresh(){
 			var e = document.getElementById("select");
 			var strUser = e.options[e.selectedIndex];
-			var str1 = "/Buitter/web/home/home?time=";
+			var str1 = "../home/home?time=";
 			var str2 = str1.concat(strUser.id);
 			window.location = str2;
 		}
@@ -48,7 +48,7 @@
 										<c:if test="${not empty following.photo}">
 											<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${following.username}"/>"/>
 										</c:if>
-										<c:if test="${empty follwing.photo}">
+										<c:if test="${empty following.photo}">
 											<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
 										</c:if>
 										<div class="media-body">
@@ -88,9 +88,7 @@
 								<c:out value="${us.description}" />
 								"
 							</p>
-							<a
-								href="<c:url value="../buit/profile"><c:param name="name" value="${us.username}"/></c:url>"
-								class="btn btn-link btn-xs">View profile</a>
+							<a href="../buit/profile/${us.username}" class="btn btn-link btn-xs">View profile</a>
 						</div>
 					</c:forEach>
 				</div>
@@ -109,8 +107,7 @@
 				<ul class="nav">
 				<c:if test="${empty trending}"><br/><p class="text-muted">There are no hashtags for this period of time.</p></c:if>
 					<c:forEach items="${trending}" var="trend">
-						<li><a
-							href="/Buitter/web/buit/<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>" style="word-wrap:break-word">
+						<li><a href="../buit/<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>" style="word-wrap:break-word">
 								#<c:out value="${trend.hashtag}" /> <c:out value="( ${trend.count} )"/>
 						</a></li>
 					</c:forEach>

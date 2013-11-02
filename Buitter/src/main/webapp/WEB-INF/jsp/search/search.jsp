@@ -58,7 +58,7 @@
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="text-bold">
-											<a href="<c:url value="../buit/profile"><c:param name="name" value="${user.username}" /></c:url>"><c:out value="${user.name}" /> <c:out value="${user.surname}" />
+											<a href="../buit/profile/${user.username}"><c:out value="${user.name}"/> <c:out value="${user.surname}" />
 											</a>
 										</span>
 										@<c:out value="${user.username}" />

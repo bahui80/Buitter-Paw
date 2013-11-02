@@ -13,18 +13,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="../../img/logo.png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/img/logo.png">
 
 <title>Buitter</title>
 
 <!-- Bootstrap core CSS -->
-<link href="../../css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="../../css/custom.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/custom.css" rel="stylesheet">
 
 <!-- Font-awesome CSS -->
-<link href="../../css/font-awesome.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -51,13 +51,11 @@
 	<div class="navbar navbar-fixed-top navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
-
-				<a id="logo" class="navbar-brand" href="/Buitter/web/home/home"><img
-					src="../../img/logo.png" class="logo" />Buitter</a>
+				<a id="logo" class="navbar-brand" href="${pageContext.request.contextPath}/web/home/home"><img
+					src="${pageContext.request.contextPath}/img/logo.png" class="logo" />Buitter</a>
 			</div>
 			<div class="collapse navbar-collapse">
-				<form class="navbar-form navbar-left" method="get"
-					action="/Buitter/web/search/search">
+				<form class="navbar-form navbar-left" method="get" action="${pageContext.request.contextPath}/web/search/search">
 					<div class="form-group">
 						<input type="search" name="name" style="margin-top: 4px"
 							class="form-control" placeholder="Search">
@@ -66,36 +64,36 @@
 				<ul class="nav navbar-nav" style="float: right">
 					<c:if test="${not empty user}">
 
-						<li><a href="/Buitter/web/buit/connect">Notifications <span class="badge">${fn:length(user_info.events)}</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/web/buit/connect">Notifications <span class="badge">${fn:length(user_info.events)}</span></a></li>
 
-						<li class=""><a href="/Buitter/web/home/home"><i
+						<li class=""><a href="${pageContext.request.contextPath}/web/buit/favorites"><i
 								class='icon-star'></i> Favorites</a></li>
 						<li><a
-							href="/Buitter/web/buit/<c:url value="profile"><c:param name="name" value="${user}"/></c:url>">
+							href="${pageContext.request.contextPath}/web/buit/profile/${user}">
 								<c:out value="@${user}" />
 						</a></li>
 						<li id="dropdown" class="dropdown" onclick="toggle()"><a
 							href="#" class="dropdown-toggle" data-toggle="dropdown"><i
 								class='icon-cog'></i> </a>
 							<ul class="dropdown-menu">
-								<li><a href="/Buitter/web/user/showstats"><i
+								<li><a href="${pageContext.request.contextPath}/web/user/showstats"><i
 										class='icon-bar-chart'></i> Show stats</a></li>
 								<li class="divider"></li>
-								<li><a href="/Buitter/web/user/editprofile"><i
+								<li><a href="${pageContext.request.contextPath}/web/user/editprofile"><i
 										class='icon-pencil'></i> Edit profile</a></li>
 								<li class="divider"></li>
-								<li><a href="/Buitter/web/user/logout"><i
+								<li><a href="${pageContext.request.contextPath}/web/user/logout"><i
 										class='icon-power-off'></i> Logout</a></li>
 							</ul></li>
 					</c:if>
 					<c:if test="${empty user}">
 						<li style="margin-top: 8px"><button type="button"
 								class="btn btn-primary"
-								onclick="location.assign('/Buitter/web/user/login');">Log
+								onclick="location.assign('${pageContext.request.contextPath}/web/user/login');">Log
 								in</button></li>
 						<li style="margin-top: 8px; margin-left: 8px;"><button
 								type="button" class="btn btn-success"
-								onclick="location.assign('/Buitter/web/user/registration');">Register</button></li>
+								onclick="location.assign('${pageContext.request.contextPath}/web/user/registration');">Register</button></li>
 					</c:if>
 				</ul>
 				<div></div>

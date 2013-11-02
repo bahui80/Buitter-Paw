@@ -38,7 +38,7 @@
 				<c:choose>
 					<c:when test="${empty buits}">
 						<div class="alert-box">
-							<img src="../../img/logo.png" class="logo-alt" /> <br />@<c:out
+							<img src="../../../img/logo.png" class="logo-alt" /> <br />@<c:out
 									value="${user_info.username}" /> hasn't buited yet.
 						</div>
 					</c:when>
@@ -48,10 +48,10 @@
 						<c:forEach items="${buits}" var="buit">
 							<div class="media buit">
 								<c:if test="${not empty user_info.photo}">
-									<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${user_info.username}"/>"/>
+									<img class="pull-left media-object buit-profile-pic" src="../../../image?name=<c:out value="${user_info.username}"/>"/>
 								</c:if>
 								<c:if test="${empty user_info.photo}">
-									<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png"/>
+									<img class="pull-left media-object buit-profile-pic" src="../../../img/nopicture.png"/>
 								</c:if>
 								<div class="media-body">
 									<div class="media-heading">
@@ -82,7 +82,7 @@
 <c:if test="${empty user && user_info.privacy=='true'}">
 	<div class="bs-example">
         <div class="jumbotron">
-        	<img style="display: block; margin-left: auto;  margin-right: auto;" src="../../img/stop_vulture.png">
+        	<img style="display: block; margin-left: auto;  margin-right: auto;" src="../../../img/stop_vulture.png">
           	<h2 style="text-align:center">Sorry, user @<c:out value="${user_info.username}"/> is private</h1>
           	<p style="text-align:center">You must be logged in to see this profile.</p>
         </div>
