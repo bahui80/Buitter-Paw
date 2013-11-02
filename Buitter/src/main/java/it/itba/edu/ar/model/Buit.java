@@ -26,7 +26,8 @@ public class Buit extends PersistentModel {
 
 	@Column(length = 500, nullable = false, updatable = false)
 	private String message;
-	@ManyToMany (mappedBy="favorites", cascade=CascadeType.ALL) private Set<User> favoritter;	@ManyToOne private User buitter;
+	@ManyToMany (mappedBy="favorites") private Set<User> favoritter;	
+	@ManyToOne private User buitter;
 	@ManyToMany private List<Hashtag> hashtags;
 	@OneToMany(cascade = CascadeType.ALL) private List<Url> urls;
 	@Temporal(TemporalType.TIMESTAMP)
