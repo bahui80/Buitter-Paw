@@ -121,7 +121,7 @@
 
 		<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
 			<div class="well sidebar-nav">
-				<span> Trending Topics </span> <span><select
+				<strong> Trending Topics </strong> <span><select
 					class="form-control" id="select" style="width: 100%">
 						<option id="7"
 							<c:if test="${selectedTime == '7'}">selected="selected"</c:if>>1
@@ -152,6 +152,45 @@
 						</button></li>
 				</ul>
 
+			</div>
+			<div class="well sidebar-nav">
+				<strong>Who to follow</strong><br/><br/>
+
+				<c:choose>
+					<c:when test="${empty suggested_users}">
+						<p class="text-muted">
+							There are no users to follow at this time.
+						</p>
+					</c:when>
+					<c:otherwise>
+
+						<c:forEach items="${suggested_users}" var="suggested">
+							<div class="media buit">
+								<c:if test="${not empty suggested.photo}">
+									<img class="pull-left media-object small-buit-profile-pic"
+										src="../../image?name=<c:out value="${suggested.username}"/>" />
+								</c:if>
+								<c:if test="${empty suggested.photo}">
+									<img class="pull-left media-object small-buit-profile-pic"
+										src="../../../img/nopicture.png" />
+								</c:if>
+								<div class="media-body">
+									<div class="media-heading">
+										<strong> <a
+											href="<c:url value="../buit/profile"><c:param name="name" value="${suggested.username}" /></c:url>">
+												<c:out value="${suggested.name}" /> <c:out
+													value="${suggested.surname}" />
+										</a>
+										</strong>
+										@<c:out value="${follower.username}" />
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 			<!--/.well -->
 		</div>
