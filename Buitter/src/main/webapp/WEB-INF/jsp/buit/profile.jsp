@@ -3,10 +3,8 @@
 <c:if test="${not empty user || user_info.privacy=='false'}">
 	<div class="row row-offcanvas row-offcanvas-right">
 		<div class="col-md-8 col-md-offset-2">
-			<p class="pull-right visible-xs">
-				<button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-			</p>
-<%@ include file="user_header.jsp" %>	
+			
+			<%@ include file="user_header.jsp" %>	
 			<div class="well well-lg">
 				<c:if test="${user == user_info.username }">
 					<div class="input-group buit-compose-form">

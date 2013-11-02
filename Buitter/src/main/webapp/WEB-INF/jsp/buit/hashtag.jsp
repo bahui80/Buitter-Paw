@@ -4,10 +4,6 @@
 
 	<div class="row row-offcanvas row-offcanvas-right">
 		<div class="col-md-8 col-md-offset-2">
-			<p class="pull-right visible-xs">
-				<button type="button" class="btn btn-primary btn-xs"
-					data-toggle="offcanvas">Toggle nav</button>
-			</p>
 
 			<div class="well well-lg text-center">
 				<img class="profile-pic" src="../../img/hashtag.jpeg" />
