@@ -209,7 +209,21 @@ public class User extends PersistentModel {
 		}
 		followers.remove(user);
 	}
+	
+	public void favorite(Buit buit) {
+		if(buit == null || favorites.contains(buit)) {
+			throw new IllegalArgumentException();
+		}
+		favorites.add(buit);
+	}
 
+	public void unfavorite(Buit buit) {
+		if(buit == null || !favorites.contains(buit)) {
+			throw new IllegalArgumentException();
+		}
+		favorites.remove(buit);
+	}
+	
 	@Override
 	public String toString() {
 		return "User [name=" + name + ", surname=" + surname + ", username="

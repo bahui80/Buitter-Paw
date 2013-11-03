@@ -78,6 +78,10 @@ public class Buit extends PersistentModel {
 	public List<Hashtag> getHashtags() {
 		return hashtags;
 	}
+	
+	public Set<User> getFavoritter() {
+		return favoritter;
+	}
 
 	//SETERS
 	private void setDate(Date date){

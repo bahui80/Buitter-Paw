@@ -39,8 +39,33 @@ public class BuitController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView favorite(@RequestParam("buitid") Buit fav, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		User user  = userRepo.get((String) session.getAttribute("user"));
-		user.getFavourites().add(fav);
+		String username;
+		User user;
+		
+		if((username = (String) session.getAttribute("user")) == null) {
+			mav.setViewName("error");
+			return mav;
+		}
+		user = userRepo.get(username);
+		user.favorite(fav);
+
+		user.removeVisit();
+		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
+		return mav;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView unfavorite(@RequestParam("buitid") Buit fav, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String username;
+		User user;
+		
+		if((username = (String) session.getAttribute("user")) == null) {
+			mav.setViewName("error");
+			return mav;
+		}
+		user = userRepo.get(username);
+		user.unfavorite(fav);
 
 		user.removeVisit();
 		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));

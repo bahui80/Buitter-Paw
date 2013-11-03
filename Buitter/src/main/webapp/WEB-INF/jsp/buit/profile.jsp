@@ -62,7 +62,13 @@
 											<button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>
 										</c:if>
 										<!-- Cambiar los valores para el favorito y hacer la funcion javascript. Poner ifs-->
-										<button id="<c:out value="${buit.id}"/>" type="button" onclick="favorite(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-star-o"> Favorite</i></button>
+										<c:set var="found" value='false'/>
+										<c:forEach items="${buit.favoritter}" var="us">
+											<c:if test="${us.username == user}"><c:set var="found" value='true'/></c:if>
+										</c:forEach>
+										<c:if test="${found == 'true'}"><c:set var="method" value='Unfavorite'/></c:if>
+										<c:if test="${found == 'false'}"><c:set var="method" value='Favorite'/></c:if>
+										<button id="<c:out value="${buit.id}"/>" type="button" onclick="favorite(this.id, '<c:out value="${method}"/>');" class="pull-right btn btn-link btn-xs"><i class="icon-star"> <c:out value="${method}"/></i></button>
 										<!-- cambiar lso valores para rebuiteo y hacer la funcion javscript. Poner los ifs-->
 										<c:if test="${user != user_info.username }">
 											<button id="<c:out value="${buit.id}"/>" type="button" onclick="rebuit(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-retweet"> Rebuit</i></button>
@@ -104,10 +110,10 @@
 	}
 </script>
 <script>
-	function favorite (id) {
+	function favorite (id, method) {
 		var form = document.createElement('form');
 		form.setAttribute('method', 'post');
-		form.setAttribute('action', 'favorite');
+		form.setAttribute('action', method.toLowerCase());
 		form.style.display = 'hidden';
 		var input = document.createElement('input');
 	    input.setAttribute('type','text');
