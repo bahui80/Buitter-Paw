@@ -36,8 +36,8 @@ public class User extends PersistentModel {
 		private Set<Buit> mybuits;
  	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL) private Set<User> following;
  	@ManyToMany private Set<User> followers;
- 	@ManyToMany @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class) 
- 		private Set<Buit> favorites;
+ 	@ManyToMany @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class)
+ 	private Set<Buit> favorites;
  	@OneToMany (cascade=CascadeType.ALL) 
  	@Sort(type=SortType.COMPARATOR, comparator = Event.EventComparator.class)  
  	private List<Event> events;
