@@ -31,14 +31,14 @@ $(function () {
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Population (millions)'
+                    text: 'Cantidad de buits'
                 }
             },
             legend: {
                 enabled: false
             },
             tooltip: {
-                pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>',
+                pointFormat: 'Buits entre <c:out value="${fromDate}"/> y <c:out value="${toDate}"/>: <b>{point.y:.1f}</b>',
             },
             series: [{
                 name: 'Population',
@@ -88,9 +88,11 @@ $(function () {
 					<c:otherwise>
 					
 						<strong>Analyzing ${buit_count} buits from your account.</strong><br/><br />
-							
+							<c:if test="${not empty labels}">
+								<c:if test="${not empty values}">
 							<div id="container" style="min-width: 500px; height: 400px; margin: 0 auto"></div>
-
+								</c:if>								
+							</c:if>
 						<br /><br /><br />
 					</c:otherwise>
 				</c:choose>

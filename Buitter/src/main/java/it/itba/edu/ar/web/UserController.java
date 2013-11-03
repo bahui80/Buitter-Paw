@@ -74,6 +74,8 @@ public class UserController {
 
 		mav.addObject("labels", labels);
 		mav.addObject("values", values);
+		mav.addObject("fromDate", fromDate);
+		mav.addObject("toDate", toDate);
 
 		return mav;
 	}
