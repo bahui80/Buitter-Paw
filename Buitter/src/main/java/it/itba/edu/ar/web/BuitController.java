@@ -59,7 +59,7 @@ public class BuitController {
 		
 		userToFollow.getEvents().add(new FollowedEvent(new Date(), user));
 		
-		userToFollow.getFollowers().add(user);
+		userToFollow.follow(user);
 		userToFollow.removeVisit();
 		mav.setViewName("redirect:../profile/" + userToFollow.getUsername());
 		return mav;
@@ -74,8 +74,7 @@ public class BuitController {
 		if(session.getAttribute("user") == null || session.getAttribute("user").equals(userToUnfollow.getUsername())) {
 			// TODO manejar el error. No puede un usuario no logueado dejar de seguir a alguien. Tampoco puede autoseguirse un usuario logueado
 		}
-		//TODO llaamar al servicio que me hace dejar de seguir un usuario
-		userToUnfollow.getFollowers().remove(user);
+		userToUnfollow.unfollow(user);
 		userToUnfollow.removeVisit();
 		mav.setViewName("redirect:../profile/" + userToUnfollow.getUsername());
 		return mav;

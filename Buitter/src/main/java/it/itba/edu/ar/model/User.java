@@ -195,6 +195,20 @@ public class User extends PersistentModel {
 	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
+	
+	public void follow(User user) {
+		if(user == null || followers.contains(user)) {
+			throw new IllegalArgumentException();
+		}
+		followers.add(user);
+	}
+	
+	public void unfollow(User user) {
+		if(user == null || !followers.contains(user)) {
+			throw new IllegalArgumentException();
+		}
+		followers.remove(user);
+	}
 
 	@Override
 	public String toString() {
