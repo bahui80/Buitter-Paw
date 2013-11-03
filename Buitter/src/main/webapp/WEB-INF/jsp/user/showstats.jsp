@@ -1,10 +1,74 @@
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
-<script>
-	function home() {
-		var str1 = "/Buitter/web/home/home";
-		window.location = str1;
-	}
-</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+<c:if test="${not empty labels}">
+	<c:if test="${not empty values}">
+					<script type="text/javascript">
+$(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'column',
+                margin: [ 50, 50, 100, 80]
+            },
+            title: {
+                text: 'Statistics'
+            },
+            xAxis: {
+                categories: [
+                    <c:forEach items="${labels}" var="label">
+							'<c:out value="${label}" />',	
+					</c:forEach>
+                ],
+                labels: {
+                    rotation: -45,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Population (millions)'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>',
+            },
+            series: [{
+                name: 'Population',
+                data: [<c:forEach items="${values}" var="value">
+							<c:out value="${value}" />,	
+					</c:forEach>],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif',
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }]
+        });
+    });
+    
+</script>						
+	</c:if>								
+</c:if>
+
+
+    <script src="${pageContext.request.contextPath}/js/Highcharts/js/highcharts.js"></script>
+    <script src="${pageContext.request.contextPath}/js/Highcharts/js/modules/exporting.js"></script>
 
 <div class="container">
 
@@ -12,29 +76,27 @@
 		<div class="col-md-8 col-md-offset-2">
 
 			<div class="well well-lg">
-				<span class="custom-header">Statistics</span>
-
+				<span cla	ss="custom-header">Statistics</span>
 
 				<c:choose>
 					<c:when test="${buit_count == 0}">
-						<div class="alert-box">
+							<div class="alert-box">
 							<img src="../../img/logo.png" class="logo-alt" /> <br />No
 							buits to analyze.
 						</div>
 					</c:when>
 					<c:otherwise>
 					
-<!-- asi como esta hecho, si entra por primera vez (sin parametros) le tira todos los buits de su cuenta -->
-<!-- en cambio si hay parametros, toma esos  -->
 						<strong>Analyzing ${buit_count} buits from your account.</strong><br/><br />
-						!!!grafico!!!
+							
+							<div id="container" style="min-width: 500px; height: 400px; margin: 0 auto"></div>
 
 						<br /><br /><br />
 					</c:otherwise>
 				</c:choose>
 
 
-				<form>
+				<form method="post" action="showstats">
 					Filter buits by date:<br /> <br />
 
 					<div

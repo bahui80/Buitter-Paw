@@ -1,6 +1,10 @@
 package it.itba.edu.ar.model;
 
+import it.itba.edu.ar.web.BuitFilter;
+
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -222,6 +226,15 @@ public class User extends PersistentModel {
 			throw new IllegalArgumentException();
 		}
 		favorites.remove(buit);
+	}
+	
+	public Set<Buit> filterMyBuits(BuitFilter bf){
+		Set<Buit> filteredBuits = new HashSet<Buit>();
+		for (Buit buit : mybuits) {
+			if(bf.eval(buit))
+				filteredBuits.add(buit);
+		}
+		return filteredBuits;
 	}
 	
 	@Override
