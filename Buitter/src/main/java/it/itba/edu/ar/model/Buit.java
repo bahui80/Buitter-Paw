@@ -26,7 +26,7 @@ public class Buit extends PersistentModel {
 
 	@Column(length = 500, nullable = false, updatable = false)
 	private String message;
-	@ManyToMany (mappedBy="favorites") private Set<User> favoritter;	
+	@ManyToMany  private Set<User> favoritter;	
 	@ManyToOne private User buitter;
 	@ManyToMany private List<Hashtag> hashtags;
 	@OneToMany(cascade = CascadeType.ALL) private List<Url> urls;
@@ -121,6 +121,10 @@ public class Buit extends PersistentModel {
 
 	public void setRebuits(Set<ReBuit> rebuits) {
 		this.rebuits = rebuits;
+	}
+	
+	public void addFav(User user){
+		this.favoritter.add(user);
 	}
 
 	//MISCELANEOUS

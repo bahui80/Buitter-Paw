@@ -47,8 +47,9 @@ public class BuitController {
 			return mav;
 		}
 		user = userRepo.get(username);
-		user.favorite(fav);
 
+		fav.addFav(user);
+		
 		user.removeVisit();
 		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
 		return mav;
@@ -124,6 +125,9 @@ public class BuitController {
 			mav.setViewName("error");
 			return mav;
 		}
+//		
+//		user.getFavourites().remove(buit);
+		
 		buitRepo.removeBuit(buit);
 		buit.getBuitter().removeVisit();
 		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
