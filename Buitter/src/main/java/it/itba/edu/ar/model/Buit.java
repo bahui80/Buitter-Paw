@@ -123,8 +123,18 @@ public class Buit extends PersistentModel {
 		this.rebuits = rebuits;
 	}
 	
-	public void addFav(User user){
-		this.favoritter.add(user);
+	public void addFavorite(User user){
+		if(user == null || favoritter.contains(user)) {
+			throw new IllegalArgumentException();
+		}
+		favoritter.add(user);
+	}
+	
+	public void removeFavorite(User user){
+		if(user == null || !favoritter.contains(user)) {
+			throw new IllegalArgumentException();
+		}
+		favoritter.remove(user);
 	}
 
 	//MISCELANEOUS
