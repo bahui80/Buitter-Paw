@@ -18,6 +18,9 @@
 	<bean id="viewNameTranslator"
 		class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator" />
 
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
 	<bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -26,7 +29,13 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<mvc:annotation-driven conversion-service="conversionService"/>
-	<bean id="conversionService" class="it.itba.edu.ar.web.EnhancedFormattingConversionServiceFactoryBean" />
+	<mvc:annotation-driven conversion-service="conversionService" />
+	<bean id="conversionService"
+		class="it.itba.edu.ar.web.EnhancedFormattingConversionServiceFactoryBean" />
 
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/WEB-INF/i18n/messages" />
+		<property name="cacheSeconds" value="0" />
+	</bean>
 </beans>
