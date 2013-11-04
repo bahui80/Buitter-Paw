@@ -41,7 +41,7 @@
                     </div>
                 </div>	
                 <div class="form-group">
-                	<a href="/Buitter/web/user/forgotpassword" style="margin-left:107px">Forgot password?</a>
+                	<a href="../user/forgotpassword" style="margin-left:107px">Forgot password?</a>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-5">

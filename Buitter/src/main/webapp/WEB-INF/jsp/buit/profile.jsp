@@ -57,6 +57,9 @@
 									</div>
 									<br />
 									<p style="word-wrap:break-word">${buit.message}</p>
+									<c:if test="${buit.isrebuit == true}">
+										<p class="pull-left text-muted" style="margin-bottom:0px;">Rebuited from @${buit.user.username}</p>
+									</c:if>
 									<c:if test="${not empty user}">
 										<c:if test="${user == user_info.username }">
 											<button id="<c:out value="${buit.id}"/>" type="button" onclick="proceed(this.id);" class="pull-right btn btn-link btn-xs"><i class="icon-trash"> Delete</i></button>

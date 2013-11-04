@@ -47,6 +47,10 @@ public class ReBuit extends Buit {
 	public Buit getBuit() {
 		return buit;
 	}
+	
+	public boolean getIsrebuit() {
+		return true;
+	}
 
 	public void setBuit(Buit buit) {
 		this.buit = buit;

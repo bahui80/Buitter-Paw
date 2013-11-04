@@ -4,7 +4,7 @@
 	<div class="row row-offcanvas row-offcanvas-right">
         <div class="col-md-6 col-md-offset-3">
 			<div class="well">
-				<form class="bs-example form-horizontal" method="post" action="/Buitter/web/user/forgotpassword">
+				<form class="bs-example form-horizontal" method="post" action="forgotpassword">
 					<fieldset>
 						<legend>Reset your password</legend>
 						<c:if test="${empty correct_username}">

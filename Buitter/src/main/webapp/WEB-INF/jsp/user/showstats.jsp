@@ -31,7 +31,7 @@ $(function () {
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Amout of buits'
+                    text: 'Amount of buits'
                 }
             },
             legend: {

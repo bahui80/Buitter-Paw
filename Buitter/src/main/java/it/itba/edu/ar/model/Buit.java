@@ -59,6 +59,10 @@ public class Buit extends PersistentModel {
 		return message;
 	}
 	
+	public boolean getIsrebuit() {
+		return false;
+	}
+	
 	public Set<String> getMentionedBuitters() {
 		return mentioned_buitters;
 	}

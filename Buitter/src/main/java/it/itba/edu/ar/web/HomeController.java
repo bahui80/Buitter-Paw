@@ -43,7 +43,9 @@ public class HomeController {
 		if(session.getAttribute("user") != null) {
 			User user = userRepo.get((String) session.getAttribute("user"));
 			for(Buit buit: user.getBuits()) {
-				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(), buit.getHashtags(), "home"));
+				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags(), "home"));
+				buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));
+				buit.setMessage(ViewControllerHelper.prepareBuitUser(buit.getMessage(), buit.getMentionedBuitters(), "home"));
 			}
 			mav.addObject("user_info", user);
 		}	

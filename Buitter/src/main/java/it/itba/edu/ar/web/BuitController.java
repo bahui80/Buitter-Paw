@@ -51,7 +51,7 @@ public class BuitController {
 		fav.addFavorite(user);
 		
 		user.removeVisit();
-		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
+		mav.setViewName("redirect:../profile/" + fav.getBuitter().getUsername());
 		return mav;
 	}
 	
@@ -70,7 +70,7 @@ public class BuitController {
 		fav.removeFavorite(user);
 
 		user.removeVisit();
-		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
+		mav.setViewName("redirect:../profile/" + fav.getBuitter().getUsername());
 		return mav;
 	}
 	
@@ -79,9 +79,9 @@ public class BuitController {
 		ModelAndView mav = new ModelAndView();
 		
 		User user = userRepo.get((String) session.getAttribute("user"));
-		// TODO VER como manejar el tema que ya estoy siguiendo al usuario
 		if(session.getAttribute("user") == null || user.getUsername().equals(userToFollow.getUsername())) {
-			// TODO manejar el error. No puede un usuario no logueado seguir a alguien. Tampoco puede autoseguirse un usuario logueado
+			mav.setViewName("error");
+			return mav;
 		}
 		
 		userToFollow.getEvents().add(new FollowedEvent(new Date(), user));
@@ -97,9 +97,9 @@ public class BuitController {
 		ModelAndView mav = new ModelAndView();
 		
 		User user = userRepo.get((String) session.getAttribute("user"));
-		// TODO VER como manejar el tema que no estoy siguiendo al usuario
 		if(session.getAttribute("user") == null || session.getAttribute("user").equals(userToUnfollow.getUsername())) {
-			// TODO manejar el error. No puede un usuario no logueado dejar de seguir a alguien. Tampoco puede autoseguirse un usuario logueado
+			mav.setViewName("error");
+			return mav;
 		}
 		userToUnfollow.unfollow(user);
 		userToUnfollow.removeVisit();
@@ -208,6 +208,7 @@ public class BuitController {
 		for (Buit buit : hashtag.getBuits()) {
 			buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags(), "hashtag"));
 			buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));
+			buit.setMessage(ViewControllerHelper.prepareBuitUser(buit.getMessage(), buit.getMentionedBuitters(), "hashtag"));
 		}
 		mav.addObject("buits", hashtag.getBuits());
 		mav.addObject("hashtag", hashtag);
@@ -216,10 +217,15 @@ public class BuitController {
 		return mav;
 	}
 	
-	// TODO AGREGAR CHEQUEOS DE VALIDACION
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView connect(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
+		if(((String) session.getAttribute("user")) == null) {
+			mav.setViewName("error");
+			return mav;
+		}
+		
 		User user  = userRepo.get((String) session.getAttribute("user"));
 		mav.addObject("events", user.getEvents());
 		return mav;

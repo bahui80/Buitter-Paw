@@ -181,8 +181,6 @@ public class User extends PersistentModel {
 	}
 
 	public void setPhoto(byte[] photo) {
-		if(photo == null)
-			throw new IllegalArgumentException();
 		this.photo = photo;
 	}
 
