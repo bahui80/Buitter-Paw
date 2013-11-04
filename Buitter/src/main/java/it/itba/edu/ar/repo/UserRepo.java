@@ -3,6 +3,7 @@ package it.itba.edu.ar.repo;
 import it.itba.edu.ar.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserRepo {
 	
@@ -35,4 +36,10 @@ public interface UserRepo {
 	 * Almacena un nuevo usuario.
 	 */
 	public void add(User user);
+	
+	/**
+	 * Sugiere usuarios a seguir
+	 */
+	public Set<User> whoToFollow(User u);
+	
 }

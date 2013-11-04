@@ -91,7 +91,7 @@ public class Buit extends PersistentModel {
 	}
 	
 	public void setMessage(String message) {
-		if (message == null || message.length() < 1) {
+		if (message == null || message.length() > 500 || message.length() == 0) {
 			throw new IllegalArgumentException();
 		}
 		this.message = message;
@@ -120,13 +120,20 @@ public class Buit extends PersistentModel {
 	}
 
 	public void setRebuits(Set<ReBuit> rebuits) {
+		if(rebuits == null)
+			throw new IllegalArgumentException();
 		this.rebuits = rebuits;
 	}
 	
-	public void addFavorite(User user){
-		if(user == null || favoritter.contains(user)) {
+	public void addRebuit(ReBuit rb){
+		if(rb == null || rebuits.contains(rb) || !rb.getMessage().equals(this.getMessage()))
 			throw new IllegalArgumentException();
-		}
+		this.rebuits.add(rb);
+	}
+	
+	public void addFavorite(User user){
+		if(user == null || favoritter.contains(user))
+			throw new IllegalArgumentException();
 		favoritter.add(user);
 	}
 	
@@ -136,8 +143,7 @@ public class Buit extends PersistentModel {
 		}
 		favoritter.remove(user);
 	}
-
-	//MISCELANEOUS
+	
 	@Override
 	public String toString() {
 		return "Buit [message=" + message + ", username="

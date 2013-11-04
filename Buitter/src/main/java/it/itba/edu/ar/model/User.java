@@ -2,7 +2,6 @@ package it.itba.edu.ar.model;
 
 import it.itba.edu.ar.web.BuitFilter;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -50,32 +49,23 @@ public class User extends PersistentModel {
 	}
 	
 	public User(String username, String password){
-		if(username == null || username.length() > 32 || password == null || password.length() > 32)
-			throw new IllegalArgumentException();
-		this.username = username;
-		this.password = password;
+		this.setPassword(password);
+		this.setUsername(username);
 	}
 		
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
 			Date creationDate, int visits, boolean privacy, byte[] photo){		
-		if(username == null || username.length() > 32 || password == null || password.length() > 32 
-				|| description == null || description.length() > 140 || secret_question == null 
-				|| secret_question.length() > 60 || secret_answer == null 
-				|| secret_answer.length() > 60 || creationDate == null || visits < 0)
-			throw new IllegalArgumentException();
-		
-		this.name = name;
-		this.username = username;	
-		this.surname = surname;
-		this.password = password;
-		this.description = description;
-		this.secret_answer = secret_answer;
-		this.secret_question = secret_question;
-		this.creationDate = creationDate;
+		this(username,password);
+		this.setName(name);
+		this.setSurname(surname);
+		this.setDescription(description);
+		this.setSecretAnswer(secret_answer);
+		this.setSecretQuestion(secret_question);
+		this.setPhoto(photo);
+		this.setDate(creationDate);
+		this.setPrivacy(privacy);
 		this.visits = visits;
-		this.privacy = privacy;
-		this.photo = photo;
 	}
 	
 	public String getName() {
@@ -87,6 +77,8 @@ public class User extends PersistentModel {
 	}
 
 	public void setMybuits(Set<Buit> mybuits) {
+		if(mybuits == null)
+			throw new IllegalArgumentException();
 		this.mybuits = mybuits;
 	}
 
@@ -189,6 +181,8 @@ public class User extends PersistentModel {
 	}
 
 	public void setPhoto(byte[] photo) {
+		if(photo == null)
+			throw new IllegalArgumentException();
 		this.photo = photo;
 	}
 
@@ -197,6 +191,8 @@ public class User extends PersistentModel {
 	}
 
 	public void setEvents(List<Event> events) {
+		if(events == null)
+			throw new IllegalArgumentException();
 		this.events = events;
 	}
 	
@@ -228,6 +224,10 @@ public class User extends PersistentModel {
 		favorites.remove(buit);
 	}
 	
+	public void addEvent(Event e){
+		this.events.add(e);
+	}
+	
 	public Set<Buit> filterMyBuits(BuitFilter bf){
 		Set<Buit> filteredBuits = new HashSet<Buit>();
 		for (Buit buit : mybuits) {
@@ -237,14 +237,14 @@ public class User extends PersistentModel {
 		return filteredBuits;
 	}
 	
-	@Override
-	public String toString() {
-		return "User [name=" + name + ", surname=" + surname + ", username="
-				+ username + "]";
-	}
-	
 	public Date getDate(){
 		return creationDate;
+	}
+	
+	public void setDate(Date date){
+		if(date == null)
+			throw new IllegalArgumentException();
+		this.creationDate = date;
 	}
 	
 	public void addVisit() {
@@ -252,6 +252,8 @@ public class User extends PersistentModel {
 	}
 	
 	public void removeVisit() {
+		if(visits == 0)
+			throw new IllegalStateException();
 		this.visits--;
 	}
 
@@ -279,5 +281,11 @@ public class User extends PersistentModel {
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", surname=" + surname + ", username="
+				+ username + "]";
 	}
 }

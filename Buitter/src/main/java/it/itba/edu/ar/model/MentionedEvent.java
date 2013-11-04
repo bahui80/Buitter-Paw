@@ -16,7 +16,6 @@ public class MentionedEvent extends Event {
 		this.setDate(date);
 		this.setFirer(firer);
 		this.setMessage("mentioned you");
-
 	}
 	
 	MentionedEvent() {

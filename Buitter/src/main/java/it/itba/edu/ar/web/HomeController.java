@@ -48,7 +48,6 @@ public class HomeController {
 			mav.addObject("user_info", user);
 		}	
 		
-		
 		// A ACA VERLO MUY BIEN
 		
 		int default_time = 7;

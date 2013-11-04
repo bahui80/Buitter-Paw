@@ -31,17 +31,17 @@ $(function () {
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Cantidad de buits'
+                    text: 'Amout of buits'
                 }
             },
             legend: {
                 enabled: false
             },
             tooltip: {
-                pointFormat: 'Buits entre <fmt:formatDate type="both" value="${fromDate}"/> y <fmt:formatDate type="both" value="${toDate}"/>: <b>{point.y:.1f}</b>',
+                pointFormat: 'Buits between <fmt:formatDate type="both" value="${fromDate}"/> and <fmt:formatDate type="both" value="${toDate}"/>: <b>{point.y:.1f}</b>',
             },
             series: [{
-                name: 'Population',
+                name: 'Amout of buits',
                 data: [<c:forEach items="${values}" var="value">
 							<c:out value="${value}" />,	
 					</c:forEach>],

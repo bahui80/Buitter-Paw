@@ -12,23 +12,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Event extends PersistentModel {
-	
-	@Column(nullable = false) @Temporal(TemporalType.TIMESTAMP) private Date date;
-	@Column private String message;
-	@ManyToOne private User firer;
 
-	Event(){
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date;
+	@Column
+	private String message;
+	@ManyToOne
+	private User firer;
+
+	Event() {
 	}
-	
+
 	public Date getDate() {
 		return date;
 	}
 
 	public void setDate(Date date) {
+		if(date == null)
+			throw new IllegalArgumentException();
 		this.date = date;
 	}
 
@@ -37,6 +42,8 @@ public abstract class Event extends PersistentModel {
 	}
 
 	public void setMessage(String message) {
+		if(message == null)
+			throw new IllegalArgumentException();
 		this.message = message;
 	}
 
@@ -45,28 +52,17 @@ public abstract class Event extends PersistentModel {
 	}
 
 	public void setFirer(User firer) {
+		if(firer == null)
+			throw new IllegalArgumentException();
 		this.firer = firer;
 	}
 
-//		public Type getType() {
-//		return type;
-//	}
-//
-//	public void setType(Type type) {
-//		this.type = type;
-//	}
-
-		//COMPARATOR
-		public static class EventComparator implements Comparator<Event> {
-			public int compare(Event d1, Event d2) {
-				Date t1 = d1.getDate();
-				Date t2 = d2.getDate();
-				return t2.compareTo(t1);
-			}
+	// COMPARATOR
+	public static class EventComparator implements Comparator<Event> {
+		public int compare(Event d1, Event d2) {
+			Date t1 = d1.getDate();
+			Date t2 = d2.getDate();
+			return t2.compareTo(t1);
 		}
-		
-		//TYPE
-		enum Type {
-		   Follow,Mentioned,Rebuit;
-		}
+	}
 }

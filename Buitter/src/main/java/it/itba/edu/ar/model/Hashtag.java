@@ -31,27 +31,31 @@ public class Hashtag extends PersistentModel {
 	}
 	
 	public Hashtag(String hashtag, Date date, User user, int count){
-		if(hashtag == null || hashtag.length() > 139 || user == null || count < 0)
-			throw new IllegalArgumentException();
-		
-		this.hashtag = hashtag;
-		this.user = user;
-		this.date = date;
-		this.count = count;
+		this(hashtag,date,user);
+		this.setCount(count);
 	}
 	
 	public Hashtag(String hashtag, Date date, User user){
-		if(hashtag == null || hashtag.length() > 139 || user == null)
-			throw new IllegalArgumentException();
-		
-		this.hashtag = hashtag;
-		this.user = user;
-		this.date = date;
+		this.setHashtag(hashtag);
+		this.setUser(user);
+		this.setDate(date);
 	}
 	
 	public Hashtag(String hashtag, long count) {
+		this.setHashtag(hashtag);
+		this.setCount(count);
+	}
+	
+	private void setDate(Date date){
+		if(date == null)
+			throw new IllegalArgumentException();
+		this.date = date;
+	}
+	
+	private void setHashtag(String hashtag){
+		if(hashtag == null || hashtag.length() > 139)
+			throw new IllegalArgumentException();
 		this.hashtag = hashtag;
-		this.count = count;
 	}
 	
 	public long getCount(){
@@ -62,8 +66,8 @@ public class Hashtag extends PersistentModel {
 		return this.buits;
 	}
 	
-	public void setCount(int count){
-		if(count < 0)
+	public void setCount(long count){
+		if(count < 1)
 			throw new IllegalArgumentException();
 		this.count = count;
 	}
@@ -76,21 +80,22 @@ public class Hashtag extends PersistentModel {
 		return user;
 	}
 	
-	public void setUser(User user){
+	private void setUser(User user){
 		if(user == null)
 			throw new IllegalArgumentException();
 		this.user = user;
 	}
 
+	public Date getDate(){
+		return date;
+	}
+	
 	@Override
 	public String toString() {
 		return "Hashtag [hashtag=" + hashtag + ", date=" + date
 				+ ", username=" + user.getUsername() + "]";
 	}
 	
-	public Date getDate(){
-		return date;
-	}
 	
 	@Override
 	public int hashCode() {

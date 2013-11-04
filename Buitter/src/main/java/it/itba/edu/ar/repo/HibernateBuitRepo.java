@@ -41,9 +41,8 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 		Date date = new Date();
 		ReBuit rebuit = new ReBuit(buit,user, date);
 		
-		buit.getBuitter().getEvents().add(new ReBuitEvent(date,user));
-		
-		buit.getRebuits().add(rebuit);
+		buit.getBuitter().addEvent(new ReBuitEvent(date,user));
+		buit.addRebuit(rebuit);
 		
 		Hashtag hashtg;
 		String message = rebuit.getMessage();
@@ -93,7 +92,7 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 				it.remove();
 			}else{
 				MentionedEvent e = new MentionedEvent(new Date(),user);
-				u.getEvents().add(e);
+				u.addEvent(e);
 			}
 		}
 		
