@@ -70,7 +70,7 @@
 													<span class="pull-left text-bold" style="font-size: 15px">@<c:out
 															value="${following.username}" /></span> <span
 														class="pull-right text-muted" style="font-size: 15px"><fmt:formatDate
-														type="both" value="${buit.date}" /></span>
+															type="both" value="${buit.date}" /></span>
 												</div>
 												<div class="row"
 													style="margin-left: 0px; margin-right: 0px;">
@@ -153,42 +153,46 @@
 				</ul>
 
 			</div>
-			<div class="well sidebar-nav">
-				<strong>Who to follow</strong><br/><br/>
-				<c:choose>
-					<c:when test="${empty suggested_users}">
-						<p class="text-muted"> There are no users to follow at this time. </p>
-					</c:when>
-					<c:otherwise>
-						<c:forEach items="${suggested_users}" var="suggested">
-							<div class="media buit">
-								<c:if test="${not empty suggested.photo}">
-									<img class="pull-left media-object small-buit-profile-pic"
-										src="../../image?name=<c:out value="${suggested.username}"/>" />
-								</c:if>
-								<c:if test="${empty suggested.photo}">
-									<img class="pull-left media-object small-buit-profile-pic"
-										src="../../../img/nopicture.png" />
-								</c:if>
-								<div class="media-body">
-									<div class="media-heading">
-										<strong> <a
-											href="<c:url value="../buit/profile"><c:param name="name" value="${suggested.username}" /></c:url>">
-												<c:out value="${suggested.name}" /> <c:out value="${suggested.surname}" />
-										</a>
-										</strong>
-										@<c:out value="${follower.username}" />
+
+			<c:if test="${not empty user}">
+				<div class="well sidebar-nav">
+					<strong>Who to follow</strong><br />
+					<br />
+					<c:choose>
+						<c:when test="${empty suggested_users}">
+							<p class="text-muted">There are no users to follow at this
+								time.</p>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${suggested_users}" var="suggested">
+								<div class="media buit">
+									<c:if test="${not empty suggested.photo}">
+										<img class="pull-left media-object small-buit-profile-pic"
+											src="../../image?name=<c:out value="${suggested.username}"/>" />
+									</c:if>
+									<c:if test="${empty suggested.photo}">
+										<img class="pull-left media-object small-buit-profile-pic"
+											src="../../../img/nopicture.png" />
+									</c:if>
+									<div class="media-body">
+										<div class="media-heading">
+											<strong> <a
+												href="<c:url value="../buit/profile"><c:param name="name" value="${suggested.username}" /></c:url>">
+													<c:out value="${suggested.name}" /> <c:out
+														value="${suggested.surname}" />
+											</a>
+											</strong> @
+											<c:out value="${follower.username}" />
+										</div>
 									</div>
 								</div>
-							</div>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<!--/.well -->
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</c:if>
+			
 		</div>
-		<!--/span-->
 	</div>
-	<!--/row-->
 
 	<%@ include file="/WEB-INF/jsp/footer.jsp"%>

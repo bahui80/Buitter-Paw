@@ -76,7 +76,7 @@ $(function () {
 		<div class="col-md-8 col-md-offset-2">
 
 			<div class="well well-lg">
-				<span cla	ss="custom-header">Statistics</span>
+				<span class="custom-header">Statistics</span>
 
 				<c:choose>
 					<c:when test="${buit_count == 0}">
@@ -87,13 +87,13 @@ $(function () {
 					</c:when>
 					<c:otherwise>
 					
-						<strong>Analyzing ${buit_count} buits from your account.</strong><br/><br />
+						<strong>Analyze your buits based on the time they were published.</strong><br/><br />
 							<c:if test="${not empty labels}">
 								<c:if test="${not empty values}">
 							<div id="container" style="min-width: 500px; height: 400px; margin: 0 auto"></div>
 								</c:if>								
 							</c:if>
-						<br /><br /><br />
+						<br />
 					</c:otherwise>
 				</c:choose>
 
