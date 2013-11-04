@@ -31,7 +31,7 @@
 
 	<mvc:annotation-driven conversion-service="conversionService" />
 	<bean id="conversionService"
-		class="it.itba.edu.ar.web.EnhancedFormattingConversionServiceFactoryBean" />
+		class="it.itba.edu.ar.web.converters.EnhancedFormattingConversionServiceFactoryBean" />
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

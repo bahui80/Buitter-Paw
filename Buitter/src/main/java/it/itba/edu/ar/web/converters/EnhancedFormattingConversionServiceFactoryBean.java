@@ -1,4 +1,4 @@
-package it.itba.edu.ar.web;
+package it.itba.edu.ar.web.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
