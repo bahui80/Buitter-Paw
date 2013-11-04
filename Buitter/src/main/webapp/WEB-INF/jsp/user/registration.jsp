@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jsp/header.jsp" %>
+
 <script>
     function home() {
       var str1 = "../home/home";
