@@ -38,7 +38,7 @@ $(function () {
                 enabled: false
             },
             tooltip: {
-                pointFormat: 'Buits entre <c:out value="${toDate}"/> y <c:out value="${toDate}"/>: <b>{point.y:.1f}</b>',
+                pointFormat: 'Buits entre <fmt:formatDate type="both" value="${fromDate}"/> y <fmt:formatDate type="both" value="${toDate}"/>: <b>{point.y:.1f}</b>',
             },
             series: [{
                 name: 'Population',
