@@ -42,6 +42,7 @@ public class HomeController {
 		// DE ACA 
 		if(session.getAttribute("user") != null) {
 			User user = userRepo.get((String) session.getAttribute("user"));
+			mav.addObject("recommendations", userRepo.whoToFollow(user));
 			for(Buit buit: user.getBuits()) {
 				buit.setMessage(ViewControllerHelper.prepareBuitHashtag(buit.getMessage(),buit.getHashtags(), "home"));
 				buit.setMessage(ViewControllerHelper.prepareBuitUrl(buit.getMessage(), buit.getUrls()));

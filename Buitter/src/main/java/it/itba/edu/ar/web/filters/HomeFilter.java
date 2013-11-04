@@ -24,7 +24,7 @@ public class HomeFilter implements Filter{
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
 		if(req.getRequestURI().toString().equals("/Buitter/"))
-			resp.sendRedirect("/Buitter/home");
+			resp.sendRedirect("/Buitter/web/home/home");
 		else
 			chain.doFilter(req, resp);
 	}

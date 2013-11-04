@@ -40,6 +40,6 @@ public interface UserRepo {
 	/**
 	 * Sugiere usuarios a seguir
 	 */
-	public Set<User> whoToFollow(User u);
+	public List<User> whoToFollow(User u);
 	
 }

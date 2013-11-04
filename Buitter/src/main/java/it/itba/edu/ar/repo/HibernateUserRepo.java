@@ -1,6 +1,5 @@
 package it.itba.edu.ar.repo;
 
-import it.itba.edu.ar.model.Hashtag;
 import it.itba.edu.ar.model.User;
 
 import java.util.ArrayList;
@@ -43,8 +42,8 @@ public class HibernateUserRepo extends HibernateGenericRepo implements UserRepo 
 	}
 
 	@Override
-	public Set<User> whoToFollow(User user) {
-		Set<User> whoToFollow = new HashSet<User>();
+	public List<User> whoToFollow(User user) {
+		List<User> whoToFollow = new ArrayList<User>();
 		Set<User> following = user.getFollowing();
 		
 		//hay que meter el metodo que lee de un archivo
@@ -64,7 +63,8 @@ public class HibernateUserRepo extends HibernateGenericRepo implements UserRepo 
 		
 		if(whoToFollow.size() < 3){
 			whoToFollow.clear();
-			
+			whoToFollow = this.getHighestFollowers(3, user);
+			//whoToFollow = this.getMostPopular(n,this.getHighestFollowersCount(3));
 		}
 		
 		return whoToFollow;
@@ -113,16 +113,41 @@ public class HibernateUserRepo extends HibernateGenericRepo implements UserRepo 
 		List<User> user = query.list();
 		return user.isEmpty() ? null : user.get(0);
 	}
-
-	public List<User> getMostPopular(int qty) {
-		Query query = getSession().createQuery("");
+	
+	@SuppressWarnings("unchecked")
+	private List<User> getHighestFollowers(int qty, User user){
+		Query query = getSession().
+				createQuery("FROM User as u " +
+						"WHERE size(followers) > 0 AND " +
+						" ? <> u.username AND " +
+						" NOT EXISTS (FROM u.followers b WHERE b.username = " +
+						" ? ) " + 
+						"ORDER BY size(followers) DESC");
+		query.setString(0, user.getUsername());
+		query.setString(1, user.getUsername());
 		query.setMaxResults(qty);
-		List<User> users = new ArrayList<User>();
-		ScrollableResults results = query.scroll();
-		while(results.next()) {
-//			users.add(new ));
-		}
-		return users;
+		
+		List<User> results = query.list();
+		return results;
 	}
+
+/*	@SuppressWarnings("unchecked")
+	private List<User> getMostPopular(int qty, List<Integer> maxs) {
+		String a = "(";
+		for (int i = 0; i < maxs.size(); i++) {
+			a = a + maxs.get(i);
+			if(i != maxs.size())
+				a = a + ",";
+		}
+		String b = " )";
+		a = a + b;
+		Query query = getSession().
+				createQuery("FROM User as u" +
+						"HAVING COUNT(u.following) > " + a);
+		
+		query.setMaxResults(qty);
+		List<User> users = query.list();
+		return users;
+	}*/
 	
 }

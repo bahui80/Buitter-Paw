@@ -159,30 +159,28 @@
 					<strong>Who to follow</strong><br />
 					<br />
 					<c:choose>
-						<c:when test="${empty suggested_users}">
+						<c:when test="${empty recommendations}">
 							<p class="text-muted">There are no users to follow at this
 								time.</p>
 						</c:when>
 						<c:otherwise>
-							<c:forEach items="${suggested_users}" var="suggested">
+							<c:forEach items="${recommendations}" var="suggested">
 								<div class="media buit">
 									<c:if test="${not empty suggested.photo}">
 										<img class="pull-left media-object small-buit-profile-pic"
-											src="../../image?name=<c:out value="${suggested.username}"/>" />
+											src="../image?name=<c:out value="${suggested.username}"/>" />
 									</c:if>
 									<c:if test="${empty suggested.photo}">
 										<img class="pull-left media-object small-buit-profile-pic"
-											src="../../../img/nopicture.png" />
+											src="../../img/nopicture.png" />
 									</c:if>
 									<div class="media-body">
 										<div class="media-heading">
-											<strong> <a
-												href="<c:url value="../buit/profile"><c:param name="name" value="${suggested.username}" /></c:url>">
-													<c:out value="${suggested.name}" /> <c:out
-														value="${suggested.surname}" />
-											</a>
+											<strong> <a	href="../buit/profile/${suggested.username}">
 											</strong> @
-											<c:out value="${follower.username}" />
+											<c:out value="${suggested.username}" />
+											</a>
+											
 										</div>
 									</div>
 								</div>

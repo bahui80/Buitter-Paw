@@ -59,8 +59,13 @@ public class UserController {
 			toDate = formatoDelTexto.parse(todate);
 			fromDate = formatoDelTexto.parse(fromdate);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			mav.setViewName("redirect:showstats");
+			return mav;
+		}
+		
+		if(groupby == null || !(groupby.equals("month") || groupby.equals("day") || (groupby.equals("hour")))) {
+			mav.setViewName("redirect:showstats");
+			return mav;
 		}
 
 		Set<Buit> filteredBuits = user.filterMyBuits(new BuitDateRangeFilter(
@@ -252,6 +257,10 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showstats(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
+		if(session.getAttribute("user") == null) {
+			mav.setViewName("error");
+		}
 
 		return mav;
 	}
