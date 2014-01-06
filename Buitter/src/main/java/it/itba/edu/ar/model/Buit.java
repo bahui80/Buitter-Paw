@@ -2,6 +2,7 @@ package it.itba.edu.ar.model;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class Buit extends PersistentModel {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false) private Date date;
 	@CollectionOfElements private Set<String> mentioned_buitters;
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="buit") private Set<ReBuit> rebuits;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="buit") private Set<ReBuit> rebuits = new HashSet<ReBuit>();
 	
 	Buit() {
 	}
