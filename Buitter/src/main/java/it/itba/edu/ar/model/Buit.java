@@ -207,7 +207,16 @@ public class Buit extends PersistentModel {
 		public int compare(Buit d1, Buit d2) {
 			Date t1 = d1.getDate();
 			Date t2 = d2.getDate();
-			return t2.compareTo(t1);
+			String m1 = d1.getMessage();
+			String m2 = d2.getMessage();
+			
+			int result = t2.compareTo(t1);
+			if(result == 0) {
+				System.out.println("ENTRO ");
+				return m2.compareTo(m1);
+			} else {
+				return result;
+			}
 		}
 	}
 }
