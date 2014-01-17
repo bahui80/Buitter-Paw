@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,7 +29,9 @@ public class Buit extends PersistentModel {
 	@Column(length = 500, nullable = false, updatable = false)
 	private String message;
 	@ManyToMany  private Set<User> favoritter;	
-	@ManyToOne private User buitter;
+	@ManyToOne
+	@JoinColumn(name = "userid")
+	private User buitter;
 	@ManyToMany private List<Hashtag> hashtags;
 	@OneToMany(cascade = CascadeType.ALL) private List<Url> urls;
 	@Temporal(TemporalType.TIMESTAMP)

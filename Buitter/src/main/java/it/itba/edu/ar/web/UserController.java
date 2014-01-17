@@ -323,6 +323,7 @@ public class UserController {
 		 return data;
 	}
 
+	@SuppressWarnings("deprecation")
 	private Map<String,Integer> processDayly(Set<Buit> buits) {
 		Map<String, Integer> data = new TreeMap<String, Integer>(
 				new Comparator<String>() {
@@ -356,6 +357,7 @@ public class UserController {
 		return data;
 	}
 
+	@SuppressWarnings("deprecation")
 	private Map<String,Integer> processHourly(Set<Buit> buits) {
 		Map<String, Integer> data = new TreeMap<String, Integer>(
 				new Comparator<String>() {
@@ -386,6 +388,7 @@ public class UserController {
 		return data;
 	}
 
+	@SuppressWarnings("deprecation")
 	private Map<String,Integer> processMonthly(Set<Buit> buits) {
 		Map<String, Integer> data = new TreeMap<String, Integer>(
 				new Comparator<String>() {

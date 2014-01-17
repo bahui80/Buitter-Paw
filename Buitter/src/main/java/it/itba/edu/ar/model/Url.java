@@ -2,15 +2,14 @@ package it.itba.edu.ar.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="urls")
 public class Url extends PersistentModel {
 
-	@Column(length=140, updatable = false)	private String url;
-	@Column(length=140, updatable = false)	private String buiturl;
+	@Column(length=140, updatable = false, nullable = false) private String url;
+	@Column(length=140, updatable = false, nullable = false) private String buiturl;
 	
 	Url(){
 	}

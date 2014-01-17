@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,12 +21,14 @@ import org.hibernate.annotations.SortType;
 public class Hashtag extends PersistentModel {
 	
 	
-	@Column(updatable = false, length=140,nullable=false, unique = true)private String hashtag;
-	@ManyToOne private User user;
+	@Column(updatable = false, length=140,nullable=false, unique = true) private String hashtag;
+	@ManyToOne
+	@JoinColumn(name = "userid")
+	private User user;
 	@ManyToMany(mappedBy="hashtags") @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class) 
 		private Set<Buit> buits;
 	@Transient private long count;
-	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false)private Date date;
+	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false) private Date date;
 	
 	Hashtag(){
 	}

@@ -21,20 +21,20 @@ import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
 @Entity
-@Table(name="buitters")
+@Table(name="users")
 public class User extends PersistentModel {
 	
-	@Column(updatable = false, length=32, unique=true,nullable=false) private String username;
-	@Column(length=32,nullable=false) private String password;
 	@Column(length=32,nullable=false) private String name;
 	@Column(length=32,nullable=false) private String surname;
+	@Column(length=32,nullable=false) private String password;
+	@Temporal(TemporalType.TIMESTAMP)@Column(name="date", nullable=false) private Date creationDate;
+	@Lob private byte[] photo; 
+	@Column(updatable = false, length=32, unique=true,nullable=false) private String username;
 	@Column(length=140,nullable=false) private String description;
 	@Column(length=60,nullable=false) private String secret_question;
 	@Column(length=60,nullable=false) private String secret_answer;
-	@Temporal(TemporalType.TIMESTAMP)@Column(nullable=false) private Date creationDate;
 	private boolean privacy;
 	private int visits;		
-	@Lob private byte[] photo; 
 	@OneToMany (mappedBy="buitter") @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class)
 		private Set<Buit> mybuits;
  	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL) private Set<User> following = new HashSet<User>();
