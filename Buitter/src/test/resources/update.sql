@@ -2,8 +2,6 @@
 ALTER TABLE Users ADD UNIQUE (username);
 ALTER TABLE Users ADD COLUMN privacy boolean DEFAULT false;
 ALTER TABLE Users ADD COLUMN visits integer DEFAULT 0;
-ALTER TABLE Users DROP COLUMN photo;
-ALTER TABLE Users ADD COLUMN photo oid;
 ALTER TABLE Users RENAME COLUMN userid TO id;
 
 -- Urls table --

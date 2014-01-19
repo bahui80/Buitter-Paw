@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,7 +27,7 @@ public class User extends PersistentModel {
 	@Column(length=32,nullable=false) private String surname;
 	@Column(length=32,nullable=false) private String password;
 	@Temporal(TemporalType.TIMESTAMP)@Column(name="date", nullable=false) private Date creationDate;
-	@Lob private byte[] photo; 
+	private byte[] photo;
 	@Column(updatable = false, length=32, unique=true,nullable=false) private String username;
 	@Column(length=140,nullable=false) private String description;
 	@Column(length=60,nullable=false) private String secret_question;
