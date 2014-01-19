@@ -212,7 +212,6 @@ public class Buit extends PersistentModel {
 			
 			int result = t2.compareTo(t1);
 			if(result == 0) {
-				System.out.println("ENTRO ");
 				return m2.compareTo(m1);
 			} else {
 				return result;

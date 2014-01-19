@@ -45,7 +45,7 @@ public class ViewControllerHelper {
 
 	public static String shortenBuit(String buit, List<Url> urls) {
 		for (Url url : urls) {
-			buit = buit.replaceFirst(url.getUrl(), url.getBuiturl());
+			buit = buit.replaceFirst(Pattern.quote(url.getUrl()), url.getBuiturl());
 		}
 		return buit;
 	}
