@@ -1,7 +1,7 @@
 package it.itba.edu.ar.web.converters;
 
-import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.repo.UserRepo;
+import it.itba.edu.ar.domain.user.User;
+import it.itba.edu.ar.domain.user.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;

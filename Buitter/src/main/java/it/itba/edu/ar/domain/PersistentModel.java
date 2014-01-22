@@ -1,4 +1,4 @@
-package it.itba.edu.ar.model;
+package it.itba.edu.ar.domain;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

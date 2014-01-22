@@ -1,5 +1,8 @@
-package it.itba.edu.ar.model;
+package it.itba.edu.ar.domain.user;
 
+import it.itba.edu.ar.domain.PersistentModel;
+import it.itba.edu.ar.domain.buit.Buit;
+import it.itba.edu.ar.domain.event.Event;
 import it.itba.edu.ar.web.BuitFilter;
 
 import java.util.Date;

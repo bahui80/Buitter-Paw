@@ -1,8 +1,8 @@
 package it.itba.edu.ar.web;
 
-import it.itba.edu.ar.model.Buit;
-import it.itba.edu.ar.model.User;
-import it.itba.edu.ar.repo.UserRepo;
+import it.itba.edu.ar.domain.buit.Buit;
+import it.itba.edu.ar.domain.user.User;
+import it.itba.edu.ar.domain.user.UserRepo;
 import it.itba.edu.ar.web.validator.UserForm;
 import it.itba.edu.ar.web.validator.UserFormValidator;
 

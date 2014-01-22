@@ -1,4 +1,4 @@
-import it.itba.edu.ar.model.Hashtag;
+import it.itba.edu.ar.domain.buit.Hashtag;
 
 import org.junit.Before;
 import org.junit.Test;

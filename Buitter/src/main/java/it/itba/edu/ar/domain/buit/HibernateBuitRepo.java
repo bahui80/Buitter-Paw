@@ -1,12 +1,10 @@
-package it.itba.edu.ar.repo;
+package it.itba.edu.ar.domain.buit;
 
-import it.itba.edu.ar.model.Buit;
-import it.itba.edu.ar.model.Hashtag;
-import it.itba.edu.ar.model.MentionedEvent;
-import it.itba.edu.ar.model.ReBuit;
-import it.itba.edu.ar.model.ReBuitEvent;
-import it.itba.edu.ar.model.Url;
-import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.domain.HibernateGenericRepo;
+import it.itba.edu.ar.domain.event.MentionedEvent;
+import it.itba.edu.ar.domain.event.ReBuitEvent;
+import it.itba.edu.ar.domain.user.User;
+import it.itba.edu.ar.domain.user.UserRepo;
 import it.itba.edu.ar.web.ViewControllerHelper;
 
 import java.util.ArrayList;

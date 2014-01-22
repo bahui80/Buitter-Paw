@@ -1,11 +1,9 @@
-package it.itba.edu.ar.repo;
+package it.itba.edu.ar.domain.buit;
 
 import java.util.Date;
 import java.util.List;
 
-import it.itba.edu.ar.model.Buit;
-import it.itba.edu.ar.model.Hashtag;
-import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.domain.user.User;
 
 public interface BuitRepo {
 

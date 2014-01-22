@@ -1,4 +1,4 @@
-package it.itba.edu.ar.repo;
+package it.itba.edu.ar.domain;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;

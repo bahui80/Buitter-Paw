@@ -1,9 +1,7 @@
-package it.itba.edu.ar.repo;
+package it.itba.edu.ar.domain.user;
 
-import it.itba.edu.ar.model.User;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserRepo {
 	

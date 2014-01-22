@@ -1,4 +1,6 @@
-package it.itba.edu.ar.model;
+package it.itba.edu.ar.domain.buit;
+
+import it.itba.edu.ar.domain.user.User;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,6 +1,6 @@
 package it.itba.edu.ar.web;
 
-import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.domain.user.User;
 
 import java.io.IOException;
 

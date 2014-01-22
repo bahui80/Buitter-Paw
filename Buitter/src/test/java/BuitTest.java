@@ -1,6 +1,6 @@
-import it.itba.edu.ar.model.Buit;
-import it.itba.edu.ar.model.Hashtag;
-import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.domain.buit.Buit;
+import it.itba.edu.ar.domain.buit.Hashtag;
+import it.itba.edu.ar.domain.user.User;
 
 import java.util.ArrayList;
 import java.util.Date;

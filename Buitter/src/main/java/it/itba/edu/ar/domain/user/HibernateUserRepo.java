@@ -1,6 +1,6 @@
-package it.itba.edu.ar.repo;
+package it.itba.edu.ar.domain.user;
 
-import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.domain.HibernateGenericRepo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Query;
-import org.hibernate.ScrollableResults;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

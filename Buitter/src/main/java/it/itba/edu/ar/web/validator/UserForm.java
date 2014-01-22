@@ -3,7 +3,7 @@ package it.itba.edu.ar.web.validator;
 import java.io.IOException;
 import java.util.Date;
 
-import it.itba.edu.ar.model.User;
+import it.itba.edu.ar.domain.user.User;
 
 import org.springframework.web.multipart.MultipartFile;
 

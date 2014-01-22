@@ -1,4 +1,6 @@
-package it.itba.edu.ar.model;
+package it.itba.edu.ar.domain.event;
+
+import it.itba.edu.ar.domain.user.User;
 
 import java.util.Date;
 
@@ -9,15 +11,16 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER, name = "type")
-@DiscriminatorValue("2")
-public class MentionedEvent extends Event {
+@DiscriminatorValue("1")
+public class FollowedEvent extends Event{
 	
-	public MentionedEvent(Date date, User firer) {
+	public FollowedEvent(Date date, User firer) {
 		this.setDate(date);
 		this.setFirer(firer);
-		this.setMessage("mentioned you");
+		this.setMessage("started following you");
 	}
 	
-	MentionedEvent() {
+	FollowedEvent() {
 	}
+	
 }

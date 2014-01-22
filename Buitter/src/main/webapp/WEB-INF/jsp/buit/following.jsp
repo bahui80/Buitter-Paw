@@ -27,8 +27,7 @@
 								<div class="media-body">
 									<div class="media-heading">
 										<span class="text-bold">
-											<a href="<c:url value="../buit/profile"><c:param name="name" value="${following.username}" /></c:url>"><c:out value="${following.name}" /> <c:out value="${following.surname}" />
-											</a>
+											<a href="../profile/${following.username}"><c:out value="${following.name}" /> <c:out value="${following.surname}" /></a>
 										</span>
 										@<c:out value="${following.username}" />
 									</div>

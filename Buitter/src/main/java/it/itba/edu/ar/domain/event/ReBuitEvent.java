@@ -1,4 +1,6 @@
-package it.itba.edu.ar.model;
+package it.itba.edu.ar.domain.event;
+
+import it.itba.edu.ar.domain.user.User;
 
 import java.util.Date;
 
@@ -10,15 +12,13 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER, name = "type")
 @DiscriminatorValue("1")
-public class FollowedEvent extends Event{
-	
-	public FollowedEvent(Date date, User firer) {
+public class ReBuitEvent extends Event {
+
+	public ReBuitEvent(Date date, User firer) {
 		this.setDate(date);
 		this.setFirer(firer);
-		this.setMessage("started following you");
+		this.setMessage("rebuitted your buit");
 	}
-	
-	FollowedEvent() {
-	}
-	
+	 ReBuitEvent(){
+	 }
 }

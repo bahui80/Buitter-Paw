@@ -1,7 +1,7 @@
 package it.itba.edu.ar.web.converters;
 
-import it.itba.edu.ar.model.Buit;
-import it.itba.edu.ar.repo.BuitRepo;
+import it.itba.edu.ar.domain.buit.Buit;
+import it.itba.edu.ar.domain.buit.BuitRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;

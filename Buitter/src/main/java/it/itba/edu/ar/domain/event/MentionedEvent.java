@@ -1,4 +1,6 @@
-package it.itba.edu.ar.model;
+package it.itba.edu.ar.domain.event;
+
+import it.itba.edu.ar.domain.user.User;
 
 import java.util.Date;
 
@@ -9,14 +11,15 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER, name = "type")
-@DiscriminatorValue("1")
-public class ReBuitEvent extends Event {
-
-	public ReBuitEvent(Date date, User firer) {
+@DiscriminatorValue("2")
+public class MentionedEvent extends Event {
+	
+	public MentionedEvent(Date date, User firer) {
 		this.setDate(date);
 		this.setFirer(firer);
-		this.setMessage("rebuitted your buit");
+		this.setMessage("mentioned you");
 	}
-	 ReBuitEvent(){
-	 }
+	
+	MentionedEvent() {
+	}
 }

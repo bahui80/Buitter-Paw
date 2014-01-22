@@ -2,7 +2,7 @@ package it.itba.edu.ar.web;
 
 import java.util.Date;
 
-import it.itba.edu.ar.model.Buit;
+import it.itba.edu.ar.domain.buit.Buit;
 
 public class BuitDateRangeFilter implements BuitFilter {
 

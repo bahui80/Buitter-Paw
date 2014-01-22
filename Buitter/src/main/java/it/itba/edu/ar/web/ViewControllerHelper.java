@@ -1,7 +1,7 @@
 package it.itba.edu.ar.web;
 
-import it.itba.edu.ar.model.Hashtag;
-import it.itba.edu.ar.model.Url;
+import it.itba.edu.ar.domain.buit.Hashtag;
+import it.itba.edu.ar.domain.buit.Url;
 
 import java.util.ArrayList;
 import java.util.HashSet;
