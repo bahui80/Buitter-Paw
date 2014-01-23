@@ -149,7 +149,7 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 	}
 	
 	public void addHashtag(Hashtag hashtag) {
-			getSession().save(hashtag);
+		getSession().save(hashtag);
 	}
 	
 	public void removeBuit(Buit buit) {

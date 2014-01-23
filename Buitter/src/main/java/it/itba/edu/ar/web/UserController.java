@@ -19,21 +19,16 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.HibernateException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-@Controller
 public class UserController {
 
 	private UserRepo userRepo;
 	private UserFormValidator validator;
 	
-	@Autowired
 	public UserController(UserRepo userRepo, UserFormValidator validator) {
 		this.userRepo = userRepo;
 		this.validator = validator;

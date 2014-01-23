@@ -11,14 +11,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-@Controller
 public class HomeController {
 
 	private BuitRepo buitRepo;
@@ -26,7 +22,6 @@ public class HomeController {
 	private long DAY_IN_MS = 1000 * 60 * 60 * 24;
 	private static final int trendingQuantity = 10;
 
-	@Autowired
 	public HomeController(BuitRepo buitRepo, UserRepo userRepo) {
 		this.buitRepo = buitRepo;
 		this.userRepo = userRepo;
