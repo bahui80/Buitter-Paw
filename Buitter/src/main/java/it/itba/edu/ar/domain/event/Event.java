@@ -1,6 +1,6 @@
 package it.itba.edu.ar.domain.event;
 
-import it.itba.edu.ar.domain.PersistentModel;
+import it.itba.edu.ar.domain.PersistentEntity;
 import it.itba.edu.ar.domain.user.User;
 
 import java.util.Comparator;
@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Event extends PersistentModel {
+public abstract class Event extends PersistentEntity {
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)

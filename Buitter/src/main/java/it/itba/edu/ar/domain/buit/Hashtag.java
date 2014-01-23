@@ -1,6 +1,6 @@
 package it.itba.edu.ar.domain.buit;
 
-import it.itba.edu.ar.domain.PersistentModel;
+import it.itba.edu.ar.domain.PersistentEntity;
 import it.itba.edu.ar.domain.user.User;
 
 import java.util.Date;
@@ -21,7 +21,7 @@ import org.hibernate.annotations.SortType;
 
 @Entity
 @Table(name="hashtags")
-public class Hashtag extends PersistentModel {
+public class Hashtag extends PersistentEntity {
 	
 	
 	@Column(updatable = false, length=140,nullable=false, unique = true) private String hashtag;

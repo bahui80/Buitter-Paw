@@ -1,6 +1,6 @@
 package it.itba.edu.ar.domain.buit;
 
-import it.itba.edu.ar.domain.PersistentModel;
+import it.itba.edu.ar.domain.PersistentEntity;
 import it.itba.edu.ar.domain.user.User;
 
 import java.util.Comparator;
@@ -27,7 +27,7 @@ import org.hibernate.annotations.CollectionOfElements;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "buits")
-public class Buit extends PersistentModel {
+public class Buit extends PersistentEntity {
 
 	@Column(length = 500, nullable = false, updatable = false)
 	private String message;

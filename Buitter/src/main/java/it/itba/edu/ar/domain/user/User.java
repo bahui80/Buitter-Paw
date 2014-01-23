@@ -1,6 +1,6 @@
 package it.itba.edu.ar.domain.user;
 
-import it.itba.edu.ar.domain.PersistentModel;
+import it.itba.edu.ar.domain.PersistentEntity;
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.event.Event;
 import it.itba.edu.ar.web.BuitFilter;
@@ -24,7 +24,7 @@ import org.hibernate.annotations.SortType;
 
 @Entity
 @Table(name="users")
-public class User extends PersistentModel {
+public class User extends PersistentEntity {
 	
 	@Column(length=32,nullable=false) private String name;
 	@Column(length=32,nullable=false) private String surname;

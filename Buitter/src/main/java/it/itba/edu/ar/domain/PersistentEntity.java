@@ -6,8 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class PersistentModel {
-	@Id	@GeneratedValue(strategy=GenerationType.IDENTITY)
+public class PersistentEntity {
+	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
 	private int id;
 	
 	public int getId() {

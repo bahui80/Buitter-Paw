@@ -1,6 +1,6 @@
 package it.itba.edu.ar.domain.buit;
 
-import it.itba.edu.ar.domain.PersistentModel;
+import it.itba.edu.ar.domain.PersistentEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="urls")
-public class Url extends PersistentModel {
+public class Url extends PersistentEntity {
 
 	@Column(length=140, updatable = false, nullable = false) private String url;
 	@Column(length=140, updatable = false, nullable = false) private String buiturl;
