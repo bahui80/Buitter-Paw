@@ -27,7 +27,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>wicketFilter</filter-name>
-		<url-pattern>/bin/*</url-pattern>
+		<url-pattern>/web/*</url-pattern>
 	</filter-mapping>
 
 	

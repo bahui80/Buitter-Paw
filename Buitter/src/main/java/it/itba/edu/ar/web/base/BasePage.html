@@ -1,31 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<link rel="shortcut icon" href="${pageContext.request.contextPath}/img/logo.png">
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+		<link rel="shortcut icon" href="img/logo.png"/>
 
 		<title>Buitter</title>
 
 		<!-- Bootstrap core CSS -->
-		<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet"/>
 
 		<!-- Custom styles for this template -->
-		<link href="${pageContext.request.contextPath}/css/custom.css" rel="stylesheet">
+		<link href="css/custom.css" rel="stylesheet"/>
 
 		<!-- Font-awesome CSS -->
-		<link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
+		<link href="css/font-awesome.css" rel="stylesheet"/>
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		      <script src="../../assets/js/html5shiv.js"></script>
-		      <script src="../../assets/js/respond.min.js"></script>
-		    <![endif]-->
-
-
-		<script type=text/javascript>
+		<script type="text/javascript">
 			function toggle() {
 				var dropdown = document.getElementById("dropdown");
 				if (dropdown.className == 'dropdown') {
@@ -36,8 +30,45 @@
 			}
 		</script>
 	</head>
-
 	<body>
-		<p>HELLO WORLD!</p>
+		<div class="navbar navbar-fixed-top navbar-inverse">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#" wicket:id="homePageLink"><img src="img/logo.png" class="logo"/>Buitter</a>
+				</div> <!-- .navbar-header -->
+				<div class="collapse navbar-collapse">
+					<form class="navbar-form navbar-left" method="get" action="web/search/search">
+						<div class="form-group">
+							<input type="search" name="name" style="margin-top: 4px" class="form-control" placeholder="Search"/>
+						</div> <!-- .form-group -->
+					</form>
+					<ul class="nav navbar-nav" style="float:right" wicket:id="logged"> <!-- <c:if test="${not empty user}"> -->
+						<li><a href="web/buit/connect">Notifications <span class="badge">0<!-- ${fn:length(user_info.events)} --></span></a></li>
+						<li><a href="web/buit/favorites"><i class='icon-star'></i> Favorites</a></li>
+						<li><a href="web/buit/profile/${user}"><!-- <c:out value="@${user}"/> --></a></li>
+						<li id="dropdown" class="dropdown" onclick="toggle()"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="web/user/showstats"><i class='icon-bar-chart'></i> Show stats</a></li>
+								<li class="divider"></li>
+								<li><a href="web/user/editprofile"><i class='icon-pencil'></i> Edit profile</a></li>
+								<li class="divider"></li>
+								<li><a href="web/user/logout"><i class='icon-power-off'></i> Logout</a></li>
+							</ul> <!-- .dropdown-menu -->
+						</li> 
+					</ul> <!-- </c:if> -->						
+					<ul class="nav navbar-nav" style="float:right" wicket:id="notLogged"> <!-- <c:if test="${empty user}"> -->
+						<li style="margin-top: 8px"><button type="button" class="btn btn-primary" onclick="location.assign('web/user/login');">Log in</button></li>
+						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success" onclick="location.assign('web/user/registration');">Register</button></li>
+					</ul> <!-- </c:if> -->
+				</div> <!-- .collapse .navbar-collapse -->
+			</div> <!-- .container -->
+		</div> <!-- .navbar .navbar-fixed-top .navbar-inverse -->
+		<wicket:child>
+			<!-- Aca va todo lo que viene en el medio de la pagina -->
+		</wicket:child>
+		<hr>
+		<footer>
+			<p>&copy; Buitter 2013</p>
+		</footer>
 	</body>
 </html>
