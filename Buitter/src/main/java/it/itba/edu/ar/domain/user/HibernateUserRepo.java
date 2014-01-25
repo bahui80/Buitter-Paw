@@ -32,13 +32,6 @@ public class HibernateUserRepo extends HibernateGenericRepo implements UserRepo 
 		}
 		return this.getAllUsersMatching(consult);
 	}
-	
-	public boolean login(User user, String password) {
-		if(user == null || !user.getPassword().equals(password)) {
-			return false;
-		}
-		return true;
-	}
 
 	@Override
 	public List<User> whoToFollow(User user) {

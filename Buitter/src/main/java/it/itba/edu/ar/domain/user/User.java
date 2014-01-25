@@ -256,6 +256,10 @@ public class User extends PersistentEntity {
 			throw new IllegalStateException();
 		this.visits--;
 	}
+	
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
+	}
 
 	@Override
 	public int hashCode() {

@@ -6,11 +6,6 @@ import java.util.List;
 public interface UserRepo {
 	
 	/**
-	 * Decide si la información de logueo es correcta para un usuario.
-	 */
-	public boolean login(User user, String password);
-	
-	/**
 	 * Busca usuarios cuyo nombre, apellido o usuario se corresponda con la consulta.
 	 */
 	public List<User> getAllUsersMatching(String consult);

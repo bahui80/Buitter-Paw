@@ -57,8 +57,8 @@
 						</li> 
 					</ul> <!-- </c:if> -->						
 					<ul class="nav navbar-nav" style="float:right" wicket:id="notLogged"> <!-- <c:if test="${empty user}"> -->
-						<li style="margin-top: 8px"><button type="button" class="btn btn-primary" onclick="location.assign('web/user/login');">Log in</button></li>
-						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success" onclick="location.assign('web/user/registration');">Register</button></li>
+						<li style="margin-top: 8px"><button type="button" class="btn btn-primary" wicket:id="loginPageLink">Log in</button></li>
+						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success" wicket:id="registrationPageLink">Register</button></li>
 					</ul> <!-- </c:if> -->
 				</div> <!-- .collapse .navbar-collapse -->
 			</div> <!-- .container -->
