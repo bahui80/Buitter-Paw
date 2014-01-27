@@ -12,12 +12,24 @@ import org.apache.wicket.markup.html.link.Link;
 public class BasePage extends WebPage {
 
 	public BasePage() {
+		/*
+		 * Logged bar actions
+		 */
 		WebMarkupContainer loggedContainer = new WebMarkupContainer("logged") {
 			public boolean isVisible() {
 				return BuitterSession.get().isSignedIn();
 			}
 		};
 		
+		loggedContainer.add(new Link<Void>("logoutLink") {
+			public void onClick() {
+				BuitterSession.get().invalidate();
+			}
+		});
+		
+		/*
+		 * Not logged bar actions
+		 */
 		WebMarkupContainer notLoggedContainer = new WebMarkupContainer("notLogged") {
 			public boolean isVisible() {
 				return !BuitterSession.get().isSignedIn();
@@ -36,11 +48,6 @@ public class BasePage extends WebPage {
 			}
 		});
 		
-		loggedContainer.add(new Link<Void>("logoutLink") {
-			public void onClick() {
-				BuitterSession.get().invalidate();
-			}
-		});
 		
 		add(new BookmarkablePageLink<Void>("homePageLink", HomePage.class));
 		add(loggedContainer);

@@ -13,6 +13,7 @@ public class LogoutPanel extends Panel {
 		
 		add(new BookmarkablePageLink<Void>("homePageLink", HomePage.class));
 		add(new Link<Void>("logoutLink") {
+			@Override
 			public void onClick() {
 				BuitterSession.get().invalidate();
 			}
