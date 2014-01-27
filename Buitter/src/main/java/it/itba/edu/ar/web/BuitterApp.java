@@ -1,6 +1,5 @@
 package it.itba.edu.ar.web;
 
-import it.itba.edu.ar.web.base.BasePage;
 import it.itba.edu.ar.web.common.HibernateRequestCycleListener;
 
 import org.apache.wicket.ConverterLocator;
@@ -31,7 +30,7 @@ public class BuitterApp extends WebApplication {
 	
 	@Override
 	public Class<? extends Page> getHomePage() {
-		return BasePage.class;
+		return HomePage.class;
 	}
 	
 	@Override

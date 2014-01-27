@@ -35,6 +35,13 @@ public class BasePage extends WebPage {
 //				setResponsePage(RegistrationPage.class);
 			}
 		});
+		
+		loggedContainer.add(new Link<Void>("logoutLink") {
+			public void onClick() {
+				BuitterSession.get().invalidate();
+			}
+		});
+		
 		add(new BookmarkablePageLink<Void>("homePageLink", HomePage.class));
 		add(loggedContainer);
 		add(notLoggedContainer);

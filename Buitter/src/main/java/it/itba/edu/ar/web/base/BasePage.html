@@ -34,7 +34,7 @@
 		<div class="navbar navbar-fixed-top navbar-inverse">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#" wicket:id="homePageLink"><img src="img/logo.png" class="logo"/>Buitter</a>
+					<a id="logo" class="navbar-brand" href="#" wicket:id="homePageLink"><img src="img/logo.png" class="logo"/>Buitter</a>
 				</div> <!-- .navbar-header -->
 				<div class="collapse navbar-collapse">
 					<form class="navbar-form navbar-left" method="get" action="web/search/search">
@@ -52,7 +52,7 @@
 								<li class="divider"></li>
 								<li><a href="web/user/editprofile"><i class='icon-pencil'></i> Edit profile</a></li>
 								<li class="divider"></li>
-								<li><a href="web/user/logout"><i class='icon-power-off'></i> Logout</a></li>
+								<li><a href="#" wicket:id="logoutLink"><i class='icon-power-off'></i> Logout</a></li>
 							</ul> <!-- .dropdown-menu -->
 						</li> 
 					</ul> <!-- </c:if> -->						
