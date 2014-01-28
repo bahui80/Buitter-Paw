@@ -21,6 +21,10 @@ public class BuitterSession extends WebSession {
 		super(request);
 	}
 
+	public IModel<User> getUserModel() {
+		return userModel;
+	}
+	
 	public User getUser() {
 		return userModel.getObject();
 	}

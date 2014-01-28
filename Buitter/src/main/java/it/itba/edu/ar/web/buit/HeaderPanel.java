@@ -7,5 +7,6 @@ public class HeaderPanel extends Panel {
 
 	public HeaderPanel(String id) {
 		super(id);
+		
 	}
 }

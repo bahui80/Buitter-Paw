@@ -2,12 +2,15 @@ package it.itba.edu.ar.web.base;
 
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.HomePage;
+import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.users.LoginPage;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.PropertyModel;
 
 public class BasePage extends WebPage {
 
@@ -26,6 +29,9 @@ public class BasePage extends WebPage {
 				BuitterSession.get().invalidate();
 			}
 		});
+		BookmarkablePageLink<Void> profilePageLink = new BookmarkablePageLink<Void>("profilePageLink", ProfilePage.class);
+		profilePageLink.add(new Label("currentUser", new PropertyModel<String>(BuitterSession.get().getUserModel(), "username")));
+		loggedContainer.add(profilePageLink);
 		
 		/*
 		 * Not logged bar actions
