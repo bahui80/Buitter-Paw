@@ -1,5 +1,6 @@
 package it.itba.edu.ar.web;
 
+import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.common.HibernateRequestCycleListener;
 
 import org.apache.wicket.ConverterLocator;
@@ -38,6 +39,7 @@ public class BuitterApp extends WebApplication {
 		super.init();
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
+		mountPage("/profile/${username}", ProfilePage.class);
 	}
 
 	@Override
