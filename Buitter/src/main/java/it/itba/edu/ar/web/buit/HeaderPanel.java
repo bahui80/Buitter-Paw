@@ -24,7 +24,7 @@ public class HeaderPanel extends Panel {
 		PageParameters pgParameters = new PageParameters();
 		pgParameters.add("username", userModel.getObject().getUsername());
 		BookmarkablePageLink<Void> profilePageLink = new BookmarkablePageLink<Void>("profilePageLink", ProfilePage.class, pgParameters);
-		profilePageLink.add(new Label("totalBuits", new PropertyModel<Integer>(userModel, "buits.size()")));
+		profilePageLink.add(new Label("totalBuits", new PropertyModel<Integer>(userModel, "mybuits.size()")));
 		add(profilePageLink);
 		BookmarkablePageLink<Void> followingPageLink = new BookmarkablePageLink<Void>("followingPageLink", FollowingPage.class, pgParameters);
 		followingPageLink.add(new Label("totalFollowing", new PropertyModel<Integer>(userModel, "following.size()")));
@@ -32,5 +32,6 @@ public class HeaderPanel extends Panel {
 		BookmarkablePageLink<Void> followersPageLink = new BookmarkablePageLink<Void>("followersPageLink", FollowersPage.class, pgParameters);
 		followersPageLink.add(new Label("totalFollowers", new PropertyModel<Integer>(userModel, "followers.size()")));
 		add(followersPageLink);
+		add(new Label("totalVisits", new PropertyModel<Integer>(userModel, "visits")));
 	}
 }

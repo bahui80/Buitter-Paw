@@ -38,9 +38,11 @@ public class User extends PersistentEntity {
 	private boolean privacy;
 	private int visits;		
 	@OneToMany (mappedBy="buitter") @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class)
-		private Set<Buit> mybuits;
- 	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL) private Set<User> following = new HashSet<User>();
- 	@ManyToMany private Set<User> followers = new HashSet<User>();
+	private Set<Buit> mybuits;
+ 	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL)
+ 	private Set<User> following = new HashSet<User>();
+ 	@ManyToMany
+ 	private Set<User> followers = new HashSet<User>();
  	@ManyToMany (mappedBy="favoritter") @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class)
  	private Set<Buit> favorites;
  	@OneToMany (cascade=CascadeType.ALL) 
