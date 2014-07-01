@@ -1,5 +1,7 @@
 package it.itba.edu.ar.web;
 
+import it.itba.edu.ar.web.buit.FollowersPage;
+import it.itba.edu.ar.web.buit.FollowingPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.common.HibernateRequestCycleListener;
 
@@ -41,6 +43,8 @@ public class BuitterApp extends WebApplication {
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
 		mountPage("/profile/${username}", ProfilePage.class);
+		mountPage("/followers/${username}", FollowersPage.class);
+		mountPage("/following/${username}", FollowingPage.class);
 	}
 
 	@Override

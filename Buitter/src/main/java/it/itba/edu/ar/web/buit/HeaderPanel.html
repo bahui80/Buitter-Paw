@@ -12,8 +12,8 @@
 					<thead>
 						<tr>
 							<th><a href="#" wicket:id="profilePageLink"><small><p style="margin-bottom: 0px;color: #000000;" wicket:id="totalBuits">0</p></small><small><p style="margin-bottom: 0px;color: #999;">BUITS</p></small></a></th>
-							<th><a href="../../buit/following/${user_info.username}"><small><p style="margin-bottom: 0px;color: #000000;";>${fn:length(user_info.following)}</p></small><small><p style="margin-bottom: 0px;color: #999;">FOLLOWING</p></small></a></th>
-							<th><a href="../../buit/followers/${user_info.username}"><small><p style="margin-bottom: 0px;color: #000000;">${fn:length(user_info.followers)}</p></small><small><p style="margin-bottom: 0px;color: #999;">FOLLOWERS</p></small></a></th>
+							<th><a href="#" wicket:id="followingPageLink"><small><p style="margin-bottom: 0px;color: #000000;" wicket:id="totalFollowing">0</p></small><small><p style="margin-bottom: 0px;color: #999;">FOLLOWING</p></small></a></th>
+							<th><a href="#" wicket:id="followersPageLink"><small><p style="margin-bottom: 0px;color: #000000;" wicket:id="totalFollowers">0</p></small><small><p style="margin-bottom: 0px;color: #999;">FOLLOWERS</p></small></a></th>
 							<th><small><p style="margin-bottom: 0px;color: #000000;"><!-- <c:out value="${user_info.visits}"/> --></p></small><small><p style="margin-bottom: 0px; color: #999;">VISITORS</p></small></th>
 							<c:if test="${not empty user}">
 								<c:if test="${user != user_info.username}">
