@@ -1,3 +1,4 @@
+package it.itba.edu.ar.junit;
 import it.itba.edu.ar.domain.buit.Hashtag;
 
 import org.junit.Before;

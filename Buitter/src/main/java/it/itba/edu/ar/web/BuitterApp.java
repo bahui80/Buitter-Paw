@@ -10,6 +10,8 @@ import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
+import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BuitterApp extends WebApplication {
 
-//	public static final ResourceReference ADD_ICON = new PackageResourceReference(DemoWicketApp.class, "resources/add.png");
-//	public static final ResourceReference EDIT_ICON = new PackageResourceReference(DemoWicketApp.class, "resources/edit.gif");
-//	public static final ResourceReference DELETE_ICON = new PackageResourceReference(DemoWicketApp.class, "resources/delete.gif");
+	public static final ResourceReference NO_IMAGE = new PackageResourceReference(BuitterApp.class, "resources/nopicture.png");
+	public static final ResourceReference TEST = new PackageResourceReference(BuitterApp.class, "resources/settings_on.png");
 
 	private final SessionFactory sessionFactory;
 	

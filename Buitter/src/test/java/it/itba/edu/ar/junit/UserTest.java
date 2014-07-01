@@ -1,3 +1,4 @@
+package it.itba.edu.ar.junit;
 import it.itba.edu.ar.domain.user.User;
 
 import java.util.Date;

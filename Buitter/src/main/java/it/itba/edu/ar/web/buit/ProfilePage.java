@@ -25,7 +25,7 @@ public class ProfilePage extends BasePage {
 		if(user == null) {
 			//mostrar pagina de error (ese usuario no existe)
 		}
-		add(new HeaderPanel("headerPanel", user));
+		add(new HeaderPanel("headerPanel", modelUser));
 		
 	}
 }
