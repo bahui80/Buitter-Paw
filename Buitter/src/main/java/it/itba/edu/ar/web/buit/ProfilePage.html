@@ -9,14 +9,12 @@
 							<div class="well well-lg">
 								<c:if test="${user == user_info.username }">
 									<div class="input-group buit-compose-form">
-										<form method="post" action="buit">
+										<form wicket:id="buitForm">
 											<fieldset>
-												<textarea id="buit-field" class="form-control" rows="3" name="buit" placeholder="Compose new Buit..." maxlength="140"></textarea>
-												Remaining: <span  id='remainingC'>140</span>
-		                    					<c:if test="${not empty error_buit}">
-		                       						<p class="text-danger" style="margin-bottom: 0px"><small><em>Your buit is empty<c:out value="${error_buit}"/></em></small></p>
-		                    					</c:if>
-											<button type="submit" class="btn btn-primary pull-right buit-compose-button">Buit</button>
+												<textarea id="buit-field" class="form-control" rows="3" name="buit" placeholder="Compose new Buit..." maxlength="140" wicket:id="buitText"></textarea>
+												Remaining: <span id='remainingC'>140</span>
+		                    					<div class="text-danger" style="margin-bottom: 0px" wicket:id="feedback"><small><em>Your buit is empty</em></small></div>
+												<button type="submit" class="btn btn-primary pull-right buit-compose-button" wicket:id="buitButton">Buit</button>
 											</fieldset>
 										</form>
 									</div> <!-- .input-group .buit-compose-form -->
@@ -82,21 +80,22 @@
    					</div> <!-- .bs-example -->
 				</c:if>
 			</div> <!-- .container -->
+			<script>
+				var txtBoxRef = document.getElementById("buit-field");
+				var counterRef = document.getElementById("remainingC");
+				txtBoxRef.addEventListener("input",function(){
+					var remLength = 0;
+					remLength = 140 - txtBoxRef.value.length;
+					if(remLength >= 0){
+						counterRef.innerHTML = remLength;
+					}	
+				},true);
+			</script>
 		</wicket:extend>
 	</body>
 </html>
 
-<script>
-	var txtBoxRef = document.getElementById("buit-field");
-	var counterRef = document.getElementById("remainingC");
-	txtBoxRef.addEventListener("input",function(){
-		var remLength = 0;
-		remLength = 140 - txtBoxRef.value.length;
-		if(remLength >= 0){
-			counterRef.innerHTML = remLength;
-		}
-	},true);
-</script>
+
 
 <script>
 	function proceed(clicked_id) {

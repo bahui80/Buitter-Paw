@@ -4,6 +4,8 @@ import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.ImageModel;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
@@ -21,6 +23,8 @@ public class HeaderPanel extends Panel {
 		super(id, userModel);
 
 		final BuitterSession session = BuitterSession.get();
+		// TODO: esto esta para ver de donde vengo
+		final HttpServletRequest req = ((HttpServletRequest) getRequest().getContainerRequest());
 		
 		add(new Label("name", new PropertyModel<String>(userModel, "name")));
 		add(new Label("surname", new PropertyModel<String>(userModel, "surname")));
@@ -81,7 +85,7 @@ public class HeaderPanel extends Panel {
 		editProfileContainer.add(new Link<Void>("edit") {
 			
 			public void onClick() {
-				// redirigir a editar
+//				setResponsePage(RegistrationPage.class);
 			}
 		});
 		
