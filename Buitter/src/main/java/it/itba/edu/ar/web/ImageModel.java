@@ -10,16 +10,21 @@ import org.apache.wicket.request.resource.ResourceReference;
 
 public class ImageModel extends AbstractReadOnlyModel<ResourceReference> {
 
-	private IModel<User> userModel;
+	private transient User user;
 
-	public ImageModel(IModel<User> userModel) {
+	public ImageModel(IModel<?> userModel) {
 		super();
-		this.userModel = userModel;
+		this.user = (User) userModel.getObject();
+	}
+	
+	public ImageModel(User user) {
+		super();
+		this.user = user;
 	}
 
 	@Override
 	public ResourceReference getObject() {
-		if (userModel.getObject().getPhoto() == null) {
+		if (user.getPhoto() == null) {
 			return BuitterApp.NO_IMAGE;
 		} else {
 			return new ResourceReference("image") {
@@ -30,7 +35,7 @@ public class ImageModel extends AbstractReadOnlyModel<ResourceReference> {
 
 						@Override
 						protected byte[] getImageData(Attributes attributes) {
-							return userModel.getObject().getPhoto();
+							return user.getPhoto();
 						}
 					};
 				}
