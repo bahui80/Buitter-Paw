@@ -2,7 +2,7 @@ package it.itba.edu.ar.web.buit;
 
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitterSession;
-import it.itba.edu.ar.web.ImageModel;
+import it.itba.edu.ar.web.ImageResourceReference;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,7 +30,7 @@ public class HeaderPanel extends Panel {
 		add(new Label("surname", new PropertyModel<String>(userModel, "surname")));
 		add(new Label("username", new PropertyModel<String>(userModel, "username")));
 		add(new Label("description", new PropertyModel<String>(userModel, "description")));
-		add(new Image("userImage", new ImageModel(userModel))); 
+		add(new Image("userImage", new ImageResourceReference(userModel))); 
 		
 		PageParameters pgParameters = new PageParameters();
 		pgParameters.add("username", userModel.getObject().getUsername());

@@ -3,12 +3,15 @@ package it.itba.edu.ar.web.buit;
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
-import it.itba.edu.ar.web.ImageModel;
+import it.itba.edu.ar.web.DateFormatter;
+import it.itba.edu.ar.web.ImageResourceReference;
 import it.itba.edu.ar.web.base.BasePage;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -25,6 +28,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.convert.converter.DateConverter;
 import org.apache.wicket.validation.validator.StringValidator.MaximumLengthValidator;
 
 public class ProfilePage extends BasePage {
@@ -83,10 +87,12 @@ public class ProfilePage extends BasePage {
 		notEmptyBuitsContainer.add(new ListView<Buit>("buits", modelBuit) {
 			@Override
 			protected void populateItem(ListItem<Buit> item) {
-				item.add(new Image("buitUserImage", new ImageModel(item.getModel().getObject().getBuitter())));
+				item.add(new Image("buitUserImage", new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
+				item.add(new Label("buitUserUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
+				item.add(new DateLabel("buitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
 			}
 		});
-		
+				
 		user.addVisit();
 		add(buitForm);
 		add(emptyBuitsContainer);
@@ -97,6 +103,5 @@ public class ProfilePage extends BasePage {
 		//TODO: VER BIEN ACA PORQUE ME TIRA EL PROBLEMA DE QUE NO PUEDE SERIALIAR EL USER. HAY QUE VER SI LA CLASE 
 		// ESTA BIEN HECHA
 
-		//TODO: ver bien lo de user image porque cuando pongo back explota
 	}
 }
