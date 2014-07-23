@@ -36,7 +36,7 @@ public class DateFormatter extends DateConverter {
 		.appendHalfdayOfDayText()
         .toFormatter();
 		
-		fm.withLocale(Locale.ENGLISH);
+		fm.withLocale(arg0);
 		return fm;
 	}
 }

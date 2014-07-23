@@ -1,7 +1,7 @@
 package it.itba.edu.ar.web.buit;
 
-import org.apache.wicket.markup.html.WebPage;
+import it.itba.edu.ar.web.base.BasePage;
 
-public class FollowingPage extends WebPage {
+public class FollowingPage extends BasePage {
 
 }

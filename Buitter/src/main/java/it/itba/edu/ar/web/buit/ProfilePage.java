@@ -28,7 +28,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.convert.converter.DateConverter;
 import org.apache.wicket.validation.validator.StringValidator.MaximumLengthValidator;
 
 public class ProfilePage extends BasePage {
@@ -76,7 +75,7 @@ public class ProfilePage extends BasePage {
 		};	
 		
 		
-		LoadableDetachableModel<List<Buit>> modelBuit = new LoadableDetachableModel<List<Buit>>() {
+		IModel<List<Buit>> modelBuit = new LoadableDetachableModel<List<Buit>>() {
 			
 			@Override
 			protected List<Buit> load() {
@@ -90,6 +89,7 @@ public class ProfilePage extends BasePage {
 				item.add(new Image("buitUserImage", new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
 				item.add(new Label("buitUserUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
 				item.add(new DateLabel("buitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
+				item.add(new Label("buitMessage", new PropertyModel<String>(item.getModel(), "message")));
 			}
 		});
 				
