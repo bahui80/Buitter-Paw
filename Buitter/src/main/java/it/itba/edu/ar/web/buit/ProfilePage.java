@@ -5,6 +5,7 @@ import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
 import it.itba.edu.ar.web.DateFormatter;
 import it.itba.edu.ar.web.ImageResourceReference;
+import it.itba.edu.ar.web.MessageModel;
 import it.itba.edu.ar.web.base.BasePage;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class ProfilePage extends BasePage {
 		};
 		User user = modelUser.getObject();
 		if(user == null) {
-			//mostrar pagina de error (ese usuario no existe)
+			// TODO: mostrar pagina de error (ese usuario no existe)
 		}
 		add(new HeaderPanel("headerPanel", modelUser));
 		
@@ -89,7 +90,7 @@ public class ProfilePage extends BasePage {
 				item.add(new Image("buitUserImage", new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
 				item.add(new Label("buitUserUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
 				item.add(new DateLabel("buitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
-				item.add(new Label("buitMessage", new PropertyModel<String>(item.getModel(), "message")));
+				item.add(new Label("buitMessage", new MessageModel(item.getModel())).setEscapeModelStrings(false));
 			}
 		});
 				

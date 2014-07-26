@@ -59,32 +59,22 @@ public class ViewControllerHelper {
 		return buit;
 	}
 
-	public static String prepareBuitHashtag(String buit, List<Hashtag> hashtags, String req) {
+	public static String prepareBuitHashtag(String buit, List<Hashtag> hashtags) {
 		String replaceHTML;
 		
 		for (Hashtag hashtag : hashtags) {
-			if(req.equals("profile")) {
-				replaceHTML = " <a href=../../buit/hashtag?name=" + hashtag.getHashtag() + ">"
+			replaceHTML = " <a href=../hashtag?name=" + hashtag.getHashtag() + ">"
 						+ "#" +hashtag.getHashtag() + "</a>";
-			} else {
-				replaceHTML = " <a href=../buit/hashtag?name=" + hashtag.getHashtag() + ">"
-						+ "#" +hashtag.getHashtag() + "</a>";
-			}
 			buit = buit.replaceAll("#" + hashtag.getHashtag() + "((?:\\s)|(?:\\Z))", replaceHTML);
 		}
 		return buit;
 	}
 	
-	public static String prepareBuitUser(String buit, Set<String> users, String req) {
+	public static String prepareBuitUser(String buit, Set<String> users) {
 		String replaceHTML;
 		for (String user : users) {
-			if(req.equals("profile")) {
-				replaceHTML = " <a href=../../buit/profile/" + user + ">"
+			replaceHTML = " <a href=../profile/" + user + ">"
 						+ "@" + user + "</a>";
-			} else {
-				replaceHTML = " <a href=../buit/profile/" + user + ">"
-						+ "@" + user + "</a>";
-			}
 			buit = buit.replaceAll("@" + user + "((?:\\s)|(?:\\Z))", replaceHTML);
 		}
 		
