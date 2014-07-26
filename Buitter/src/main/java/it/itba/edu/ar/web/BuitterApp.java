@@ -2,6 +2,7 @@ package it.itba.edu.ar.web;
 
 import it.itba.edu.ar.web.buit.FollowersPage;
 import it.itba.edu.ar.web.buit.FollowingPage;
+import it.itba.edu.ar.web.buit.HashtagPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.common.HibernateRequestCycleListener;
 
@@ -23,7 +24,6 @@ import org.springframework.stereotype.Component;
 public class BuitterApp extends WebApplication {
 
 	public static final ResourceReference NO_IMAGE = new PackageResourceReference(BuitterApp.class, "resources/nopicture.png");
-	public static final ResourceReference TEST = new PackageResourceReference(BuitterApp.class, "resources/settings_on.png");
 
 	private final SessionFactory sessionFactory;
 	
@@ -45,6 +45,7 @@ public class BuitterApp extends WebApplication {
 		mountPage("/profile/${username}", ProfilePage.class);
 		mountPage("/followers/${username}", FollowersPage.class);
 		mountPage("/following/${username}", FollowingPage.class);
+		mountPage("/hashtag/${hashtag}", HashtagPage.class);
 	}
 
 	@Override

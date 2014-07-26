@@ -63,7 +63,7 @@ public class ViewControllerHelper {
 		String replaceHTML;
 		
 		for (Hashtag hashtag : hashtags) {
-			replaceHTML = " <a href=../hashtag?name=" + hashtag.getHashtag() + ">"
+			replaceHTML = " <a href=../hashtag/" + hashtag.getHashtag() + ">"
 						+ "#" +hashtag.getHashtag() + "</a>";
 			buit = buit.replaceAll("#" + hashtag.getHashtag() + "((?:\\s)|(?:\\Z))", replaceHTML);
 		}

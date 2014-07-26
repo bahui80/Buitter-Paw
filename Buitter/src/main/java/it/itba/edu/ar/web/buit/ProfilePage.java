@@ -86,11 +86,18 @@ public class ProfilePage extends BasePage {
 		
 		notEmptyBuitsContainer.add(new ListView<Buit>("buits", modelBuit) {
 			@Override
-			protected void populateItem(ListItem<Buit> item) {
+			protected void populateItem(final ListItem<Buit> item) {
 				item.add(new Image("buitUserImage", new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
 				item.add(new Label("buitUserUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
 				item.add(new DateLabel("buitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
 				item.add(new Label("buitMessage", new MessageModel(item.getModel())).setEscapeModelStrings(false));
+				WebMarkupContainer rebuitTextContainer = new WebMarkupContainer("rebuitTextContainer") {
+					public boolean isVisible() {
+						return item.getModelObject().getIsrebuit();
+					}
+				};
+				rebuitTextContainer.add(new Label("rebuitedText", new PropertyModel<String>(item.getModel(), "user.username")));
+				item.add(rebuitTextContainer);
 			}
 		});
 				
