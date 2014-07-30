@@ -3,6 +3,7 @@ package it.itba.edu.ar.web.buit;
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
+import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.DateFormatter;
 import it.itba.edu.ar.web.ImageResourceReference;
 import it.itba.edu.ar.web.MessageModel;
@@ -19,6 +20,7 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -98,6 +100,35 @@ public class ProfilePage extends BasePage {
 				};
 				rebuitTextContainer.add(new Label("rebuitedText", new PropertyModel<String>(item.getModel(), "user.username")));
 				item.add(rebuitTextContainer);
+				Link<Void> deleteButton = new Link<Void>("deleteButton") {
+					@Override
+					public void onClick() {
+						System.out.println("DELETE BUTTON CLICKED");
+					}
+				};
+				Link<Void> favoriteButton = new Link<Void>("favoriteButton") {
+					public void onClick() {
+						System.out.println("FAVORITE BUTTON CLICKED");
+					}
+				};
+				Link<Void> unfavoriteButton = new Link<Void>("unfavoriteButton") {
+					public void onClick() {
+						System.out.println("UNFAVORITE BUTTON CLICKED");
+					}
+				};
+				Link<Void> rebuitButton = new Link<Void>("rebuitButton") {
+					public void onClick() {
+						System.out.println("REBUIT BUTTON CLICKED");
+					}
+				};
+				deleteButton.setVisible(BuitterSession.get().isSignedIn() && item.getModelObject().getBuitter().equals(BuitterSession.get().getUser()));
+				favoriteButton.setVisible(BuitterSession.get().isSignedIn() && !BuitterSession.get().getUser().getFavourites().contains(item.getModelObject()));
+				unfavoriteButton.setVisible(BuitterSession.get().isSignedIn() && BuitterSession.get().getUser().getFavourites().contains(item.getModelObject()));
+				rebuitButton.setVisible(BuitterSession.get().isSignedIn() && !item.getModelObject().getBuitter().equals(BuitterSession.get().getUser()));
+				item.add(deleteButton);
+				item.add(favoriteButton);
+				item.add(unfavoriteButton);
+				item.add(rebuitButton);
 			}
 		});
 				
