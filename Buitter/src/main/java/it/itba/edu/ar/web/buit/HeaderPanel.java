@@ -1,10 +1,11 @@
 package it.itba.edu.ar.web.buit;
 
+import it.itba.edu.ar.domain.event.FollowedEvent;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.ImageResourceReference;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -23,8 +24,6 @@ public class HeaderPanel extends Panel {
 		super(id, userModel);
 
 		final BuitterSession session = BuitterSession.get();
-		// TODO: esto esta para ver de donde vengo
-		final HttpServletRequest req = ((HttpServletRequest) getRequest().getContainerRequest());
 		
 		add(new Label("name", new PropertyModel<String>(userModel, "name")));
 		add(new Label("surname", new PropertyModel<String>(userModel, "surname")));
@@ -55,10 +54,9 @@ public class HeaderPanel extends Panel {
 			}
 		};
 		followContainer.add(new Link<Void>("follow") {
-			
 			public void onClick() {
 				userModel.getObject().follow(session.getUser());
-				// redirigir a donde estaba
+				userModel.getObject().getEvents().add(new FollowedEvent(new Date(), session.getUser()));
 			}
 		});
 		
@@ -69,10 +67,8 @@ public class HeaderPanel extends Panel {
 			}
 		};
 		unfollowContainer.add(new Link<Void>("unfollow") {
-			
 			public void onClick() {
 				userModel.getObject().unfollow(session.getUser());
-				// redirigir a donde estaba
 			}
 		});
 		
@@ -83,7 +79,6 @@ public class HeaderPanel extends Panel {
 			}
 		};
 		editProfileContainer.add(new Link<Void>("edit") {
-			
 			public void onClick() {
 //				setResponsePage(RegistrationPage.class);
 			}

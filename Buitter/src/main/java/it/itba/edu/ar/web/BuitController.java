@@ -20,135 +20,156 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class BuitController {
 
-	private BuitRepo buitRepo;
-	private UserRepo userRepo;
-
-
-	public BuitController(BuitRepo buitRepo, UserRepo userRepo) {
-		this.buitRepo = buitRepo;
-		this.userRepo = userRepo;
-	}
-	
+//	private BuitRepo buitRepo;
+//	private UserRepo userRepo;
+//
+//
+//	public BuitController(BuitRepo buitRepo, UserRepo userRepo) {
+//		this.buitRepo = buitRepo;
+//		this.userRepo = userRepo;
+//	}
+//	
 	/*
 	 * POST METHODS
 	 */
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView favorite(@RequestParam("buitid") Buit fav, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		String username;
-		User user;
-		
-		if((username = (String) session.getAttribute("user")) == null) {
-			mav.setViewName("error");
-			return mav;
-		}
-		user = userRepo.get(username);
-
-		fav.addFavorite(user);
-		
-		user.removeVisit();
-		mav.setViewName("redirect:../profile/" + fav.getBuitter().getUsername());
-		return mav;
-	}
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView unfavorite(@RequestParam("buitid") Buit fav, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		String username;
-		User user;
-		
-		if((username = (String) session.getAttribute("user")) == null) {
-			mav.setViewName("error");
-			return mav;
-		}
-		user = userRepo.get(username);
-		
-		fav.removeFavorite(user);
-
-		user.removeVisit();
-		mav.setViewName("redirect:../profile/" + fav.getBuitter().getUsername());
-		return mav;
-	}
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView follow(@RequestParam("username") User userToFollow, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		
-		User user = userRepo.get((String) session.getAttribute("user"));
-		if(session.getAttribute("user") == null || user.getUsername().equals(userToFollow.getUsername())) {
-			mav.setViewName("error");
-			return mav;
-		}
-		
-		userToFollow.getEvents().add(new FollowedEvent(new Date(), user));
-		
-		userToFollow.follow(user);
-		userToFollow.removeVisit();
-		mav.setViewName("redirect:../profile/" + userToFollow.getUsername());
-		return mav;
-	}
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView unfollow(@RequestParam("username") User userToUnfollow, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		
-		User user = userRepo.get((String) session.getAttribute("user"));
-		if(session.getAttribute("user") == null || session.getAttribute("user").equals(userToUnfollow.getUsername())) {
-			mav.setViewName("error");
-			return mav;
-		}
-		userToUnfollow.unfollow(user);
-		userToUnfollow.removeVisit();
-		mav.setViewName("redirect:../profile/" + userToUnfollow.getUsername());
-		return mav;
-	}
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView rebuit(@RequestParam("buitid") Buit rebuit, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		User user  = userRepo.get((String) session.getAttribute("user"));
-		
-		buitRepo.rebuit(rebuit, user);
-		
-		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
-		return mav;
-	}
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView delete(@RequestParam("buitid") Buit buit, HttpSession session ) {
-		ModelAndView mav = new ModelAndView();
-		
-		if(buit == null || !buit.getBuitter().getUsername().equals(session.getAttribute("user"))) {
-			mav.setViewName("error");
-			return mav;
-		}
+	/*
+	 * Ya migre todo
+	 */
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ModelAndView favorite(@RequestParam("buitid") Buit fav, HttpSession session) {
+//		ModelAndView mav = new ModelAndView();
+//		String username;
+//		User user;
 //		
-//		user.getFavourites().remove(buit);
-		
-		buitRepo.removeBuit(buit);
-		buit.getBuitter().removeVisit();
-		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
-		return mav;
-	}
+//		if((username = (String) session.getAttribute("user")) == null) {
+//			mav.setViewName("error");
+//			return mav;
+//		}
+//		user = userRepo.get(username);
+//
+//		fav.addFavorite(user);
+//		
+//		user.removeVisit();
+//		mav.setViewName("redirect:../profile/" + fav.getBuitter().getUsername());
+//		return mav;
+//	}
+	
+	/*
+	 * Ya migre todo
+	 */
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ModelAndView unfavorite(@RequestParam("buitid") Buit fav, HttpSession session) {
+//		ModelAndView mav = new ModelAndView();
+//		String username;
+//		User user;
+//		
+//		if((username = (String) session.getAttribute("user")) == null) {
+//			mav.setViewName("error");
+//			return mav;
+//		}
+//		user = userRepo.get(username);
+//		
+//		fav.removeFavorite(user);
+//
+//		user.removeVisit();
+//		mav.setViewName("redirect:../profile/" + fav.getBuitter().getUsername());
+//		return mav;
+//	}
+	
+	/*
+	 * Ya migre todo
+	 */
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ModelAndView follow(@RequestParam("username") User userToFollow, HttpSession session) {
+//		ModelAndView mav = new ModelAndView();
+//		
+//		User user = userRepo.get((String) session.getAttribute("user"));
+//		if(session.getAttribute("user") == null || user.getUsername().equals(userToFollow.getUsername())) {
+//			mav.setViewName("error");
+//			return mav;
+//		}
+//		
+//		userToFollow.getEvents().add(new FollowedEvent(new Date(), user));
+//		
+//		userToFollow.follow(user);
+//		userToFollow.removeVisit();
+//		mav.setViewName("redirect:../profile/" + userToFollow.getUsername());
+//		return mav;
+//	}
+	
+	/*
+	 * Ya migre todo
+	 */
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ModelAndView unfollow(@RequestParam("username") User userToUnfollow, HttpSession session) {
+//		ModelAndView mav = new ModelAndView();
+//		
+//		User user = userRepo.get((String) session.getAttribute("user"));
+//		if(session.getAttribute("user") == null || session.getAttribute("user").equals(userToUnfollow.getUsername())) {
+//			mav.setViewName("error");
+//			return mav;
+//		}
+//		userToUnfollow.unfollow(user);
+//		userToUnfollow.removeVisit();
+//		mav.setViewName("redirect:../profile/" + userToUnfollow.getUsername());
+//		return mav;
+//	}
+	
+	/*
+	 * Ya migre todo
+	 */
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ModelAndView rebuit(@RequestParam("buitid") Buit rebuit, HttpSession session) {
+//		ModelAndView mav = new ModelAndView();
+//		User user  = userRepo.get((String) session.getAttribute("user"));
+//		
+//		buitRepo.rebuit(rebuit, user);
+//		
+//		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
+//		return mav;
+//	}
+	
+	/*
+	 * Ya lo migre entero (ver la validacion de errores)
+	 */
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ModelAndView delete(@RequestParam("buitid") Buit buit, HttpSession session ) {
+//		ModelAndView mav = new ModelAndView();
+//		
+//		if(buit == null || !buit.getBuitter().getUsername().equals(session.getAttribute("user"))) {
+//			mav.setViewName("error");
+//			return mav;
+//		}
+////		
+////		user.getFavourites().remove(buit);
+//		
+//		buitRepo.removeBuit(buit);
+//		buit.getBuitter().removeVisit();
+//		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
+//		return mav;
+//	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView buit(@RequestParam("buit") String message, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		User user  = userRepo.get((String) session.getAttribute("user"));
-		
-		if (message.trim().isEmpty()) {
-			mav.addObject("error_buit", "Your buit can't be empty");
-		} else if (message.length() > 140) {
-			mav.addObject("error_buit", "Buits can have up to 140 characters");
-		} else {
-			buitRepo.buit(message, user);
-		}
-		
-		user.removeVisit();
-		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
-		return mav;
-	}
+	/*
+	 * Ya lo migre entero
+	 */
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ModelAndView buit(@RequestParam("buit") String message, HttpSession session) {
+//		ModelAndView mav = new ModelAndView();
+//		User user  = userRepo.get((String) session.getAttribute("user"));
+//		
+//		if (message.trim().isEmpty()) {
+//			mav.addObject("error_buit", "Your buit can't be empty");
+//		} else if (message.length() > 140) {
+//			mav.addObject("error_buit", "Buits can have up to 140 characters");
+//		} else {
+//			buitRepo.buit(message, user);
+//		}
+//		
+//		user.removeVisit();
+//		mav.setViewName("redirect:../profile/" + session.getAttribute("user"));
+//		return mav;
+//	}
 
 	/*
 	 * GET METHODS

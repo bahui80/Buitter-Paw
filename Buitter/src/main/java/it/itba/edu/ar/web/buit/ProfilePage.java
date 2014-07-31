@@ -1,6 +1,7 @@
 package it.itba.edu.ar.web.buit;
 
 import it.itba.edu.ar.domain.buit.Buit;
+import it.itba.edu.ar.domain.buit.BuitRepo;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
 import it.itba.edu.ar.web.BuitterSession;
@@ -35,28 +36,29 @@ import org.apache.wicket.validation.validator.StringValidator.MaximumLengthValid
 
 public class ProfilePage extends BasePage {
 	@SpringBean	
-	private UserRepo users;
+	private UserRepo userRepo;
+	@SpringBean
+	private BuitRepo buitRepo;
 	private transient String buitText;
 	
 	public ProfilePage(final PageParameters pgParameters) {
 		final IModel<User> modelUser = new LoadableDetachableModel<User>() {
 			@Override
 			protected User load() {
-				return users.get(pgParameters.get("username").toString());
+				return userRepo.get(pgParameters.get("username").toString());
 			}
 		};
-		User user = modelUser.getObject();
-		if(user == null) {
-			// TODO: mostrar pagina de error (ese usuario no existe)
-		}
+//		User user = modelUser.getObject();
+//		if(user == null) {
+//			// TODO: mostrar pagina de error (ese usuario no existe)
+//		}
 		add(new HeaderPanel("headerPanel", modelUser));
 		
 		Form<ProfilePage> buitForm = new Form<ProfilePage>("buitForm", new CompoundPropertyModel<ProfilePage>(this)) {
-			
 			@Override
 			protected void onSubmit() {
-				//TODO: GUARDAR A BASE EL BUIT
-				System.out.println(buitText);
+				buitRepo.buit(buitText, BuitterSession.get().getUser());
+				buitText = null;
 			}
 		};
 		buitForm.add(new TextArea<String>("buitText").setRequired(true).add(new MaximumLengthValidator(140)));
@@ -77,15 +79,14 @@ public class ProfilePage extends BasePage {
 			}
 		};	
 		
-		
-		IModel<List<Buit>> modelBuit = new LoadableDetachableModel<List<Buit>>() {
+		final IModel<List<Buit>> modelBuit = new LoadableDetachableModel<List<Buit>>() {
 			
 			@Override
 			protected List<Buit> load() {
 				return new ArrayList<Buit>(modelUser.getObject().getBuits());
 			}
 		};
-		
+			
 		notEmptyBuitsContainer.add(new ListView<Buit>("buits", modelBuit) {
 			@Override
 			protected void populateItem(final ListItem<Buit> item) {
@@ -100,25 +101,25 @@ public class ProfilePage extends BasePage {
 				};
 				rebuitTextContainer.add(new Label("rebuitedText", new PropertyModel<String>(item.getModel(), "user.username")));
 				item.add(rebuitTextContainer);
-				Link<Void> deleteButton = new Link<Void>("deleteButton") {
-					@Override
+				Link<Buit> deleteButton = new Link<Buit>("deleteButton", item.getModel()) {
 					public void onClick() {
-						System.out.println("DELETE BUTTON CLICKED");
+						buitRepo.removeBuit(getModelObject());
+						modelBuit.detach();
 					}
 				};
 				Link<Void> favoriteButton = new Link<Void>("favoriteButton") {
 					public void onClick() {
-						System.out.println("FAVORITE BUTTON CLICKED");
+						item.getModelObject().addFavorite(BuitterSession.get().getUser());
 					}
 				};
 				Link<Void> unfavoriteButton = new Link<Void>("unfavoriteButton") {
 					public void onClick() {
-						System.out.println("UNFAVORITE BUTTON CLICKED");
+						item.getModelObject().removeFavorite(BuitterSession.get().getUser());
 					}
 				};
 				Link<Void> rebuitButton = new Link<Void>("rebuitButton") {
 					public void onClick() {
-						System.out.println("REBUIT BUTTON CLICKED");
+						buitRepo.rebuit(item.getModelObject(), BuitterSession.get().getUser());
 					}
 				};
 				deleteButton.setVisible(BuitterSession.get().isSignedIn() && item.getModelObject().getBuitter().equals(BuitterSession.get().getUser()));
@@ -131,16 +132,13 @@ public class ProfilePage extends BasePage {
 				item.add(rebuitButton);
 			}
 		});
-				
-		user.addVisit();
+		
+//		user.addVisit();
 		add(buitForm);
 		add(emptyBuitsContainer);
 		add(notEmptyBuitsContainer);
 		
 		// TODO: HACER LO DEL NEWBUITCONTAINER
-		
-		//TODO: VER BIEN ACA PORQUE ME TIRA EL PROBLEMA DE QUE NO PUEDE SERIALIAR EL USER. HAY QUE VER SI LA CLASE 
-		// ESTA BIEN HECHA
 
 	}
 }

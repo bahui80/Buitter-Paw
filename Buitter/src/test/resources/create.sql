@@ -19,8 +19,8 @@ CREATE TABLE Buits (
 );
 
 CREATE TABLE Hashtags (
-	hashtag VARCHAR(140) NOT NULL,
 	hashtagid SERIAL PRIMARY KEY NOT NULL,
+	hashtag VARCHAR(140) NOT NULL,
 	userid INTEGER NOT NULL REFERENCES Users(userid),
 	date TIMESTAMP NOT NULL
 );
