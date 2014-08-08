@@ -1,7 +1,55 @@
 <html>
 	<body>
 		<wicket:extend>
-
+			<div class="container">
+				<c:if test="${not empty user || user_info.privacy=='false'}">
+					<div class="row row-offcanvas row-offcanvas-right">
+						<div class="col-md-8 col-md-offset-2">
+							<div wicket:id="headerPanel"/>
+							<div class="well well-lg">
+								<c:choose>
+									<c:when test="${empty user_info.followers}">
+										<div class="alert-box">
+											<img src="../../../img/logo.png" class="logo-alt" /> <br />Nobody is following @<c:out value="${user_info.username}" /> yet.
+										</div> <!-- .alert-box -->
+									</c:when>
+									<c:otherwise>
+										<h3 class="text-bold" style="margin-left:40px">Followers</h3>
+										<c:forEach items="${user_info.followers}" var="follower">
+											<div class="media buit">
+												<c:if test="${not empty follower.photo}">
+													<img class="pull-left media-object buit-profile-pic" src="../../image?name=<c:out value="${follower.username}"/>"/>
+												</c:if>
+												<c:if test="${empty follower.photo}">
+													<img class="pull-left media-object buit-profile-pic" src="../../../img/nopicture.png"/>
+												</c:if>
+												<div class="media-body">
+													<div class="media-heading">
+														<span class="text-bold">
+															<a href="../profile/${follower.username}"><c:out value="${follower.name}" /> <c:out value="${follower.surname}" /></a>
+														</span> <!-- .text-bold -->
+														@<c:out value="${follower.username}" />
+													</div> <!-- .media-heading -->
+													<p class="text-muted" style="word-wrap:break-word;">"${follower.description}"</p>
+												</div> <!-- .media-body -->
+											</div> <!-- .media-buit -->
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</div> <!-- .well .well-lg -->
+						</div> <!-- .col-md-8 .col-md-offset-2 -->
+					</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
+				</c:if>
+				<c:if test="${empty user && user_info.privacy=='true'}">
+					<div class="bs-example">
+        				<div class="jumbotron">
+        					<img style="display: block; margin-left: auto;  margin-right: auto;" src="../../../img/stop_vulture.png">
+          					<h2 style="text-align:center">Sorry, user @<c:out value="${user_info.username}"/> is private</h2>
+          					<p style="text-align:center">You must be logged in to see this profile.</p>
+       					</div> <!-- .jumbotron -->
+   					</div> <!-- .bs-example -->
+				</c:if>
+			</div> <!-- .container -->
 		</wicket:extend>
 	</body>
 </html>

@@ -6,42 +6,42 @@
 					<div class="row row-offcanvas row-offcanvas-right">
 						<div class="col-md-8 col-md-offset-2">
 							<div wicket:id="headerPanel"/>
-								<div class="well well-lg">
-									<div class="input-group buit-compose-form">
-										<form wicket:id="buitForm">
-											<fieldset>
-												<textarea id="buit-field" class="form-control" rows="3" name="buit" placeholder="Compose new Buit..." maxlength="140" wicket:id="buitText"></textarea>
-												Remaining: <span id='remainingC'>140</span>
-		                    					<div class="text-danger" style="margin-bottom: 0px" wicket:id="feedback"><small><em>Your buit is empty</em></small></div>
-												<button type="submit" class="btn btn-primary pull-right buit-compose-button" wicket:id="buitButton">Buit</button>
-											</fieldset>
-										</form>
-									</div> <!-- .input-group .buit-compose-form -->
-									<div class="alert-box" wicket:id="emptyBuitsContainer">
-										<img src="img/logo.png" class="logo-alt" /> <br />@<span wicket:id="emptyBuits"/> hasn't buited yet.
-									</div>
-									<span wicket:id="notEmptyBuitsContainer">
-										<h3 class="text-bold" style="margin-left:40px">Buits</h3>
-										<div class="media buit" wicket:id="buits">
-											<img class="pull-left media-object buit-profile-pic" wicket:id="buitUserImage"/>
-												<div class="media-body">
-													<div class="media-heading">
-														<span class="pull-left text-bold">@<span wicket:id="buitUserUsername">jbuireo</span></span> <span class="pull-right text-muted" style="font-size:15px" wicket:id="buitDate">25-04-2014</span>
-													</div>
-													<br />
-													<p style="word-wrap:break-word" wicket:id="buitMessage">lorem ipsum dolor sit amet consectetur adipiscing</p>
-													<span wicket:id="rebuitTextContainer">
-														<p class="pull-left text-muted" style="margin-bottom:0px;">Rebuited from @<span wicket:id="rebuitedText"/></p>
-													</span>
-													<c:if test="${not empty user}">
-														<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="deleteButton"><i class="icon-trash"> Delete</i></button>
-														<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="favoriteButton"><i class="icon-star"> Favorite</i></button>
-														<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="unfavoriteButton"><i class="icon-star"> Unfavorite</i></button>
-														<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="rebuitButton"><i class="icon-retweet"> Rebuit</i></button>
-													</c:if>	
-												</div> <!-- .media-body -->
-											</div> <!-- .media .buit -->
-									</span>
+							<div class="well well-lg">
+								<div class="input-group buit-compose-form">
+									<form wicket:id="buitForm">
+										<fieldset>
+											<textarea id="buit-field" class="form-control" rows="3" name="buit" placeholder="Compose new Buit..." maxlength="140" wicket:id="buitText"></textarea>
+											Remaining: <span id='remainingC'>140</span>
+		                    				<div class="text-danger" style="margin-bottom: 0px" wicket:id="feedback"><small><em>Your buit is empty</em></small></div>
+											<button type="submit" class="btn btn-primary pull-right buit-compose-button" wicket:id="buitButton">Buit</button>
+										</fieldset>
+									</form>
+								</div> <!-- .input-group .buit-compose-form -->
+								<div class="alert-box" wicket:id="emptyBuitsContainer">
+									<img src="img/logo.png" class="logo-alt" /> <br />@<span wicket:id="emptyBuits"/> hasn't buited yet.
+								</div>
+								<span wicket:id="notEmptyBuitsContainer">
+									<h3 class="text-bold" style="margin-left:40px">Buits</h3>
+									<div class="media buit" wicket:id="buits">
+										<img class="pull-left media-object buit-profile-pic" wicket:id="buitUserImage"/>
+										<div class="media-body">
+											<div class="media-heading">
+												<span class="pull-left text-bold">@<span wicket:id="buitUserUsername">jbuireo</span></span> <span class="pull-right text-muted" style="font-size:15px" wicket:id="buitDate">25-04-2014</span>
+											</div> <!-- .media-heading -->
+											<br />
+											<p style="word-wrap:break-word" wicket:id="buitMessage">lorem ipsum dolor sit amet consectetur adipiscing</p>
+											<span wicket:id="rebuitTextContainer">
+												<p class="pull-left text-muted" style="margin-bottom:0px;">Rebuited from @<span wicket:id="rebuitedText"/></p>
+											</span>
+											<c:if test="${not empty user}">
+												<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="deleteButton"><i class="icon-trash"> Delete</i></button>
+												<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="favoriteButton"><i class="icon-star"> Favorite</i></button>
+												<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="unfavoriteButton"><i class="icon-star"> Unfavorite</i></button>
+												<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="rebuitButton"><i class="icon-retweet"> Rebuit</i></button>
+											</c:if>	
+										</div> <!-- .media-body -->
+									</div> <!-- .media .buit -->
+								</span>
 							</div> <!-- .well .well-lg -->
 						</div> <!-- .col-md-8 .col-md-offset-2 -->
 					</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
