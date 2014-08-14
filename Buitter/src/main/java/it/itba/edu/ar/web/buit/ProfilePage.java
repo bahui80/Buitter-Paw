@@ -52,6 +52,7 @@ public class ProfilePage extends BasePage {
 //		if(user == null) {
 //			// TODO: mostrar pagina de error (ese usuario no existe)
 //		}
+		setDefaultModel(modelUser);
 		add(new HeaderPanel("headerPanel", modelUser));
 		
 		Form<ProfilePage> buitForm = new Form<ProfilePage>("buitForm", new CompoundPropertyModel<ProfilePage>(this)) {
@@ -103,7 +104,7 @@ public class ProfilePage extends BasePage {
 				item.add(rebuitTextContainer);
 				Link<Buit> deleteButton = new Link<Buit>("deleteButton", item.getModel()) {
 					public void onClick() {
-						buitRepo.removeBuit(getModelObject());
+						buitRepo.removeBuit(getModelObject(), BuitterSession.get().getUser());
 						modelBuit.detach();
 					}
 				};

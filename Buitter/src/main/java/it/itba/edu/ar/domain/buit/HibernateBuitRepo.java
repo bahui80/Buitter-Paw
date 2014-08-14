@@ -101,7 +101,9 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 		}
 		message = ViewControllerHelper.shortenBuit(message, urls);
 		
-		addbuit(new Buit(message, user, hashtags, date, urls, s_users));
+		Buit buit = new Buit(message, user, hashtags, date, urls, s_users);
+		user.addBuit(buit);
+		addbuit(buit);
 	}
 	
 	/* 
@@ -152,7 +154,8 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 		getSession().save(hashtag);
 	}
 	
-	public void removeBuit(Buit buit) {
+	public void removeBuit(Buit buit, User user) {
+		user.removeBuit(buit);
 		getSession().delete(buit);
 	}
 }

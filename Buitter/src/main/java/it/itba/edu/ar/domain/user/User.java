@@ -262,6 +262,14 @@ public class User extends PersistentEntity {
 	public boolean checkPassword(String password) {
 		return this.password.equals(password);
 	}
+	
+	public void addBuit(Buit buit) {
+		this.mybuits.add(buit);
+	}
+	
+	public void removeBuit(Buit buit) {
+		this.mybuits.remove(buit);
+	}
 
 	@Override
 	public int hashCode() {

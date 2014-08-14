@@ -31,7 +31,8 @@ public class Buit extends PersistentEntity {
 
 	@Column(length = 500, nullable = false, updatable = false)
 	private String message;
-	@ManyToMany  private Set<User> favoritter;	
+	@ManyToMany 
+	private Set<User> favoritter;	
 	@ManyToOne
 	@JoinColumn(name = "userid")
 	private User buitter;
