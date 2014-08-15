@@ -8,12 +8,10 @@
 							<div wicket:id="headerPanel"/>
 							<div class="well well-lg">
 								<c:choose>
-									<c:when test="${empty user_info.followers}">
-										<div class="alert-box">
-											<img src="../../../img/logo.png" class="logo-alt" /> <br />Nobody is following @<c:out value="${user_info.username}" /> yet.
-										</div> <!-- .alert-box -->
-									</c:when>
-									<c:otherwise>
+									<div class="alert-box" wicket:id="emptyFollowersContainer">
+										<img src="img/logo.png" class="logo-alt" /> <br />Nobody is following @<span wicket:id="emptyFollower"/> yet.
+									</div> <!-- .alert-box -->
+									<span wicket:id="notEmptyFollowersContainer">
 										<h3 class="text-bold" style="margin-left:40px">Followers</h3>
 										<c:forEach items="${user_info.followers}" var="follower">
 											<div class="media buit">
@@ -34,7 +32,7 @@
 												</div> <!-- .media-body -->
 											</div> <!-- .media-buit -->
 										</c:forEach>
-									</c:otherwise>
+									</span>
 								</c:choose>
 							</div> <!-- .well .well-lg -->
 						</div> <!-- .col-md-8 .col-md-offset-2 -->

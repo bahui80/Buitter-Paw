@@ -1,7 +1,10 @@
 package it.itba.edu.ar.web.buit;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -21,6 +24,26 @@ public class FollowingPage extends BasePage {
 			}
 		};
 		
+		setDefaultModel(modelUser);
 		add(new HeaderPanel("headerPanel", modelUser));
+		
+		WebMarkupContainer emptyFollowingsContainer = new WebMarkupContainer("emptyFollowingsContainer") {
+			public boolean isVisible() {
+				return modelUser.getObject().getFollowing().isEmpty();
+			}
+		};
+		
+		WebMarkupContainer notEmptyFollowingContainer = new WebMarkupContainer("notEmptyFollowingsContainer") {
+			public boolean isVisible() {
+				return !modelUser.getObject().getFollowing().isEmpty();
+			}
+		};
+		
+		
+		emptyFollowingsContainer.add(new Label("emptyFollowing", new PropertyModel<String>(modelUser, "username")));
+		
+		add(emptyFollowingsContainer);
+		add(notEmptyFollowingContainer);
+		
 	}
 }
