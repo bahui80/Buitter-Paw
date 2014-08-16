@@ -7,33 +7,24 @@
 						<div class="col-md-8 col-md-offset-2">
 							<div wicket:id="headerPanel"/>	
 							<div class="well well-lg">
-								<c:choose>
-									<div class="alert-box" wicket:id="emptyFollowingsContainer">
-										<img src="img/logo.png" class="logo-alt" /> <br />@<span wicket:id="emptyFollowing"/> isn't following anyone yet.
-									</div> <!-- .alert-box -->
-									<span wicket:id="notEmptyFollowingsContainer">
-										<h3 class="text-bold" style="margin-left:40px">Following</h3>
-										<c:forEach items="${user_info.following}" var="following">
-											<div class="media buit">
-												<c:if test="${not empty following.photo}">
-													<img class="pull-left media-object buit-profile-pic" src="../../image?name=<c:out value="${following.username}"/>"/>
-												</c:if>
-												<c:if test="${empty following.photo}">
-													<img class="pull-left media-object buit-profile-pic" src="../../../img/nopicture.png"/>
-												</c:if>
-												<div class="media-body">
-													<div class="media-heading">
-														<span class="text-bold">
-															<a href="../profile/${following.username}"><c:out value="${following.name}" /> <c:out value="${following.surname}" /></a>
-														</span> <!-- .text-bold -->
-														@<c:out value="${following.username}" />
-													</div> <!-- .media-heading -->
-													<p class="text-muted" style="word-wrap:break-word;">"${following.description}"</p>
-												</div> <!-- .media-body -->
-											</div> <!-- .media-buit -->
-										</c:forEach>
-									</span>
-								</c:choose>
+								<div class="alert-box" wicket:id="emptyFollowingsContainer">
+									<img src="img/logo.png" class="logo-alt" /> <br />@<span wicket:id="emptyFollowing"/> isn't following anyone yet.
+								</div> <!-- .alert-box -->
+								<span wicket:id="notEmptyFollowingsContainer">
+									<h3 class="text-bold" style="margin-left:40px">Following</h3>
+									<div class="media buit" wicket:id="following">
+										<img class="pull-left media-object buit-profile-pic" wicket:id="followingUserImage"/>
+										<div class="media-body">
+											<div class="media-heading">
+												<span class="text-bold">
+													<a href="#" wicket:id="profilePageLink"><span wicket:id="followingUserName">Juan </span> <span wicket:id="followingUserSurname">Buireo</span></a>
+												</span> <!-- .text-bold -->
+												@<span wicket:id="followingUsername"/>
+											</div> <!-- .media-heading -->
+											<p class="text-muted" style="word-wrap:break-word;" wicket:id="followingDescription">Lorem ipsum dellae tea</p>
+										</div> <!-- .media-body -->
+									</div> <!-- .media-buit -->
+								</span>
 							</div> <!-- .well .well-lg -->
 						</div> <!-- .col-md-8 .col-md-offset-2 -->
 					</div> <!-- .row .row-offcanvas .row-offcanvas-right -->

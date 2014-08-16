@@ -25,6 +25,7 @@ public class ImageResourceReference extends ResourceReference {
 
 			@Override
 			protected byte[] getImageData(Attributes attributes) {
+				System.out.println(attributes.getParameters());
 				return model.getObject().getPhoto();
 			}
 		};
