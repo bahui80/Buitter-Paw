@@ -11,6 +11,7 @@ import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.DateFormatter;
 import it.itba.edu.ar.web.ImageResourceReference;
+import it.itba.edu.ar.web.MessageModel;
 import it.itba.edu.ar.web.base.BasePage;
 
 import org.apache.wicket.datetime.markup.html.basic.DateLabel;
@@ -73,6 +74,9 @@ public class HashtagPage extends BasePage {
 			@Override
 			protected void populateItem(final ListItem<Buit> item) {
 				item.add(new Image("buitUserImage", new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
+				item.add(new Label("buitUserUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
+				item.add(new DateLabel("buitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
+				item.add(new Label("buitMessage", new MessageModel(item.getModel())).setEscapeModelStrings(false));
 			}
 		});
 		

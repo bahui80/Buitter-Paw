@@ -12,29 +12,21 @@
 						</div> <!-- .well .well-lg .text-center -->
 						<div class="well well-lg">
 							Results for <span class="text-bold">#<span class="text-bold" wicket:id="hashtag2"/></span>
-							<c:choose>
-								<div class="alert-box" wicket:id="emptyBuitsContainer">
-									<img src="img/logo.png" class="logo-alt"/> <br/>No Buit results for #<span wicket:id="hashtag3"/>.
-								</div> <!-- .alert-box -->
-								<span wicket:id="notEmptyBuitsContainer">
-									<c:forEach items="${buits}" var="buit">
-										<c:if test="${not empty user || buit.buitter.privacy == false}">
-											<div class="media buit" wicket:id="buits">
-												<a class="pull-left"> 
-													<img class="pull-left media-object buit-profile-pic" wicket:id="buitUserImage"/>
-												</a>
-												<div class="media-body">
-													<div class="media-heading">
-														<span class="pull-left text-bold">@<c:out value="${buit.buitter.username}" /></span> <span class="pull-right text-muted"><fmt:formatDate type="both" value="${buit.date}" /></span>
-													</div> <!-- .media-heading -->
-													<br />
-													<p>${buit.message}</p>
-												</div> <!-- .media-body -->
-											</div> <!-- .media-buit -->
-										</c:if>
-									</c:forEach>
-								</span>
-							</c:choose>
+							<div class="alert-box" wicket:id="emptyBuitsContainer">
+								<img src="img/logo.png" class="logo-alt"/> <br/>No Buit results for #<span wicket:id="hashtag3"/>.
+							</div> <!-- .alert-box -->
+							<span wicket:id="notEmptyBuitsContainer">
+								<div class="media buit" wicket:id="buits">
+									<img class="pull-left media-object buit-profile-pic" wicket:id="buitUserImage"/>
+									<div class="media-body">
+										<div class="media-heading">
+											<span class="pull-left text-bold">@<span wicket:id="buitUserUsername"/></span> <span class="pull-right text-muted" wicket:id="buitDate"/>
+										</div> <!-- .media-heading -->
+										<br />
+										<p wicket:id="buitMessage">Lorem ipsum vale</p>
+									</div> <!-- .media-body -->
+								</div> <!-- .media-buit -->
+							</span>
 						</div> <!-- .well .well-lg -->
 					</div> <!-- .col-md-8 .col-md-offset-2 -->
 				</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
