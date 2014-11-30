@@ -52,16 +52,18 @@ public class User extends PersistentEntity {
 	User(){
 	}
 	
-	// ESTO NO VA.. Si neesito pasar un username y un password lo paso solo. NOes un usuario
-	public User(String username, String password){
-		this.setPassword(password);
-		this.setUsername(username);
-	}
+	// ESTO NO VA.. Si neesito pasar un username y un password lo paso solo. Hacer esto esta mal
+	// es crear un usuario inconsistente
+//	public User(String username, String password){
+//		this.setPassword(password);
+//		this.setUsername(username);
+//	}
 		
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
 			Date creationDate, int visits, boolean privacy, byte[] photo){		
-		this(username,password);
+		this.setUsername(username);
+		this.setPassword(password);
 		this.setName(name);
 		this.setSurname(surname);
 		this.setDescription(description);
