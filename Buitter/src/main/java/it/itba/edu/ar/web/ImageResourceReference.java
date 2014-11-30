@@ -12,7 +12,7 @@ public class ImageResourceReference extends ResourceReference {
 	private IModel<User> model;
 		
 	public ImageResourceReference(IModel<User> model) {
-		super(ImageResourceReference.class, "images");
+		super(ImageResourceReference.class, "images" + model.getObject().getId());
 		this.model = model;
 	}
 	
