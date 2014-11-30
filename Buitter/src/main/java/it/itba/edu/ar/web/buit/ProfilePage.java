@@ -40,16 +40,17 @@ public class ProfilePage extends BasePage {
 	@SpringBean
 	private BuitRepo buitRepo;
 	private transient String buitText;
+	private IModel<User> modelUser;
 	
 	public ProfilePage(final PageParameters pgParameters) {
-		final IModel<User> modelUser = new LoadableDetachableModel<User>() {
+		modelUser = new LoadableDetachableModel<User>() {
 			@Override
 			protected User load() {
 				return userRepo.get(pgParameters.get("username").toString());
 			}
 		};
-//		User user = modelUser.getObject();
-//		if(user == null) {
+		
+//		if(getUser() == null) {
 //			// TODO: mostrar pagina de error (ese usuario no existe)
 //		}
 		setDefaultModel(modelUser);
@@ -68,7 +69,8 @@ public class ProfilePage extends BasePage {
 
 		WebMarkupContainer emptyBuitsContainer = new WebMarkupContainer("emptyBuitsContainer") {
 			public boolean isVisible() {
-				return modelUser.getObject().getBuits().isEmpty();
+				modelUser.detach();
+				return getUser().getMybuits().isEmpty();
 			}
 		};
 		
@@ -76,7 +78,8 @@ public class ProfilePage extends BasePage {
 		
 		WebMarkupContainer notEmptyBuitsContainer = new WebMarkupContainer("notEmptyBuitsContainer") {
 			public boolean isVisible() {
-				return !modelUser.getObject().getBuits().isEmpty();
+				modelUser.detach();
+				return !getUser().getMybuits().isEmpty();
 			}
 		};	
 		
@@ -84,7 +87,7 @@ public class ProfilePage extends BasePage {
 			
 			@Override
 			protected List<Buit> load() {
-				return new ArrayList<Buit>(modelUser.getObject().getBuits());
+				return new ArrayList<Buit>(getUser().getMybuits());
 			}
 		};
 			
@@ -141,5 +144,9 @@ public class ProfilePage extends BasePage {
 		
 		// TODO: HACER LO DEL NEWBUITCONTAINER
 
+	}
+	
+	private User getUser() {
+		return (User) modelUser.getObject();
 	}
 }

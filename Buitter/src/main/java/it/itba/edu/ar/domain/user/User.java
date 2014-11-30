@@ -52,6 +52,7 @@ public class User extends PersistentEntity {
 	User(){
 	}
 	
+	// ESTO NO VA.. Si neesito pasar un username y un password lo paso solo. NOes un usuario
 	public User(String username, String password){
 		this.setPassword(password);
 		this.setUsername(username);
@@ -110,10 +111,6 @@ public class User extends PersistentEntity {
 	
 	public boolean getPrivacy() {
 		return this.privacy;
-	}
-	
-	public Set<Buit> getBuits() {
-		return this.mybuits;
 	}
 
 	public String getSurname() {
