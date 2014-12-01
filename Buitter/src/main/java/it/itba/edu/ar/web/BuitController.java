@@ -175,21 +175,27 @@ public class BuitController {
 	 * GET METHODS
 	 */
 	
-	// TODO AGREGAR CHEQUEOS DE VALIDACION
-	@RequestMapping(value = "/buit/following/{user}", method = RequestMethod.GET)
-	public ModelAndView following(@PathVariable User user) {
-		ModelAndView mav = new ModelAndView("buit/following");
-		mav.addObject("user_info", user);
-		return mav;
-	}
+	/*
+	 * Ya lo migre entero
+	 */
+//	// TODO AGREGAR CHEQUEOS DE VALIDACION
+//	@RequestMapping(value = "/buit/following/{user}", method = RequestMethod.GET)
+//	public ModelAndView following(@PathVariable User user) {
+//		ModelAndView mav = new ModelAndView("buit/following");
+//		mav.addObject("user_info", user);
+//		return mav;
+//	}
 	
-	// TODO AGREGAR CHEQUEOS DE VALIDACION
-	@RequestMapping(value = "/buit/followers/{user}", method = RequestMethod.GET)
-	public ModelAndView followers(@PathVariable User user) {
-		ModelAndView mav = new ModelAndView("buit/followers");
-		mav.addObject("user_info", user);
-		return mav;
-	}
+	/*
+	 * Ya lo migre entero
+	 */
+//	// TODO AGREGAR CHEQUEOS DE VALIDACION
+//	@RequestMapping(value = "/buit/followers/{user}", method = RequestMethod.GET)
+//	public ModelAndView followers(@PathVariable User user) {
+//		ModelAndView mav = new ModelAndView("buit/followers");
+//		mav.addObject("user_info", user);
+//		return mav;
+//	}
 	
 	@RequestMapping(value = "/buit/profile/{usr}", method = RequestMethod.GET)
 	public ModelAndView profile(@PathVariable User usr) {

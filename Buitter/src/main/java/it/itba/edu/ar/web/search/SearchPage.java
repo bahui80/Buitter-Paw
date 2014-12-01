@@ -50,7 +50,13 @@ public class SearchPage extends BasePage {
 		emptyUsersContainer.add(new Label("searchText2", searchText + ".").setVisible(searchText != null));
 		add(emptyUsersContainer);
 		
-		add(new ListView<User>("users", usersModel) {
+		
+		WebMarkupContainer notEmptyUsersContainer = new WebMarkupContainer("notEmptyUsersContainer") {
+			public boolean isVisible() {
+				return !getUsers().isEmpty();
+			}
+		};
+		notEmptyUsersContainer.add(new ListView<User>("users", usersModel) {
 			@Override
 			protected void populateItem(ListItem<User> item) {
 				item.add(new Image("userImage", new ImageResourceReference(item.getModel())));
@@ -63,7 +69,8 @@ public class SearchPage extends BasePage {
 				item.add(new Label("userUsername", new PropertyModel<String>(item.getModel(), "username")));
 				item.add(new DateLabel("registeredDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
 			}
-		}).setVisible(!getUsers().isEmpty());
+		});
+		add(notEmptyUsersContainer);
 		
 	}
 	

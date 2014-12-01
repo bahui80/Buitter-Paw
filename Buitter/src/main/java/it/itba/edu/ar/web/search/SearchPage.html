@@ -17,23 +17,25 @@
 								<span wicket:id="emptyQuery2">There are no registered users so far.</span>
 								<span wicket:id="notEmptyQuery2">No people results for </span><span class="text-bold" wicket:id="searchText2">query</span>
 							</div>
-							<div class="media buit" wicket:id="users">
-								<a class="pull-left"> 
-									<img class="pull-left media-object buit-profile-pic" wicket:id="userImage"/>
-								</a>
-								<div class="media-body">
-									<div class="media-heading">
-										<span class="text-bold">
-											<a wicket:id="profilePageLink"><span wicket:id="userUserName"/> <span wicket:id="userUserSurname"/></a>
-										</span> <!-- .text-bold -->
-										@<span wicket:id="userUsername"/>
-									</div> <!-- .media-heading -->
-									<p>
-										<div class="pull-left text-muted">Date registered: <span wicket:id="registeredDate"/></div>
-									</p>
-								</div> <!-- .media-body -->
-							</div> <!-- .media-buit -->
-							</div> <!-- .well .well-lg -->
+							<div wicket:id="notEmptyUsersContainer">
+								<div class="media buit" wicket:id="users">
+									<a class="pull-left"> 
+										<img class="pull-left media-object buit-profile-pic" wicket:id="userImage"/>
+									</a>
+									<div class="media-body">
+										<div class="media-heading">
+											<span class="text-bold">
+												<a wicket:id="profilePageLink"><span wicket:id="userUserName"/> <span wicket:id="userUserSurname"/></a>
+											</span> <!-- .text-bold -->
+											@<span wicket:id="userUsername"/>
+										</div> <!-- .media-heading -->
+										<p>
+											<div class="pull-left text-muted">Date registered: <span wicket:id="registeredDate"/></div>
+										</p>
+									</div> <!-- .media-body -->
+								</div> <!-- .media-buit -->
+							</div>
+						</div> <!-- .well .well-lg -->
 					</div> <!-- .col-md-8 .col-md-offset-2 -->
 				</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
 			</div> <!-- .container -->
