@@ -38,29 +38,20 @@
 									</div> <!-- .col-6 .col-sm-6 .col-lg-6 -->
 									<div class="col-6 col-sm-6 col-lg-6">
 										<h3 style="text-align: center; margin-top: 12px;">Following</h3>
-										<c:forEach items="${user_info.following}" var="following">
-											<c:forEach items="${following.buits}" var="buit">
-												<div class="media buit">
-													<c:if test="${not empty following.photo}">
-														<img class="pull-left media-object buit-profile-pic" src="../image?name=<c:out value="${following.username}"/>" />
-													</c:if>
-													<c:if test="${empty following.photo}">
-														<img class="pull-left media-object buit-profile-pic" src="../../img/nopicture.png" />
-													</c:if>
-													<div class="media-body">
-														<div class="media-heading">
-															<div class="row" style="margin-left: 0px; margin-right: 0px;">
-																<span class="pull-left text-bold" style="font-size: 15px">@<c:out value="${following.username}"/></span>
-																<span class="pull-right text-muted" style="font-size: 15px"><fmt:formatDate type="both" value="${buit.date}"/></span>
-															</div> <!-- .row -->
-															<div class="row" style="margin-left: 0px; margin-right: 0px;">
-																<p style="word-wrap: break-word; font-size: 15px">${buit.message}</p>
-															</div> <!-- .row -->
-														</div> <!-- .media-heading -->
-													</div> <!-- .media-body -->
-												</div> <!-- .media .buit -->
-											</c:forEach>
-										</c:forEach>
+										<div class="media buit" wicket:id="followingBuits">
+											<img class="pull-left media-object buit-profile-pic" wicket:id="followingBuitUserImage"/>
+											<div class="media-body">
+												<div class="media-heading">
+													<div class="row" style="margin-left: 0px; margin-right: 0px;">
+														<span class="pull-left text-bold" style="font-size: 15px">@<span wicket:id="followingBuitUsername">andipaw</span></span>
+														<span class="pull-right text-muted" style="font-size: 15px" wicket:id="followingBuitDate">Sep 18, 2013 11:58:12 AM</span>
+													</div> <!-- .row -->
+													<div class="row" style="margin-left: 0px; margin-right: 0px;">
+														<p style="word-wrap: break-word; font-size: 15px" wicket:id="followingBuitMessage"></p>
+													</div> <!-- .row -->
+												</div> <!-- .media-heading -->
+											</div> <!-- .media-body -->
+										</div> <!-- .media .buit -->
 									</div> <!-- .col-6 .col-sm-6 .col-lg-6 -->
 								</div> <!-- .row -->
 							</div> <!-- .well .well-lg -->

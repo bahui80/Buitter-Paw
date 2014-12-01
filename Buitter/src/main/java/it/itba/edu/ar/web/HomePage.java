@@ -35,6 +35,18 @@ public class HomePage extends BasePage {
 			}
 		};
 		
+		IModel<List<Buit>> modelFollowingBuits = new LoadableDetachableModel<List<Buit>>() {
+			@Override
+			protected List<Buit> load() {
+				ArrayList<Buit> buits = new ArrayList<Buit>();
+				for(User user: session.getUser().getFollowing()) {
+					buits.addAll(user.getMybuits());
+				}
+				return buits;
+			}
+		
+		};
+		
 		notEmptyUserContainer.add(new ListView<Buit>("myBuits", modelMyBuits) {
 			@Override
 			protected void populateItem(ListItem<Buit> item) {
@@ -42,6 +54,16 @@ public class HomePage extends BasePage {
 				item.add(new Label("myBuitUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
 				item.add(new DateLabel("myBuitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
 				item.add(new Label("myBuitMessage", new MessageModel(item.getModel())).setEscapeModelStrings(false));
+			}
+		});
+		
+		notEmptyUserContainer.add(new ListView<Buit>("followingBuits", modelFollowingBuits) {
+			@Override
+			protected void populateItem(ListItem<Buit> item) {
+				item.add(new Image("followingBuitUserImage",new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
+				item.add(new Label("followingBuitUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
+				item.add(new DateLabel("followingBuitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
+				item.add(new Label("followingBuitMessage", new MessageModel(item.getModel())).setEscapeModelStrings(false));
 			}
 		});
 		
