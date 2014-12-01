@@ -11,7 +11,10 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.wicket.request.cycle.RequestCycle;
+
 public class ViewControllerHelper {
+	private static String path = RequestCycle.get().getRequest().getContextPath();
 
 	public static List<String> getHashTags(String buit) {
 		List<String> hashTags = new ArrayList<String>();
@@ -63,7 +66,7 @@ public class ViewControllerHelper {
 		String replaceHTML;
 		
 		for (Hashtag hashtag : hashtags) {
-			replaceHTML = " <a href=../hashtag/" + hashtag.getHashtag() + ">"
+			replaceHTML = " <a href=" + path + "/web/hashtag/" + hashtag.getHashtag() + ">"
 						+ "#" +hashtag.getHashtag() + "</a>";
 			buit = buit.replaceAll("#" + hashtag.getHashtag() + "((?:\\s)|(?:\\Z))", replaceHTML);
 		}
@@ -73,7 +76,7 @@ public class ViewControllerHelper {
 	public static String prepareBuitUser(String buit, Set<String> users) {
 		String replaceHTML;
 		for (String user : users) {
-			replaceHTML = " <a href=../profile/" + user + ">"
+			replaceHTML = " <a href=" + path + "/web/profile/" + user + ">"
 						+ "@" + user + "</a>";
 			buit = buit.replaceAll("@" + user + "((?:\\s)|(?:\\Z))", replaceHTML);
 		}
