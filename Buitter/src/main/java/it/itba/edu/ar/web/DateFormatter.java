@@ -29,7 +29,7 @@ public class DateFormatter extends DateConverter {
 		.appendLiteral(' ')
 		.appendHourOfHalfday(1)
 		.appendLiteral(':')
-		.appendMinuteOfHour(1)
+		.appendMinuteOfHour(2)
 		.appendLiteral(':')
 		.appendSecondOfMinute(2)
 		.appendLiteral(' ')
