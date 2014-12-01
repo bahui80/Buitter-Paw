@@ -6,6 +6,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.DynamicImageResource;
 import org.apache.wicket.request.resource.IResource;
 import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.util.time.Time;
 
 public class ImageResourceReference extends ResourceReference {
 
@@ -25,9 +26,14 @@ public class ImageResourceReference extends ResourceReference {
 
 			@Override
 			protected byte[] getImageData(Attributes attributes) {
-				System.out.println(attributes.getParameters());
 				return model.getObject().getPhoto();
 			}
+			
+			@Override
+			protected synchronized void setLastModifiedTime(Time time) {
+				super.setLastModifiedTime(Time.now());
+			}
 		};
+		
 	}
 }
