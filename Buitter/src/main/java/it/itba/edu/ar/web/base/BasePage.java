@@ -3,17 +3,22 @@ package it.itba.edu.ar.web.base;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.HomePage;
 import it.itba.edu.ar.web.buit.ProfilePage;
+import it.itba.edu.ar.web.search.SearchPage;
 import it.itba.edu.ar.web.users.LoginPage;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public class BasePage extends WebPage {
+	
+	private transient String searchText;
 
 	public BasePage() {
 		final BuitterSession session = BuitterSession.get();
@@ -60,8 +65,16 @@ public class BasePage extends WebPage {
 			}
 		});
 		
-		
+		Form<Void> searchForm = new Form<Void>("searchForm") {
+			@Override
+			protected void onSubmit() {
+				super.onSubmit();
+				setResponsePage(new SearchPage(searchText));
+			}
+		};
 		add(new BookmarkablePageLink<Void>("homePageLink", HomePage.class));
+		searchForm.add(new TextField<String>("searchText", new PropertyModel<String>(this, "searchText")));
+		add(searchForm);
 		add(loggedContainer);
 		add(notLoggedContainer);
 	}

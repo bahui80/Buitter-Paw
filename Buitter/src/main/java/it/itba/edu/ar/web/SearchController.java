@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 public class SearchController {
-
-	private UserRepo userRepo;
-
-	public SearchController(UserRepo userRepo) {
-		this.userRepo = userRepo;
-	}
+//
+//	private UserRepo userRepo;
+//
+//	public SearchController(UserRepo userRepo) {
+//		this.userRepo = userRepo;
+//	}
 
 	/*
 	 * GET METHODS
 	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView search(@RequestParam(value = "name", required = false) String query) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("query", query);
-
-		List<User> results = userRepo.search(query);
-		mav.addObject("results", results);
-
-		return mav;
-	}
+//	@RequestMapping(method = RequestMethod.GET)
+//	public ModelAndView search(@RequestParam(value = "name", required = false) String query) {
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("query", query);
+//
+//		List<User> results = userRepo.search(query);
+//		mav.addObject("results", results);
+//
+//		return mav;
+//	}
 }

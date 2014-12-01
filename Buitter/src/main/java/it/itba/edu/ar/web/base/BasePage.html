@@ -37,9 +37,9 @@
 					<a id="logo" class="navbar-brand" href="#" wicket:id="homePageLink"><img src="img/logo.png" class="logo"/>Buitter</a>
 				</div> <!-- .navbar-header -->
 				<div class="collapse navbar-collapse">
-					<form class="navbar-form navbar-left" method="get" action="web/search/search">
+					<form class="navbar-form navbar-left" wicket:id="searchForm">
 						<div class="form-group">
-							<input type="search" name="name" style="margin-top: 4px" class="form-control" placeholder="Search"/>
+							<input type="text" style="margin-top: 4px" class="form-control" placeholder="Search" wicket:id="searchText"/>
 						</div> <!-- .form-group -->
 					</form>
 					<ul class="nav navbar-nav" style="float:right" wicket:id="logged"> <!-- <c:if test="${not empty user}"> -->

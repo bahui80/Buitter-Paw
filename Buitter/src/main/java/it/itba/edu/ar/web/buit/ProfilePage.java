@@ -59,6 +59,7 @@ public class ProfilePage extends BasePage {
 		Form<ProfilePage> buitForm = new Form<ProfilePage>("buitForm", new CompoundPropertyModel<ProfilePage>(this)) {
 			@Override
 			protected void onSubmit() {
+				super.onSubmit();
 				buitRepo.buit(buitText, BuitterSession.get().getUser());
 				buitText = null;
 			}
@@ -66,6 +67,7 @@ public class ProfilePage extends BasePage {
 		buitForm.add(new TextArea<String>("buitText").setRequired(true).add(new MaximumLengthValidator(140)));
 		buitForm.add(new Button("buitButton", new ResourceModel("buitButton")));
 		buitForm.add(new FeedbackPanel("feedback"));
+//		buitForm.setVisible(BuitterSession.get().isSignedIn() && BuitterSession.get().getUser().getUsername().equals(pgParameters.get("username").toString()));
 
 		WebMarkupContainer emptyBuitsContainer = new WebMarkupContainer("emptyBuitsContainer") {
 			public boolean isVisible() {

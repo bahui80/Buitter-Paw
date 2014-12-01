@@ -1,0 +1,42 @@
+<html>
+	<body>
+		<wicket:extend>
+			<div class="container">
+				<div class="row row-offcanvas row-offcanvas-right">
+					<div class="col-md-8 col-md-offset-2">
+						<p class="pull-right visible-xs">
+							<button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+						</p> <!-- .pull-right .visible-xs -->
+						<div class="well well-lg">
+							<div class="well-header">
+								<span wicket:id="emptyQuery">Registered users</span>
+								<span wicket:id="notEmptyQuery">People results for </span><span wicket:id="searchText" class="text-bold">query</span>
+							</div> <!-- .well-header -->
+							<div class="alert-box" wicket:id="emptyUsersContainer">
+								<img src="img/logo.png" class="logo-alt" /> <br />
+								<span wicket:id="emptyQuery2">There are no registered users so far.</span>
+								<span wicket:id="notEmptyQuery2">No people results for </span><span class="text-bold" wicket:id="searchText2">query</span>
+							</div>
+							<div class="media buit" wicket:id="users">
+								<a class="pull-left"> 
+									<img class="pull-left media-object buit-profile-pic" wicket:id="userImage"/>
+								</a>
+								<div class="media-body">
+									<div class="media-heading">
+										<span class="text-bold">
+											<a wicket:id="profilePageLink"><span wicket:id="userUserName"/> <span wicket:id="userUserSurname"/></a>
+										</span> <!-- .text-bold -->
+										@<span wicket:id="userUsername"/>
+									</div> <!-- .media-heading -->
+									<p>
+										<div class="pull-left text-muted">Date registered: <span wicket:id="registeredDate"/></div>
+									</p>
+								</div> <!-- .media-body -->
+							</div> <!-- .media-buit -->
+							</div> <!-- .well .well-lg -->
+					</div> <!-- .col-md-8 .col-md-offset-2 -->
+				</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
+			</div> <!-- .container -->
+		</wicket:extend>
+	</body>
+</html>
