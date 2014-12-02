@@ -69,26 +69,19 @@
 						<div class="well sidebar-nav">
 							<strong> Trending Topics </strong>
 							<span>
-								<select class="form-control" id="select" style="width: 100%">
-									<!-- tuve que comentarlo porque no me compilaba sino. Arreglarlo -->
-								<!-- 	<option id="7" <c:if test="${selectedTime == '7'}">selected="selected"</c:if>>1 week</option>
-									<option id="1" <c:if test="${selectedTime == '1'}">selected="selected"</c:if>>1 day</option>
-									<option id="30" <c:if test="${selectedTime == '30'}">selected="selected"</c:if>>1 month</option> -->
+								<select class="form-control" id="select" style="width: 100%" wicket:id="timeSelect">
+									<option value="1">1 day</option>
+									<option value="7">1 week</option>
+									<option value="30">1 month</option>
 								</select> <!-- .form-control -->
 							</span>
 							<ul class="nav">
 								<c:if test="${empty trending}">
 									<br />
-									<p class="text-muted">There are no hashtags for this period of time.</p>
+									<p class="text-muted" wicket:id="trendingEmpty">There are no hashtags for this period of time.</p>
 								</c:if>
-								<c:forEach items="${trending}" var="trend">
-									<li>
-										<a href="../buit/<c:url value="hashtag"><c:param name="name" value="${trend.hashtag}"/></c:url>" style="word-wrap: break-word"> #<c:out value="${trend.hashtag}" /> <c:out value="( ${trend.count} )" /> </a>
-									</li>
-								</c:forEach>
-								<li>
-									<button id="<c:out value="${buit.id}"/>" type="button" onclick="refresh();" class="pull-right btn btn-link btn-xs"> <i class="icon-refresh"> Refresh</i>
-									</button> <!-- .pull-right .btn btn-link .btn-xs -->
+								<li wicket:id="hashtags">
+									<a href="#" style="word-wrap: break-word" wicket:id="hashtagPageLink">#<span wicket:id="hashtag"/> ( <span wicket:id="hashtagCount"/> ) </a>
 								</li>
 							</ul> <!-- .nav -->
 						</div> <!-- .well .sidebar-nav -->
