@@ -25,7 +25,6 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -55,6 +54,12 @@ public class HomePage extends BasePage {
 			}
 		};
 		
+		WebMarkupContainer whoToFollowContainer = new WebMarkupContainer("whoToFollowContainer") {
+			public boolean isVisible() {
+				return session.isSignedIn();
+			}
+		};
+		
 		IModel<List<User>> modelUsers = new LoadableDetachableModel<List<User>>() {
 			@Override
 			protected List<User> load() {
@@ -64,6 +69,16 @@ public class HomePage extends BasePage {
 				} else {
 					return userList;
 				}
+			}
+		};
+		
+		final IModel<List<User>> modelRecommendations = new LoadableDetachableModel<List<User>>() {
+			@Override
+			protected List<User> load() {
+				if(BuitterSession.get().isSignedIn()) {
+					return userRepo.whoToFollow(BuitterSession.get().getUser());
+				}
+				return new ArrayList<User>();
 			}
 		};
 		
@@ -135,7 +150,13 @@ public class HomePage extends BasePage {
 				item.add(hashtagPageLink);
 			}
 		});
-		add(new Label("trendingEmpty", new Model<String>("There are no hashtags for this period of time.")).setVisible(trendingTopicModel.getObject().isEmpty()));
+		Label emptyListLabel = new Label("trendingEmpty", "There are no hashtags for this period of time.") {
+			public boolean isVisible() {
+				return trendingTopicModel.getObject().isEmpty();
+			};
+		};
+		
+		add(emptyListLabel);
 		
 		final List<Integer> integers = Arrays.asList(new Integer[] {1,7,30});
 		IChoiceRenderer<Integer> renderer = new IChoiceRenderer<Integer>() {
@@ -158,7 +179,6 @@ public class HomePage extends BasePage {
 			@Override
 			protected void onSelectionChanged(final Integer newSelection) {
 				super.onSelectionChanged(newSelection);
-				trendingTopicModel.detach();
 				time = newSelection;
 			}
 			@Override
@@ -166,8 +186,32 @@ public class HomePage extends BasePage {
                 return true;
             }
 		};
+		
+		Label emptyRecommendationLabel = new Label("recommendationEmpty", "There are no users to follow at this time.") {
+			public boolean isVisible() {
+				return modelRecommendations.getObject().isEmpty();
+			};
+		};
+		
+		whoToFollowContainer.add(emptyRecommendationLabel);
+		
+		whoToFollowContainer.add(new ListView<User>("recommendedUsers", modelRecommendations) {
+			@Override
+			protected void populateItem(ListItem<User> item) {
+				item.add(new Image("recommendedUserImage",new ImageResourceReference(item.getModel())));
+				PageParameters pgParameters = new PageParameters();
+				pgParameters.add("username", item.getModelObject().getUsername());
+				BookmarkablePageLink<Void> profilePageLink = new BookmarkablePageLink<Void>("profilePageLink", ProfilePage.class, pgParameters);
+				profilePageLink.add(new Label("recommendedUsername", new PropertyModel<String>(item.getModel(), "username")));
+				item.add(profilePageLink);
+			}
+		});
+		
+		
+		
 		add(dpdown);
 		add(emptyUserContainer);
 		add(notEmptyUserContainer);
+		add(whoToFollowContainer);
 	}
 }

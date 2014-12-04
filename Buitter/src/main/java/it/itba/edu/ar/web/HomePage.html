@@ -1,15 +1,6 @@
 <html>
 	<body>
 		<wicket:extend>
-			<script>
-				function refresh() {
-					var e = document.getElementById("select");
-					var strUser = e.options[e.selectedIndex];
-					var str1 = "../home/home?time=";
-					var str2 = str1.concat(strUser.id);
-					window.location = str2;
-				}
-			</script>
 			<div class="container">
 				<div class="row row-offcanvas row-offcanvas-right">
 					<div class="col-xs-12 col-sm-9">
@@ -76,45 +67,27 @@
 								</select> <!-- .form-control -->
 							</span>
 							<ul class="nav">
-								<c:if test="${empty trending}">
-									<br />
-									<p class="text-muted" wicket:id="trendingEmpty">There are no hashtags for this period of time.</p>
-								</c:if>
+								<p id="trendingEmpty" class="text-muted" wicket:id="trendingEmpty">There are no hashtags for this period of time.</p>
 								<li wicket:id="hashtags">
 									<a href="#" style="word-wrap: break-word" wicket:id="hashtagPageLink">#<span wicket:id="hashtag"/> ( <span wicket:id="hashtagCount"/> ) </a>
 								</li>
 							</ul> <!-- .nav -->
 						</div> <!-- .well .sidebar-nav -->
-						<c:if test="${not empty user}">
-							<div class="well sidebar-nav">
-								<strong>Who to follow</strong><br />
-								<br />
-								<c:choose>
-									<c:when test="${empty recommendations}">
-										<p class="text-muted">There are no users to follow at this time.</p>
-									</c:when>
-									<c:otherwise>
-										<c:forEach items="${recommendations}" var="suggested">
-											<div class="media buit">
-												<c:if test="${not empty suggested.photo}">
-													<img class="pull-left media-object small-buit-profile-pic" src="../image?name=<c:out value="${suggested.username}"/>"/>
-												</c:if>
-												<c:if test="${empty suggested.photo}">
-													<img class="pull-left media-object small-buit-profile-pic" src="../../img/nopicture.png" />
-												</c:if>
-												<div class="media-body">
-													<div class="media-heading">
-														<strong>
-															<a href="../buit/profile/${suggested.username}"> @<c:out value="${suggested.username}"/></a>
-														</strong> 
-													</div> <!-- .media-heading -->
-												</div> <!-- .media-body -->
-											</div> <!-- .media .buit -->
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</div> <!-- .well -sidebar-nav -->
-						</c:if>
+						<div class="well sidebar-nav" wicket:id="whoToFollowContainer">
+							<strong>Who to follow</strong>
+							<br />
+							<p id="recommendationEmpty" class="text-muted" wicket:id="recommendationEmpty">There are no users to follow at this time.</p>
+							<div class="media buit" wicket:id="recommendedUsers">
+								<img class="pull-left media-object small-buit-profile-pic" wicket:id="recommendedUserImage"/>
+								<div class="media-body">
+									<div class="media-heading">
+										<strong>
+											<a href="#" wicket:id="profilePageLink"> @<span wicket:id="recommendedUsername"/></a>
+										</strong> 
+									</div> <!-- .media-heading -->
+								</div> <!-- .media-body -->
+							</div> <!-- .media .buit -->
+						</div> <!-- .well -sidebar-nav -->
 					</div> <!-- .col-xs-6 .col-sm-3 .sidebar-offcanvas -->
 				</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
 			</div> <!-- .container -->
