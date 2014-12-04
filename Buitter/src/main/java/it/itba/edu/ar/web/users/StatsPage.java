@@ -5,8 +5,10 @@ import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.base.BasePage;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -14,30 +16,29 @@ import java.util.TreeMap;
 import org.apache.wicket.datetime.StyleDateConverter;
 import org.apache.wicket.datetime.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.model.PropertyModel;
 
 public class StatsPage extends BasePage {
-	private Date date;
+	private Date fromDate;
+	private Date toDate;
+	private String selected = "Hour";
+	private static final List<String> CHOICES = Arrays.asList(new String[] { "Hour", "Day", "Month" });
+	
 	public StatsPage(User user) {
 		
 		EntityModel<User> modelUser = new EntityModel<User>(User.class, user);
 
+		
+		
 		Form<Void> form = new Form<Void>("form") {
 			@Override
 			protected void onSubmit() {
 				super.onSubmit();
-				System.out.println(date);
 			}
 		};
-		DateTextField startDateFld = new DateTextField("startDateFld",
-				new PropertyModel<Date>(this, "date"), new StyleDateConverter(
-						"S-", true)) {
-			@Override
-			protected String getInputType() {
-				return "date";
-			};
-		};
-		form.add(startDateFld);
+		RadioChoice<String> radioChoice = new RadioChoice<String>("radioChoice", new PropertyModel<String>(this, "selected"), CHOICES);
+		form.add(radioChoice);
 		add(form);
 		// @RequestParam(value = "fromdate", required = false) String fromdate,
 		// @RequestParam(value = "todate", required = false) String todate,

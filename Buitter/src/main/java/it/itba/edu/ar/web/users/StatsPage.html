@@ -75,7 +75,7 @@
 							<c:choose>
 								<c:when test="${buit_count == 0}">
 									<div class="alert-box">
-										<img src="../../img/logo.png" class="logo-alt" /> <br />No buits to analyze.
+										<img src="img/logo.png" class="logo-alt" /> <br />No buits to analyze.
 									</div> <!-- .alert-box -->
 								</c:when>
 								<c:otherwise>
@@ -93,7 +93,7 @@
 								<div class="form-group <c:if test="${not empty error_fromdate}">has-error</c:if>">
 									<label for="fromdate" class="col-md-2 control-label">From</label>
 									<div class="col-md-9">
-										<input type="date" name="fromdate" value="<c:out value="${fromdate}"/>" wicket:id="startDateFld"/>
+										<input type="date" name="fromdate" value="<c:out value="${fromdate}"/>"/>
 										<c:if test="${not empty error_fromdate}">
 											<p class="text-danger" style="margin-bottom: 0px">
 												<small><em><c:out value="${error_fromdate}" /></em></small>
@@ -121,25 +121,25 @@
 										</div> <!-- .has-error -->
 									</p> <!-- .text-danger -->
 								</c:if>
-								<div class="col-md-2">
+								<div class="col-md-2" wicket:id="radioChoice">
 							<!-- 		<label for="month">Month <input type="radio" name="groupby" value="month"
-										<c:if test="${groupby=='month'}">checked</c:if> />
-									</label> -->
+										<c:if test="${groupby=='month'}">checked</c:if> />  -->
+								<!-- 	</label> -->
 								</div> <!-- .col-md-2 -->
-								<div class="col-md-2">
+								<!-- <div class="col-md-2"> -->
 								<!-- 	<label for="day">Day <input type="radio" name="groupby"	value="day"
-										<c:if test="${groupby=='day'}">checked</c:if> />
-									</label> -->
-								</div> <!-- .col-md-2 -->
-								<div class="col-md-7">
+										<c:if test="${groupby=='day'}">checked</c:if> />  -->
+								<!-- 	</label> -->
+								<!-- </div> --> <!-- .col-md-2 -->
+								<!-- <div class="col-md-7"> -->
 									<!-- <label for="hour">Hour <input type="radio" name="groupby" value="hour"
-										<c:if test="${groupby=='hour'}">checked</c:if> />
-									</label>  -->
-								</div> <!-- .col-md-2 -->
-								<br /> <br /> <br />
+										<c:if test="${groupby=='hour'}">checked</c:if> />  -->
+								<!-- 	</label>  -->
+								<!-- </div> --> <!-- .col-md-2 -->
+								<br /> <br /> <br /> <br /> <br />
 								<div class="form-group">
 									<div class="col-md-offset-2">
-										<input type="button" class="btn btn-default" onclick="home();">Cancel</button>
+										<button type="button" class="btn btn-default" onclick="home();">Cancel</button>
 										<button type="submit" class="btn btn-primary">Confirm</button>
 									</div> <!-- .col-md-offset-2 -->
 								</div> <!-- .form-group -->
