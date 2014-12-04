@@ -44,7 +44,7 @@
 					</form>
 					<ul class="nav navbar-nav" style="float:right" wicket:id="logged"> <!-- <c:if test="${not empty user}"> -->
 						<li><a href="web/buit/connect">Notifications <span class="badge">0<!-- ${fn:length(user_info.events)} --></span></a></li>
-						<li><a href="web/buit/favorites"><i class='icon-star'></i> Favorites</a></li>
+						<li><a href="#" wicket:id="favoritesPageLink"><i class='icon-star'></i> Favorites</a></li>
 						<li><a href="#" wicket:id="profilePageLink">@<span wicket:id="currentUser">jbuireo</span></a></li>
 						<li id="dropdown" class="dropdown" onclick="toggle()"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i></a>
 							<ul class="dropdown-menu">

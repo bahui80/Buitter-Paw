@@ -2,6 +2,7 @@ package it.itba.edu.ar.web.base;
 
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.HomePage;
+import it.itba.edu.ar.web.buit.FavoritesPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.search.SearchPage;
 import it.itba.edu.ar.web.users.LoginPage;
@@ -65,6 +66,13 @@ public class BasePage extends WebPage {
 			}
 		});
 		
+		loggedContainer.add(new Link<Void>("favoritesPageLink") {
+			@Override
+			public void onClick() {
+				setResponsePage(new FavoritesPage(session.getUser()));
+			}
+		}
+		);
 		Form<Void> searchForm = new Form<Void>("searchForm") {
 			@Override
 			protected void onSubmit() {
