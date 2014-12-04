@@ -6,6 +6,7 @@ import it.itba.edu.ar.web.buit.FavoritesPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.search.SearchPage;
 import it.itba.edu.ar.web.users.LoginPage;
+import it.itba.edu.ar.web.users.StatsPage;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
@@ -71,8 +72,15 @@ public class BasePage extends WebPage {
 			public void onClick() {
 				setResponsePage(new FavoritesPage(session.getUser()));
 			}
-		}
-		);
+		});
+		
+		loggedContainer.add(new Link<Void>("statsLink") {
+			@Override
+			public void onClick() {
+				setResponsePage(new StatsPage(session.getUser()));
+			}
+		});
+		
 		Form<Void> searchForm = new Form<Void>("searchForm") {
 			@Override
 			protected void onSubmit() {
