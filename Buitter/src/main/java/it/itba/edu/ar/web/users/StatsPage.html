@@ -8,12 +8,10 @@
 					// 	$(function () {
 					// 		$('#container').highcharts({
 					// 			chart: {
-					// 				type: 'column',
+					// 				
 					// 				margin: [ 50, 50, 100, 80]
 					// 			},
-					// 			title: {
-					// 				text: 'Statistics'
-					// 			},
+					// 		
 					// 			xAxis: {
 					// 				categories: [
 					// 					<c:forEach items="${labels}" var="label">
@@ -82,7 +80,7 @@
 									<strong>Analyze your buits based on the time they were published.</strong><br/><br />
 									<c:if test="${not empty labels}">
 										<c:if test="${not empty values}">
-											<div id="container" style="min-width: 500px; height: 400px; margin: 0 auto"></div>
+											<div id="container" style="min-width: 500px; height: 400px; margin: 0 auto" wicket:id="chart"></div>
 										</c:if>								
 									</c:if>
 									<br />
@@ -93,7 +91,8 @@
 								<div class="form-group <c:if test="${not empty error_fromdate}">has-error</c:if>">
 									<label for="fromdate" class="col-md-2 control-label">From</label>
 									<div class="col-md-9">
-										<input type="date" name="fromdate" value="<c:out value="${fromdate}"/>"/>
+										<!-- <input type="date" name="fromdate" value="<c:out value="${fromdate}"/>"/> -->
+										<input type="date" name="fromdate" wicket:id="fromDate"/>
 										<c:if test="${not empty error_fromdate}">
 											<p class="text-danger" style="margin-bottom: 0px">
 												<small><em><c:out value="${error_fromdate}" /></em></small>
@@ -104,7 +103,8 @@
 								<div class="form-group <c:if test="${not empty error_todate}">has-error</c:if>">
 									<label for="todate" class="col-md-2 control-label">To</label>
 									<div class="col-md-9">
-										<input type="date" name="todate" value="<c:out value="${todate}"/>" />
+										<!-- <input type="date" name="todate" value="<c:out value="${todate}"/>" /> -->
+										<input type="date" name="todate" wicket:id="toDate"/>
 										<c:if test="${not empty error_todate}">
 											<p class="text-danger" style="margin-bottom: 0px">
 												<small><em><c:out value="${error_todate}" /></em></small>

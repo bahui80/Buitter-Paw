@@ -5,9 +5,12 @@ import it.itba.edu.ar.web.HomePage;
 import it.itba.edu.ar.web.buit.FavoritesPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.search.SearchPage;
+import it.itba.edu.ar.web.users.ConnectPage;
 import it.itba.edu.ar.web.users.LoginPage;
 import it.itba.edu.ar.web.users.StatsPage;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -80,6 +83,15 @@ public class BasePage extends WebPage {
 				setResponsePage(new StatsPage(session.getUser()));
 			}
 		});
+		
+		Link<Void> connectPageLink = new Link<Void>("connectPageLink") {
+			@Override
+			public void onClick() {
+				setResponsePage(new ConnectPage(session.getUser()));
+			}
+		};
+		connectPageLink.add(new Label("qtyNotif", new PropertyModel<Integer>(session.getUserModel(), "events.size()")));
+		loggedContainer.add(connectPageLink);
 		
 		Form<Void> searchForm = new Form<Void>("searchForm") {
 			@Override

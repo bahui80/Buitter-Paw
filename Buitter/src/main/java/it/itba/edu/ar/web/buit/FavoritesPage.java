@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -59,6 +60,7 @@ public class FavoritesPage extends BasePage {
 		});
 		
 		add(emptyFavoritesContainer);
+	
 	}
 	
 	private User getUser() {

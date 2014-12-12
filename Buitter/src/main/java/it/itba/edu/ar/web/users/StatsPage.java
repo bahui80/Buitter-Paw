@@ -3,48 +3,111 @@ package it.itba.edu.ar.web.users;
 import it.itba.edu.ar.domain.EntityModel;
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.user.User;
+import it.itba.edu.ar.web.BuitDateRangeFilter;
 import it.itba.edu.ar.web.base.BasePage;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.apache.wicket.datetime.StyleDateConverter;
+import org.apache.wicket.datetime.DateConverter;
 import org.apache.wicket.datetime.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RadioChoice;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
+
+import com.googlecode.wickedcharts.highcharts.options.Axis;
+import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
+import com.googlecode.wickedcharts.highcharts.options.Options;
+import com.googlecode.wickedcharts.highcharts.options.SeriesType;
+import com.googlecode.wickedcharts.highcharts.options.Title;
+import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
+import com.googlecode.wickedcharts.wicket15.highcharts.Chart;
 
 public class StatsPage extends BasePage {
 	private Date fromDate;
 	private Date toDate;
-	private String selected = "Hour";
+	private String groupBy = "Hour";
 	private static final List<String> CHOICES = Arrays.asList(new String[] { "Hour", "Day", "Month" });
+	private IModel<Set<Buit>> modelBuits;
+	private IModel<User> modelUser;
+	private Options options = new Options();
+	private Chart chart = new Chart("chart", options);
 	
 	public StatsPage(User user) {
-		
-		EntityModel<User> modelUser = new EntityModel<User>(User.class, user);
-
-		
-		
 		Form<Void> form = new Form<Void>("form") {
 			@Override
 			protected void onSubmit() {
+				Map<String, Integer> data = groupedData(modelBuits.getObject(), groupBy);
+				options.setChartOptions(new ChartOptions().setType(SeriesType.COLUMN));
+				options.setTitle(new Title("Statistics"));
+				options.setxAxis(new Axis().setCategories(new ArrayList<String>(data.keySet())));
+				options.setyAxis(new Axis().setTitle(new Title("Amount of buits")));
+				options.addSeries(new SimpleSeries().setData(new ArrayList<Number>(data.values())));
+				chart.setOptions(options);
 				super.onSubmit();
 			}
 		};
-		RadioChoice<String> radioChoice = new RadioChoice<String>("radioChoice", new PropertyModel<String>(this, "selected"), CHOICES);
+		RadioChoice<String> radioChoice = new RadioChoice<String>("radioChoice", new PropertyModel<String>(this, "groupBy"), CHOICES);
+		DateConverter dc = new DateConverter(false) {
+			@Override
+			protected DateTimeFormatter getFormat(Locale arg0) {
+				DateTimeFormatter fm =  new DateTimeFormatterBuilder().
+						appendYear(4, 4).
+						appendLiteral('-').
+						appendMonthOfYear(2).
+						appendLiteral('-').
+						appendDayOfMonth(2).toFormatter();
+				return fm;
+			}
+			
+			@Override
+			public String getDatePattern(Locale arg0) {
+				return "YYYY-MM-DD";
+			}
+		};
+		DateTextField fromDateTxtField = new DateTextField("fromDate", new PropertyModel<Date>(this, "fromDate"), dc) {
+			@Override
+			protected String getInputType() {
+				return "date";
+			}
+		};
+		
+		DateTextField toDateTxtField = new DateTextField("toDate", new PropertyModel<Date>(this, "toDate"), dc) {
+			@Override
+			protected String getInputType() {
+				return "date";
+			}
+		};
+		form.add(fromDateTxtField);
+		form.add(toDateTxtField);
 		form.add(radioChoice);
 		add(form);
-		// @RequestParam(value = "fromdate", required = false) String fromdate,
-		// @RequestParam(value = "todate", required = false) String todate,
-		// @RequestParam(value = "groupby", required = false) String groupby,
-		// HttpSession session) {
-		// ModelAndView mav = new ModelAndView();
+
+		modelUser = new EntityModel<User>(User.class, user);
+		modelBuits = new LoadableDetachableModel<Set<Buit>>() {
+			@Override
+			protected Set<Buit> load() {
+				modelBuits.detach();
+				modelUser.detach();
+				return modelUser.getObject().filterMyBuits(new BuitDateRangeFilter(fromDate, toDate));
+			}
+		};
+		add(chart);
+//		Set<String> labels = data.keySet();
+//		Collection<Integer> values = data.values();
+				
+
 		//
 		// User user = userRepo.get((String) session.getAttribute("user"));
 		//
@@ -80,14 +143,21 @@ public class StatsPage extends BasePage {
 		//
 		// return mav;
 	}
-
+	
+	@Override
+	protected void onConfigure() {
+		chart.setVisible(fromDate != null && toDate != null);
+		replace(chart);
+		super.onConfigure();
+	}
+	
 	private Map<String, Integer> groupedData(Set<Buit> buits, String groupby) {
 		Map<String, Integer> data = null;
-		if (groupby.equals("month")) {
+		if (groupby.equals("Month")) {
 			data = this.processMonthly(buits);
-		} else if (groupby.equals("day")) {
+		} else if (groupby.equals("Day")) {
 			data = this.processDayly(buits);
-		} else if (groupby.equals("hour")) {
+		} else if (groupby.equals("Hour")) {
 			data = this.processHourly(buits);
 		}
 		return data;
@@ -201,4 +271,5 @@ public class StatsPage extends BasePage {
 			data.put(s, 0);
 		}
 	}
+	
 }
