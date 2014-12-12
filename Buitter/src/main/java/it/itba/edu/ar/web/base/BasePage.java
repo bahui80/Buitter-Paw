@@ -7,10 +7,9 @@ import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.search.SearchPage;
 import it.itba.edu.ar.web.users.ConnectPage;
 import it.itba.edu.ar.web.users.LoginPage;
+import it.itba.edu.ar.web.users.RegistrationPage;
 import it.itba.edu.ar.web.users.StatsPage;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -66,7 +65,7 @@ public class BasePage extends WebPage {
 		
 		notLoggedContainer.add(new Link<Void>("registrationPageLink") {
 			public void onClick() {
-//				setResponsePage(RegistrationPage.class);
+				setResponsePage(RegistrationPage.class);
 			}
 		});
 		
