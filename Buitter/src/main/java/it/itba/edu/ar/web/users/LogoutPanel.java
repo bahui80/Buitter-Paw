@@ -16,6 +16,7 @@ public class LogoutPanel extends Panel {
 			@Override
 			public void onClick() {
 				BuitterSession.get().invalidate();
+				setResponsePage(HomePage.class);
 			}
 		});
 	}
