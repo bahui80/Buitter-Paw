@@ -3,11 +3,13 @@ package it.itba.edu.ar.web.users;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
+import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.markup.html.panel.ComponentFeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.validation.validator.PatternValidator;
@@ -24,7 +26,7 @@ public class UserInfoPanel extends Panel {
 		passwordTextField.add(new PatternValidator("[a-zA-Z0-9]+"));
 		add(passwordTextField);
 		add(new ComponentFeedbackPanel("password_error", get("password")));
-		
+
 		PasswordTextField passwordTextField2 = new PasswordTextField("password2");
 		passwordTextField2.setRequired(true);
 		passwordTextField2.add(StringValidator.maximumLength(32));
@@ -33,6 +35,7 @@ public class UserInfoPanel extends Panel {
 		add(passwordTextField2);
 		add(new ComponentFeedbackPanel("password2_error", get("password2")));
 		
+		add(new EqualPasswordInputValidator(passwordTextField, passwordTextField2));
 		TextField<String> nameTextField = new TextField<String>("name");
 		nameTextField.setRequired(true);
 		nameTextField.add(StringValidator.maximumLength(32));

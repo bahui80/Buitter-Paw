@@ -6,6 +6,7 @@ import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitDateRangeFilter;
 import it.itba.edu.ar.web.base.BasePage;
 import it.itba.edu.ar.web.validator.DateRangeValidator;
+import it.itba.edu.ar.web.validator.TodayDateValidator;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -84,6 +85,7 @@ public class StatsPage extends BasePage {
 			}
 		};
 		fromDateTxtField.setRequired(true);
+		fromDateTxtField.add(new TodayDateValidator());
 		form.add(new ComponentFeedbackPanel("fromDate_error", fromDateTxtField));
 
 		DateTextField toDateTxtField = new DateTextField("toDate",
@@ -94,9 +96,10 @@ public class StatsPage extends BasePage {
 			}
 		};
 		toDateTxtField.setRequired(true);
-		toDateTxtField.add(new DateRangeValidator(new PropertyModel<Date>(this, "fromDate")));
+		toDateTxtField.add(new TodayDateValidator());
 		form.add(new ComponentFeedbackPanel("toDate_error", toDateTxtField));
 
+		form.add(new DateRangeValidator(fromDateTxtField, toDateTxtField));
 		form.add(fromDateTxtField);
 		form.add(toDateTxtField);
 		form.add(radioChoice);

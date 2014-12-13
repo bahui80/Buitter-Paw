@@ -147,6 +147,7 @@ public class Buit extends PersistentEntity {
 		if(user == null || favoritter.contains(user))
 			throw new IllegalArgumentException();
 		favoritter.add(user);
+		user.favorite(this);
 	}
 	
 	public void removeFavorite(User user){
@@ -154,6 +155,7 @@ public class Buit extends PersistentEntity {
 			throw new IllegalArgumentException();
 		}
 		favoritter.remove(user);
+		user.unfavorite(this);
 	}
 	
 	@Override

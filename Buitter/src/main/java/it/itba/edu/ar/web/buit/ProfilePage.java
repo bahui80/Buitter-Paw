@@ -55,7 +55,7 @@ public class ProfilePage extends BasePage {
 //		}
 		setDefaultModel(modelUser);
 		add(new HeaderPanel("headerPanel", modelUser));
-		
+
 		Form<ProfilePage> buitForm = new Form<ProfilePage>("buitForm", new CompoundPropertyModel<ProfilePage>(this)) {
 			@Override
 			protected void onSubmit() {
@@ -113,14 +113,16 @@ public class ProfilePage extends BasePage {
 						modelBuit.detach();
 					}
 				};
-				Link<Void> favoriteButton = new Link<Void>("favoriteButton") {
+				Link<Buit> favoriteButton = new Link<Buit>("favoriteButton", item.getModel()) {
 					public void onClick() {
-						item.getModelObject().addFavorite(BuitterSession.get().getUser());
+						getModelObject().addFavorite(BuitterSession.get().getUser());
+						modelBuit.detach();
 					}
 				};
-				Link<Void> unfavoriteButton = new Link<Void>("unfavoriteButton") {
+				Link<Buit> unfavoriteButton = new Link<Buit>("unfavoriteButton", item.getModel()) {
 					public void onClick() {
-						item.getModelObject().removeFavorite(BuitterSession.get().getUser());
+						getModelObject().removeFavorite(BuitterSession.get().getUser());
+						modelBuit.detach();
 					}
 				};
 				Link<Void> rebuitButton = new Link<Void>("rebuitButton") {
