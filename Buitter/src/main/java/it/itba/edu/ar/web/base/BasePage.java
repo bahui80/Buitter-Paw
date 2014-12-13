@@ -6,6 +6,7 @@ import it.itba.edu.ar.web.buit.FavoritesPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.search.SearchPage;
 import it.itba.edu.ar.web.users.ConnectPage;
+import it.itba.edu.ar.web.users.EditProfilePage;
 import it.itba.edu.ar.web.users.LoginPage;
 import it.itba.edu.ar.web.users.RegistrationPage;
 import it.itba.edu.ar.web.users.StatsPage;
@@ -81,6 +82,13 @@ public class BasePage extends WebPage {
 			@Override
 			public void onClick() {
 				setResponsePage(new StatsPage(session.getUser()));
+			}
+		});
+		
+		loggedContainer.add(new Link<Void>("editProfileLink") {
+			@Override
+			public void onClick() {
+				setResponsePage(new EditProfilePage(session.getUser()));
 			}
 		});
 		

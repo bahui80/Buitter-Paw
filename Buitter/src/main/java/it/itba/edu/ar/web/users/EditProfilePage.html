@@ -1,0 +1,26 @@
+<html>
+	<body>
+		<wicket:extend>
+			<div class="container">
+				<div class="row row-offcanvas row-offcanvas-right">
+					<div class="col-md-8 col-md-offset-2">
+    					<div class="well">
+              				<form class="bs-example form-horizontal" method="POST" enctype="multipart/form-data" wicket:id="form">
+                				<fieldset>
+                  					<legend>Your personal details</legend>
+                  					<span wicket:id="fieldsPanel"/>
+ 									<div class="form-group">
+                    					<div class="col-md-5 col-md-offset-4">
+                      						<button type="button" class="btn btn-default" wicket:id="cancel">Cancel</button>
+                      						<button type="submit" class="btn btn-primary" wicket:id="save">Confirm</button> 
+                    					</div> <!-- .col-md-5 .col-md-offset-4 -->
+                  					</div> <!-- .form-group -->
+                				</fieldset>
+              				</form> <!-- .bs-example .form-horizontal -->
+            			</div> <!-- .well -->
+         			</div> <!-- .col-md-8 .col-md-offset-2 -->
+        		</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
+        	</div> <!-- .container -->
+		</wicket:extend>
+	</body>
+</html>
