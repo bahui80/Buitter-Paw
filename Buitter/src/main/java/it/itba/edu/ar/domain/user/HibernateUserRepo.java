@@ -83,9 +83,9 @@ public class HibernateUserRepo extends HibernateGenericRepo implements UserRepo 
 	
 	@Override
 	public void add(User user) {
-//		if (existsCode(user.getCode())) {
-//			throw new IllegalArgumentException();
-//		}
+		if (exists(user)) {
+			throw new DuplicatedUserException(user);
+		}
 		getSession().save(user);
 	}
 	
@@ -104,6 +104,12 @@ public class HibernateUserRepo extends HibernateGenericRepo implements UserRepo 
 		query.setParameter(0, username);
 		List<User> user = query.list();
 		return user.isEmpty() ? null : user.get(0);
+	}
+	
+	private boolean exists(User user) {
+		Query query = getSession().createQuery("SELECT s FROM User s WHERE s.username = ?");
+		query.setParameter(0, user.getUsername());
+		return !query.list().isEmpty();
 	}
 	
 	@SuppressWarnings("unchecked")
