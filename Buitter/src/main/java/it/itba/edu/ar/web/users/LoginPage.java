@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.ResourceModel;
@@ -49,6 +50,12 @@ public class LoginPage extends BasePage {
 		form.add(new PasswordTextField("password"));
 		form.add(new Button("signInButton", new ResourceModel("signInButton")));
 		form.add(new FeedbackPanel("feedback"));
+		form.add(new Link<Void>("forgotPasswordLink") {
+			@Override
+			public void onClick() {
+				setResponsePage(ForgotPasswordPage.class);
+			}
+		});
 		add(panel);
 		add(form);
 	}
