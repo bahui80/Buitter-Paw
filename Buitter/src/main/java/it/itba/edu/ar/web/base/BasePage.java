@@ -38,6 +38,7 @@ public class BasePage extends WebPage {
 		loggedContainer.add(new Link<Void>("logoutLink") {
 			public void onClick() {
 				session.invalidate();
+				setResponsePage(HomePage.class);
 			}
 		});
 		PageParameters pgParameters = new PageParameters();

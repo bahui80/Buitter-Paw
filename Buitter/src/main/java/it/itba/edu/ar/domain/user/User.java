@@ -202,6 +202,7 @@ public class User extends PersistentEntity {
 			throw new IllegalArgumentException();
 		}
 		followers.add(user);
+		user.getFollowing().add(this);
 	}
 	
 	public void unfollow(User user) {
@@ -209,6 +210,7 @@ public class User extends PersistentEntity {
 			throw new IllegalArgumentException();
 		}
 		followers.remove(user);
+		user.getFollowing().remove(this);
 	}
 	
 	public void favorite(Buit buit) {

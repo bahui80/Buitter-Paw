@@ -88,4 +88,10 @@ public class HeaderPanel extends Panel {
 		add(unfollowContainer);
 		add(editProfileContainer);
 	}
+	
+	@Override
+	protected void onConfigure() {
+		// TODO Auto-generated method stub
+		super.onConfigure();
+	}
 }
