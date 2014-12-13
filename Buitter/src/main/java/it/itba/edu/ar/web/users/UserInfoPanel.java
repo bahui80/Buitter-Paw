@@ -29,6 +29,7 @@ public class UserInfoPanel extends Panel {
 		passwordTextField2.setRequired(true);
 		passwordTextField2.add(StringValidator.maximumLength(32));
 		passwordTextField2.add(new PatternValidator("[a-zA-Z0-9]+"));
+//		passwordTextField2.add(new PasswordValidator(   ACA TENDRIA QUE IR LA VARIABLE PASSWORD!!!!   ));
 		add(passwordTextField2);
 		add(new ComponentFeedbackPanel("password2_error", get("password2")));
 		
@@ -68,5 +69,4 @@ public class UserInfoPanel extends Panel {
 		add(new ComponentFeedbackPanel("photo_error", get("photo")));
 
 	}
-
 }

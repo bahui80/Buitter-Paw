@@ -39,7 +39,8 @@ public class RegistrationPage extends BasePage {
 	private transient List<FileUpload> photo;
 	
 	public RegistrationPage() {
-		Form<RegistrationPage> form = new Form<RegistrationPage>("form", new CompoundPropertyModel<RegistrationPage>(this));
+		CompoundPropertyModel<RegistrationPage> model = new CompoundPropertyModel<RegistrationPage>(this);
+		Form<RegistrationPage> form = new Form<RegistrationPage>("form", model);
 		
 		final TextField<String> usernameTextField = new TextField<String>("username");
 		usernameTextField.setRequired(true);
