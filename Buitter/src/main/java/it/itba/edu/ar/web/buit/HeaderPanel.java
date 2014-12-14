@@ -5,6 +5,7 @@ import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.ErrorPage;
 import it.itba.edu.ar.web.ImageResourceReference;
+import it.itba.edu.ar.web.users.EditProfilePage;
 
 import java.util.Date;
 
@@ -28,6 +29,9 @@ public class HeaderPanel extends Panel {
 		final BuitterSession session = BuitterSession.get();
 		if(userModel.getObject() == null) {
 			redirectToInterceptPage(new ErrorPage(new ResourceModel("userError"), new ResourceModel("userErrorDescription")));
+		}
+		if(!BuitterSession.get().isSignedIn() && userModel.getObject().getPrivacy() == true) {
+			setResponsePage(new PrivateUserPage(userModel));
 		}
 		add(new Label("name", new PropertyModel<String>(userModel, "name")));
 		add(new Label("surname", new PropertyModel<String>(userModel, "surname")));
@@ -84,7 +88,7 @@ public class HeaderPanel extends Panel {
 		};
 		editProfileContainer.add(new Link<Void>("edit") {
 			public void onClick() {
-//				setResponsePage(RegistrationPage.class);
+				setResponsePage(new EditProfilePage(userModel));
 			}
 		});
 		

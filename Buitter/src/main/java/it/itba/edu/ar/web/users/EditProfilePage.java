@@ -63,7 +63,6 @@ public class EditProfilePage extends BasePage {
 				if(photo != null) {
 					modelUser.getObject().setPhoto(photo.get(0).getBytes());
 				}
-				System.out.println(privacy);
 				modelUser.detach();
 				setResponsePage(HomePage.class);
 			}
