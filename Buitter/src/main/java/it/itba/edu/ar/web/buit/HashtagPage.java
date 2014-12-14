@@ -10,6 +10,7 @@ import it.itba.edu.ar.domain.buit.Hashtag;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.DateFormatter;
+import it.itba.edu.ar.web.ErrorPage;
 import it.itba.edu.ar.web.ImageResourceReference;
 import it.itba.edu.ar.web.MessageModel;
 import it.itba.edu.ar.web.base.BasePage;
@@ -23,6 +24,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -37,6 +39,10 @@ public class HashtagPage extends BasePage {
 				return buitRepo.getHashtag(pgParameters.get("hashtag").toString());
 			}
 		};
+		
+		if(modelHashtag.getObject() == null) {
+			redirectToInterceptPage(new ErrorPage(new ResourceModel("hashtagError"), new ResourceModel("hashtagErrorDescription")));
+		}
 		
 		add(new Label("hashtag", new PropertyModel<String>(modelHashtag, "hashtag")));
 		add(new Label("username", new PropertyModel<String>(modelHashtag, "user.username")));

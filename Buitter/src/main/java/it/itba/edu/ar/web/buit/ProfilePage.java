@@ -49,13 +49,17 @@ public class ProfilePage extends BasePage {
 				return userRepo.get(pgParameters.get("username").toString());
 			}
 		};
-		
-//		if(getUser() == null) {
-//			// TODO: mostrar pagina de error (ese usuario no existe)
-//		}
+			
 		setDefaultModel(modelUser);
 		add(new HeaderPanel("headerPanel", modelUser));
 
+		WebMarkupContainer buitContainer = new WebMarkupContainer("buitContainer") {
+			public boolean isVisible() {
+				return BuitterSession.get().isSignedIn() && BuitterSession.get().getUser().equals(getUser());
+			}
+		};
+	
+		
 		Form<ProfilePage> buitForm = new Form<ProfilePage>("buitForm", new CompoundPropertyModel<ProfilePage>(this)) {
 			@Override
 			protected void onSubmit() {
@@ -67,8 +71,8 @@ public class ProfilePage extends BasePage {
 		buitForm.add(new TextArea<String>("buitText").setRequired(true).add(new MaximumLengthValidator(140)));
 		buitForm.add(new Button("buitButton", new ResourceModel("buitButton")));
 		buitForm.add(new FeedbackPanel("feedback"));
-//		buitForm.setVisible(BuitterSession.get().isSignedIn() && BuitterSession.get().getUser().getUsername().equals(pgParameters.get("username").toString()));
-
+		buitContainer.add(buitForm);
+		
 		WebMarkupContainer emptyBuitsContainer = new WebMarkupContainer("emptyBuitsContainer") {
 			public boolean isVisible() {
 				modelUser.detach();
@@ -141,12 +145,10 @@ public class ProfilePage extends BasePage {
 			}
 		});
 		
-//		user.addVisit();
-		add(buitForm);
+		getUser().addVisit();
+		add(buitContainer);
 		add(emptyBuitsContainer);
 		add(notEmptyBuitsContainer);
-		
-		// TODO: HACER LO DEL NEWBUITCONTAINER
 
 	}
 	

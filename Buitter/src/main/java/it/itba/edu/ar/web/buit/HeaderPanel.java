@@ -3,6 +3,7 @@ package it.itba.edu.ar.web.buit;
 import it.itba.edu.ar.domain.event.FollowedEvent;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitterSession;
+import it.itba.edu.ar.web.ErrorPage;
 import it.itba.edu.ar.web.ImageResourceReference;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 
@@ -24,7 +26,9 @@ public class HeaderPanel extends Panel {
 		super(id, userModel);
 
 		final BuitterSession session = BuitterSession.get();
-		
+		if(userModel.getObject() == null) {
+			redirectToInterceptPage(new ErrorPage(new ResourceModel("userError"), new ResourceModel("userErrorDescription")));
+		}
 		add(new Label("name", new PropertyModel<String>(userModel, "name")));
 		add(new Label("surname", new PropertyModel<String>(userModel, "surname")));
 		add(new Label("username", new PropertyModel<String>(userModel, "username")));
@@ -88,10 +92,5 @@ public class HeaderPanel extends Panel {
 		add(unfollowContainer);
 		add(editProfileContainer);
 	}
-	
-	@Override
-	protected void onConfigure() {
-		// TODO Auto-generated method stub
-		super.onConfigure();
-	}
+
 }

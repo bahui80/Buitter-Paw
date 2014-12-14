@@ -7,10 +7,10 @@
 						<div class="col-md-8 col-md-offset-2">
 							<div wicket:id="headerPanel"/>
 							<div class="well well-lg">
-								<div class="input-group buit-compose-form">
+								<div class="input-group buit-compose-form" wicket:id="buitContainer">
 									<form wicket:id="buitForm">
 										<fieldset>
-											<textarea id="buit-field" class="form-control" rows="3" name="buit" placeholder="Compose new Buit..." maxlength="140" wicket:id="buitText"></textarea>
+											<textarea id="buit-field" class="form-control" rows="3" name="buit" placeholder="Compose new Buit..." maxlength="140" style="resize:vertical;" wicket:id="buitText"></textarea>
 											Remaining: <span id='remainingC'>140</span>
 		                    				<div class="text-danger" style="margin-bottom: 0px" wicket:id="feedback"><small><em>Your buit is empty</em></small></div>
 											<button type="submit" class="btn btn-primary pull-right buit-compose-button" wicket:id="buitButton">Buit</button>
