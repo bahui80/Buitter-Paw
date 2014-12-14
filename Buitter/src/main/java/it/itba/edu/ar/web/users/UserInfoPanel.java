@@ -1,5 +1,7 @@
 package it.itba.edu.ar.web.users;
 
+import it.itba.edu.ar.web.validator.FileExtensionValidator;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,10 +18,13 @@ import org.apache.wicket.validation.validator.StringValidator;
 
 public class UserInfoPanel extends Panel {
 	
+	private EqualPasswordInputValidator equalPasswordValidator;
+	
 	public UserInfoPanel(String id) {
 		super(id);
 		
 		PasswordTextField passwordTextField = new PasswordTextField("password");
+		passwordTextField.setResetPassword(false);
 		passwordTextField.setRequired(true);
 		passwordTextField.add(StringValidator.maximumLength(32));
 		passwordTextField.add(new PatternValidator("[a-zA-Z0-9]+"));
@@ -28,9 +33,10 @@ public class UserInfoPanel extends Panel {
 
 		PasswordTextField passwordTextField2 = new PasswordTextField("password2");
 		passwordTextField2.setRequired(true);
+		passwordTextField2.setResetPassword(false);
 		passwordTextField2.add(StringValidator.maximumLength(32));
 		passwordTextField2.add(new PatternValidator("[a-zA-Z0-9]+"));
-//		passwordTextField2.add(new PasswordValidator(   ACA TENDRIA QUE IR LA VARIABLE PASSWORD!!!!   ));
+		equalPasswordValidator = new EqualPasswordInputValidator(passwordTextField, passwordTextField2);
 		add(passwordTextField2);
 		add(new ComponentFeedbackPanel("password2_error", get("password2")));
 		
@@ -67,8 +73,12 @@ public class UserInfoPanel extends Panel {
 		
 		add(new DropDownChoice<String>("privacy", Arrays.asList(new String[] {"Public", "Private"})));
 		
-		add(new FileUploadField("photo"));
+		add(new FileUploadField("photo").add(new FileExtensionValidator()));
 		add(new ComponentFeedbackPanel("photo_error", get("photo")));
 
+	}
+	
+	public EqualPasswordInputValidator getEqualPasswordValidator() {
+		return equalPasswordValidator;
 	}
 }

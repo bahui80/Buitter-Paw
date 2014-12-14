@@ -1,6 +1,5 @@
 package it.itba.edu.ar.web.users;
 
-import it.itba.edu.ar.domain.EntityModel;
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitDateRangeFilter;
@@ -56,9 +55,9 @@ public class StatsPage extends BasePage {
 	private Options options = new Options();
 	private Chart chart = new Chart("chart", options);
 
-	public StatsPage(User user) {
+	public StatsPage(IModel<User> userModel) {
 
-		modelUser = new EntityModel<User>(User.class, user);
+		this.modelUser = userModel;
 
 		Form<Void> form = new Form<Void>("form");
 		RadioChoice<String> radioChoice = new RadioChoice<String>("radioChoice", new PropertyModel<String>(this, "groupBy"), CHOICES);

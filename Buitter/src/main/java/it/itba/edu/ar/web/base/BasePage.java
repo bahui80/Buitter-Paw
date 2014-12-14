@@ -43,7 +43,7 @@ public class BasePage extends WebPage {
 			}
 		});
 		PageParameters pgParameters = new PageParameters();
-		if(session.getUser() != null) {
+		if(session.isSignedIn()) {
 			pgParameters.add("username", session.getUser().getUsername());
 		}
 		BookmarkablePageLink<Void> profilePageLink = new BookmarkablePageLink<Void>("profilePageLink", ProfilePage.class, pgParameters);
@@ -74,28 +74,28 @@ public class BasePage extends WebPage {
 		loggedContainer.add(new Link<Void>("favoritesPageLink") {
 			@Override
 			public void onClick() {
-				setResponsePage(new FavoritesPage(session.getUser()));
+				setResponsePage(new FavoritesPage(session.getUserModel()));
 			}
 		});
 		
 		loggedContainer.add(new Link<Void>("statsLink") {
 			@Override
 			public void onClick() {
-				setResponsePage(new StatsPage(session.getUser()));
+				setResponsePage(new StatsPage(session.getUserModel()));
 			}
 		});
 		
 		loggedContainer.add(new Link<Void>("editProfileLink") {
 			@Override
 			public void onClick() {
-				setResponsePage(new EditProfilePage(session.getUser()));
+				setResponsePage(new EditProfilePage(session.getUserModel()));
 			}
 		});
 		
 		Link<Void> connectPageLink = new Link<Void>("connectPageLink") {
 			@Override
 			public void onClick() {
-				setResponsePage(new ConnectPage(session.getUser()));
+				setResponsePage(new ConnectPage(session.getUserModel()));
 			}
 		};
 		connectPageLink.add(new Label("qtyNotif", new PropertyModel<Integer>(session.getUserModel(), "events.size()")));

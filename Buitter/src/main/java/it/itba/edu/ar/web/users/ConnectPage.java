@@ -1,6 +1,5 @@
 package it.itba.edu.ar.web.users;
 
-import it.itba.edu.ar.domain.EntityModel;
 import it.itba.edu.ar.domain.event.Event;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.DateFormatter;
@@ -23,8 +22,8 @@ import org.apache.wicket.model.PropertyModel;
 public class ConnectPage extends BasePage {
 	private IModel<User> modelUser;
 
-	public ConnectPage(User user) {
-		modelUser = new EntityModel<User>(User.class, user);
+	public ConnectPage(IModel<User> modelUser) {
+		this.modelUser = modelUser;
 		setDefaultModel(modelUser);
 		
 		WebMarkupContainer emptyEventsContainer = new WebMarkupContainer("emptyEventsContainer") {

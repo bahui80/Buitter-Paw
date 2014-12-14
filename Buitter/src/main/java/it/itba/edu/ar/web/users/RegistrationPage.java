@@ -14,7 +14,9 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.ComponentFeedbackPanel;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -29,6 +31,7 @@ public class RegistrationPage extends BasePage {
 	
 	private transient String username;
 	private transient String password;
+	@SuppressWarnings("unused")
 	private transient String password2;
 	private transient String name;
 	private transient String surname;
@@ -48,13 +51,13 @@ public class RegistrationPage extends BasePage {
 		usernameTextField.add(new PatternValidator("[a-zA-Z0-9]+"));
 		form.add(usernameTextField);
 		form.add(new ComponentFeedbackPanel("username_error", usernameTextField));
-		form.add(new UserInfoPanel("fieldsPanel"));
-		form.add(new Button("cancel") {
-			@Override
-			public void onSubmit() {
-				setResponsePage(HomePage.class);
-			}
-		});
+		
+		Panel panel = new UserInfoPanel("fieldsPanel");		
+		form.add(panel);
+		form.add(((UserInfoPanel) panel).getEqualPasswordValidator());
+		
+		form.add(new BookmarkablePageLink<Void>("cancel", HomePage.class));
+
 		form.add(new Button("save") {
 			@Override
 			public void onSubmit() {

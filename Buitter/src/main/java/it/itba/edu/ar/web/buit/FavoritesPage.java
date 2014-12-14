@@ -1,5 +1,12 @@
 package it.itba.edu.ar.web.buit;
 
+import it.itba.edu.ar.domain.buit.Buit;
+import it.itba.edu.ar.domain.user.User;
+import it.itba.edu.ar.web.DateFormatter;
+import it.itba.edu.ar.web.ImageResourceReference;
+import it.itba.edu.ar.web.MessageModel;
+import it.itba.edu.ar.web.base.BasePage;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +14,6 @@ import java.util.List;
 import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -15,24 +21,12 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 
-import it.itba.edu.ar.domain.EntityModel;
-import it.itba.edu.ar.domain.buit.Buit;
-import it.itba.edu.ar.domain.user.User;
-import it.itba.edu.ar.web.DateFormatter;
-import it.itba.edu.ar.web.HomePage;
-import it.itba.edu.ar.web.ImageResourceReference;
-import it.itba.edu.ar.web.MessageModel;
-import it.itba.edu.ar.web.base.BasePage;
-
 public class FavoritesPage extends BasePage {
 	private IModel<User> modelUser;
 	
 	
-	public FavoritesPage(User user) {
-		if(user == null) {
-			setResponsePage(HomePage.class);
-		}
-		modelUser = new EntityModel<User>(User.class, user);
+	public FavoritesPage(IModel<User> modelUser) {
+		this.modelUser = modelUser;
 		setDefaultModel(modelUser);
 		
 		WebMarkupContainer emptyFavoritesContainer = new WebMarkupContainer("emptyFavoritesContainer") {
