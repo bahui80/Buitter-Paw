@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.markup.html.panel.ComponentFeedbackPanel;
@@ -25,15 +25,15 @@ public class UserInfoPanel extends Panel {
 		
 		PasswordTextField passwordTextField = new PasswordTextField("password");
 		passwordTextField.setResetPassword(false);
-		passwordTextField.setRequired(true);
+//		passwordTextField.setRequired(true);
 		passwordTextField.add(StringValidator.maximumLength(32));
 		passwordTextField.add(new PatternValidator("[a-zA-Z0-9]+"));
 		add(passwordTextField);
 		add(new ComponentFeedbackPanel("password_error", get("password")));
 
 		PasswordTextField passwordTextField2 = new PasswordTextField("password2");
-		passwordTextField2.setRequired(true);
 		passwordTextField2.setResetPassword(false);
+//		passwordTextField2.setRequired(true);
 		passwordTextField2.add(StringValidator.maximumLength(32));
 		passwordTextField2.add(new PatternValidator("[a-zA-Z0-9]+"));
 		equalPasswordValidator = new EqualPasswordInputValidator(passwordTextField, passwordTextField2);
@@ -41,15 +41,13 @@ public class UserInfoPanel extends Panel {
 		add(new ComponentFeedbackPanel("password2_error", get("password2")));
 		
 		add(new EqualPasswordInputValidator(passwordTextField, passwordTextField2));
-		TextField<String> nameTextField = new TextField<String>("name");
-		nameTextField.setRequired(true);
+		RequiredTextField<String> nameTextField = new RequiredTextField<String>("name");
 		nameTextField.add(StringValidator.maximumLength(32));
 		nameTextField.add(new PatternValidator("^[\\p{L} ]+$"));
 		add(nameTextField);
 		add(new ComponentFeedbackPanel("name_error", get("name")));		
 		
-		TextField<String> surnameTextField = new TextField<String>("surname");
-		surnameTextField.setRequired(true);
+		RequiredTextField<String> surnameTextField = new RequiredTextField<String>("surname");
 		surnameTextField.add(StringValidator.maximumLength(32));
 		surnameTextField.add(new PatternValidator("^[\\p{L} ]+$"));
 		add(surnameTextField);
@@ -65,8 +63,7 @@ public class UserInfoPanel extends Panel {
 		List<String> questions = Arrays.asList(new String[] {"What is the name of your dog?", "Who was your favourite teacher?", "Where do you live?", "Do you hate Twitter?", "What is your aunts name?"});
 		add(new DropDownChoice<String>("secretQuestion", questions));
 		
-		TextField<String> secretAnswerTextField = new TextField<String>("secretAnswer");
-		secretAnswerTextField.setRequired(true);
+		RequiredTextField<String> secretAnswerTextField = new RequiredTextField<String>("secretAnswer");
 		secretAnswerTextField.add(StringValidator.maximumLength(60));
 		add(secretAnswerTextField);
 		add(new ComponentFeedbackPanel("secretAnswer_error", get("secretAnswer")));

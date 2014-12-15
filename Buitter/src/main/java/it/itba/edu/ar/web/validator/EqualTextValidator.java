@@ -6,18 +6,18 @@ import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 
-public class SecretAnswerValidator implements IValidator<String> {
-	private IModel<String> modelAnswer;
+public class EqualTextValidator implements IValidator<String> {
+	private IModel<String> model;
 	
-	public SecretAnswerValidator(IModel<String> modelAnswer) {
-		this.modelAnswer = modelAnswer;
+	public EqualTextValidator(IModel<String> model) {
+		this.model = model;
 	}
 	
 	@Override
 	public void validate(IValidatable<String> validatable) {
 		String value = validatable.getValue();
 		if(value != null) {
-			if(!value.equals(modelAnswer.getObject())) {
+			if(!value.equals(model.getObject())) {
 				ValidationError error = new ValidationError();
 				error.addMessageKey(resourceKey());
 				validatable.error(error);
@@ -26,7 +26,7 @@ public class SecretAnswerValidator implements IValidator<String> {
 	}
 	
 	protected String resourceKey()	{
-		return Classes.simpleName(SecretAnswerValidator.class);
+		return Classes.simpleName(EqualTextValidator.class);
 	}
 
 }

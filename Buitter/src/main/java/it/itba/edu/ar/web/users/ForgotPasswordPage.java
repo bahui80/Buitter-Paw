@@ -4,7 +4,7 @@ package it.itba.edu.ar.web.users;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
 import it.itba.edu.ar.web.base.BasePage;
-import it.itba.edu.ar.web.validator.SecretAnswerValidator;
+import it.itba.edu.ar.web.validator.EqualTextValidator;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -25,7 +25,9 @@ public class ForgotPasswordPage extends BasePage {
 	
 	private String username;
 	private transient String password;
+	@SuppressWarnings("unused")
 	private transient String password2;
+	@SuppressWarnings("unused")
 	private transient String secretAnswer;
 	private Form<ForgotPasswordPage> firstForm;
 	private Form<ForgotPasswordPage> secondForm;
@@ -55,7 +57,7 @@ public class ForgotPasswordPage extends BasePage {
 				} else {
 					secondForm.add(new Label("usernameLabel", username));
 					secondForm.add(new Label("question", new PropertyModel<String>(modelUser, "secretQuestion")));
-					secretAnswerTxtField.add(new SecretAnswerValidator(new PropertyModel<String>(modelUser, "secretAnswer")));
+					secretAnswerTxtField.add(new EqualTextValidator(new PropertyModel<String>(modelUser, "secretAnswer")));
 				}
 			}
 		});

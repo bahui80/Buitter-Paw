@@ -79,7 +79,7 @@ public class ProfilePage extends BasePage {
 				modelUser.detach();
 				return !getUser().getMybuits().isEmpty();
 			}
-		};	
+		};
 		
 		final IModel<List<Buit>> modelBuit = new LoadableDetachableModel<List<Buit>>() {
 			
