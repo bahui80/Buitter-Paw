@@ -1,0 +1,19 @@
+<html>
+	<body>
+		<wicket:panel>
+			<div class="media buit" wicket:id="users">
+				<img class="pull-left media-object buit-profile-pic" wicket:id="image"/>
+				<div class="media-body">
+					<div>
+						<span class="text-bold">
+							<a href="#" wicket:id="profilePageLink"><span wicket:id="name">Juan </span> <span wicket:id="surname">Buireo</span></a>
+						</span> <!-- .text-bold -->
+						@<span wicket:id="username"/>
+					</div> <!-- .media-heading -->
+					<div class="text-muted" style="word-wrap:break-word;">"<span wicket:id="description"/>"</div>
+						<div class="pull-left">Date registered: <span wicket:id="date"/></div>
+				</div> <!-- .media-body -->
+			</div> <!-- .media-buit -->
+		</wicket:panel>
+	</body>
+</html>

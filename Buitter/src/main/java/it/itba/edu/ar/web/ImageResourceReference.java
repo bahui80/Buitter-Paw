@@ -20,12 +20,14 @@ public class ImageResourceReference extends ResourceReference {
 	@Override
 	public IResource getResource() {
 		if(model.getObject().getPhoto() == null) {
+			model.detach();
 			return BuitterApp.NO_IMAGE.getResource();
 		}
 		return new DynamicImageResource() {
 
 			@Override
 			protected byte[] getImageData(Attributes attributes) {
+				model.detach();
 				return model.getObject().getPhoto();
 			}
 			

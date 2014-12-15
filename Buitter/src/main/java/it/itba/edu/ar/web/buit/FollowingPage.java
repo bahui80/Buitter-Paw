@@ -2,7 +2,7 @@ package it.itba.edu.ar.web.buit;
 
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
-import it.itba.edu.ar.web.ImageResourceReference;
+import it.itba.edu.ar.web.ListUsersPanel;
 import it.itba.edu.ar.web.base.BasePage;
 
 import java.util.ArrayList;
@@ -10,10 +10,6 @@ import java.util.List;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
@@ -54,21 +50,7 @@ public class FollowingPage extends BasePage {
 			}
 		};
 		
-		notEmptyFollowingContainer.add(new ListView<User>("following", modelFollowing) {
-			@Override
-			protected void populateItem(final ListItem<User> item) {
-				item.add(new Image("followingUserImage", new ImageResourceReference(item.getModel())));
-				PageParameters pgParameters = new PageParameters();
-				pgParameters.add("username", item.getModelObject().getUsername());
-				BookmarkablePageLink<Void> profilePageLink = new BookmarkablePageLink<Void>("profilePageLink", ProfilePage.class, pgParameters);
-				profilePageLink.add(new Label("followingUserName", new PropertyModel<String>(item.getModel(), "name")));
-				profilePageLink.add(new Label("followingUserSurname", new PropertyModel<String>(item.getModel(), "surname")));
-				item.add(profilePageLink);
-				item.add(new Label("followingUsername", new PropertyModel<String>(item.getModel(), "username")));
-				item.add(new Label("followingDescription", new PropertyModel<String>(item.getModel(), "description")));
-			}
-			
-		});
+		notEmptyFollowingContainer.add(new ListUsersPanel("listUsersPanel", modelFollowing));
 		
 		emptyFollowingsContainer.add(new Label("emptyFollowing", new PropertyModel<String>(modelUser, "username")));
 		

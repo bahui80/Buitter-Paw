@@ -2,25 +2,15 @@ package it.itba.edu.ar.web.search;
 
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
-import it.itba.edu.ar.web.DateFormatter;
-import it.itba.edu.ar.web.ImageResourceReference;
+import it.itba.edu.ar.web.ListUsersPanel;
 import it.itba.edu.ar.web.base.BasePage;
-import it.itba.edu.ar.web.buit.ProfilePage;
 
-import java.util.Date;
 import java.util.List;
 
-import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class SearchPage extends BasePage {
@@ -56,20 +46,7 @@ public class SearchPage extends BasePage {
 				return !getUsers().isEmpty();
 			}
 		};
-		notEmptyUsersContainer.add(new ListView<User>("users", usersModel) {
-			@Override
-			protected void populateItem(ListItem<User> item) {
-				item.add(new Image("userImage", new ImageResourceReference(item.getModel())));
-				PageParameters pgParameters = new PageParameters();
-				pgParameters.add("username", item.getModelObject().getUsername());
-				BookmarkablePageLink<Void> profilePageLink = new BookmarkablePageLink<Void>("profilePageLink", ProfilePage.class, pgParameters);
-				profilePageLink.add(new Label("userUserName", new PropertyModel<String>(item.getModel(), "name")));
-				profilePageLink.add(new Label("userUserSurname", new PropertyModel<String>(item.getModel(), "surname")));
-				item.add(profilePageLink);
-				item.add(new Label("userUsername", new PropertyModel<String>(item.getModel(), "username")));
-				item.add(new DateLabel("registeredDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
-			}
-		});
+		notEmptyUsersContainer.add(new ListUsersPanel("listUsersPanel", usersModel));
 		add(notEmptyUsersContainer);
 		
 	}

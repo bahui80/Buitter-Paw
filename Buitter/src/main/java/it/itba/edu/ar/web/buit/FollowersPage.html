@@ -2,42 +2,20 @@
 	<body>
 		<wicket:extend>
 			<div class="container">
-				<c:if test="${not empty user || user_info.privacy=='false'}">
-					<div class="row row-offcanvas row-offcanvas-right">
-						<div class="col-md-8 col-md-offset-2">
-							<div wicket:id="headerPanel"/>
-							<div class="well well-lg">
-								<div class="alert-box" wicket:id="emptyFollowersContainer">
-									<img src="img/logo.png" class="logo-alt" /> <br />Nobody is following @<span wicket:id="emptyFollower"/> yet.
-								</div> <!-- .alert-box -->
-								<span wicket:id="notEmptyFollowersContainer">
-									<h3 class="text-bold" style="margin-left:40px">Followers</h3>
-									<div class="media buit" wicket:id="followers">
-										<img class="pull-left media-object buit-profile-pic" wicket:id="followerUserImage"/>
-										<div class="media-body">
-											<div class="media-heading">
-												<span class="text-bold">
-													<a href="#" wicket:id="profilePageLink"><span wicket:id="followerUserName">Juan </span> <span wicket:id="followerUserSurname">Buireo</span></a>
-												</span> <!-- .text-bold -->
-												@<span wicket:id="followerUsername"/>
-											</div> <!-- .media-heading -->
-											<p class="text-muted" style="word-wrap:break-word;" wicket:id="followerDescription">Lorem ipsum dellae tea</p>
-										</div> <!-- .media-body -->
-									</div> <!-- .media-buit -->
-								</span>
-							</div> <!-- .well .well-lg -->
-						</div> <!-- .col-md-8 .col-md-offset-2 -->
-					</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
-				</c:if>
-				<c:if test="${empty user && user_info.privacy=='true'}">
-					<div class="bs-example">
-        				<div class="jumbotron">
-        					<img style="display: block; margin-left: auto;  margin-right: auto;" src="../../../img/stop_vulture.png">
-          					<h2 style="text-align:center">Sorry, user @<c:out value="${user_info.username}"/> is private</h2>
-          					<p style="text-align:center">You must be logged in to see this profile.</p>
-       					</div> <!-- .jumbotron -->
-   					</div> <!-- .bs-example -->
-				</c:if>
+				<div class="row row-offcanvas row-offcanvas-right">
+					<div class="col-md-8 col-md-offset-2">
+						<div wicket:id="headerPanel"/>
+						<div class="well well-lg">
+							<div class="alert-box" wicket:id="emptyFollowersContainer">
+								<img src="img/logo.png" class="logo-alt" /> <br />Nobody is following @<span wicket:id="emptyFollower"/> yet.
+							</div> <!-- .alert-box -->
+							<span wicket:id="notEmptyFollowersContainer">
+								<h3 class="text-bold" style="margin-left:40px">Followers</h3>
+								<span wicket:id="listUsersPanel"/>
+							</span>
+						</div> <!-- .well .well-lg -->
+					</div> <!-- .col-md-8 .col-md-offset-2 -->
+				</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
 			</div> <!-- .container -->
 		</wicket:extend>
 	</body>
