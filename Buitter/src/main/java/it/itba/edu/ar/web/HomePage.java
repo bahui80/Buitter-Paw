@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -100,25 +99,9 @@ public class HomePage extends BasePage {
 			}
 		};
 		
-		notEmptyUserContainer.add(new ListView<Buit>("myBuits", modelMyBuits) {
-			@Override
-			protected void populateItem(ListItem<Buit> item) {
-				item.add(new Image("myBuitUserImage",new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
-				item.add(new Label("myBuitUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
-				item.add(new DateLabel("myBuitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
-				item.add(new Label("myBuitMessage", new MessageModel(item.getModel())).setEscapeModelStrings(false));
-			}
-		});
+		notEmptyUserContainer.add(new HomePageListBuitsPanel("listBuitsPanel", modelMyBuits));
 		
-		notEmptyUserContainer.add(new ListView<Buit>("followingBuits", modelFollowingBuits) {
-			@Override
-			protected void populateItem(ListItem<Buit> item) {
-				item.add(new Image("followingBuitUserImage",new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
-				item.add(new Label("followingBuitUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
-				item.add(new DateLabel("followingBuitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
-				item.add(new Label("followingBuitMessage", new MessageModel(item.getModel())).setEscapeModelStrings(false));
-			}
-		});
+		notEmptyUserContainer.add(new HomePageListBuitsPanel("listBuitsPanel2", modelFollowingBuits));
 		
 		emptyUserContainer.add(new ListView<User>("users", modelUsers) {
 			@Override
