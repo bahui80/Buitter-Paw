@@ -64,6 +64,13 @@ public class Hashtag extends PersistentEntity {
 		this.hashtag = hashtag;
 	}
 	
+	public void removeBuit(Buit buit) {
+		if(buit == null || !buits.contains(buit)) {
+			throw new IllegalArgumentException();
+		}
+		buits.remove(buit);
+	}
+	
 	public long getCount(){
 		return count;
 	}
@@ -127,6 +134,5 @@ public class Hashtag extends PersistentEntity {
 			return false;
 		return true;
 	}
-
 }
 

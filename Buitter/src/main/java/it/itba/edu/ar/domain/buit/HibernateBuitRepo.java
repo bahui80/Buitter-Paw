@@ -156,6 +156,9 @@ public class HibernateBuitRepo extends HibernateGenericRepo implements BuitRepo 
 	
 	public void removeBuit(Buit buit, User user) {
 		user.removeBuit(buit);
+		for(Hashtag hashtag: buit.getHashtags()) {
+			hashtag.removeBuit(buit);
+		}
 		getSession().delete(buit);
 	}
 }

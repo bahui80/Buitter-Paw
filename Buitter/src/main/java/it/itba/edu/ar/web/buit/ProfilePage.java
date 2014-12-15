@@ -5,25 +5,17 @@ import it.itba.edu.ar.domain.buit.BuitRepo;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
 import it.itba.edu.ar.web.BuitterSession;
-import it.itba.edu.ar.web.DateFormatter;
-import it.itba.edu.ar.web.ImageResourceReference;
-import it.itba.edu.ar.web.MessageModel;
+import it.itba.edu.ar.web.ListBuitsPanel;
 import it.itba.edu.ar.web.base.BasePage;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -97,53 +89,7 @@ public class ProfilePage extends BasePage {
 			}
 		};
 			
-		notEmptyBuitsContainer.add(new ListView<Buit>("buits", modelBuit) {
-			@Override
-			protected void populateItem(final ListItem<Buit> item) {
-				item.add(new Image("buitUserImage", new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
-				item.add(new Label("buitUserUsername", new PropertyModel<String>(item.getModel(), "buitter.username")));
-				item.add(new DateLabel("buitDate", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
-				item.add(new Label("buitMessage", new MessageModel(item.getModel())).setEscapeModelStrings(false));
-				WebMarkupContainer rebuitTextContainer = new WebMarkupContainer("rebuitTextContainer") {
-					public boolean isVisible() {
-						return item.getModelObject().getIsrebuit();
-					}
-				};
-				rebuitTextContainer.add(new Label("rebuitedText", new PropertyModel<String>(item.getModel(), "user.username")));
-				item.add(rebuitTextContainer);
-				Link<Buit> deleteButton = new Link<Buit>("deleteButton", item.getModel()) {
-					public void onClick() {
-						buitRepo.removeBuit(getModelObject(), BuitterSession.get().getUser());
-						modelBuit.detach();
-					}
-				};
-				Link<Buit> favoriteButton = new Link<Buit>("favoriteButton", item.getModel()) {
-					public void onClick() {
-						getModelObject().addFavorite(BuitterSession.get().getUser());
-						modelBuit.detach();
-					}
-				};
-				Link<Buit> unfavoriteButton = new Link<Buit>("unfavoriteButton", item.getModel()) {
-					public void onClick() {
-						getModelObject().removeFavorite(BuitterSession.get().getUser());
-						modelBuit.detach();
-					}
-				};
-				Link<Void> rebuitButton = new Link<Void>("rebuitButton") {
-					public void onClick() {
-						buitRepo.rebuit(item.getModelObject(), BuitterSession.get().getUser());
-					}
-				};
-				deleteButton.setVisible(BuitterSession.get().isSignedIn() && item.getModelObject().getBuitter().equals(BuitterSession.get().getUser()));
-				favoriteButton.setVisible(BuitterSession.get().isSignedIn() && !BuitterSession.get().getUser().getFavourites().contains(item.getModelObject()));
-				unfavoriteButton.setVisible(BuitterSession.get().isSignedIn() && BuitterSession.get().getUser().getFavourites().contains(item.getModelObject()));
-				rebuitButton.setVisible(BuitterSession.get().isSignedIn() && !item.getModelObject().getBuitter().equals(BuitterSession.get().getUser()));
-				item.add(deleteButton);
-				item.add(favoriteButton);
-				item.add(unfavoriteButton);
-				item.add(rebuitButton);
-			}
-		});
+		notEmptyBuitsContainer.add(new ListBuitsPanel("listBuitsPanel", modelBuit));
 		
 		getUser().addVisit();
 		add(buitContainer);

@@ -51,13 +51,6 @@ public class User extends PersistentEntity {
 	
 	User(){
 	}
-	
-	// ESTO NO VA.. Si neesito pasar un username y un password lo paso solo. Hacer esto esta mal
-	// es crear un usuario inconsistente
-//	public User(String username, String password){
-//		this.setPassword(password);
-//		this.setUsername(username);
-//	}
 		
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
@@ -269,6 +262,9 @@ public class User extends PersistentEntity {
 	}
 	
 	public void removeBuit(Buit buit) {
+		if(favorites.contains(buit)) {
+			unfavorite(buit);
+		}
 		this.mybuits.remove(buit);
 	}
 

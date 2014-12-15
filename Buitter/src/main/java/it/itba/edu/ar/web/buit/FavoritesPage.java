@@ -2,24 +2,15 @@ package it.itba.edu.ar.web.buit;
 
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.user.User;
-import it.itba.edu.ar.web.DateFormatter;
-import it.itba.edu.ar.web.ImageResourceReference;
-import it.itba.edu.ar.web.MessageModel;
+import it.itba.edu.ar.web.ListBuitsPanel;
 import it.itba.edu.ar.web.base.BasePage;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.PropertyModel;
 
 public class FavoritesPage extends BasePage {
 	private IModel<User> modelUser;
@@ -43,15 +34,7 @@ public class FavoritesPage extends BasePage {
 			}
 		};
 		
-		add(new ListView<Buit>("favorites", modelBuit) {
-			@Override
-			protected void populateItem(ListItem<Buit> item) {
-				item.add(new Image("image", new ImageResourceReference(new PropertyModel<User>(item.getModel(), "buitter"))));
-				item.add(new Label("username", new PropertyModel<String>(item.getModel(), "buitter.username")));
-				item.add(new DateLabel("date", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
-				item.add(new Label("message", new MessageModel(item.getModel())).setEscapeModelStrings(false));
-			}
-		});
+		add(new ListBuitsPanel("listBuitsPanel", modelBuit));
 		
 		add(emptyFavoritesContainer);
 	
