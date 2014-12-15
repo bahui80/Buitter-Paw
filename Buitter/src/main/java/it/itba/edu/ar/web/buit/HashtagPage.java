@@ -60,7 +60,7 @@ public class HashtagPage extends BasePage {
 				List<Buit> buits = new ArrayList<Buit>();
 				modelHashtag.detach();
 				for(Buit buit: modelHashtag.getObject().getBuits()) {
-					if(BuitterSession.get().isSignedIn() || buit.getBuitter().getPrivacy() == false) {
+					if(buit.getBuitter().getPrivacy() == false || (BuitterSession.get().isSignedIn() && !buit.getBuitter().isBlacklisted(BuitterSession.get().getUser()))) {
 						buits.add(buit);
 					}
 				}

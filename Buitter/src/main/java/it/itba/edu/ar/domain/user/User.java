@@ -13,6 +13,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -48,7 +49,12 @@ public class User extends PersistentEntity {
  	@OneToMany (cascade=CascadeType.ALL) 
  	@Sort(type=SortType.COMPARATOR, comparator = Event.EventComparator.class)  
  	private List<Event> events;
-	
+ 	@ManyToMany (mappedBy="blacklistedBy", cascade=CascadeType.ALL)
+ 	private Set<User> blacklist = new HashSet<User>();
+ 	@ManyToMany
+ 	@JoinTable(name="users_blacklist")
+ 	private Set<User> blacklistedBy = new HashSet<User>();
+ 	
 	User(){
 	}
 		
@@ -190,6 +196,28 @@ public class User extends PersistentEntity {
 		this.events = events;
 	}
 	
+	public Set<User> getBlacklist() {
+		return blacklist;
+	}
+	
+	public void setBlacklist(Set<User> blacklist) {
+		if(blacklist == null) {
+			throw new IllegalArgumentException();
+		}
+		this.blacklist = blacklist;
+	}
+	
+	public Set<User> getBlacklistedBy() {
+		return blacklistedBy;
+	}
+	
+	public void setBlacklistedBy(Set<User> blacklistedBy) {
+		if(blacklistedBy == null) {
+			throw new IllegalArgumentException();
+		}
+		this.blacklistedBy = blacklistedBy;
+	}
+	
 	public void follow(User user) {
 		if(user == null || followers.contains(user)) {
 			throw new IllegalArgumentException();
@@ -222,6 +250,29 @@ public class User extends PersistentEntity {
 	
 	public void addEvent(Event e){
 		this.events.add(e);
+	}
+	
+	public void blacklistUser(User user) {
+		if(user == null || blacklistedBy.contains(user)) {
+			throw new IllegalArgumentException();
+		}
+		blacklistedBy.add(user);
+		user.getBlacklist().add(this);
+	}
+	
+	public void unBlacklistUser(User user) {
+		if(user == null || !getBlacklistedBy().contains(user)) {
+			throw new IllegalArgumentException();
+		}
+		getBlacklistedBy().remove(user);
+		user.getBlacklist().remove(this);
+	}
+	
+	public boolean isBlacklisted(User user) {
+		if(user == null) {
+			throw new IllegalArgumentException();
+		}
+		return blacklist.contains(user);
 	}
 	
 	public Set<Buit> filterMyBuits(BuitFilter bf){

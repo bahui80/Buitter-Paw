@@ -5,6 +5,7 @@ import it.itba.edu.ar.web.HomePage;
 import it.itba.edu.ar.web.buit.FavoritesPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.search.SearchPage;
+import it.itba.edu.ar.web.users.BlacklistPage;
 import it.itba.edu.ar.web.users.ConnectPage;
 import it.itba.edu.ar.web.users.EditProfilePage;
 import it.itba.edu.ar.web.users.LoginPage;
@@ -68,6 +69,13 @@ public class BasePage extends WebPage {
 		notLoggedContainer.add(new Link<Void>("registrationPageLink") {
 			public void onClick() {
 				setResponsePage(RegistrationPage.class);
+			}
+		});
+		
+		loggedContainer.add(new Link<Void>("blacklistPageLink") {
+			@Override
+			public void onClick() {
+				setResponsePage(new BlacklistPage(session.getUserModel()));
 			}
 		});
 		

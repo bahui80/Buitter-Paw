@@ -30,7 +30,7 @@ public class HeaderPanel extends Panel {
 		if(userModel.getObject() == null) {
 			redirectToInterceptPage(new ErrorPage(new ResourceModel("userError"), new ResourceModel("userErrorDescription")));
 		}
-		if(!BuitterSession.get().isSignedIn() && userModel.getObject().getPrivacy() == true) {
+		if((!BuitterSession.get().isSignedIn() || userModel.getObject().isBlacklisted(BuitterSession.get().getUser())) && userModel.getObject().getPrivacy() == true) {
 			setResponsePage(new PrivateUserPage(userModel));
 		}
 		add(new Label("name", new PropertyModel<String>(userModel, "name")));

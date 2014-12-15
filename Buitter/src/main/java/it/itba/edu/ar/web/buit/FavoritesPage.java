@@ -15,7 +15,6 @@ import org.apache.wicket.model.LoadableDetachableModel;
 public class FavoritesPage extends BasePage {
 	private IModel<User> modelUser;
 	
-	
 	public FavoritesPage(IModel<User> modelUser) {
 		this.modelUser = modelUser;
 		setDefaultModel(modelUser);
@@ -35,9 +34,7 @@ public class FavoritesPage extends BasePage {
 		};
 		
 		add(new ListBuitsPanel("listBuitsPanel", modelBuit));
-		
 		add(emptyFavoritesContainer);
-	
 	}
 	
 	private User getUser() {

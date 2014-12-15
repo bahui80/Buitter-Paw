@@ -10,6 +10,7 @@ import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -24,7 +25,7 @@ public class ListUsersPanel extends Panel {
 		
 		add(new ListView<User>("users", modelUser) {
 			@Override
-			protected void populateItem(ListItem<User> item) {
+			protected void populateItem(final ListItem<User> item) {
 				item.add(new Image("image", new ImageResourceReference(item.getModel())));
 				PageParameters pgParameters = new PageParameters();
 				pgParameters.add("username", item.getModelObject().getUsername());
@@ -35,6 +36,23 @@ public class ListUsersPanel extends Panel {
 				item.add(new Label("username", new PropertyModel<String>(item.getModel(), "username")));
 				item.add(new Label("description", new PropertyModel<String>(item.getModel(), "description")));
 				item.add(new DateLabel("date", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
+				
+				Link<User> addBlacklistButton = new Link<User>("addBlacklistButton", item.getModel()) {
+					public void onClick() {
+						item.getModel().getObject().blacklistUser(BuitterSession.get().getUser());
+					}
+				};
+				Link<User> removeBlacklistButton = new Link<User>("removeBlacklistButton", item.getModel()) {
+					public void onClick() {
+						item.getModel().getObject().unBlacklistUser(BuitterSession.get().getUser());
+						modelUser.detach();
+					}
+				};
+				addBlacklistButton.setVisible(BuitterSession.get().isSignedIn() && !BuitterSession.get().getUser().getBlacklist().contains(item.getModelObject()));
+				removeBlacklistButton.setVisible(BuitterSession.get().isSignedIn() && BuitterSession.get().getUser().getBlacklist().contains(item.getModelObject()));
+				
+				item.add(removeBlacklistButton);
+				item.add(addBlacklistButton);
 			}
 		});
 	}
