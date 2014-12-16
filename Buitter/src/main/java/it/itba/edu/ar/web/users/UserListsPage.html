@@ -1,0 +1,52 @@
+<html>
+	<body>
+		<wicket:extend>
+			<div class="container">
+				<div class="row row-offcanvas row-offcanvas-right">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="well well-lg">
+							<span style="font-size: 25.5px">Lists</span>
+							<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="showForm"><i class="icon-plus"> New list</i></button>
+							<form class="bs-example form-horizontal" wicket:id="form">
+                				<fieldset>
+                					<br/>
+                					<div class="form-group">
+                						<label for="name" class="col-sm-1 control-label" style="padding-top: 3px">Name</label>
+               							<div class="col-sm-3">
+							                <input type="text" maxlength="32" class="form-control input-sm" placeholder="Name" wicket:id="listName"/>
+							            </div> <!-- .col-sm-3 -->
+							            <label for="description" class="col-sm-3 control-label" style="padding-top: 3px; margin-left: 17px; margin-right: -17px">Description</label>
+               							<div class="col-sm-3">
+							            	<input type="text" maxlength="100" class="form-control input-sm" placeholder="Description" wicket:id="listDescription"/>
+							       		</div> <!-- .col-sm-3 -->
+							       		<button type="submit" class="pull-right btn btn-link btn-xs" style="color:#77b300; margin-right: 23px; margin-top:7px" wicket:id="add"><i class="icon-plus-sign"></i></button>
+							       		<div class="text-danger col-sm-9" style="margin-top: 10px" wicket:id="name_error"><small><em>Name error</em></small></div>
+							        </div> <!-- .form-group -->
+                				</fieldset>
+                			</form> <!-- .bs-example .form-horizontal -->
+							<div class="alert-box" wicket:id="emptyListsContainer">	
+								<img src="img/logo.png" class="logo-alt"/> <br/>No lists created so far
+							</div> <!-- .alert-box -->
+							<div class="media buit" wicket:id="lists" style="padding-top: 10px; padding-bottom: 10px">
+								<div class="media-body">
+									<div class="media-heading">
+										<button type="submit" class="btn btn-danger pull-right" style="margin-top: 15px" wicket:id="deleteList"><i class="icon-trash"> Delete</i></button>
+										<h4><a href="#" class="pull-left text-bold" wicket:id="detailListPage"><span wicket:id="name"/></a></h4>
+									</div> <!-- .media-heading -->
+									<br/>
+									<div>
+										<p style="word-wrap:break-word; margin-top: 8px; margin-bottom: 8px" wicket:id="description">lorem ipsum dolor sit amet consectetur adipiscing</p>
+									</div>
+									<div>
+										<p class="pull-left text-muted">Members: <span wicket:id="members"/></p>
+									</div>
+									<!-- <button type="button" class="pull-right btn btn-link btn-xs" wicket:id="deleteButton"><i class="icon-trash"> Delete</i></button> -->
+								</div> <!-- .media-body -->
+							</div> <!-- .media .buit -->
+						</div> <!-- .well .well-lg -->
+					</div> <!-- .col-md-8 .col-md-offset-2 -->
+				</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
+			</div> <!-- .container -->
+		</wicket:extend>
+	</body>
+</html>

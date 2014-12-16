@@ -11,6 +11,7 @@ import it.itba.edu.ar.web.users.EditProfilePage;
 import it.itba.edu.ar.web.users.LoginPage;
 import it.itba.edu.ar.web.users.RegistrationPage;
 import it.itba.edu.ar.web.users.StatsPage;
+import it.itba.edu.ar.web.users.UserListsPage;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
@@ -69,6 +70,13 @@ public class BasePage extends WebPage {
 		notLoggedContainer.add(new Link<Void>("registrationPageLink") {
 			public void onClick() {
 				setResponsePage(RegistrationPage.class);
+			}
+		});
+		
+		loggedContainer.add(new Link<Void>("userListsPageLink") {
+			@Override
+			public void onClick() {
+				setResponsePage(new UserListsPage(session.getUserModel()));
 			}
 		});
 		

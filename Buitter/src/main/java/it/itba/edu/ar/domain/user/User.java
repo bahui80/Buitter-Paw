@@ -3,6 +3,7 @@ package it.itba.edu.ar.domain.user;
 import it.itba.edu.ar.domain.PersistentEntity;
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.event.Event;
+import it.itba.edu.ar.domain.userlist.UserList;
 import it.itba.edu.ar.web.BuitFilter;
 
 import java.util.Date;
@@ -37,7 +38,7 @@ public class User extends PersistentEntity {
 	@Column(length=60,nullable=false) private String secret_question;
 	@Column(length=60,nullable=false) private String secret_answer;
 	private boolean privacy;
-	private int visits;		
+	private int visits;
 	@OneToMany (mappedBy="buitter") @Sort(type=SortType.COMPARATOR, comparator = Buit.BuitComparator.class)
 	private Set<Buit> mybuits;
  	@ManyToMany (mappedBy="followers", cascade=CascadeType.ALL)
@@ -54,7 +55,10 @@ public class User extends PersistentEntity {
  	@ManyToMany
  	@JoinTable(name="users_blacklist")
  	private Set<User> blacklistedBy = new HashSet<User>();
- 	
+ 	@OneToMany(mappedBy="owner")
+ 	private Set<UserList> myUserLists = new HashSet<UserList>();
+ 	@ManyToMany
+ 	private Set<UserList> userListsIn = new HashSet<UserList>();
 	User(){
 	}
 		
@@ -218,6 +222,22 @@ public class User extends PersistentEntity {
 		this.blacklistedBy = blacklistedBy;
 	}
 	
+	public Set<UserList> getMyUserLists() {
+		return myUserLists;
+	}
+	
+	public void setMyUserLists(Set<UserList> myUserLists) {
+		this.myUserLists = myUserLists;
+	}
+	
+	public Set<UserList> getUserListsIn() {
+		return userListsIn;
+	}
+	
+	public void setUserListsIn(Set<UserList> userListsIn) {
+		this.userListsIn = userListsIn;
+	}
+	
 	public void follow(User user) {
 		if(user == null || followers.contains(user)) {
 			throw new IllegalArgumentException();
@@ -318,7 +338,7 @@ public class User extends PersistentEntity {
 		}
 		this.mybuits.remove(buit);
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
