@@ -267,3 +267,32 @@ textarea.form-control2 {
 #recommendationEmpty {
 	margin-top: 6px;
 }
+
+/*.wicket-aa {
+	background: #6B6B6B;
+	border-radius: 10px;
+	box-shadow: 10px 10px 5px #888888;
+}*/
+
+.wicket-aa {
+  margin-top: 3px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.wicket-aa li {
+	color: black;
+}
+
+.wicket-aa ul {
+	list-style-type: none;
+	padding-left: 10px;
+}

@@ -1,5 +1,7 @@
 package it.itba.edu.ar.web.base;
 
+import it.itba.edu.ar.domain.user.User;
+import it.itba.edu.ar.domain.user.UserRepo;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.HomePage;
 import it.itba.edu.ar.web.buit.FavoritesPage;
@@ -13,18 +15,24 @@ import it.itba.edu.ar.web.users.RegistrationPage;
 import it.itba.edu.ar.web.users.StatsPage;
 import it.itba.edu.ar.web.users.UserListsPage;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class BasePage extends WebPage {
-	
+	@SpringBean
+	private UserRepo userRepo;
 	private transient String searchText;
 
 	public BasePage() {
@@ -125,7 +133,20 @@ public class BasePage extends WebPage {
 			}
 		};
 		add(new BookmarkablePageLink<Void>("homePageLink", HomePage.class));
-		searchForm.add(new TextField<String>("searchText", new PropertyModel<String>(this, "searchText")));
+		
+		searchForm.add(new AutoCompleteTextField<String>("searchText", new PropertyModel<String>(this, "searchText")) {
+			@Override
+			protected Iterator<String> getChoices(String input) {
+				List<String> coincidences = new ArrayList<String>();
+				List<User> users = userRepo.getAll();
+				for(User user: users) {
+					if(user.getUsername().toUpperCase().startsWith(input.toUpperCase())) {
+						coincidences.add(user.getUsername());
+					}
+				}
+				return coincidences.iterator();
+			}
+		});
 		add(searchForm);
 		add(loggedContainer);
 		add(notLoggedContainer);

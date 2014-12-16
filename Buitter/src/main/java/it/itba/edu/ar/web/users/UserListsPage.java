@@ -56,6 +56,8 @@ public class UserListsPage extends BasePage {
 			public void onSubmit() {
 				try {
 					userListRepo.add(new UserList(modelUser.getObject(), listName, listDescription));
+					listName = null;
+					listDescription = null;
 					form.setVisible(false);
 				} catch (DuplicatedListException e) {
 					nameTxtField.error(getString(e.getClass().getSimpleName(), new Model<DuplicatedListException>(e)));
@@ -82,7 +84,7 @@ public class UserListsPage extends BasePage {
 				Link<Void> detailListPage = new Link<Void>("detailListPage") {
 					@Override
 					public void onClick() {
-						// TODO: GO TO DETAILED PAGE
+						
 					}
 				};
 				detailListPage.add(new Label("name", new PropertyModel<String>(item.getModel(), "name")));		

@@ -30,14 +30,18 @@
 							<div class="media buit" wicket:id="lists" style="padding-top: 10px; padding-bottom: 10px">
 								<div class="media-body">
 									<div class="media-heading">
-										<button type="submit" class="btn btn-danger pull-right" style="margin-top: 15px" wicket:id="deleteList"><i class="icon-trash"> Delete</i></button>
 										<h4><a href="#" class="pull-left text-bold" wicket:id="detailListPage"><span wicket:id="name"/></a></h4>
 									</div> <!-- .media-heading -->
 									<br/>
-									<div>
-										<p style="word-wrap:break-word; margin-top: 8px; margin-bottom: 8px" wicket:id="description">lorem ipsum dolor sit amet consectetur adipiscing</p>
+									<div class="col-md-12" style="padding-left: 0px">
+										<div class="col-md-9" style="padding-left: 0px">
+											<p style="word-wrap:break-word; margin-top: 8px; margin-bottom: 8px" wicket:id="description">lorem ipsum dolor sit amet consectetur adipiscing</p>
+										</div>
+										<div class="col-md-3">
+											<button type="submit" class="btn btn-danger pull-right" style="margin-top: 15px" wicket:id="deleteList"><i class="icon-trash"> Delete</i></button>
+										</div>
 									</div>
-									<div>
+									<div class="col-md-12 pull-left" style="padding-left: 0px">
 										<p class="pull-left text-muted">Members: <span wicket:id="members"/></p>
 									</div>
 									<!-- <button type="button" class="pull-right btn btn-link btn-xs" wicket:id="deleteButton"><i class="icon-trash"> Delete</i></button> -->

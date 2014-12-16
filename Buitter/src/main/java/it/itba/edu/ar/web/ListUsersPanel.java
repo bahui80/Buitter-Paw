@@ -1,13 +1,17 @@
 package it.itba.edu.ar.web;
 
 import it.itba.edu.ar.domain.user.User;
+import it.itba.edu.ar.domain.userlist.UserList;
 import it.itba.edu.ar.web.buit.ProfilePage;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -15,11 +19,11 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public class ListUsersPanel extends Panel {
-	
 	public ListUsersPanel(String id, final IModel<List<User>> modelUser) {
 		super(id);
 		
@@ -48,8 +52,34 @@ public class ListUsersPanel extends Panel {
 						modelUser.detach();
 					}
 				};
-				addBlacklistButton.setVisible(BuitterSession.get().isSignedIn() && !BuitterSession.get().getUser().getBlacklist().contains(item.getModelObject()));
-				removeBlacklistButton.setVisible(BuitterSession.get().isSignedIn() && BuitterSession.get().getUser().getBlacklist().contains(item.getModelObject()));
+				
+				IModel<List<UserList>> modelUserList = new LoadableDetachableModel<List<UserList>>() {
+					@Override
+					protected List<UserList> load() {
+						return new ArrayList<UserList>(BuitterSession.get().getUser().getMyUserLists());
+					}
+				};
+				DropDownChoice<UserList> listchoices = new DropDownChoice<UserList>("lists", modelUserList) {
+					@Override
+					protected void onSelectionChanged(UserList newSelection) {
+						super.onSelectionChanged(newSelection);
+						System.out.println("MARCO: " + newSelection);
+					}
+					
+					@Override
+					public boolean isVisible() {
+						return BuitterSession.get().isSignedIn() && !BuitterSession.get().getUser().equals(item.getModelObject()) && (!item.getModelObject().isBlacklisted(BuitterSession.get().getUser()) || item.getModelObject().getPrivacy() == false);
+					}
+					
+					@Override
+					protected boolean wantOnSelectionChangedNotifications() {
+						return true;
+					}
+				};
+				listchoices.setChoiceRenderer(new ChoiceRenderer<UserList>("name"));
+				item.add(listchoices);
+				addBlacklistButton.setVisible(BuitterSession.get().isSignedIn() && !BuitterSession.get().getUser().equals(item.getModelObject()) && !BuitterSession.get().getUser().getBlacklist().contains(item.getModelObject()));
+				removeBlacklistButton.setVisible(BuitterSession.get().isSignedIn() && !BuitterSession.get().getUser().equals(item.getModelObject()) && BuitterSession.get().getUser().getBlacklist().contains(item.getModelObject()));
 				
 				item.add(removeBlacklistButton);
 				item.add(addBlacklistButton);
