@@ -16,6 +16,8 @@ import org.apache.wicket.request.Response;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.apache.wicket.util.cookies.CookieDefaults;
+import org.apache.wicket.util.cookies.CookieUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,8 @@ public class BuitterApp extends WebApplication {
 	public static final ResourceReference NO_IMAGE = new PackageResourceReference(BuitterApp.class, "resources/nopicture.png");
 
 	private final SessionFactory sessionFactory;
+	private SessionProvider sessionProvider;
+	private CookieService cookieService = new CookieService();
 	
 	@Autowired
 	public BuitterApp(SessionFactory sessionFactory) {
@@ -46,11 +50,12 @@ public class BuitterApp extends WebApplication {
 		mountPage("/followers/${username}", FollowersPage.class);
 		mountPage("/following/${username}", FollowingPage.class);
 		mountPage("/hashtag/${hashtag}", HashtagPage.class);
+		sessionProvider = new SessionProvider(cookieService);
 	}
 
 	@Override
 	public Session newSession(Request request, Response response) {
-		return new BuitterSession(request);
+		return sessionProvider.createNewSession(request);
 	}
 
 	@Override
@@ -60,6 +65,10 @@ public class BuitterApp extends WebApplication {
 //		converterLocator.set(Department.class, new DepartmentConverter());
 //		converterLocator.set(Subject.class, new SubjectConverter(subjects));
 		return converterLocator;
+	}
+
+	public CookieService getCookieService() {
+		return cookieService;
 	}
 	
 }

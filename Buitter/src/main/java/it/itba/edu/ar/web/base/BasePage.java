@@ -2,8 +2,11 @@ package it.itba.edu.ar.web.base;
 
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
+import it.itba.edu.ar.web.BuitterApp;
 import it.itba.edu.ar.web.BuitterSession;
+import it.itba.edu.ar.web.CookieService;
 import it.itba.edu.ar.web.HomePage;
+import it.itba.edu.ar.web.SessionProvider;
 import it.itba.edu.ar.web.buit.FavoritesPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.search.SearchPage;
@@ -48,6 +51,9 @@ public class BasePage extends WebPage {
 		
 		loggedContainer.add(new Link<Void>("logoutLink") {
 			public void onClick() {
+				CookieService cookieService = ((BuitterApp) BuitterApp.get()).getCookieService();
+			    cookieService.removeCookieIfPresent(SessionProvider.REMEMBER_ME_LOGIN_COOKIE);
+			    cookieService.removeCookieIfPresent(SessionProvider.REMEMBER_ME_PASSWORD_COOKIE);
 				session.invalidate();
 				setResponsePage(HomePage.class);
 			}

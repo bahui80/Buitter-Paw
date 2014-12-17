@@ -1,7 +1,10 @@
 package it.itba.edu.ar.web.users;
 
+import it.itba.edu.ar.web.BuitterApp;
 import it.itba.edu.ar.web.BuitterSession;
+import it.itba.edu.ar.web.CookieService;
 import it.itba.edu.ar.web.HomePage;
+import it.itba.edu.ar.web.SessionProvider;
 
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -15,6 +18,9 @@ public class LogoutPanel extends Panel {
 		add(new Link<Void>("logoutLink") {
 			@Override
 			public void onClick() {
+				CookieService cookieService = ((BuitterApp) BuitterApp.get()).getCookieService();
+			    cookieService.removeCookieIfPresent(SessionProvider.REMEMBER_ME_LOGIN_COOKIE);
+			    cookieService.removeCookieIfPresent(SessionProvider.REMEMBER_ME_PASSWORD_COOKIE);
 				BuitterSession.get().invalidate();
 				setResponsePage(HomePage.class);
 			}

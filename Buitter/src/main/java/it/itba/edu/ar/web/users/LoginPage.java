@@ -1,17 +1,22 @@
 package it.itba.edu.ar.web.users;
 
 import it.itba.edu.ar.domain.user.UserRepo;
+import it.itba.edu.ar.web.BuitterApp;
 import it.itba.edu.ar.web.BuitterSession;
+import it.itba.edu.ar.web.CookieService;
 import it.itba.edu.ar.web.HomePage;
+import it.itba.edu.ar.web.SessionProvider;
 import it.itba.edu.ar.web.base.BasePage;
 
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -20,6 +25,7 @@ public class LoginPage extends BasePage {
 	private UserRepo users;
 	private transient String username;
 	private transient String password;
+	private transient Boolean rememberMe;
 	
 	public LoginPage() {
 		LogoutPanel panel = new LogoutPanel("logoutPanel") {
@@ -37,9 +43,12 @@ public class LoginPage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				BuitterSession session = BuitterSession.get();
-
 				if (session.signIn(username, password, users)) {
-					session.setAttribute("userId", username);
+		            if(rememberMe) {
+		                CookieService cookieService = ((BuitterApp) BuitterApp.get()).getCookieService();
+		                cookieService.saveCookie(SessionProvider.REMEMBER_ME_LOGIN_COOKIE, username);
+		                cookieService.saveCookie(SessionProvider.REMEMBER_ME_PASSWORD_COOKIE, password);
+		            }
 					setResponsePage(HomePage.class);
 				} else {
 					error(getString("invalidCredentials"));
@@ -50,6 +59,7 @@ public class LoginPage extends BasePage {
 		form.add(new PasswordTextField("password"));
 		form.add(new Button("signInButton", new ResourceModel("signInButton")));
 		form.add(new FeedbackPanel("feedback"));
+		form.add(new CheckBox("rememberMe", new PropertyModel<Boolean>(this, "rememberMe")));
 		form.add(new Link<Void>("forgotPasswordLink") {
 			@Override
 			public void onClick() {
