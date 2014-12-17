@@ -1,10 +1,13 @@
 package it.itba.edu.ar.web.base;
 
+import it.itba.edu.ar.domain.publicity.Publicity;
+import it.itba.edu.ar.domain.publicity.PublicityRepo;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
 import it.itba.edu.ar.web.BuitterApp;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.CookieService;
+import it.itba.edu.ar.web.ExternalImage;
 import it.itba.edu.ar.web.HomePage;
 import it.itba.edu.ar.web.SessionProvider;
 import it.itba.edu.ar.web.buit.FavoritesPage;
@@ -29,6 +32,9 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.pages.RedirectPage;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -36,6 +42,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 public class BasePage extends WebPage {
 	@SpringBean
 	private UserRepo userRepo;
+	@SpringBean 
+	private PublicityRepo publicityRepo;
 	private transient String searchText;
 
 	public BasePage() {
@@ -48,6 +56,21 @@ public class BasePage extends WebPage {
 				return session.isSignedIn();
 			}
 		};
+		
+		final IModel<Publicity> publicityModel = new LoadableDetachableModel<Publicity>() {
+			@Override
+			protected Publicity load() {
+				return publicityRepo.getRandomPublicity();
+			}
+		};
+		Link<Void> publicityLink = new Link<Void>("publicityLink") {
+			@Override
+			public void onClick() {
+				setResponsePage(new RedirectPage(publicityModel.getObject().getUrl()));
+			}
+		};
+		publicityLink.add(new ExternalImage("publicity", publicityModel.getObject().getImageUrl()));
+		add(publicityLink);
 		
 		loggedContainer.add(new Link<Void>("logoutLink") {
 			public void onClick() {

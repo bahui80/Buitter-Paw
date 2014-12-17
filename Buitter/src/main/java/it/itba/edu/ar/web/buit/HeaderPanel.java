@@ -4,7 +4,7 @@ import it.itba.edu.ar.domain.event.FollowedEvent;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.ErrorPage;
-import it.itba.edu.ar.web.ImageResourceReference;
+import it.itba.edu.ar.web.ProfPicResourceReference;
 import it.itba.edu.ar.web.users.EditProfilePage;
 
 import java.util.Date;
@@ -37,7 +37,7 @@ public class HeaderPanel extends Panel {
 		add(new Label("surname", new PropertyModel<String>(userModel, "surname")));
 		add(new Label("username", new PropertyModel<String>(userModel, "username")));
 		add(new Label("description", new PropertyModel<String>(userModel, "description")));
-		add(new Image("userImage", new ImageResourceReference(userModel))); 
+		add(new Image("userImage", new ProfPicResourceReference(userModel.getObject().getPhoto(), userModel.getObject().getUsername()))); 
 		
 		PageParameters pgParameters = new PageParameters();
 		pgParameters.add("username", userModel.getObject().getUsername());

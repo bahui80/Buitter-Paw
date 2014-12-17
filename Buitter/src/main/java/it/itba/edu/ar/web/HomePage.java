@@ -106,7 +106,7 @@ public class HomePage extends BasePage {
 		emptyUserContainer.add(new ListView<User>("users", modelUsers) {
 			@Override
 			protected void populateItem(ListItem<User> item) {
-				item.add(new Image("userImage",new ImageResourceReference(item.getModel())));
+				item.add(new Image("userImage", new ProfPicResourceReference(item.getModel().getObject().getPhoto(), item.getModel().getObject().getUsername())));
 				item.add(new Label("userUsername", new PropertyModel<String>(item.getModel(), "username")));
 				item.add(new Label("userDescription", new PropertyModel<String>(item.getModel(), "description")));
 				PageParameters pgParameters = new PageParameters();
@@ -181,7 +181,7 @@ public class HomePage extends BasePage {
 		whoToFollowContainer.add(new ListView<User>("recommendedUsers", modelRecommendations) {
 			@Override
 			protected void populateItem(ListItem<User> item) {
-				item.add(new Image("recommendedUserImage",new ImageResourceReference(item.getModel())));
+				item.add(new Image("recommendedUserImage", new ProfPicResourceReference(item.getModel().getObject().getPhoto(), item.getModel().getObject().getUsername())));
 				PageParameters pgParameters = new PageParameters();
 				pgParameters.add("username", item.getModelObject().getUsername());
 				BookmarkablePageLink<Void> profilePageLink = new BookmarkablePageLink<Void>("profilePageLink", ProfilePage.class, pgParameters);

@@ -3,7 +3,7 @@ package it.itba.edu.ar.web.users;
 import it.itba.edu.ar.domain.event.Event;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.web.DateFormatter;
-import it.itba.edu.ar.web.ImageResourceReference;
+import it.itba.edu.ar.web.ProfPicResourceReference;
 import it.itba.edu.ar.web.base.BasePage;
 
 import java.util.Date;
@@ -42,7 +42,7 @@ public class ConnectPage extends BasePage {
 		add(new ListView<Event>("events", modelEvents) {
 			@Override
 			protected void populateItem(ListItem<Event> item) {
-				item.add(new Image("image", new ImageResourceReference(new PropertyModel<User>(item.getModel(), "firer"))));
+				item.add(new Image("image", new ProfPicResourceReference(item.getModel().getObject().getFirer().getPhoto(), item.getModel().getObject().getFirer().getUsername())));
 				item.add(new Label("username", new PropertyModel<String>(item.getModel(), "firer.username")));
 				item.add(new DateLabel("date", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
 				item.add(new Label("message", new PropertyModel<String>(item.getModel(), "message")));
