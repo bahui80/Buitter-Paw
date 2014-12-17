@@ -28,11 +28,16 @@ import org.hibernate.annotations.SortType;
 @Table(name="users")
 public class User extends PersistentEntity {
 	
-	@Column(length=32,nullable=false) private String name;
-	@Column(length=32,nullable=false) private String surname;
-	@Column(length=32,nullable=false) private String password;
-	@Temporal(TemporalType.TIMESTAMP)@Column(name="date", nullable=false) private Date creationDate;
+	@Column(length=32,nullable=false) 
+	private String name;
+	@Column(length=32,nullable=false)
+	private String surname;
+	@Column(length=32,nullable=false)
+	private String password;
+	@Temporal(TemporalType.TIMESTAMP)@Column(name="date", nullable=false)
+	private Date creationDate;
 	private byte[] photo;
+	private byte[] backgroundImage;
 	@Column(updatable = false, length=32, unique=true,nullable=false) private String username;
 	@Column(length=140,nullable=false) private String description;
 	@Column(length=60,nullable=false) private String secret_question;
@@ -64,7 +69,7 @@ public class User extends PersistentEntity {
 		
 	public User(String name, String surname, String username, String password, 
 			String description, String secret_question, String secret_answer, 
-			Date creationDate, int visits, boolean privacy, byte[] photo){		
+			Date creationDate, int visits, boolean privacy, byte[] photo, byte[] backgroundImage){		
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setName(name);
@@ -76,6 +81,7 @@ public class User extends PersistentEntity {
 		this.setDate(creationDate);
 		this.setPrivacy(privacy);
 		this.visits = visits;
+		this.backgroundImage = backgroundImage;
 	}
 	
 	public String getName() {
@@ -188,6 +194,14 @@ public class User extends PersistentEntity {
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
+	}
+	
+	public byte[] getBackgroundImage() {
+		return backgroundImage;
+	}
+	
+	public void setBackgroundImage(byte[] backgroundImage) {
+		this.backgroundImage = backgroundImage;
 	}
 
 	public List<Event> getEvents() {

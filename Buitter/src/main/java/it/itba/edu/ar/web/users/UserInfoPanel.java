@@ -72,6 +72,9 @@ public class UserInfoPanel extends Panel {
 		
 		add(new FileUploadField("photo").add(new FileExtensionValidator()));
 		add(new ComponentFeedbackPanel("photo_error", get("photo")));
+		
+		add(new FileUploadField("backgroundImage").add(new FileExtensionValidator()));
+		add(new ComponentFeedbackPanel("background_error", get("backgroundImage")));
 
 	}
 	

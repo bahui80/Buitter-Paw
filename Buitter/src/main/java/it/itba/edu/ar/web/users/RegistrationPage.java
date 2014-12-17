@@ -45,6 +45,7 @@ public class RegistrationPage extends BasePage {
 	private transient String secretAnswer;
 	private transient String privacy = "Public";
 	private transient List<FileUpload> photo;
+	private transient List<FileUpload> backgroundImage;
 	private transient String captchaText;
 
 	public RegistrationPage() {
@@ -77,16 +78,20 @@ public class RegistrationPage extends BasePage {
 			public void onSubmit() {
 				boolean b_privacy = false;
 				byte[] b_photo = null;
+				byte[] b_backgroundImage = null;
 				if (privacy.equals("Private")) {
 					b_privacy = true;
 				}
 				if (photo != null) {
 					b_photo = photo.get(0).getBytes();
 				}
+				if(backgroundImage != null) {
+					b_backgroundImage = backgroundImage.get(0).getBytes();
+				}
 				try {
 					userRepo.add(new User(name, surname, username, password,
 							description, secretQuestion, secretAnswer,
-							new Date(), 0, b_privacy, b_photo));
+							new Date(), 0, b_privacy, b_photo, b_backgroundImage));
 					BuitterSession.get().signIn(username, password, userRepo);
 					setResponsePage(HomePage.class);
 				} catch (DuplicatedUserException e) {

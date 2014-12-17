@@ -25,6 +25,7 @@ public class EditProfilePage extends BasePage {
 	private transient String secretAnswer;
 	private transient String privacy;
 	private transient List<FileUpload> photo;
+	private transient List<FileUpload> backgroundImage;
 	
 	public EditProfilePage(final IModel<User> modelUser) {
 		Form<EditProfilePage> form = new Form<EditProfilePage>("form", new CompoundPropertyModel<EditProfilePage>(this));
@@ -62,6 +63,9 @@ public class EditProfilePage extends BasePage {
 				}
 				if(photo != null) {
 					modelUser.getObject().setPhoto(photo.get(0).getBytes());
+				}
+				if(backgroundImage != null) {
+					modelUser.getObject().setBackgroundImage(backgroundImage.get(0).getBytes());
 				}
 				modelUser.detach();
 				setResponsePage(HomePage.class);
