@@ -24,7 +24,8 @@ import org.springframework.stereotype.Component;
 public class BuitterApp extends WebApplication {
 
 	public static final ResourceReference NO_IMAGE = new PackageResourceReference(BuitterApp.class, "resources/nopicture.png");
-
+	public static final ResourceReference VERIFIED_IMAGE = new PackageResourceReference(BuitterApp.class, "resources/ok_icon.png");
+	
 	private final SessionFactory sessionFactory;
 	private SessionProvider sessionProvider;
 	private CookieService cookieService = new CookieService();

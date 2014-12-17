@@ -2,8 +2,10 @@ package it.itba.edu.ar.web.buit;
 
 import it.itba.edu.ar.domain.event.FollowedEvent;
 import it.itba.edu.ar.domain.user.User;
+import it.itba.edu.ar.web.BuitterApp;
 import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.ErrorPage;
+import it.itba.edu.ar.web.ImageVerified;
 import it.itba.edu.ar.web.ProfPicResourceReference;
 import it.itba.edu.ar.web.users.EditProfilePage;
 
@@ -33,6 +35,8 @@ public class HeaderPanel extends Panel {
 		if((!BuitterSession.get().isSignedIn() || userModel.getObject().isBlacklisted(BuitterSession.get().getUser())) && userModel.getObject().getPrivacy() == true) {
 			setResponsePage(new PrivateUserPage(userModel));
 		}
+		
+		add(new ImageVerified("imgVerified", userModel.getObject().getFollowers().size()));
 		add(new Label("name", new PropertyModel<String>(userModel, "name")));
 		add(new Label("surname", new PropertyModel<String>(userModel, "surname")));
 		add(new Label("username", new PropertyModel<String>(userModel, "username")));
