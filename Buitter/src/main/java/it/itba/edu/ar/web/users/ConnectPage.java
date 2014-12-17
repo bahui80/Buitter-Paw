@@ -2,14 +2,12 @@ package it.itba.edu.ar.web.users;
 
 import it.itba.edu.ar.domain.event.Event;
 import it.itba.edu.ar.domain.user.User;
-import it.itba.edu.ar.web.DateFormatter;
 import it.itba.edu.ar.web.ProfPicResourceReference;
 import it.itba.edu.ar.web.base.BasePage;
 
 import java.util.Date;
 import java.util.List;
 
-import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
@@ -18,6 +16,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
+import org.ocpsoft.prettytime.PrettyTime;
 
 public class ConnectPage extends BasePage {
 	private IModel<User> modelUser;
@@ -44,7 +43,8 @@ public class ConnectPage extends BasePage {
 			protected void populateItem(ListItem<Event> item) {
 				item.add(new Image("image", new ProfPicResourceReference(item.getModel().getObject().getFirer().getPhoto(), item.getModel().getObject().getFirer().getUsername())));
 				item.add(new Label("username", new PropertyModel<String>(item.getModel(), "firer.username")));
-				item.add(new DateLabel("date", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
+				PrettyTime p = new PrettyTime();
+				item.add(new Label("date", p.format(new PropertyModel<Date>(item.getModel(), "date").getObject())));
 				item.add(new Label("message", new PropertyModel<String>(item.getModel(), "message")));
 			}
 		});
