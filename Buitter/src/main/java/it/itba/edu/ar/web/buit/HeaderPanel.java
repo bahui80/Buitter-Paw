@@ -42,7 +42,7 @@ public class HeaderPanel extends Panel {
 		add(new Label("username", new PropertyModel<String>(userModel, "username")));
 		add(new Label("description", new PropertyModel<String>(userModel, "description")));
 		add(new Image("userImage", new ProfPicResourceReference(userModel.getObject().getPhoto(), userModel.getObject().getUsername()))); 
-		add(new Image("backgroundImage", new BackImageResourceReference(userModel.getObject().getBackgroundImage(), userModel.getObject().getUsername())));
+		add(new Image("backgroundImage", new BackImageResourceReference(userModel.getObject().getBackgroundImage(), userModel.getObject().getUsername())).setVisible(userModel.getObject().getBackgroundImage() != null));
 		
 		PageParameters pgParameters = new PageParameters();
 		pgParameters.add("username", userModel.getObject().getUsername());

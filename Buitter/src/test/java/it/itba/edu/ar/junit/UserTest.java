@@ -16,7 +16,7 @@ public class UserTest {
 	@Before
 	public void setUser() {
 		this.user = new User("Juan Martin", "Buireo", "jbuireo", "123456789", "Vamos buitter",
-				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null);
+				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null, null);
 //		this.buit = new Buit("testeo de favoritear repetido", user, new ArrayList<Hashtag>(),new Date());
 	}
 	
@@ -30,7 +30,7 @@ public class UserTest {
 	@Test
 	public void addVisitTest(){
 		User u = new User("Juan Martin", "Buireo", "jbuireo", "123456789", "Vamos buitter",
-				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null);
+				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null, null);
 		Assert.assertTrue(u.getVisits() == 0);
 		u.addVisit();
 		Assert.assertTrue(u.getVisits() == 1);
@@ -106,7 +106,7 @@ public class UserTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void followReapeatedTest(){
 		User u = new User("Juan Martin", "Buireo", "jbuireo", "123456789", "Vamos buitter",
-				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null);
+				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null, null);
 		user.follow(u);
 		user.follow(u);
 	}
@@ -119,7 +119,7 @@ public class UserTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void unfollowNotFollowedTest(){
 		User u = new User("Juan Martin", "Buireo", "jbuireo", "123456789", "Vamos buitter",
-				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null);
+				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null, null);
 		user.unfollow(u);
 	}
 	
@@ -153,7 +153,7 @@ public class UserTest {
 	@Test(expected = IllegalStateException.class)
 	public void removeVisitTest(){
 		User u = new User("Juan Martin", "Buireo", "jbuireo", "123456789", "Vamos buitter",
-				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null);
+				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null, null);
 		u.removeVisit();
 	}
 }

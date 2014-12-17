@@ -17,7 +17,7 @@ public class BuitTest {
 	@Before
 	public void setUser() {
 		this.user = new User("Juan Martin", "Buireo", "jbuireo", "123456789", "Vamos buitter",
-				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null);
+				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null, null);
 		this.buit = new Buit("testeo de favoritear repetido", user, new ArrayList<Hashtag>(),new Date());
 	}
 	
