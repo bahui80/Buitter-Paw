@@ -1,5 +1,6 @@
 package it.itba.edu.ar.web;
 
+import it.itba.edu.ar.domain.EntityModel;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.userlist.UserList;
 import it.itba.edu.ar.web.buit.ProfilePage;
@@ -60,17 +61,21 @@ public class ListUsersPanel extends Panel {
 						return new ArrayList<UserList>(BuitterSession.get().getUser().getMyUserLists());
 					}
 				};
-				DropDownChoice<UserList> listchoices = new DropDownChoice<UserList>("lists", modelUserList) {
+				
+				IModel<UserList> modelUserList2 = new EntityModel<UserList>(UserList.class);
+				
+				DropDownChoice<UserList> listchoices = new DropDownChoice<UserList>("lists", modelUserList2, modelUserList) {
 					@Override
 					protected void onSelectionChanged(UserList newSelection) {
 						super.onSelectionChanged(newSelection);
-						System.out.println("MARCO: " + newSelection);
+						newSelection.addUser(item.getModelObject());
 					}
 					
 					@Override
 					public boolean isVisible() {
 						return BuitterSession.get().isSignedIn() && !BuitterSession.get().getUser().equals(item.getModelObject()) && (!item.getModelObject().isBlacklisted(BuitterSession.get().getUser()) || item.getModelObject().getPrivacy() == false);
 					}
+					
 					
 					@Override
 					protected boolean wantOnSelectionChangedNotifications() {

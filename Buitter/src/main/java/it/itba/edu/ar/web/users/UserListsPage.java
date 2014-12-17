@@ -95,6 +95,7 @@ public class UserListsPage extends BasePage {
 					@Override
 					public void onClick() {
 						userListRepo.deleteList(item.getModelObject());
+						userListModel.detach();
 					}
 				});
 			}

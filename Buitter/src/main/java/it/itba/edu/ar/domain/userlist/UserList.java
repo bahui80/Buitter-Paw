@@ -19,7 +19,7 @@ public class UserList extends PersistentEntity {
 	private String name;
 	@Column(length=100,nullable=true)
 	private String description;
-	@ManyToMany(mappedBy="userListsIn")
+	@ManyToMany
 	private Set<User> users = new HashSet<User>();
 	
 	UserList() {
@@ -61,6 +61,13 @@ public class UserList extends PersistentEntity {
 	
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+	
+	public void addUser(User user) {
+		if(!users.contains(user)) {
+			users.add(user);
+			user.addNewListIn(this);
+		}
 	}
 
 	@Override

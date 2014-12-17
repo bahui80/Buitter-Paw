@@ -16,6 +16,7 @@ public class HibernateUserListRepo extends HibernateGenericRepo implements UserL
 	}
 	
 	public void deleteList(UserList userList) {
+		userList.getOwner().removeList(userList);
 		getSession().delete(userList);
 	}
 
@@ -24,6 +25,7 @@ public class HibernateUserListRepo extends HibernateGenericRepo implements UserL
 			throw new DuplicatedListException(userList);
 		}
 		getSession().save(userList);
+		userList.getOwner().addNewList(userList);
 	}
 	
 	private boolean exists(UserList userList) {

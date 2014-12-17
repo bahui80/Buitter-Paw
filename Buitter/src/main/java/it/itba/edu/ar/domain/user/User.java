@@ -62,9 +62,10 @@ public class User extends PersistentEntity {
  	private Set<User> blacklistedBy = new HashSet<User>();
  	@OneToMany(mappedBy="owner")
  	private Set<UserList> myUserLists = new HashSet<UserList>();
- 	@ManyToMany
+ 	@ManyToMany(mappedBy="users", cascade=CascadeType.ALL)
  	private Set<UserList> userListsIn = new HashSet<UserList>();
-	User(){
+	
+ 	User(){
 	}
 		
 	public User(String name, String surname, String username, String password, 
@@ -351,6 +352,25 @@ public class User extends PersistentEntity {
 			unfavorite(buit);
 		}
 		this.mybuits.remove(buit);
+	}
+	
+	public void addNewListIn(UserList userList) {
+		if(!userListsIn.contains(userList)) {
+			userListsIn.add(userList);
+			userList.addUser(this);
+		}
+	}
+	
+	public void addNewList(UserList userList) {
+		if(!myUserLists.contains(userList)) {
+			myUserLists.add(userList);
+		}
+	}
+	
+	public void removeList(UserList userList) {
+		if(myUserLists.contains(userList)) {
+			myUserLists.remove(userList);
+		}
 	}
 	
 	@Override
