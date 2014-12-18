@@ -86,7 +86,7 @@ public class UserList extends PersistentEntity {
 	public void removeUser(User user) {
 		if(users.contains(user)) {
 			users.remove(user);
-			user.removeListIn(this);
+//			user.removeListIn(this);
 		}
 	}
 
