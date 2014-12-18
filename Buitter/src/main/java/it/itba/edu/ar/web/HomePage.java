@@ -8,6 +8,8 @@ import it.itba.edu.ar.domain.user.UserRepo;
 import it.itba.edu.ar.web.base.BasePage;
 import it.itba.edu.ar.web.buit.HashtagPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
+import it.itba.edu.ar.web.common.BuitterSession;
+import it.itba.edu.ar.web.common.ProfPicResourceReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;

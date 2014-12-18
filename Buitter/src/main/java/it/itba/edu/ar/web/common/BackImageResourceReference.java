@@ -1,4 +1,5 @@
-package it.itba.edu.ar.web;
+package it.itba.edu.ar.web.common;
+
 
 import java.util.Random;
 

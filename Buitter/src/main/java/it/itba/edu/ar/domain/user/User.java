@@ -5,7 +5,7 @@ import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.event.Event;
 import it.itba.edu.ar.domain.event.FollowedEvent;
 import it.itba.edu.ar.domain.userlist.UserList;
-import it.itba.edu.ar.web.BuitFilter;
+import it.itba.edu.ar.web.common.BuitFilter;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

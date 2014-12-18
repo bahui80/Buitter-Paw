@@ -2,8 +2,8 @@ package it.itba.edu.ar.web.users;
 
 import it.itba.edu.ar.domain.event.Event;
 import it.itba.edu.ar.domain.user.User;
-import it.itba.edu.ar.web.ProfPicResourceReference;
 import it.itba.edu.ar.web.base.BasePage;
+import it.itba.edu.ar.web.common.ProfPicResourceReference;
 
 import java.util.Date;
 import java.util.List;

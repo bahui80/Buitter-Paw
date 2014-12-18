@@ -1,11 +1,11 @@
 package it.itba.edu.ar.web.buit;
 
 import it.itba.edu.ar.domain.user.User;
-import it.itba.edu.ar.web.BackImageResourceReference;
-import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.ErrorPage;
-import it.itba.edu.ar.web.ImageVerified;
-import it.itba.edu.ar.web.ProfPicResourceReference;
+import it.itba.edu.ar.web.common.BackImageResourceReference;
+import it.itba.edu.ar.web.common.BuitterSession;
+import it.itba.edu.ar.web.common.ImageVerified;
+import it.itba.edu.ar.web.common.ProfPicResourceReference;
 import it.itba.edu.ar.web.users.EditProfilePage;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;

@@ -6,18 +6,18 @@
 				<div class="row row-offcanvas row-offcanvas-right">
 					<div class="col-md-8 col-md-offset-2">
 						<div class="well well-lg">
-							<span class="custom-header">Statistics</span>
-							<strong>Analyze your buits based on the time they were published</strong>
+							<span class="custom-header"><wicket:message key="statistics">Statistics</wicket:message></span>
+							<strong><wicket:message key="analyze">Analyze your buits based on the time they were published</wicket:message></strong>
 							<br/>
 							<br/>
 							<div id="container" style="min-width: 500px; height: 400px; margin: 0 auto" wicket:id="chart"/>
 							<br />
 							<form wicket:id="form">
-								<span>Filter buits by date:</span>
+								<span><wicket:message key="filter">Filter buits by date:</wicket:message></span>
 								<br/>
 								<br/>
 								<div class="form-group">
-									<label for="fromdate" class="col-md-2 control-label">From</label>
+									<label for="fromdate" class="col-md-2 control-label"><wicket:message key="from">From</wicket:message></label>
 									<div class="col-md-12">
 										<input type="date" wicket:id="fromDate"/>
 										<div class="text-danger" style="margin-bottom: 0px" wicket:id="fromDate_error">
@@ -36,7 +36,7 @@
 								</div> <!-- .form-group -->
 								<br/>
 								
-								<p>Group data by: </p>
+								<p><wicket:message key="group">Group data by: </wicket:message></p>
 								<div class="col-md-2" wicket:id="radioChoice">
 									<!-- <label for="day">Day
 										<input type="radio" value="day"/>
@@ -55,7 +55,7 @@
 								<br/>
 								<div class="form-group">
 									<div class="col-md-offset-2">
-										<button type="submit" class="btn btn-primary" style="margin-left: 177px;" wicket:id="confirm">Confirm</button>
+										<button type="submit" class="btn btn-primary" style="margin-left: 177px;" wicket:id="confirm"><wicket:message key="confirm">Confirm</wicket:message></button>
 									</div> <!-- .col-md-offset-2 -->
 								</div> <!-- .form-group -->
 							</form> <!-- method = post -->

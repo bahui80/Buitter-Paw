@@ -1,4 +1,4 @@
-package it.itba.edu.ar.web;
+package it.itba.edu.ar.web.common;
 
 import org.apache.wicket.util.cookies.CookieDefaults;
 import org.apache.wicket.util.cookies.CookieUtils;

@@ -4,6 +4,10 @@ import it.itba.edu.ar.domain.EntityModel;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.userlist.UserList;
 import it.itba.edu.ar.web.buit.ProfilePage;
+import it.itba.edu.ar.web.common.BuitterSession;
+import it.itba.edu.ar.web.common.DateFormatter;
+import it.itba.edu.ar.web.common.ImageVerified;
+import it.itba.edu.ar.web.common.ProfPicResourceReference;
 
 import java.util.ArrayList;
 import java.util.Date;

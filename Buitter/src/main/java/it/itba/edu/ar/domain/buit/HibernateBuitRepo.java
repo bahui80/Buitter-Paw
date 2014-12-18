@@ -5,7 +5,7 @@ import it.itba.edu.ar.domain.event.MentionedEvent;
 import it.itba.edu.ar.domain.event.ReBuitEvent;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
-import it.itba.edu.ar.web.ViewControllerHelper;
+import it.itba.edu.ar.web.common.ViewControllerHelper;
 
 import java.util.ArrayList;
 import java.util.Date;

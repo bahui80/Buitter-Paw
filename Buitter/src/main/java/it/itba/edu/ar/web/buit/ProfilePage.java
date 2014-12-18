@@ -4,9 +4,9 @@ import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.buit.BuitRepo;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
-import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.ListBuitsPanel;
 import it.itba.edu.ar.web.base.BasePage;
+import it.itba.edu.ar.web.common.BuitterSession;
 
 import java.util.ArrayList;
 import java.util.List;

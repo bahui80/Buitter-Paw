@@ -1,4 +1,6 @@
-package it.itba.edu.ar.web;
+package it.itba.edu.ar.web.common;
+
+import it.itba.edu.ar.web.BuitterApp;
 
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.model.IModel;

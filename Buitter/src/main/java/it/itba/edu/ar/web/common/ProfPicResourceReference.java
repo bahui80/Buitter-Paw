@@ -1,4 +1,6 @@
-package it.itba.edu.ar.web;
+package it.itba.edu.ar.web.common;
+
+import it.itba.edu.ar.web.BuitterApp;
 
 import java.util.Random;
 

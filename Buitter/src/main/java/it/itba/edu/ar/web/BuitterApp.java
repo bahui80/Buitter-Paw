@@ -4,7 +4,9 @@ import it.itba.edu.ar.web.buit.FollowersPage;
 import it.itba.edu.ar.web.buit.FollowingPage;
 import it.itba.edu.ar.web.buit.HashtagPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
+import it.itba.edu.ar.web.common.CookieService;
 import it.itba.edu.ar.web.common.HibernateRequestCycleListener;
+import it.itba.edu.ar.web.common.SessionProvider;
 
 import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.IConverterLocator;
@@ -43,6 +45,7 @@ public class BuitterApp extends WebApplication {
 	@Override
 	protected void init() {
 		super.init();
+		mountPage("/error", ErrorPage.class);
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
 		mountPage("/profile/${username}", ProfilePage.class);

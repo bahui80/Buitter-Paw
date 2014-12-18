@@ -1,4 +1,4 @@
-package it.itba.edu.ar.web;
+package it.itba.edu.ar.web.common;
 
 import it.itba.edu.ar.domain.buit.Buit;
 

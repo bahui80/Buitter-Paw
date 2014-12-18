@@ -1,4 +1,4 @@
-package it.itba.edu.ar.web;
+package it.itba.edu.ar.web.common;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.ComponentTag;

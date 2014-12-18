@@ -2,6 +2,9 @@ package it.itba.edu.ar.web;
 
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.buit.BuitRepo;
+import it.itba.edu.ar.web.common.BuitterSession;
+import it.itba.edu.ar.web.common.MessageModel;
+import it.itba.edu.ar.web.common.ProfPicResourceReference;
 
 import java.util.Date;
 import java.util.List;

@@ -2,8 +2,8 @@ package it.itba.edu.ar.web.users;
 
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.user.User;
-import it.itba.edu.ar.web.BuitDateRangeFilter;
 import it.itba.edu.ar.web.base.BasePage;
+import it.itba.edu.ar.web.common.BuitDateRangeFilter;
 import it.itba.edu.ar.web.validator.DateRangeValidator;
 import it.itba.edu.ar.web.validator.TodayDateValidator;
 

@@ -3,11 +3,11 @@ package it.itba.edu.ar.web.buit;
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.buit.BuitRepo;
 import it.itba.edu.ar.domain.buit.Hashtag;
-import it.itba.edu.ar.web.BuitterSession;
-import it.itba.edu.ar.web.DateFormatter;
 import it.itba.edu.ar.web.ErrorPage;
 import it.itba.edu.ar.web.ListBuitsPanel;
 import it.itba.edu.ar.web.base.BasePage;
+import it.itba.edu.ar.web.common.BuitterSession;
+import it.itba.edu.ar.web.common.DateFormatter;
 
 import java.util.ArrayList;
 import java.util.Date;

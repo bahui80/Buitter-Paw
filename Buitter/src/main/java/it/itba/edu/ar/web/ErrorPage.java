@@ -6,11 +6,16 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.ResourceModel;
 
 public class ErrorPage extends BasePage {
+	
+	public ErrorPage() {
+		addToPage(new ResourceModel("404Error"), new ResourceModel("404ErrorDescription"));
+	}
+	
 	public ErrorPage(ResourceModel error, ResourceModel errorDescription) {
-		if(error == null && errorDescription == null) {
-			error = new ResourceModel("404Error");
-			errorDescription = new ResourceModel("404ErrorDescription");
-		}
+		addToPage(error, errorDescription);
+	}
+	
+	private void addToPage(ResourceModel error, ResourceModel errorDescription) {
 		add(new Label("error", error));
 		add(new Label("errorDescription", errorDescription));
 	}

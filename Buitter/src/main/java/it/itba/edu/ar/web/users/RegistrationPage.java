@@ -3,9 +3,9 @@ package it.itba.edu.ar.web.users;
 import it.itba.edu.ar.domain.user.DuplicatedUserException;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.user.UserRepo;
-import it.itba.edu.ar.web.BuitterSession;
 import it.itba.edu.ar.web.HomePage;
 import it.itba.edu.ar.web.base.BasePage;
+import it.itba.edu.ar.web.common.BuitterSession;
 import it.itba.edu.ar.web.validator.EqualTextValidator;
 
 import java.util.Date;
@@ -16,7 +16,7 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
-import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.ComponentFeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -32,6 +32,7 @@ public class RegistrationPage extends BasePage {
 	@SpringBean
 	private UserRepo userRepo;
 	private CaptchaImageResource captchaImage;
+	@SuppressWarnings("unused")
 	private String captchaRandom = randomString(6, 8);
 	
 	private transient String username;
@@ -66,14 +67,13 @@ public class RegistrationPage extends BasePage {
 
 		IModel<String> captchaModel = new PropertyModel<String>(this, "captchaRandom");
 		captchaImage = new CaptchaImageResource(captchaModel);
-		form.add(new Image("captchaImage", captchaImage));
+		form.add(new NonCachingImage("captchaImage", captchaImage));
 		RequiredTextField<String> captchaTextField = new RequiredTextField<String>("captchaText");
 		captchaTextField.add(new EqualTextValidator(captchaModel));
 		form.add(captchaTextField);
 		
 		form.add(new ComponentFeedbackPanel("captcha_error", captchaTextField));
 		form.add(new BookmarkablePageLink<Void>("cancel", HomePage.class));
-		System.out.println(captchaRandom);
 		form.add(new Button("save") {
 			@Override
 			public void onSubmit() {

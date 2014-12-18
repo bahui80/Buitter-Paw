@@ -7,9 +7,9 @@
     					<div class="well">
               				<form class="bs-example form-horizontal" method="POST" enctype="multipart/form-data" wicket:id="form">
                 				<fieldset>
-                  					<legend>Your personal details</legend>
+                  					<legend><wicket:message key="personalDetails">Your personal details</wicket:message></legend>
                   					<div class="form-group">
-                      					<label for="username" class="col-md-3 control-label">Username</label>
+                      					<label for="username" class="col-md-3 control-label"><wicket:message key="username">Username</wicket:message></label>
                       					<div class="col-md-8">
                         					<input type="text" class="form-control2" maxlength="32" placeholder="Username" wicket:id="username"/>
                         					<div class="text-danger" style="margin-bottom: 0px" wicket:id="username_error"><small><em>Error username</em></small></div>
@@ -17,7 +17,7 @@
                     				</div> <!-- .form-group -->
 									<span wicket:id="fieldsPanel"/>
  									<div class="form-group">
-                                        <label for="captcha" class="col-md-3 control-label">Captcha</label>
+                                        <label for="captcha" class="col-md-3 control-label"><wicket:message key="captcha">Captcha</wicket:message></label>
                                         <div class="col-md-8">
                                             <img wicket:id="captchaImage"/>
                                             <input type="text" class="form-control2" placeholder="Type the characters you see in the picture" style="margin-top: 8px" wicket:id="captchaText"/>
@@ -26,8 +26,8 @@
                                     </div> <!-- .form-group -->
                                     <div class="form-group">
                     					<div class="col-md-5 col-md-offset-4">
-                      						<button type="button" class="btn btn-default" wicket:id="cancel">Cancel</button>
-                      						<button type="submit" class="btn btn-primary" wicket:id="save">Confirm</button> 
+                      						<button type="button" class="btn btn-default" wicket:id="cancel"><wicket:message key="cancel">Cancel</wicket:message></button>
+                      						<button type="submit" class="btn btn-primary" wicket:id="save"><wicket:message key="confirm">Confirm</wicket:message></button> 
                     					</div> <!-- .col-md-5 .col-md-offset-4 -->
                   					</div> <!-- .form-group -->
                 				</fieldset>

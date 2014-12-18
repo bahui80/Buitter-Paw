@@ -1,10 +1,10 @@
 package it.itba.edu.ar.web.users;
 
 import it.itba.edu.ar.web.BuitterApp;
-import it.itba.edu.ar.web.BuitterSession;
-import it.itba.edu.ar.web.CookieService;
 import it.itba.edu.ar.web.HomePage;
-import it.itba.edu.ar.web.SessionProvider;
+import it.itba.edu.ar.web.common.BuitterSession;
+import it.itba.edu.ar.web.common.CookieService;
+import it.itba.edu.ar.web.common.SessionProvider;
 
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;

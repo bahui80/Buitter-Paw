@@ -2,43 +2,43 @@
     <body>
         <wicket:panel>
             <div class="form-group">
-                <label for="password" class="col-md-3 control-label">Password</label>
+                <label for="password" class="col-md-3 control-label"><wicket:message key="password">Password</wicket:message></label>
                 <div class="col-md-8">
                     <input type="password" maxlength="32" class="form-control2" placeholder="Password" wicket:id="password"/>
                     <div class="text-danger" style="margin-bottom: 0px" wicket:id="password_error"><small><em>Error password</em></small></div>
                 </div> <!-- .col-md-8 -->
             </div> <!-- .from-group -->
             <div class="form-group">
-                <label for="re-password" class="col-md-3 control-label">Re-type password</label>
+                <label for="re-password" class="col-md-3 control-label"><wicket:message key="rePassword">Re-type password</wicket:message></label>
                 <div class="col-md-8">
                     <input type="password" maxlength="32" class="form-control2" placeholder="Re-type password" wicket:id="password2"/>
                     <div class="text-danger" style="margin-bottom: 0px" wicket:id="password2_error"><small><em>Error password2</em></small></div>
                 </div> <!-- .col-md-8 -->
             </div> <!-- .form-group -->
             <div class="form-group">
-                <label for="name" class="col-md-3 control-label pull-left">Name</label>
+                <label for="name" class="col-md-3 control-label pull-left"><wicket:message key="name">Name</wicket:message></label>
                 <div class="col-md-8">
                     <input type="text" class="form-control2" maxlength="32" placeholder="Name" wicket:id="name"/>
                     <div class="text-danger" style="margin-bottom: 0px" wicket:id="name_error"><small><em>Name can't be empty</em></small></div> 
                 </div> <!-- .col-md-8 -->
             </div> <!-- .from-group -->
             <div class="form-group">
-                <label for="surname" class="col-md-3 control-label">Surname</label>
+                <label for="surname" class="col-md-3 control-label"><wicket:message key="surname">Surname</wicket:message></label>
                 <div class="col-md-8">
                     <input type="text" class="form-control2" maxlength="32" placeholder="Surname" wicket:id="surname"/>
                     <div class="text-danger" style="margin-bottom: 0px" wicket:id="surname_error"><small><em>Error surname</em></small></div>
                 </div> <!-- .col-md-8 -->
             </div> <!-- .form-group -->
             <div class="form-group">
-                <label for="description" class="col-md-3 control-label">Description</label>
+                <label for="description" class="col-md-3 control-label"><wicket:message key="description">Description</wicket:message></label>
                 <div class="col-md-8">
                     <textarea class="form-control2" rows="4" style="resize: vertical" maxlength="140" wicket:id="description"/>
-                    <span class="help-block">Write a description for others users to get to know you</span>
+                    <span class="help-block"><wicket:message key="info">Write a description for others users to get to know you</wicket:message></span>
                     <div class="text-danger" style="margin-bottom: 0px" wicket:id="description_error"><small><em>Desc error</em></small></div>
                 </div> <!-- .col-md-8 -->
             </div> <!-- .form-group -->
             <div class="form-group">
-                <label for="question" class="col-md-3 control-label">Secret question</label>
+                <label for="question" class="col-md-3 control-label"><wicket:message key="secretQuestion">Secret question</wicket:message></label>
                 <div class="col-md-8">
                     <select class="form-control2" name="question" wicket:id="secretQuestion">
                         <option value="What is the name of your dog?">What is the name of your dog?</option>
@@ -50,14 +50,14 @@
                 </div> <!-- .col-md-8 -->
             </div> <!-- .form-group -->
             <div class="form-group">
-                <label for="answer" class="col-md-3 control-label">Secret answer</label>
+                <label for="answer" class="col-md-3 control-label"><wicket:message key="secretAnswer">Secret answer</wicket:message></label>
                 <div class="col-md-8">
                     <input type="text" maxlength="60" class="form-control2" placeholder="Type your answer" wicket:id="secretAnswer"/>
                     <div class="text-danger" style="margin-bottom: 0px" wicket:id="secretAnswer_error"><small><em>Answer error</em></small></div>
                 </div> <!-- .col-md-8 -->
             </div> <!-- .form-group -->
             <div class="form-group">
-                <label for="privacy" class="col-md-3 control-label">Privacy</label>
+                <label for="privacy" class="col-md-3 control-label"><wicket:message key="privacy">Privacy</wicket:message></label>
                 <div class="col-md-8">
                     <select class="form-control2" wicket:id="privacy">
                         <option value="Public">Public</option>
@@ -66,14 +66,14 @@
                 </div> <!-- .col-md-8 -->
             </div> <!-- .form-group -->
             <div class="form-group">
-                <label for="photo" class="col-md-3 control-label">Profile picture</label>
+                <label for="photo" class="col-md-3 control-label"><wicket:message key="profPic">Profile picture</wicket:message></label>
                 <div class="col-md-8">
                     <input type="file" data-buttonText="Select photo" accept="image/jpeg, image/jpg, image/png" wicket:id="photo" style="margin-top: 9px"/>
                     <div class="text-danger" style="margin-bottom: 0px" wicket:id="photo_error"><small><em>Photo error</em></small></div>
                 </div> <!-- .col-md-8 -->
             </div> <!-- .form-group -->
             <div class="form-group">
-                <label for="backgroundImage" class="col-md-3 control-label">Background image</label>
+                <label for="backgroundImage" class="col-md-3 control-label"><wicket:message key="backImage">Background image</wicket:message></label>
                 <div class="col-md-8">
                     <input type="file" data-buttonText="Select background" accept="image/jpeg, image/jpg, image/png" wicket:id="backgroundImage" style="margin-top: 9px"/>
                     <div class="text-danger" style="margin-bottom: 0px" wicket:id="background_error"><small><em>Background image error</em></small></div>
