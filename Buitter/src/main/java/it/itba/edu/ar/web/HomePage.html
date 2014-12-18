@@ -5,16 +5,16 @@
 				<div class="row row-offcanvas row-offcanvas-right">
 					<div class="col-xs-12 col-sm-9">
 						<div class="well well-lg" style="padding-left: 0px; padding-right: 0px;">
-							<h1 id="no-more-tweets" style="text-align: center; font-size: 25.5px">#NoMoreTweets. #WeBuitNow.</h1>
+							<h1 id="no-more-tweets" style="text-align: center; font-size: 25.5px"><wicket:message key="homeBuits">#NoMoreTweets. #WeBuitNow.</wicket:message></h1>
 						</div> <!-- .well .well-lg -->
 						<div class="well well-lg" wicket:id="notEmptyUserContainer">
 							<div class="row">
 								<div class="col-6 col-sm-6 col-lg-6">
-									<h3 style="text-align: center; margin-top: 12px;">Buits</h3>
+									<h3 style="text-align: center; margin-top: 12px;"><wicket:message key="buits">Buits</wicket:message></h3>
 									<span wicket:id="listBuitsPanel"/>
 								</div> <!-- .col-6 .col-sm-6 .col-lg-6 -->
 								<div class="col-6 col-sm-6 col-lg-6">
-									<h3 style="text-align: center; margin-top: 12px;">Following</h3>
+									<h3 style="text-align: center; margin-top: 12px;"><wicket:message key="following">Following</wicket:message></h3>
 									<span wicket:id="listBuitsPanel2"/>
 								</div> <!-- .col-6 .col-sm-6 .col-lg-6 -->
 							</div> <!-- .row -->
@@ -25,14 +25,14 @@
 									<img class="img-circle profile-pic-home" wicket:id="userImage"/>
 									<h3 class="username-home" style="word-wrap: break-word" wicket:id="userUsername">andipaw</h3>
 									<p class="text-muted" style="word-wrap: break-word">"<span wicket:id="userDescription"/>"</p>
-									<a href="#" wicket:id="profilePageLink" class="btn btn-link btn-xs">View profile</a>
+									<a href="#" wicket:id="profilePageLink" class="btn btn-link btn-xs"><wicket:message key="viewProfile">View profile</wicket:message></a>
 								</div> <!-- .col-6 .col-sm-6 .col-lg-4 .text-center -->
 							</div> <!-- .row -->
 						</div> <!-- .well .well-lg -->
 					</div> <!-- .col-xs-12 .col-sm-9 -->
 					<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
 						<div class="well sidebar-nav">
-							<strong> Trending Topics </strong>
+							<strong><wicket:message key="trendingTopics"> Trending Topics </wicket:message></strong>
 							<span>
 								<select class="form-control" id="select" style="width: 100%" wicket:id="timeSelect">
 									<option value="1">1 day</option>
@@ -48,7 +48,7 @@
 							</ul> <!-- .nav -->
 						</div> <!-- .well .sidebar-nav -->
 						<div class="well sidebar-nav" wicket:id="whoToFollowContainer">
-							<strong>Who to follow</strong>
+							<strong><wicket:message key="whoToFollow">Who to follow</wicket:message></strong>
 							<br />
 							<p id="recommendationEmpty" class="text-muted" wicket:id="recommendationEmpty">There are no users to follow at this time.</p>
 							<div class="media buit" wicket:id="recommendedUsers">

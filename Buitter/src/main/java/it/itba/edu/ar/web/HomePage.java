@@ -25,6 +25,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -133,7 +134,7 @@ public class HomePage extends BasePage {
 				item.add(hashtagPageLink);
 			}
 		});
-		Label emptyListLabel = new Label("trendingEmpty", "There are no hashtags for this period of time.") {
+		Label emptyListLabel = new Label("trendingEmpty", new ResourceModel("emptyTrendings")) {
 			public boolean isVisible() {
 				return trendingTopicModel.getObject().isEmpty();
 			};
@@ -170,7 +171,7 @@ public class HomePage extends BasePage {
             }
 		};
 		
-		Label emptyRecommendationLabel = new Label("recommendationEmpty", "There are no users to follow at this time.") {
+		Label emptyRecommendationLabel = new Label("recommendationEmpty", new ResourceModel("emptyRecommendations")) {
 			public boolean isVisible() {
 				return modelRecommendations.getObject().isEmpty();
 			};
