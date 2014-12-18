@@ -6,11 +6,17 @@ import it.itba.edu.ar.domain.event.Event;
 import it.itba.edu.ar.domain.userlist.UserList;
 import it.itba.edu.ar.web.BuitFilter;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +29,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
+import org.imgscalr.Scalr;
 
 @Entity
 @Table(name="users")
@@ -196,6 +203,9 @@ public class User extends PersistentEntity {
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
+		if(photo != null) {
+			thumbnailPhoto = thumbnailGenerator(photo);
+		}
 	}
 	
 	public byte[] getThumbnailPhoto() {
@@ -378,11 +388,24 @@ public class User extends PersistentEntity {
 		}
 	}
 	
-//	public void removeListIn(UserList userList) {
-//		if(userListsIn.contains(userList)) {
-//			userListsIn.remove(userList);
-//		}
-//	}
+	private byte[] thumbnailGenerator(byte[] photo) {
+		try {
+			InputStream is = new ByteArrayInputStream(photo);
+			BufferedImage bufferedPhoto = ImageIO.read(is);
+			
+			BufferedImage bufferedThumbnail = Scalr.resize(bufferedPhoto, 150, 150);
+			
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(bufferedThumbnail, "jpg", baos);
+			baos.flush();
+			byte[] byteThumbnail = baos.toByteArray();
+			baos.close();
+			
+			return byteThumbnail;
+		} catch (IOException e) {
+			return photo;
+		}		
+	}
 	
 	@Override
 	public int hashCode() {
