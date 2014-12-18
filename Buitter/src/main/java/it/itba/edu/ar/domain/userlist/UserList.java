@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class UserList extends PersistentEntity {
@@ -21,6 +22,8 @@ public class UserList extends PersistentEntity {
 	private String description;
 	@ManyToMany
 	private Set<User> users = new HashSet<User>();
+	@Transient
+	private Integer totalBuits;
 	
 	UserList() {
 	}
@@ -41,6 +44,16 @@ public class UserList extends PersistentEntity {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public Integer getTotalBuits() {
+		int i = 0;
+		
+		for(User user: users) {
+			i += user.getMybuits().size();
+		}
+		
+		return i;
 	}
 	
 	public void setName(String name) {
@@ -67,6 +80,13 @@ public class UserList extends PersistentEntity {
 		if(!users.contains(user)) {
 			users.add(user);
 			user.addNewListIn(this);
+		}
+	}
+	
+	public void removeUser(User user) {
+		if(users.contains(user)) {
+			users.remove(user);
+			user.removeListIn(this);
 		}
 	}
 

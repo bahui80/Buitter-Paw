@@ -13,13 +13,13 @@ import it.itba.edu.ar.web.SessionProvider;
 import it.itba.edu.ar.web.buit.FavoritesPage;
 import it.itba.edu.ar.web.buit.ProfilePage;
 import it.itba.edu.ar.web.search.SearchPage;
+import it.itba.edu.ar.web.userlist.UserListsPage;
 import it.itba.edu.ar.web.users.BlacklistPage;
 import it.itba.edu.ar.web.users.ConnectPage;
 import it.itba.edu.ar.web.users.EditProfilePage;
 import it.itba.edu.ar.web.users.LoginPage;
 import it.itba.edu.ar.web.users.RegistrationPage;
 import it.itba.edu.ar.web.users.StatsPage;
-import it.itba.edu.ar.web.users.UserListsPage;
 
 import java.util.ArrayList;
 import java.util.Iterator;

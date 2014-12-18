@@ -373,6 +373,12 @@ public class User extends PersistentEntity {
 		}
 	}
 	
+	public void removeListIn(UserList userList) {
+		if(userListsIn.contains(userList)) {
+			userListsIn.remove(userList);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

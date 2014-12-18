@@ -1,0 +1,24 @@
+<html>
+	<body>
+		<wicket:extend>
+			<div class="container">
+				<div class="row row-offcanvas row-offcanvas-right">
+					<div class="col-md-8 col-md-offset-2">
+						<div wicket:id="userListHeaderPanel"/>	
+						<div class="well well-lg" style="position: relative">
+							<div class="alert-box" wicket:id="emptyBuitsContainer">
+								<img src="img/logo.png" class="logo-alt"/>
+								<br/>
+								<span> You haven't added any users yet.</span>
+							</div> <!-- .alert-box -->
+							<span wicket:id="notEmptyBuitsContainer">
+								<h3 class="text-bold" style="margin-left:40px">Buits</h3>
+								<span wicket:id="listBuitsPanel"/>
+							</span>
+						</div> <!-- .well .well-lg -->
+					</div> <!-- .col-md-8 .col-md-offset-2 -->
+				</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
+			</div> <!-- .container -->
+		</wicket:extend>
+	</body>
+</html>

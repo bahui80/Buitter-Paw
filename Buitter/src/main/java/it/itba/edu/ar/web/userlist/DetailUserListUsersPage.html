@@ -1,0 +1,42 @@
+<html>
+	<body>
+		<wicket:extend>
+			<div class="container">
+				<div class="row row-offcanvas row-offcanvas-right">
+					<div class="col-md-8 col-md-offset-2">
+						<div wicket:id="userListHeaderPanel"/>	
+						<div class="well well-lg" style="position: relative">
+							<div class="alert-box" wicket:id="emptyUsersContainer">
+								<img src="img/logo.png" class="logo-alt"/>
+								<br/>
+								<span> You haven't added any users yet.</span>
+							</div> <!-- .alert-box -->
+							<span wicket:id="notEmptyUsersContainer">
+								<h3 class="text-bold" style="margin-left:40px">Users</h3>
+								<div class="media buit" wicket:id="users">
+									<img class="pull-left media-object buit-profile-pic" wicket:id="image"/>
+									<div class="media-body">
+										<div>
+											<span class="text-bold">
+												<a href="#" wicket:id="profilePageLink"><span wicket:id="name">Juan </span> <span wicket:id="surname">Buireo</span></a>
+											</span> <!-- .text-bold -->
+											<img wicket:id="imgVerified" style="width: 17px;margin-bottom: 4px;"/>
+											@<span wicket:id="username"/>
+										</div> <!-- .media-heading -->
+										<div class="col-md-12" style="word-wrap:break-word;padding-left: 0px">
+											<div class="text-muted col-md-9" style="padding-left: 0px">
+												"<span wicket:id="description"/>"
+											</div>
+										</div>
+										<div class="pull-left col-md-12" style="padding-left: 0px;">Date registered: <span wicket:id="date"/></div>
+										<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="deleteButton"><i class="icon-trash"> Delete</i></button>
+									</div> <!-- .media-body -->
+								</div> <!-- .media-buit -->
+							</span>
+						</div> <!-- .well .well-lg -->
+					</div> <!-- .col-md-8 .col-md-offset-2 -->
+				</div> <!-- .row .row-offcanvas .row-offcanvas-right -->
+			</div> <!-- .container -->
+		</wicket:extend>
+	</body>
+</html>

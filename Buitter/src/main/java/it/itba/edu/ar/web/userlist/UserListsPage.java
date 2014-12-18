@@ -1,4 +1,4 @@
-package it.itba.edu.ar.web.users;
+package it.itba.edu.ar.web.userlist;
 
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.userlist.DuplicatedListException;
@@ -84,7 +84,7 @@ public class UserListsPage extends BasePage {
 				Link<Void> detailListPage = new Link<Void>("detailListPage") {
 					@Override
 					public void onClick() {
-						
+						setResponsePage(new DetailUserListUsersPage(item.getModel()));
 					}
 				};
 				detailListPage.add(new Label("name", new PropertyModel<String>(item.getModel(), "name")));		
