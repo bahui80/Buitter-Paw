@@ -8,7 +8,6 @@ INSERT INTO userlist(id, description, name, owner_id) VALUES (6, 'Gente del cole
 INSERT INTO userlist(id, description, name, owner_id) VALUES (7, 'Gente del gimnasio', 'Gimnasio', 7);
 -- END NEW INSERTS USERLIST --
 
-
 -- BEGIN NEW INSERTS USERLIST_USERS --
 INSERT INTO userlist_users(userlistsin_id, users_id) VALUES (1, 2);
 INSERT INTO userlist_users(userlistsin_id, users_id) VALUES (1, 4);
@@ -25,6 +24,10 @@ INSERT INTO userlist_users(userlistsin_id, users_id) VALUES (5, 3);
 INSERT INTO userlist_users(userlistsin_id, users_id) VALUES (5, 4);
 INSERT INTO userlist_users(userlistsin_id, users_id) VALUES (5, 5);
 -- END NEW INSERTS USERLIST_USERS --
+
+-- BEGIN NEW INSERTS USERS_BLACKLIST --
+INSERT INTO users_blacklist(blacklist_id, blacklistedby_id) VALUES (3, 6);
+-- END NEW INSERTS USERS_BLACKLIST --
 
 -- BEGIN NEW INSERTS PUBLICITIES --
 INSERT INTO publicity(id, clientname, imageurl, url) VALUES (1, 'Bellevue', 'http://www.bellevuecollege.edu/ps/Images%202/MoE-Banner-12-10.jpg', 'http://www.bellevuecollege.edu/');

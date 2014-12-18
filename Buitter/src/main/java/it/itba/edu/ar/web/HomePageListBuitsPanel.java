@@ -23,12 +23,15 @@ import org.ocpsoft.prettytime.PrettyTime;
 public class HomePageListBuitsPanel extends Panel {
 	@SpringBean
 	private BuitRepo buitRepo;
-	public HomePageListBuitsPanel(String id, final IModel<List<Buit>> modelBuit) {
+	private IModel<List<Buit>> modelBuit;
+	public HomePageListBuitsPanel(String id, IModel<List<Buit>> buitModel) {
 		super(id);
+		this.modelBuit = buitModel;
+		setDefaultModel(modelBuit);
 		
 		add(new ListView<Buit>("buits", modelBuit) {
 			@Override
-			protected void populateItem(ListItem<Buit> item) {
+			protected void populateItem(final ListItem<Buit> item) {
 				item.add(new Image("image", new ProfPicResourceReference(item.getModel().getObject().getBuitter().getThumbnailPhoto(), item.getModel().getObject().getBuitter().getUsername())));
 				item.add(new Label("username", new PropertyModel<String>(item.getModel(), "buitter.username")));
 				PrettyTime p = new PrettyTime();
@@ -53,19 +56,13 @@ public class HomePageListBuitsPanel extends Panel {
 						modelBuit.detach();
 					}
 				};
-				Link<Buit> rebuitButton = new Link<Buit>("rebuitButton", item.getModel()) {
-					public void onClick() {
-						buitRepo.rebuit(getModelObject(), BuitterSession.get().getUser());
-					}
-				};
+
 				deleteButton.setVisible(BuitterSession.get().isSignedIn() && item.getModelObject().getBuitter().equals(BuitterSession.get().getUser()));
 				favoriteButton.setVisible(BuitterSession.get().isSignedIn() && !BuitterSession.get().getUser().getFavourites().contains(item.getModelObject()));
 				unfavoriteButton.setVisible(BuitterSession.get().isSignedIn() && BuitterSession.get().getUser().getFavourites().contains(item.getModelObject()));
-				rebuitButton.setVisible(BuitterSession.get().isSignedIn() && !item.getModelObject().getBuitter().equals(BuitterSession.get().getUser()));
 				item.add(deleteButton);
 				item.add(favoriteButton);
 				item.add(unfavoriteButton);
-				item.add(rebuitButton);
 			}
 		});
 	}

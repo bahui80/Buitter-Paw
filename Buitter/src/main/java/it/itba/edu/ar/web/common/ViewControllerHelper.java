@@ -1,5 +1,6 @@
 package it.itba.edu.ar.web.common;
 
+import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.buit.Hashtag;
 import it.itba.edu.ar.domain.buit.Url;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.cycle.RequestCycle;
 
 public class ViewControllerHelper {
@@ -53,8 +55,8 @@ public class ViewControllerHelper {
 		return buit;
 	}
 	
-	public static String prepareBuitUrl(String buit, List<Url> urls) {
-		for (Url url : urls) {
+	public static String prepareBuitUrl(String buit, IModel<Buit> buitModel) {
+		for (Url url : buitModel.getObject().getUrls()) {
 			String replaceHTML = " <a href='" + url.getUrl()
 					+ "' target='_blank'>" + url.getBuiturl() + "</a> ";
 			buit = buit.replace(url.getBuiturl(), replaceHTML);
@@ -62,10 +64,10 @@ public class ViewControllerHelper {
 		return buit;
 	}
 
-	public static String prepareBuitHashtag(String buit, List<Hashtag> hashtags) {
+	public static String prepareBuitHashtag(String buit, IModel<Buit> buitModel) {
 		String replaceHTML;
 		
-		for (Hashtag hashtag : hashtags) {
+		for (Hashtag hashtag : buitModel.getObject().getHashtags()) {
 			replaceHTML = " <a href=" + path + "/web/hashtag/" + hashtag.getHashtag() + ">"
 						+ "#" +hashtag.getHashtag() + "</a>";
 			buit = buit.replaceAll("#" + hashtag.getHashtag() + "((?:\\s)|(?:\\Z))", replaceHTML);
@@ -73,9 +75,10 @@ public class ViewControllerHelper {
 		return buit;
 	}
 	
-	public static String prepareBuitUser(String buit, Set<String> users) {
+	public static String prepareBuitUser(String buit, IModel<Buit> buitModel) {
 		String replaceHTML;
-		for (String user : users) {
+		System.out.println("BOJECT: " + buitModel.getObject());
+		for (String user : buitModel.getObject().getMentionedBuitters()) {
 			replaceHTML = " <a href=" + path + "/web/profile/" + user + ">"
 						+ "@" + user + "</a>";
 			buit = buit.replaceAll("@" + user + "((?:\\s)|(?:\\Z))", replaceHTML);

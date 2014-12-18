@@ -17,9 +17,9 @@ public class MessageModel extends AbstractReadOnlyModel<String> {
 	@Override
 	public String getObject() {
 		String message = buitModel.getObject().getMessage();
-		message = ViewControllerHelper.prepareBuitHashtag(message, buitModel.getObject().getHashtags());
-		message = ViewControllerHelper.prepareBuitUrl(message, buitModel.getObject().getUrls());
-		message = ViewControllerHelper.prepareBuitUser(message, buitModel.getObject().getMentionedBuitters());
+		message = ViewControllerHelper.prepareBuitHashtag(message, buitModel);
+		message = ViewControllerHelper.prepareBuitUrl(message, buitModel);
+		message = ViewControllerHelper.prepareBuitUser(message, buitModel);
 	
 		return message;
 	}
