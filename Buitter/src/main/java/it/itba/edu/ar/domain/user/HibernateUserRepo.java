@@ -3,6 +3,7 @@ package it.itba.edu.ar.domain.user;
 import it.itba.edu.ar.domain.HibernateGenericRepo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,12 +35,11 @@ public class HibernateUserRepo extends HibernateGenericRepo implements UserRepo 
 	}
 
 	@Override
-	public List<User> whoToFollow(User user) {
+	public List<User> whoToFollow(User user, int n, int howMany) {
 		List<User> whoToFollow = new ArrayList<User>();
 		Set<User> following = user.getFollowing();
 		
 		//hay que meter el metodo que lee de un archivo
-		int n = 5;
 		
 		for (User u : following) {
 			Set<User> whoIsHeFollowing = u.getFollowing();
@@ -47,18 +47,26 @@ public class HibernateUserRepo extends HibernateGenericRepo implements UserRepo 
 			comunUsers.retainAll(whoIsHeFollowing);
 			if(comunUsers.size() >= n){
 				for (User user2 : whoIsHeFollowing) {
-					if(!following.contains(user2))
+					if(!following.contains(user2) && !user.equals(user2))
 						whoToFollow.add(user2);
 				}
 			}
 		}
 		
-		if(whoToFollow.size() < 3){
-			whoToFollow.clear();
-			whoToFollow = this.getHighestFollowers(3, user);
-			//whoToFollow = this.getMostPopular(n,this.getHighestFollowersCount(3));
+		if(whoToFollow.size() < howMany){
+			final int qty = whoToFollow.size();
+			List<User> mostPopularToFollow = this.getHighestFollowers(howMany - qty, user);
+			for (User u : mostPopularToFollow) {
+				if(!whoToFollow.contains(u)) {
+					whoToFollow.add(u);
+				}
+			}
 		}
 		
+		Collections.shuffle(whoToFollow);
+		if(whoToFollow.size() > howMany) {
+			return whoToFollow.subList(0, howMany);
+		}
 		return whoToFollow;
 	}
 	
@@ -116,8 +124,7 @@ public class HibernateUserRepo extends HibernateGenericRepo implements UserRepo 
 	private List<User> getHighestFollowers(int qty, User user){
 		Query query = getSession().
 				createQuery("FROM User as u " +
-						"WHERE size(followers) > 0 AND " +
-						" ? <> u.username AND " +
+						"WHERE ? <> u.username AND " +
 						" NOT EXISTS (FROM u.followers b WHERE b.username = " +
 						" ? ) " + 
 						"ORDER BY size(followers) DESC");

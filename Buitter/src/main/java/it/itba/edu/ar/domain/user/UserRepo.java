@@ -33,6 +33,6 @@ public interface UserRepo {
 	/**
 	 * Sugiere usuarios a seguir
 	 */
-	public List<User> whoToFollow(User u);
+	public List<User> whoToFollow(User u, int n, int howMany);
 	
 }

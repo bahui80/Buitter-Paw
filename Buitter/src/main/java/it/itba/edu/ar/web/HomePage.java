@@ -75,7 +75,7 @@ public class HomePage extends BasePage {
 			@Override
 			protected List<User> load() {
 				if(BuitterSession.get().isSignedIn()) {
-					return userRepo.whoToFollow(BuitterSession.get().getUser());
+					return userRepo.whoToFollow(BuitterSession.get().getUser(), Integer.parseInt(getString("whoToFollowN")), Integer.parseInt(getString("whoToFollowShow")));
 				}
 				return new ArrayList<User>();
 			}

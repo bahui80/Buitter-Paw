@@ -68,6 +68,7 @@ public class DetailUserListUsersPage extends BasePage {
 					public void onClick() {
 						modelUserList.getObject().removeUser(item.getModelObject());
 						modelUser.detach();
+						modelUserList.detach();
 					}
 				});
 			}

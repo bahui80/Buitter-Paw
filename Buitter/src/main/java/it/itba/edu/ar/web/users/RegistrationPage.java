@@ -46,6 +46,7 @@ public class RegistrationPage extends BasePage {
 	private transient String privacy = "Public";
 	private transient List<FileUpload> photo;
 	private transient List<FileUpload> backgroundImage;
+	@SuppressWarnings("unused")
 	private transient String captchaText;
 
 	public RegistrationPage() {
