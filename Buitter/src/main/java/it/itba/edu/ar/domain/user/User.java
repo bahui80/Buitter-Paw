@@ -3,6 +3,7 @@ package it.itba.edu.ar.domain.user;
 import it.itba.edu.ar.domain.PersistentEntity;
 import it.itba.edu.ar.domain.buit.Buit;
 import it.itba.edu.ar.domain.event.Event;
+import it.itba.edu.ar.domain.event.FollowedEvent;
 import it.itba.edu.ar.domain.userlist.UserList;
 import it.itba.edu.ar.web.BuitFilter;
 
@@ -87,7 +88,7 @@ public class User extends PersistentEntity {
 		this.setSecretAnswer(secret_answer);
 		this.setSecretQuestion(secret_question);
 		this.setPhoto(photo);
-		this.setDate(creationDate);
+		this.creationDate = creationDate;
 		this.setPrivacy(privacy);
 		this.visits = visits;
 		this.backgroundImage = backgroundImage;
@@ -101,11 +102,11 @@ public class User extends PersistentEntity {
 		return mybuits;
 	}
 
-	public void setMybuits(Set<Buit> mybuits) {
-		if(mybuits == null)
-			throw new IllegalArgumentException();
-		this.mybuits = mybuits;
-	}
+//	public void setMybuits(Set<Buit> mybuits) {
+//		if(mybuits == null)
+//			throw new IllegalArgumentException();
+//		this.mybuits = mybuits;
+//	}
 
 	public void setName(String name) {
 		if(name == null || name.length() > 32)
@@ -224,11 +225,11 @@ public class User extends PersistentEntity {
 		return events;
 	}
 
-	public void setEvents(List<Event> events) {
-		if(events == null)
-			throw new IllegalArgumentException();
-		this.events = events;
-	}
+//	public void setEvents(List<Event> events) {
+//		if(events == null)
+//			throw new IllegalArgumentException();
+//		this.events = events;
+//	}
 	
 	public Set<User> getBlacklist() {
 		return blacklist;
@@ -273,6 +274,7 @@ public class User extends PersistentEntity {
 			throw new IllegalArgumentException();
 		}
 		followers.add(user);
+		getEvents().add(new FollowedEvent(new Date(), user));
 		user.getFollowing().add(this);
 	}
 	
@@ -338,11 +340,11 @@ public class User extends PersistentEntity {
 		return creationDate;
 	}
 	
-	public void setDate(Date date){
-		if(date == null)
-			throw new IllegalArgumentException();
-		this.creationDate = date;
-	}
+//	public void setDate(Date date){
+//		if(date == null)
+//			throw new IllegalArgumentException();
+//		this.creationDate = date;
+//	}
 	
 	public void addVisit() {
 		this.visits++;

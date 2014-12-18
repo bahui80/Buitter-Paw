@@ -1,18 +1,19 @@
 package it.itba.edu.ar.web;
 
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.model.IModel;
 
 public class ImageVerified extends Image {
-	private int qty;
+	private IModel<Integer> modelQty;
 	
-	public ImageVerified(String id, Integer qty) {
+	public ImageVerified(String id, IModel<Integer> modelQty) {
 		super(id, BuitterApp.VERIFIED_IMAGE);
-		this.qty = qty;
+		this.modelQty = modelQty;
 	}
 	
 	@Override
 	public boolean isVisible() {
-		return qty >= Integer.parseInt(getString("verifiedFollowersAmount"));
+		return modelQty.getObject() >= Integer.parseInt(getString("verifiedFollowersAmount"));
 	}
 
 }

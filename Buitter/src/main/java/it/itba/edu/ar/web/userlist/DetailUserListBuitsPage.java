@@ -16,6 +16,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 public class DetailUserListBuitsPage extends BasePage {
 	
 	public DetailUserListBuitsPage(final IModel<UserList> modelUserList) {
+		setDefaultModel(modelUserList);
 		add(new DetailUserListHeaderPanel("userListHeaderPanel", modelUserList));
 		
 		WebMarkupContainer emptyBuitsContainer = new WebMarkupContainer("emptyBuitsContainer") {

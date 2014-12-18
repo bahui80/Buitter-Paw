@@ -92,11 +92,6 @@ public class UserTest {
 	public void setSecretAnswerTest(){
 		user.setSecretAnswer("preguntamaslargadesesentacaracteres.lapreguntapuedeserbienlargatotaltoalnoimporta");
 	}
-		
-	@Test(expected = IllegalArgumentException.class)
-	public void setEventsTest(){
-		user.setEvents(null);
-	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void followNullTest(){
@@ -144,11 +139,6 @@ public class UserTest {
 //		User u = new User("a", "1");
 //		u.unfavorite(buit);
 //	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void setDateTest(){
-		user.setDate(null);
-	}
 	
 	@Test(expected = IllegalStateException.class)
 	public void removeVisitTest(){

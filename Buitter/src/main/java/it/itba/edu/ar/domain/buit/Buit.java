@@ -115,7 +115,7 @@ public class Buit extends PersistentEntity {
 		this.buitter = buitter;
 	}
 	
-	public void setUrls(List<Url> urls) {
+	protected void setUrls(List<Url> urls) {
 		if (urls == null)
 			throw new IllegalArgumentException();
 		this.urls = urls;
@@ -131,7 +131,7 @@ public class Buit extends PersistentEntity {
 		return rebuits;
 	}
 
-	public void setRebuits(Set<ReBuit> rebuits) {
+	protected void setRebuits(Set<ReBuit> rebuits) {
 		if(rebuits == null)
 			throw new IllegalArgumentException();
 		this.rebuits = rebuits;

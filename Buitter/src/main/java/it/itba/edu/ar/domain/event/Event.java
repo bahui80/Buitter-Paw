@@ -33,7 +33,7 @@ public abstract class Event extends PersistentEntity {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	protected void setDate(Date date) {
 		if(date == null)
 			throw new IllegalArgumentException();
 		this.date = date;
@@ -43,7 +43,7 @@ public abstract class Event extends PersistentEntity {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	protected void setMessage(String message) {
 		if(message == null)
 			throw new IllegalArgumentException();
 		this.message = message;
@@ -53,7 +53,7 @@ public abstract class Event extends PersistentEntity {
 		return firer;
 	}
 
-	public void setFirer(User firer) {
+	protected void setFirer(User firer) {
 		if(firer == null)
 			throw new IllegalArgumentException();
 		this.firer = firer;

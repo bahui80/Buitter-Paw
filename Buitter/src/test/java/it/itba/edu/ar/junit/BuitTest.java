@@ -62,16 +62,6 @@ public class BuitTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void setNullUrls(){
-		buit.setUrls(null);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void setNullRebuits(){
-		buit.setRebuits(null);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
 	public void addNullRebuitTest(){
 		buit.addRebuit(null);
 	}

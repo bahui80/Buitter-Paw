@@ -7,13 +7,13 @@
 						<div class="well well-lg text-center">
 							<img class="profile-pic" src="img/hashtag.jpeg" />
 							<h2 class="profile-name" style="word-wrap:break-word">#<span wicket:id="hashtag"/></h2>
-							<h4 class="profile-user">Created by @<span wicket:id="username"/></h4>
-							<p class="profile-desc text-muted">First used: <span wicket:id="date"/></p>
+							<h4 class="profile-user"><wicket:message key="createdBy">Created by @</wicket:message><span wicket:id="username"/></h4>
+							<p class="profile-desc text-muted"><wicket:message key="firstUsed">First used: </wicket:message><span wicket:id="date"/></p>
 						</div> <!-- .well .well-lg .text-center -->
 						<div class="well well-lg">
-							Results for <span class="text-bold">#<span class="text-bold" wicket:id="hashtag2"/></span>
+							<wicket:message key="resultsFor">Results for </wicket:message><span class="text-bold">#<span class="text-bold" wicket:id="hashtag2"/></span>
 							<div class="alert-box" wicket:id="emptyBuitsContainer">
-								<img src="img/logo.png" class="logo-alt"/> <br/>No Buit results for #<span wicket:id="hashtag3"/>.
+								<img src="img/logo.png" class="logo-alt"/> <br/><wicket:message key="noResults">No Buit results for #</wicket:message><span wicket:id="hashtag3"/>.
 							</div> <!-- .alert-box -->
 							<span wicket:id="listBuitsPanel"/>
 						</div> <!-- .well .well-lg -->

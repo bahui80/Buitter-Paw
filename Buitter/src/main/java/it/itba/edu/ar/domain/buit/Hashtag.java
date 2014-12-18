@@ -38,7 +38,7 @@ public class Hashtag extends PersistentEntity {
 	
 	public Hashtag(String hashtag, Date date, User user, int count){
 		this(hashtag,date,user);
-		this.setCount(count);
+		this.count = count;
 	}
 	
 	public Hashtag(String hashtag, Date date, User user){
@@ -49,7 +49,7 @@ public class Hashtag extends PersistentEntity {
 	
 	public Hashtag(String hashtag, long count) {
 		this.setHashtag(hashtag);
-		this.setCount(count);
+		this.count = count;
 	}
 	
 	private void setDate(Date date){
@@ -79,11 +79,11 @@ public class Hashtag extends PersistentEntity {
 		return this.buits;
 	}
 	
-	public void setCount(long count){
-		if(count < 1)
-			throw new IllegalArgumentException();
-		this.count = count;
-	}
+//	public void setCount(long count){
+//		if(count < 1)
+//			throw new IllegalArgumentException();
+//		this.count = count;
+//	}
 	
 	public String getHashtag() {
 		return hashtag;

@@ -1,5 +1,6 @@
 package it.itba.edu.ar.web.userlist;
 
+import it.itba.edu.ar.domain.EntityModel;
 import it.itba.edu.ar.domain.user.User;
 import it.itba.edu.ar.domain.userlist.UserList;
 import it.itba.edu.ar.web.DateFormatter;
@@ -27,7 +28,10 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public class DetailUserListUsersPage extends BasePage {
 	
-	public DetailUserListUsersPage(final IModel<UserList> modelUserList) {
+	public DetailUserListUsersPage(UserList userList) {
+		
+		final IModel<UserList> modelUserList = new EntityModel<UserList>(UserList.class, userList);
+		
 		add(new DetailUserListHeaderPanel("userListHeaderPanel", modelUserList));
 		
 		WebMarkupContainer emptyUsersContainer = new WebMarkupContainer("emptyUsersContainer") {
@@ -59,7 +63,7 @@ public class DetailUserListUsersPage extends BasePage {
 				profilePageLink.add(new Label("name", new PropertyModel<String>(item.getModel(), "name")));
 				profilePageLink.add(new Label("surname", new PropertyModel<String>(item.getModel(), "surname")));
 				item.add(profilePageLink);
-				item.add(new ImageVerified("imgVerified", item.getModelObject().getFollowers().size()));
+				item.add(new ImageVerified("imgVerified", new PropertyModel<Integer>(item.getModel(), "followers.size()")));
 				item.add(new Label("username", new PropertyModel<String>(item.getModel(), "username")));
 				item.add(new Label("description", new PropertyModel<String>(item.getModel(), "description")));
 				item.add(new DateLabel("date", new PropertyModel<Date>(item.getModel(), "date"), new DateFormatter()));
@@ -67,8 +71,8 @@ public class DetailUserListUsersPage extends BasePage {
 					@Override
 					public void onClick() {
 						modelUserList.getObject().removeUser(item.getModelObject());
-						modelUserList.detach();
 						modelUser.detach();
+						modelUserList.detach();
 					}
 				});
 			}

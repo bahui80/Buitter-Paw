@@ -36,7 +36,7 @@ public class Url extends PersistentEntity {
 		return url;
 	}
 
-	public void setUrl(String url) {
+	protected void setUrl(String url) {
 		if(url == null || url.length() > 140 )
 			throw new IllegalArgumentException();
 		
@@ -47,7 +47,7 @@ public class Url extends PersistentEntity {
 		return buiturl;
 	}
 	
-	public void setBuiturl(String buiturl) {
+	protected void setBuiturl(String buiturl) {
 		if( buiturl == null || buiturl.length() > 140)
 			throw new IllegalArgumentException();
 		this.buiturl = buiturl;

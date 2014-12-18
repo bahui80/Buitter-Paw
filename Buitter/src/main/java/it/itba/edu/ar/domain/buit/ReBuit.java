@@ -53,7 +53,7 @@ public class ReBuit extends Buit {
 		return true;
 	}
 
-	public void setBuit(Buit buit) {
+	protected void setBuit(Buit buit) {
 		this.buit = buit;
 	}
 

@@ -84,7 +84,7 @@ public class UserListsPage extends BasePage {
 				Link<Void> detailListPage = new Link<Void>("detailListPage") {
 					@Override
 					public void onClick() {
-						setResponsePage(new DetailUserListUsersPage(item.getModel()));
+						setResponsePage(new DetailUserListUsersPage(item.getModel().getObject()));
 					}
 				};
 				detailListPage.add(new Label("name", new PropertyModel<String>(item.getModel(), "name")));		

@@ -18,7 +18,7 @@ public class HashtagTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void setCountTest(){
-		hashtag.setCount(0);
+	public void testRemoveBuit(){
+		hashtag.removeBuit(null);
 	}	
 }
