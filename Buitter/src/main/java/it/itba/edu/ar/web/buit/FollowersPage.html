@@ -7,10 +7,10 @@
 						<div wicket:id="headerPanel"/>
 						<div class="well well-lg" style="position: relative">
 							<div class="alert-box" wicket:id="emptyFollowersContainer">
-								<img src="img/logo.png" class="logo-alt" /> <br />Nobody is following @<span wicket:id="emptyFollower"/> yet.
+								<img src="img/logo.png" class="logo-alt" /> <br/><wicket:message key="noFollowing">Nobody is following @</wicket:message><span wicket:id="emptyFollower"/><wicket:message key="yet"> yet.</wicket:message>
 							</div> <!-- .alert-box -->
 							<span wicket:id="notEmptyFollowersContainer">
-								<h3 class="text-bold" style="margin-left:40px">Followers</h3>
+								<h3 class="text-bold" style="margin-left:40px"><wicket:message key="followers">Followers</wicket:message></h3>
 								<span wicket:id="listUsersPanel"/>
 							</span>
 						</div> <!-- .well .well-lg -->
