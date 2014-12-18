@@ -16,7 +16,7 @@ public class DetailUserListHeaderPanel extends Panel {
 		Link<Void> userListUsersLink = new Link<Void>("userListUsersLink") {
 			@Override
 			public void onClick() {
-				setResponsePage(new DetailUserListUsersPage(modelUserList));
+				setResponsePage(new DetailUserListUsersPage(modelUserList.getObject()));
 			}
 		};
 		userListUsersLink.add(new Label("usersQty", new PropertyModel<Integer>(modelUserList, "users.size()")));
