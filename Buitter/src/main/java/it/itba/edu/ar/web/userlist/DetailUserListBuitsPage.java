@@ -35,7 +35,7 @@ public class DetailUserListBuitsPage extends BasePage {
 			@Override
 			protected List<Buit> load() {
 				List<Buit> buits = new ArrayList<Buit>();
-				
+				modelUserList.detach();
 				for(User user: modelUserList.getObject().getUsers()) {
 					buits.addAll(user.getMybuits());
 				}
@@ -44,7 +44,8 @@ public class DetailUserListBuitsPage extends BasePage {
 			}
 		};
 		
-		notEmptyBuitsContainer.add(new ListBuitsPanel("listBuitsPanel", buitsModel));		
+		notEmptyBuitsContainer.add(new ListBuitsPanel("listBuitsPanel", buitsModel));
+		buitsModel.detach();
 		add(emptyBuitsContainer);
 		add(notEmptyBuitsContainer);
 	}
