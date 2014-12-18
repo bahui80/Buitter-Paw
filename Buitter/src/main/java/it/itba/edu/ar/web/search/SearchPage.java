@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class SearchPage extends BasePage {
@@ -26,8 +27,8 @@ public class SearchPage extends BasePage {
 			}
 		};
 		
-		add(new Label("emptyQuery", "Registered users").setVisible(searchText == null));
-		add(new Label("notEmptyQuery", "People results for ").setVisible(searchText != null));
+		add(new Label("emptyQuery", new ResourceModel("registeredUsers")).setVisible(searchText == null));
+		add(new Label("notEmptyQuery", new ResourceModel("peopleResults")).setVisible(searchText != null));
 		add(new Label("searchText", searchText).setVisible(searchText != null));
 
 		WebMarkupContainer emptyUsersContainer = new WebMarkupContainer("emptyUsersContainer") {
@@ -35,8 +36,8 @@ public class SearchPage extends BasePage {
 				return getUsers().isEmpty();
 			}
 		};
-		emptyUsersContainer.add(new Label("emptyQuery2", "There are no registered users so far.").setVisible(searchText == null));
-		emptyUsersContainer.add(new Label("notEmptyQuery2", "No people results for ").setVisible(searchText != null));
+		emptyUsersContainer.add(new Label("emptyQuery2", new ResourceModel("noUsersRegistered")).setVisible(searchText == null));
+		emptyUsersContainer.add(new Label("notEmptyQuery2", new ResourceModel("noPeopleResults")).setVisible(searchText != null));
 		emptyUsersContainer.add(new Label("searchText2", searchText + ".").setVisible(searchText != null));
 		add(emptyUsersContainer);
 		

@@ -10,9 +10,9 @@
 								<form wicket:id="buitForm">
 									<fieldset>
 										<textarea id="buit-field" class="form-control" rows="3" name="buit" placeholder="Compose new Buit..." maxlength="140" style="resize:vertical;" wicket:id="buitText"></textarea>
-										Remaining: <span id='remainingC'>140</span>
+										<wicket:message key="remaining">Remaining: </wicket:message><span id='remainingC'>140</span>
 		                   				<div class="text-danger" style="margin-bottom: 0px" wicket:id="feedback"><small><em>Your buit is empty</em></small></div>
-										<button type="submit" class="btn btn-primary pull-right buit-compose-button" wicket:id="buitButton">Buit</button>
+										<button type="submit" class="btn btn-primary pull-right buit-compose-button" wicket:id="buitButton"><wicket:message key="buitButton">Buit</wicket:message></button>
 									</fieldset>
 								</form>
 							</div> <!-- .input-group .buit-compose-form -->
@@ -20,7 +20,7 @@
 								<img src="img/logo.png" class="logo-alt" /> <br />@<span wicket:id="emptyBuits"/> hasn't buited yet.
 							</div>
 							<span wicket:id="notEmptyBuitsContainer">
-								<h3 class="text-bold" style="margin-left:40px">Buits</h3>
+								<h3 class="text-bold" style="margin-left:40px"><wicket:message key="buits">Buits</wicket:message></h3>
 								<span wicket:id="listBuitsPanel"/>
 							</span>
 						</div> <!-- .well .well-lg -->
