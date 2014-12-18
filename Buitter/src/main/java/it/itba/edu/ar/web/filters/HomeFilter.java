@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class HomeFilter implements Filter{
+public class HomeFilter implements Filter {
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// Do nothing...
@@ -24,7 +24,7 @@ public class HomeFilter implements Filter{
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
 		if(req.getRequestURI().toString().equals("/Buitter/"))
-			resp.sendRedirect("/Buitter/web/home/home");
+			resp.sendRedirect("/Buitter/web");
 		else
 			chain.doFilter(req, resp);
 	}

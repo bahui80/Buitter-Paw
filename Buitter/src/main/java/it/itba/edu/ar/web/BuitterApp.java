@@ -49,6 +49,7 @@ public class BuitterApp extends WebApplication {
 		mountPage("/followers/${username}", FollowersPage.class);
 		mountPage("/following/${username}", FollowingPage.class);
 		mountPage("/hashtag/${hashtag}", HashtagPage.class);
+		mountPage("/error404", ErrorPage.class);
 		sessionProvider = new SessionProvider(cookieService);
 	}
 
@@ -60,9 +61,6 @@ public class BuitterApp extends WebApplication {
 	@Override
 	protected IConverterLocator newConverterLocator() {
 		ConverterLocator converterLocator = new ConverterLocator();
-//		converterLocator.set(Professor.class, new ProfessorConverter());
-//		converterLocator.set(Department.class, new DepartmentConverter());
-//		converterLocator.set(Subject.class, new SubjectConverter(subjects));
 		return converterLocator;
 	}
 
