@@ -66,10 +66,14 @@ public class BasePage extends WebPage {
 		Link<Void> publicityLink = new Link<Void>("publicityLink") {
 			@Override
 			public void onClick() {
-				setResponsePage(new RedirectPage(publicityModel.getObject().getUrl()));
+				if (publicityModel.getObject() != null) {
+					setResponsePage(new RedirectPage(publicityModel.getObject().getUrl()));
+				} else {
+					setResponsePage(HomePage.class);
+				}
 			}
 		};
-		publicityLink.add(new ExternalImage("publicity", publicityModel.getObject().getImageUrl()));
+		publicityLink.add(new ExternalImage("publicity", new PropertyModel<String>(publicityModel, "imageUrl")));
 		add(publicityLink);
 		
 		loggedContainer.add(new Link<Void>("logoutLink") {

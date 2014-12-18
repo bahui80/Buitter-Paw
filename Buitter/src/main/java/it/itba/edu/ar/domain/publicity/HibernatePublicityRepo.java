@@ -19,9 +19,13 @@ public class HibernatePublicityRepo extends HibernateGenericRepo implements Publ
 	}
 	
 	public Publicity getRandomPublicity() {
+		Publicity publicity = null;
 		List<Publicity> publicities = getAll();
 		Collections.shuffle(publicities);
-		return publicities.get(0);
+		if(publicities.size() > 0) {
+			publicity = publicities.get(0);
+		}
+		return publicity;
 	}
 	
 	@SuppressWarnings("unchecked")
