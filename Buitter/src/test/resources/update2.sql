@@ -1,5 +1,6 @@
 -- Users table --
 ALTER TABLE Users ADD COLUMN backgroundimage bytea;
+ALTER TABLE Users ADD COLUMN thumbnailphoto bytea;
 
 -- New table publicity --
 CREATE TABLE publicity (

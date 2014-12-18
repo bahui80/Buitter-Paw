@@ -34,7 +34,7 @@
 		<div class="navbar navbar-fixed-top navbar-inverse">
 			<div class="container">
 				<div class="navbar-header">
-					<a id="logo" class="navbar-brand" href="#" wicket:id="homePageLink"><img src="img/logo.png" class="logo"/>Buitter</a>
+					<a id="logo" class="navbar-brand" href="#" wicket:id="homePageLink"><img src="img/logo.png" class="logo"/><wicket:message key="title">Buitter</wicket:message></a>
 				</div> <!-- .navbar-header -->
 				<div class="collapse navbar-collapse">
 					<form class="navbar-form navbar-left" wicket:id="searchForm">
@@ -43,25 +43,25 @@
 						</div> <!-- .form-group -->
 					</form>
 					<ul class="nav navbar-nav" style="float:right" wicket:id="logged"> <!-- <c:if test="${not empty user}"> -->
-						<li><a href="#" wicket:id="connectPageLink">Notifications <span class="badge" wicket:id="qtyNotif">0</span></a></li>
-						<li><a href="#" wicket:id="blacklistPageLink"><i class='icon-ban-circle'></i> Blacklist</a></li>
-						<li><a href="#" wicket:id="favoritesPageLink"><i class='icon-star'></i> Favorites</a></li>
+						<li><a href="#" wicket:id="connectPageLink"><wicket:message key="notifications">Notifications </wicket:message><span class="badge" wicket:id="qtyNotif">0</span></a></li>
+						<li><a href="#" wicket:id="blacklistPageLink"><i class='icon-ban-circle'></i><wicket:message key="blacklist"> Blacklist</wicket:message></a></li>
+						<li><a href="#" wicket:id="favoritesPageLink"><i class='icon-star'></i><wicket:message key="favorites"> Favorites</wicket:message></a></li>
 						<li><a href="#" wicket:id="profilePageLink">@<span wicket:id="currentUser">jbuireo</span></a></li>
 						<li id="dropdown" class="dropdown" onclick="toggle()"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="#" wicket:id="userListsPageLink"><i class='icon-list'></i> Lists</a></li>
+								<li><a href="#" wicket:id="userListsPageLink"><i class='icon-list'></i><wicket:message key="lists"> Lists</wicket:message></a></li>
 								<li class="divider"></li>
-								<li><a href="#" wicket:id="statsLink"><i class='icon-bar-chart'></i> Show stats</a></li>
+								<li><a href="#" wicket:id="statsLink"><i class='icon-bar-chart'></i><wicket:message key="showStats"> Show stats</wicket:message></a></li>
 								<li class="divider"></li>
-								<li><a href="#" wicket:id="editProfileLink"><i class='icon-pencil'></i> Edit profile</a></li>
+								<li><a href="#" wicket:id="editProfileLink"><i class='icon-pencil'></i><wicket:message key="editProfile"> Edit profile</wicket:message></a></li>
 								<li class="divider"></li>
-								<li><a href="#" wicket:id="logoutLink"><i class='icon-power-off'></i> Logout</a></li>
+								<li><a href="#" wicket:id="logoutLink"><i class='icon-power-off'></i><wicket:message key="logout"> Logout</wicket:message></a></li>
 							</ul> <!-- .dropdown-menu -->
 						</li> 
 					</ul> <!-- </c:if> -->						
 					<ul class="nav navbar-nav" style="float:right" wicket:id="notLogged"> <!-- <c:if test="${empty user}"> -->
-						<li style="margin-top: 8px"><button type="button" class="btn btn-primary" wicket:id="loginPageLink">Log in</button></li>
-						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success" wicket:id="registrationPageLink">Register</button></li>
+						<li style="margin-top: 8px"><button type="button" class="btn btn-primary" wicket:id="loginPageLink"><wicket:message key="logIn">Log in</wicket:message></button></li>
+						<li style="margin-top: 8px; margin-left: 8px;"><button type="button" class="btn btn-success" wicket:id="registrationPageLink"><wicket:message key="register">Register</wicket:message></button></li>
 					</ul> <!-- </c:if> -->
 				</div> <!-- .collapse .navbar-collapse -->
 			</div> <!-- .container -->
@@ -69,7 +69,7 @@
 		<wicket:child>
 			<!-- Aca va todo lo que viene en el medio de la pagina -->
 		</wicket:child>
-		<p style="position: relative">&copy; Buitter 2013</p>
+		<p style="position: relative"><wicket:message key="footer">&copy; Buitter 2013</wicket:message></p>
 		<hr style="margin-top: 4px; position: relative">
 		<footer>
 			<div class="col-md-12">
