@@ -5,17 +5,17 @@
 				<div class="row row-offcanvas row-offcanvas-right">
 					<div class="col-md-8 col-md-offset-2">
 						<div class="well well-lg">
-							<span style="font-size: 25.5px">Lists</span>
-							<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="showForm"><i class="icon-plus"> New list</i></button>
+							<span style="font-size: 25.5px"><wicket:message key="listings">Lists</wicket:message></span>
+							<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="showForm"><i class="icon-plus"><wicket:message key="newList"> New list</wicket:message></i></button>
 							<form class="bs-example form-horizontal" wicket:id="form">
                 				<fieldset>
                 					<br/>
                 					<div class="form-group">
-                						<label for="name" class="col-sm-1 control-label" style="padding-top: 3px">Name</label>
+                						<label for="name" class="col-sm-1 control-label" style="padding-top: 3px"><wicket:message key="name">Name</wicket:message></label>
                							<div class="col-sm-3">
 							                <input type="text" maxlength="32" class="form-control input-sm" placeholder="Name" wicket:id="listName"/>
 							            </div> <!-- .col-sm-3 -->
-							            <label for="description" class="col-sm-3 control-label" style="padding-top: 3px; margin-left: 17px; margin-right: -17px">Description</label>
+							            <label for="description" class="col-sm-3 control-label" style="padding-top: 3px; margin-left: 17px; margin-right: -17px"><wicket:message key="description">Description</wicket:message></label>
                							<div class="col-sm-3">
 							            	<input type="text" maxlength="100" class="form-control input-sm" placeholder="Description" wicket:id="listDescription"/>
 							       		</div> <!-- .col-sm-3 -->
@@ -25,7 +25,7 @@
                 				</fieldset>
                 			</form> <!-- .bs-example .form-horizontal -->
 							<div class="alert-box" wicket:id="emptyListsContainer">	
-								<img src="img/logo.png" class="logo-alt"/> <br/>No lists created so far
+								<img src="img/logo.png" class="logo-alt"/> <br/><wicket:message key="noLists">No lists created so far</wicket:message>
 							</div> <!-- .alert-box -->
 							<div class="media buit" wicket:id="lists" style="padding-top: 10px; padding-bottom: 10px">
 								<div class="media-body">
@@ -38,11 +38,11 @@
 											<p style="word-wrap:break-word; margin-top: 8px; margin-bottom: 8px" wicket:id="description">lorem ipsum dolor sit amet consectetur adipiscing</p>
 										</div>
 										<div class="col-md-3">
-											<button type="submit" class="btn btn-danger pull-right" style="margin-top: 15px" wicket:id="deleteList"><i class="icon-trash"> Delete</i></button>
+											<button type="submit" class="btn btn-danger pull-right" style="margin-top: 15px" wicket:id="deleteList"><i class="icon-trash"><wicket:message key="delete"> Delete</wicket:message></i></button>
 										</div>
 									</div>
 									<div class="col-md-12 pull-left" style="padding-left: 0px">
-										<p class="pull-left text-muted">Members: <span wicket:id="members"/></p>
+										<p class="pull-left text-muted"><wicket:message key="members">Members: </wicket:message><span wicket:id="members"/></p>
 									</div>
 									<!-- <button type="button" class="pull-right btn btn-link btn-xs" wicket:id="deleteButton"><i class="icon-trash"> Delete</i></button> -->
 								</div> <!-- .media-body -->

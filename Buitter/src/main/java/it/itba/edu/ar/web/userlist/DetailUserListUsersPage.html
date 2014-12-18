@@ -9,10 +9,10 @@
 							<div class="alert-box" wicket:id="emptyUsersContainer">
 								<img src="img/logo.png" class="logo-alt"/>
 								<br/>
-								<span> You haven't added any users yet.</span>
+								<span><wicket:message key="noUsers"> You haven't added any users yet.</wicket:message></span>
 							</div> <!-- .alert-box -->
 							<span wicket:id="notEmptyUsersContainer">
-								<h3 class="text-bold" style="margin-left:40px">Users</h3>
+								<h3 class="text-bold" style="margin-left:40px"><wicket:message key="users">Users</wicket:message></h3>
 								<div class="media buit" wicket:id="users">
 									<img class="pull-left media-object buit-profile-pic" wicket:id="image"/>
 									<div class="media-body">
@@ -28,8 +28,8 @@
 												"<span wicket:id="description"/>"
 											</div>
 										</div>
-										<div class="pull-left col-md-12" style="padding-left: 0px;">Date registered: <span wicket:id="date"/></div>
-										<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="deleteButton"><i class="icon-trash"> Delete</i></button>
+										<div class="pull-left col-md-12" style="padding-left: 0px;"><wicket:message key="dateRegistered">Date registered: </wicket:message><span wicket:id="date"/></div>
+										<button type="button" class="pull-right btn btn-link btn-xs" wicket:id="deleteButton"><i class="icon-trash"><wicket:message key="delete"> Delete</wicket:message></i></button>
 									</div> <!-- .media-body -->
 								</div> <!-- .media-buit -->
 							</span>

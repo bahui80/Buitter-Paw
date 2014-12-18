@@ -9,10 +9,10 @@
 							<div class="alert-box" wicket:id="emptyBuitsContainer">
 								<img src="img/logo.png" class="logo-alt"/>
 								<br/>
-								<span> You haven't added any users yet.</span>
+								<span><wicket:message key="noUsersYet"> You haven't added any users yet.</wicket:message></span>
 							</div> <!-- .alert-box -->
 							<span wicket:id="notEmptyBuitsContainer">
-								<h3 class="text-bold" style="margin-left:40px">Buits</h3>
+								<h3 class="text-bold" style="margin-left:40px"><wicket:message key="buitsList">Buits</wicket:message></h3>
 								<span wicket:id="listBuitsPanel"/>
 							</span>
 						</div> <!-- .well .well-lg -->
