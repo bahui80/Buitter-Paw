@@ -52,7 +52,7 @@ public class DetailUserListUsersPage extends BasePage {
 		notEmptyUsersContainer.add(new ListView<User>("users", modelUser) {
 			@Override
 			protected void populateItem(final ListItem<User> item) {
-				item.add(new Image("image", new ProfPicResourceReference(item.getModel().getObject().getPhoto(), item.getModel().getObject().getUsername())));
+				item.add(new Image("image", new ProfPicResourceReference(item.getModel().getObject().getThumbnailPhoto(), item.getModel().getObject().getUsername())));
 				PageParameters pgParameters = new PageParameters();
 				pgParameters.add("username", item.getModelObject().getUsername());
 				BookmarkablePageLink<Void> profilePageLink = new BookmarkablePageLink<Void>("profilePageLink", ProfilePage.class, pgParameters);

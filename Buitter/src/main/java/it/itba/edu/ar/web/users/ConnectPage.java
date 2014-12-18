@@ -41,7 +41,7 @@ public class ConnectPage extends BasePage {
 		add(new ListView<Event>("events", modelEvents) {
 			@Override
 			protected void populateItem(ListItem<Event> item) {
-				item.add(new Image("image", new ProfPicResourceReference(item.getModel().getObject().getFirer().getPhoto(), item.getModel().getObject().getFirer().getUsername())));
+				item.add(new Image("image", new ProfPicResourceReference(item.getModel().getObject().getFirer().getThumbnailPhoto(), item.getModel().getObject().getFirer().getUsername())));
 				item.add(new Label("username", new PropertyModel<String>(item.getModel(), "firer.username")));
 				PrettyTime p = new PrettyTime();
 				item.add(new Label("date", p.format(new PropertyModel<Date>(item.getModel(), "date").getObject())));
