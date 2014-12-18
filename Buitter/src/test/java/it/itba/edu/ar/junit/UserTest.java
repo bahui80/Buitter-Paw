@@ -99,14 +99,6 @@ public class UserTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void followReapeatedTest(){
-		User u = new User("Juan Martin", "Buireo", "jbuireo", "123456789", "Vamos buitter",
-				"Quien es tu profesor preferido?", "Rinaldi", new Date(), 0, false, null, null);
-		user.follow(u);
-		user.follow(u);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
 	public void unfollowNullTest(){
 		user.unfollow(null);
 	}
