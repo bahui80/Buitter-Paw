@@ -55,10 +55,16 @@ public class ListUsersPanel extends Panel {
 					}
 				};
 				
-				IModel<List<UserList>> modelUserList = new LoadableDetachableModel<List<UserList>>() {
+				final IModel<List<UserList>> modelUserList = new LoadableDetachableModel<List<UserList>>() {
 					@Override
 					protected List<UserList> load() {
-						return new ArrayList<UserList>(BuitterSession.get().getUser().getMyUserLists());
+						List<UserList> list = new ArrayList<UserList>();
+						for (UserList userList: BuitterSession.get().getUser().getMyUserLists()) {
+							if(!userList.getUsers().contains(item.getModelObject())) {
+								list.add(userList);
+							}
+						}
+						return list;
 					}
 				};
 				
@@ -69,6 +75,7 @@ public class ListUsersPanel extends Panel {
 					protected void onSelectionChanged(UserList newSelection) {
 						super.onSelectionChanged(newSelection);
 						newSelection.addUser(item.getModelObject());
+						modelUserList.detach();
 					}
 					
 					@Override

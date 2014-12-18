@@ -37,6 +37,7 @@ public class User extends PersistentEntity {
 	@Temporal(TemporalType.TIMESTAMP)@Column(name="date", nullable=false)
 	private Date creationDate;
 	private byte[] photo;
+	private byte[] thumbnailPhoto;
 	private byte[] backgroundImage;
 	@Column(updatable = false, length=32, unique=true,nullable=false) private String username;
 	@Column(length=140,nullable=false) private String description;
@@ -195,6 +196,10 @@ public class User extends PersistentEntity {
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
+	}
+	
+	public byte[] getThumbnailPhoto() {
+		return thumbnailPhoto;
 	}
 	
 	public byte[] getBackgroundImage() {

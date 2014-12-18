@@ -134,6 +134,11 @@
 			<version>3.2.5.Final</version>
 		</dependency>
 		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-spring</artifactId>
 			<version>1.5.6</version>
